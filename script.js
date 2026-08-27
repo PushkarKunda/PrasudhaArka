@@ -1023,10 +1023,10 @@ function updateCalculatorUI() {
   if (statusBadge) {
     if (propTypeKey === 'residential') {
       statusBadge.className = 'panel-subsidy-status';
-      statusBadge.innerText = appState.currentLang === 'te' ? '🇮🇳 Cat-1: DCR మాత్రమే వర్తిస్తుంది (సబ్సిడీ అర్హత)' : '🇮🇳 Cat-1: DCR Only (Govt Subsidy Eligible)';
+      statusBadge.innerText = appState.currentLang === 'te' ? '✓ Cat-1: DCR మాత్రమే వర్తిస్తుంది (సబ్సిడీ అర్హత)' : '✓ Cat-1: DCR Only (Govt Subsidy Eligible)';
     } else {
       statusBadge.className = 'panel-subsidy-status no-subsidy';
-      statusBadge.innerText = appState.currentLang === 'te' ? '🌐 Cat-2/3: NON-DCR మాత్రమే వర్తిస్తుంది (సబ్సిడీ లేదు)' : '🌐 Above Cat-1: NON-DCR Only (No Subsidy)';
+      statusBadge.innerText = appState.currentLang === 'te' ? 'Cat-2/3: NON-DCR మాత్రమే వర్తిస్తుంది (సబ్సిడీ లేదు)' : 'Above Cat-1: NON-DCR Only (No Subsidy)';
     }
   }
 

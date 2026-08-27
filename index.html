@@ -501,15 +501,30 @@
           <div class="calc-field-group">
             <div class="field-label-with-badge">
               <label class="calc-label" data-i18n="lblPanelType">సోలార్ ప్యానెల్ రకం (Panel Type):</label>
-              <span class="panel-subsidy-status" id="panelSubsidyStatusBadge">🇮🇳 DCR: Govt Subsidy Available</span>
+              <span class="panel-subsidy-status" id="panelSubsidyStatusBadge">DCR: Govt Subsidy Available</span>
             </div>
             <div class="panel-type-selector">
               <button type="button" class="panel-type-btn active" data-panel="dcr" id="btnPanelDCR">
-                <span class="panel-btn-title">🇮🇳 DCR Panels</span>
+                <span class="panel-btn-title">
+                  <svg width="20" height="14" viewBox="0 0 24 16" style="vertical-align: middle; border-radius: 2px; margin-right: 6px; display: inline-block; box-shadow: 0 1px 3px rgba(0,0,0,0.15);">
+                    <rect width="24" height="5.33" fill="#FF9933"/>
+                    <rect y="5.33" width="24" height="5.33" fill="#FFFFFF"/>
+                    <rect y="10.66" width="24" height="5.33" fill="#138808"/>
+                    <circle cx="12" cy="8" r="2.2" fill="none" stroke="#000080" stroke-width="0.8"/>
+                  </svg>
+                  <span>DCR Panels</span>
+                </span>
                 <span class="panel-btn-sub" data-i18n="panelDcrSub">PM Surya Ghar సబ్సిడీ లభిస్తుంది (Subsidy Available)</span>
               </button>
               <button type="button" class="panel-type-btn" data-panel="nondcr" id="btnPanelNonDCR">
-                <span class="panel-btn-title">🌐 NON-DCR Panels</span>
+                <span class="panel-btn-title">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2" style="vertical-align: middle; margin-right: 6px; display: inline-block;">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="2" y1="12" x2="22" y2="12"></line>
+                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                  </svg>
+                  <span>NON-DCR Panels</span>
+                </span>
                 <span class="panel-btn-sub" data-i18n="panelNonDcrSub">సబ్సిడీ వర్తించదు (No Subsidy)</span>
               </button>
             </div>

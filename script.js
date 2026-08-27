@@ -267,6 +267,7 @@ const I18N = {
     formSelectDealer: "Send WhatsApp Inquiry To:",
     btnSubmitQuote: "Submit & Chat on WhatsApp",
 
+    footerFirmTitle: "PRASUDHAARKA SOLAR",
     footerDesc: "Authorized Solar & Green Energy Partner providing PM Surya Ghar Muft Bijli Yojana rooftop solutions, RO water plants, and lithium batteries across AP, Telangana, Bangalore, & Chennai.",
     quickLinksTitle: "Quick Navigation",
     contactInfoTitle: "Office & Contacts",
@@ -527,6 +528,7 @@ const I18N = {
     formSelectDealer: "వాట్సాప్ సందేశం ఎవరికి పంపాలి:",
     btnSubmitQuote: "వాట్సాప్‌లో కొటేషన్ పంపండి",
 
+    footerFirmTitle: "ప్రసుధార్క సోలార్ & గ్రీన్ ఎనర్జీ",
     footerDesc: "పి.ఎం సూర్య ఘర్ యోజన అధికారిక సోలార్ రూఫ్‌టాప్ డీలర్స్, RO వాటర్ ప్లాంట్లు మరియు లిథియం ఇన్వర్టర్ సొల్యూషన్స్ - AP, తెలంగాణ, బెంగళూరు & చెన్నై.",
     quickLinksTitle: "ముఖ్యమైన లింకులు",
     contactInfoTitle: "సంప్రదించవలసిన వివరాలు",

@@ -1124,52 +1124,55 @@
         </div>
 
         <!-- Right Column: Request Free Site Inspection & Quote Form -->
-        <div class="contact-form-panel">
-          <h3 style="font-size: 1.4rem; font-weight: 800; color: #0b172a; margin-bottom: 20px;" data-i18n="formTitle">
-            ఉచిత సైట్ పరిశీలన & కొటేషన్ ఫారం
-          </h3>
+        <div class="contact-form-column">
+          <div class="dealers-header-box">
+            <h3 class="dealers-panel-title" data-i18n="formTitle">ఉచిత సైట్ పరిశీలన & కొటేషన్ ఫారం</h3>
+            <p class="dealers-panel-sub" data-i18n="formSubtitle">మీ వివరాలు నమోదు చేసి అధికారిక కొటేషన్ వాట్సాప్‌లో పొందండి:</p>
+          </div>
 
-          <form id="mainContactForm">
-            <div class="form-grid-2">
-              <div class="form-group">
-                <label data-i18n="formName">మీ పూర్తి పేరు</label>
-                <input type="text" id="formName" class="form-control" placeholder="మీ పూర్తి పేరు" minlength="2" required>
+          <div class="contact-form-panel">
+            <form id="mainContactForm">
+              <div class="form-grid-2">
+                <div class="form-group">
+                  <label data-i18n="formName">మీ పూర్తి పేరు</label>
+                  <input type="text" id="formName" class="form-control" placeholder="మీ పూర్తి పేరు" minlength="2" required>
+                </div>
+                <div class="form-group">
+                  <label data-i18n="formPhone">మొబైల్ నంబర్</label>
+                  <input type="tel" id="formPhone" class="form-control" placeholder="మొబైల్ నంబర్ (ఉదా: 9966631599)" pattern="[0-9]{10}" minlength="10" maxlength="10" title="10 అంకెల మొబైల్ నంబర్ నమోదు చేయండి" required>
+                </div>
               </div>
-              <div class="form-group">
-                <label data-i18n="formPhone">మొబైల్ నంబర్</label>
-                <input type="tel" id="formPhone" class="form-control" placeholder="మొబైల్ నంబర్ (ఉదా: 9966631599)" pattern="[0-9]{10}" minlength="10" maxlength="10" title="10 అంకెల మొబైల్ నంబర్ నమోదు చేయండి" required>
+
+              <div class="form-grid-2">
+                <div class="form-group">
+                  <label data-i18n="formTown">మీ ఊరు / మండలం</label>
+                  <input type="text" id="formTown" class="form-control" placeholder="ఉదా: జమ్మలమడుగు" minlength="2" required>
+                </div>
+                <div class="form-group">
+                  <label data-i18n="formUnits">నెలవారీ యూనిట్లు (kWh)</label>
+                  <input type="number" id="formUnits" class="form-control" placeholder="ఉదా: 350" min="10" max="10000" required>
+                </div>
               </div>
-            </div>
 
-            <div class="form-grid-2">
               <div class="form-group">
-                <label data-i18n="formTown">మీ ఊరు / మండలం</label>
-                <input type="text" id="formTown" class="form-control" placeholder="ఉదా: జమ్మలమడుగు" minlength="2" required>
+                <label data-i18n="formBill">నెలవారీ కరెంట్ బిల్లు (రూ.)</label>
+                <input type="number" id="formBill" class="form-control" placeholder="ఉదా: 3500" min="100" max="200000" required>
               </div>
+
               <div class="form-group">
-                <label data-i18n="formUnits">నెలవారీ యూనిట్లు (kWh)</label>
-                <input type="number" id="formUnits" class="form-control" placeholder="ఉదా: 350" min="10" max="10000" required>
+                <label data-i18n="formSelectDealer">వాట్సాప్ సందేశం ఎవరికి పంపాలి:</label>
+                <select id="formDealerSelect" class="form-control">
+                  <option value="sudhakar">K. Sudhakar (+91 99666 31599)</option>
+                  <option value="bhaskar">K. Bhaskar (+91 83282 72376)</option>
+                </select>
               </div>
-            </div>
 
-            <div class="form-group">
-              <label data-i18n="formBill">నెలవారీ కరెంట్ బిల్లు (రూ.)</label>
-              <input type="number" id="formBill" class="form-control" placeholder="ఉదా: 3500" min="100" max="200000" required>
-            </div>
-
-            <div class="form-group">
-              <label data-i18n="formSelectDealer">వాట్సాప్ సందేశం ఎవరికి పంపాలి:</label>
-              <select id="formDealerSelect" class="form-control">
-                <option value="sudhakar">K. Sudhakar (+91 99666 31599)</option>
-                <option value="bhaskar">K. Bhaskar (+91 83282 72376)</option>
-              </select>
-            </div>
-
-            <button type="submit" class="btn btn-whatsapp btn-lg" style="width: 100%; margin-top: 10px;">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
-              <span data-i18n="btnSubmitQuote">వాట్సాప్‌లో కొటేషన్ పంపండి</span>
-            </button>
-          </form>
+              <button type="submit" class="btn btn-whatsapp btn-lg" style="width: 100%; margin-top: 10px;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
+                <span data-i18n="btnSubmitQuote">వాట్సాప్‌లో కొటేషన్ పంపండి</span>
+              </button>
+            </form>
+          </div>
         </div>
       </div>
     </div>

@@ -2203,7 +2203,8 @@ button, input, select, textarea {
   align-items: start;
 }
 
-.contact-info-panel {
+.contact-info-panel,
+.contact-form-column {
   display: flex;
   flex-direction: column;
 }

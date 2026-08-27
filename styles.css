@@ -2797,6 +2797,11 @@ button, input, select, textarea {
     padding: 0 16px;
   }
 
+  /* Hide Floating Action Buttons on Mobile */
+  .floating-action-container {
+    display: none !important;
+  }
+
   /* Top Bar on Mobile */
   .top-bar-inner {
     justify-content: center;

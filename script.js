@@ -1130,8 +1130,63 @@ function setLanguage(lang) {
   updateCalculatorUI();
 }
 
-// Build WhatsApp Inquiry URL
+// Smoothly Redirect User to Contact Form to fill their details first
+function scrollToContactForm(dealerKey = 'sudhakar', details = {}) {
+  const contactSec = document.getElementById('contact');
+  const formDealer = document.getElementById('formDealerSelect');
+  const formUnits = document.getElementById('formUnits');
+  const formBill = document.getElementById('formBill');
+  const formTown = document.getElementById('formTown');
+  const formName = document.getElementById('formName');
+
+  if (formDealer && dealerKey) {
+    formDealer.value = dealerKey;
+  }
+
+  if (details.units && formUnits) {
+    formUnits.value = details.units;
+    if (formBill) {
+      const tariff = computeDiscomTariff(details.units, appState.selectedState || 'AP', 'residential');
+      formBill.value = tariff.totalBill;
+    }
+  } else if (details.bill && formBill) {
+    formBill.value = details.bill;
+    if (formUnits) {
+      formUnits.value = billToUnits(details.bill, appState.selectedState || 'AP', 'residential');
+    }
+  }
+
+  if (details.town && formTown && !formTown.value) {
+    formTown.value = details.town;
+  }
+
+  if (contactSec) {
+    contactSec.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  // Highlight form & focus on Name field
+  const formCard = document.querySelector('.contact-form-panel');
+  if (formCard) {
+    formCard.classList.remove('form-highlight-pulse');
+    void formCard.offsetWidth; // trigger reflow
+    formCard.classList.add('form-highlight-pulse');
+  }
+
+  setTimeout(() => {
+    if (formName && !formName.value) {
+      formName.focus();
+    }
+  }, 600);
+}
+
+// Build WhatsApp Inquiry URL (Only called after form is validated and submitted)
 function openWhatsAppInquiry(targetDealerKey, customDetails) {
+  // If no customer details are provided, redirect user to the contact form first
+  if (!customDetails || !customDetails.name || customDetails.name === 'Website Visitor' || customDetails.name === 'Quick Lead') {
+    scrollToContactForm(targetDealerKey, customDetails);
+    return;
+  }
+
   const dealer = DEALERS[targetDealerKey] || DEALERS.sudhakar;
   const lang = appState.currentLang;
   const displayUnits = customDetails.units || appState.unitsAmount || 300;
@@ -1141,7 +1196,7 @@ function openWhatsAppInquiry(targetDealerKey, customDetails) {
   if (lang === 'te') {
     text = `*నమస్కారం! ప్రసుధార్క సోలార్ విచారణ*\n` +
            `నాకు సోలార్ రూఫ్‌టాప్ ఇన్‌స్టాలేషన్ వివరాలు మరియు ప్రభుత్వ సబ్సిడీ కొటేషన్ కావాలి.\n\n` +
-           `👤 *పేరు:* ${customDetails.name || 'వినియోగదారుడు'}\n` +
+           `👤 *పేరు:* ${customDetails.name}\n` +
            `📱 *ఫోన్:* ${customDetails.phone || 'N/A'}\n` +
            `📍 *ప్రాంతం:* ${customDetails.town ? customDetails.town + ', ' : ''}${appState.selectedState === 'TG' ? 'తెలంగాణ (Telangana)' : 'ఆంధ్రప్రదేశ్ (Andhra Pradesh)'}\n` +
            `⚡ *నెలవారీ వినియోగం:* ${displayUnits} Units (బిల్లు: ₹${displayBill.toLocaleString('en-IN')})\n` +
@@ -1151,7 +1206,7 @@ function openWhatsAppInquiry(targetDealerKey, customDetails) {
   } else {
     text = `*Hello! Solar Inquiry - Prasudharka Solar*\n` +
            `I am interested in Solar Rooftop installation & PM Surya Ghar Subsidy.\n\n` +
-           `👤 *Name:* ${customDetails.name || 'Customer'}\n` +
+           `👤 *Name:* ${customDetails.name}\n` +
            `📱 *Phone:* ${customDetails.phone || 'N/A'}\n` +
            `📍 *Location:* ${customDetails.town ? customDetails.town + ', ' : ''}${appState.selectedState === 'TG' ? 'Telangana' : 'Andhra Pradesh'}\n` +
            `⚡ *Monthly Consumption:* ${displayUnits} Units (Bill: ₹${displayBill.toLocaleString('en-IN')})\n` +
@@ -1306,23 +1361,21 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Calculator "Send to WhatsApp" Button
+  // Calculator "Send to WhatsApp" Button -> Redirect to Contact Form with prefilled units/bill
   const btnSendCalcWhatsApp = document.getElementById('btnSendCalcWhatsApp');
   if (btnSendCalcWhatsApp) {
     btnSendCalcWhatsApp.addEventListener('click', () => {
       const plan = calculateSolarPlan(appState.unitsAmount, appState.selectedState, appState.propType, appState.panelType);
-      openWhatsAppInquiry(appState.selectedDealer, {
-        name: 'Website Visitor',
+      scrollToContactForm(appState.selectedDealer || 'sudhakar', {
+        units: appState.unitsAmount,
         bill: plan.tariff.totalBill,
         kw: plan.recKw,
-        units: appState.unitsAmount,
-        subsidy: plan.subsidy > 0 ? plan.subsidy.toLocaleString('en-IN') : '0 (No Subsidy)',
-        town: `${appState.selectedState === 'TG' ? 'Telangana' : 'Andhra Pradesh'} [${appState.panelType.toUpperCase()} Panels - ${appState.propType.toUpperCase()}]`
+        subsidy: plan.subsidy > 0 ? plan.subsidy.toLocaleString('en-IN') : '0'
       });
     });
   }
 
-  // Hero Quick Form Submission with Mandatory Validation
+  // Hero Quick Form Submission -> Transfer to Contact Form & Scroll
   const heroQuickForm = document.getElementById('heroQuickForm');
   if (heroQuickForm) {
     heroQuickForm.addEventListener('submit', (e) => {
@@ -1349,8 +1402,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const units = billToUnits(bill, appState.selectedState || 'AP', prop);
       const plan = calculateSolarPlan(units, appState.selectedState || 'AP', prop);
 
-      openWhatsAppInquiry(appState.selectedDealer || 'sudhakar', {
-        name: 'Quick Lead',
+      scrollToContactForm(appState.selectedDealer || 'sudhakar', {
         bill: bill,
         units: units,
         town: town,

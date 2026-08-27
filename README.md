@@ -17,7 +17,7 @@ We specialize in end-to-end turnkey rooftop solar installations under the Centra
 - **GSTIN:** `36ABHPU5110F1ZS`
 - **Location:** Nagulakatta, Jammalamadugu (JMD), YSR Kadapa Dist., Andhra Pradesh
 - **Key Contacts:**
-  - **K. Sudhakar** (Authorised Dealer): [+91 99666 31599](tel:+919966631599)
+  - **K. Sudhakar** (Authorised Dealer - Tukkuguda, HYD): [+91 99666 31599](tel:+919966631599)
   - **K. Bhaskar** (Authorised Dealer): [+91 83282 72376](tel:+918328272376)
 
 ---

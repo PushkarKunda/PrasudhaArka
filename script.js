@@ -1523,18 +1523,48 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Header Scroll Shadow & ScrollSpy Listener
+  // Smart Mobile Header: Hide on Scroll Down & Reveal on Scroll Up
+  let lastScrollY = window.scrollY;
+  const scrollThreshold = 8; // buffer in px to prevent jitter
+
   window.addEventListener('scroll', () => {
+    const currentScrollY = window.scrollY;
     const header = document.querySelector('.site-header');
+
     if (header) {
-      if (window.scrollY > 20) {
+      // Scrolled styling (shadow + solid background)
+      if (currentScrollY > 20) {
         header.classList.add('scrolled');
       } else {
         header.classList.remove('scrolled');
       }
+
+      // Check if mobile / tablet viewport (width <= 768px)
+      if (window.innerWidth <= 768) {
+        const isMenuOpen = navLinks && navLinks.classList.contains('open');
+
+        // Only hide if menu drawer is closed and scrolled past top header area
+        if (!isMenuOpen && currentScrollY > 80) {
+          if (currentScrollY > lastScrollY + scrollThreshold) {
+            // Scrolling Down -> Hide Header
+            header.classList.add('header-hidden');
+          } else if (currentScrollY < lastScrollY - scrollThreshold) {
+            // Scrolling Up -> Reveal Header
+            header.classList.remove('header-hidden');
+          }
+        } else {
+          // At top of page or menu drawer is open
+          header.classList.remove('header-hidden');
+        }
+      } else {
+        // Desktop always stays visible
+        header.classList.remove('header-hidden');
+      }
     }
+
+    lastScrollY = Math.max(0, currentScrollY);
     updateScrollSpy();
-  });
+  }, { passive: true });
 
   // Run on initial page load
   updateScrollSpy();

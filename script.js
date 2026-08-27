@@ -814,9 +814,15 @@ function updateCalculatorUI() {
     if (meterCalcDisplay) meterCalcDisplay.innerText = totalUnits + ' Units (kWh)';
   } else if (appState.calcMode === 'bill') {
     const billRangeEl = document.getElementById('billRange');
-    const targetBill = parseInt(billRangeEl.value, 10) || 3000;
-    const billDisplay = document.getElementById('billDisplayVal');
-    if (billDisplay) billDisplay.innerText = '₹' + targetBill.toLocaleString('en-IN');
+    const billNumInput = document.getElementById('billNumberInput');
+    let targetBill = 3000;
+    if (billNumInput && document.activeElement === billNumInput) {
+      targetBill = parseInt(billNumInput.value, 10) || 0;
+      if (billRangeEl) billRangeEl.value = Math.min(25000, targetBill);
+    } else if (billRangeEl) {
+      targetBill = parseInt(billRangeEl.value, 10) || 3000;
+      if (billNumInput) billNumInput.value = targetBill;
+    }
     totalUnits = billToUnits(targetBill, stateKey, propTypeKey);
   }
 
@@ -1040,10 +1046,19 @@ document.addEventListener('DOMContentLoaded', () => {
     prevReading.addEventListener('input', updateCalculatorUI);
   }
 
-  // Bill Amount Slider
+  // Bill Amount Slider & Manual Number Input Sync
   const billRange = document.getElementById('billRange');
-  if (billRange) {
-    billRange.addEventListener('input', updateCalculatorUI);
+  const billNumberInput = document.getElementById('billNumberInput');
+  if (billRange && billNumberInput) {
+    billRange.addEventListener('input', () => {
+      billNumberInput.value = billRange.value;
+      updateCalculatorUI();
+    });
+    billNumberInput.addEventListener('input', () => {
+      const val = parseInt(billNumberInput.value, 10) || 0;
+      billRange.value = Math.min(25000, val);
+      updateCalculatorUI();
+    });
   }
 
   // Property Type Buttons in Calculator

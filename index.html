@@ -537,10 +537,13 @@
             <div id="paneBillMode" class="calc-mode-content" style="display: none;">
               <div class="slider-group">
                 <div class="slider-header">
-                  <span class="slider-label" data-i18n="billAmount">నెలవారీ బిల్లు మొత్తం</span>
-                  <span class="slider-display-val" id="billDisplayVal">₹3,000</span>
+                  <span class="slider-label" data-i18n="billAmount">నెలవారీ బిల్లు మొత్తం (Monthly Bill)</span>
+                  <div class="slider-display-box">
+                    <span class="slider-unit-tag" style="font-size: 1.1rem; margin-right: 2px;">₹</span>
+                    <input type="number" id="billNumberInput" min="100" max="100000" step="100" value="3000" class="calc-num-input" style="width: 85px;" />
+                  </div>
                 </div>
-                <input type="range" id="billRange" class="range-slider" min="500" max="25000" step="500" value="3000">
+                <input type="range" id="billRange" class="range-slider" min="500" max="25000" step="100" value="3000">
                 <div class="slider-ticks">
                   <span>₹500</span>
                   <span>₹5,000</span>

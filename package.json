@@ -1,0 +1,11 @@
+{
+  "name": "prasudharka-solar-website",
+  "version": "1.0.0",
+  "description": "Prasudharka Solar & Green Energy - Aqua Pzone Enterprises Website",
+  "scripts": {
+    "dev": "npx serve . --listen 8080 --no-clipboard",
+    "start": "npx serve . --listen 8080 --no-clipboard"
+  },
+  "keywords": ["solar", "green-energy", "website"],
+  "author": "Prasudharka Solar"
+}

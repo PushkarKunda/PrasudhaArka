@@ -72,6 +72,10 @@ html {
   font-size: 16px;
 }
 
+section[id] {
+  scroll-margin-top: 95px;
+}
+
 body {
   font-family: var(--font-body);
   background-color: var(--gray-50);
@@ -198,7 +202,7 @@ button, input, select, textarea {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 80px;
+  height: 88px;
 }
 
 .brand-identity {
@@ -209,9 +213,9 @@ button, input, select, textarea {
 }
 
 .brand-logo-img {
-  height: 56px;
+  height: 68px;
   width: auto;
-  max-width: 240px;
+  max-width: 290px;
   object-fit: contain;
   transition: transform 0.25s ease, opacity 0.25s ease;
   display: block;
@@ -224,7 +228,7 @@ button, input, select, textarea {
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 16px;
   list-style: none;
 }
 
@@ -1515,6 +1519,47 @@ button, input, select, textarea {
   color: var(--solar-glow);
 }
 
+.calc-finance-box {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 18px;
+}
+
+.finance-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.84rem;
+  padding-bottom: 4px;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.12);
+}
+
+.finance-row.highlight {
+  border-bottom-color: rgba(245, 158, 11, 0.4);
+}
+
+.fin-label {
+  color: var(--gray-300);
+  font-weight: 600;
+}
+
+.fin-val {
+  color: var(--white);
+  font-weight: 800;
+}
+
+.fin-val.emi {
+  color: var(--solar-glow);
+  background: rgba(245, 158, 11, 0.2);
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+}
+
 .lifetime-savings-banner {
   background: rgba(255, 255, 255, 0.08);
   border-radius: var(--radius-md);
@@ -2062,10 +2107,26 @@ button, input, select, textarea {
   transition: var(--transition);
 }
 
+.dealer-contact-card.unified {
+  flex-direction: column;
+  align-items: stretch;
+  padding: 20px 22px;
+  border-radius: var(--radius-lg);
+}
+
 .dealer-contact-card:hover {
   border-color: var(--primary);
-  transform: translateX(4px);
+  transform: translateY(-3px);
   box-shadow: var(--shadow-md);
+}
+
+.dealer-card-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--gray-200);
 }
 
 .dealer-details h4 {
@@ -2085,6 +2146,40 @@ button, input, select, textarea {
   color: var(--primary);
   margin-top: 4px;
   display: block;
+}
+
+.dealer-address-subbox {
+  margin-top: 14px;
+  background: #f8fafc;
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  border: 1px solid #e2e8f0;
+}
+
+.dealer-addr-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.88rem;
+  color: var(--navy-950);
+  margin-bottom: 4px;
+}
+
+.dealer-addr-header strong {
+  color: var(--navy-950);
+}
+
+.dealer-addr-text {
+  font-size: 0.86rem;
+  color: #475569;
+  line-height: 1.5;
+  margin: 0 0 6px 0;
+}
+
+.dealer-gstin-tag {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--primary);
 }
 
 .contact-form-panel {
@@ -2213,6 +2308,288 @@ button, input, select, textarea {
 .footer-links li a:hover {
   color: var(--solar-amber);
   padding-left: 4px;
+}
+
+/* ==========================================================================
+   FOOTER CUSTOMER CARE & REGIONAL HUBS BAR
+   ========================================================================== */
+.footer-customercare-bar {
+  margin-top: 36px;
+  margin-bottom: 24px;
+  padding: 24px 28px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-lg);
+}
+
+.cc-header-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.cc-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.cc-icon {
+  font-size: 1.5rem;
+  background: rgba(245, 158, 11, 0.12);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cc-title {
+  font-size: 1.12rem;
+  font-weight: 800;
+  color: var(--white);
+  line-height: 1.2;
+}
+
+.cc-timing {
+  font-size: 0.82rem;
+  color: var(--solar-amber);
+  font-weight: 600;
+}
+
+.cc-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.cc-card {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: var(--transition);
+}
+
+.cc-card:hover {
+  background: rgba(15, 23, 42, 0.9);
+  border-color: var(--solar-amber);
+  transform: translateY(-2px);
+}
+
+.cc-card-tag {
+  font-size: 0.76rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--gray-400);
+  margin-bottom: 6px;
+}
+
+.cc-phone-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+.cc-phone-links a,
+.cc-info-link a {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--white);
+  transition: var(--transition);
+  text-decoration: none;
+}
+
+.cc-phone-links a:hover,
+.cc-info-link a:hover {
+  color: var(--solar-amber);
+}
+
+.cc-grid.cc-grid-helplines {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.cc-more-info-banner {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  text-align: center;
+}
+
+.cc-more-info-label {
+  font-size: 0.88rem;
+  color: var(--gray-300);
+  font-weight: 600;
+}
+
+.cc-website-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--solar-amber);
+  font-weight: 700;
+  font-size: 0.92rem;
+  text-decoration: none;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  transition: var(--transition);
+}
+
+.cc-website-link:hover {
+  background: rgba(245, 158, 11, 0.2);
+  color: var(--white);
+  transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   DARK CORPORATE BRAND & LOCATIONS BANNER (MATCHES FOOTER THEME)
+   ========================================================================== */
+.footer-corporate-brand-bar {
+  margin-top: 24px;
+  margin-bottom: 26px;
+  padding: 28px 32px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-xl);
+  display: grid;
+  grid-template-columns: 1.4fr 1.2fr 1fr;
+  gap: 36px;
+  align-items: start;
+}
+
+.corp-brand-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.corp-brand-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 12px;
+}
+
+.corp-logo-wrap {
+  background: #ffffff;
+  border: 1.5px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  padding: 8px 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.corp-logo-img {
+  height: 38px;
+  width: auto;
+  max-width: 140px;
+  object-fit: contain;
+  display: block;
+}
+
+.corp-brand-title {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--white);
+  line-height: 1.2;
+}
+
+.corp-brand-sub {
+  font-size: 0.84rem;
+  color: var(--solar-amber);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.corp-brand-desc {
+  font-size: 0.88rem;
+  color: var(--gray-400);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.corp-sec-heading {
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: var(--white);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 12px;
+}
+
+.corp-loc-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.corp-loc-city {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.95rem;
+  color: var(--white);
+}
+
+.corp-pin-icon {
+  color: var(--solar-amber);
+  font-size: 1rem;
+}
+
+.corp-loc-addr {
+  font-size: 0.85rem;
+  color: var(--gray-400);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.corp-touch-content {
+  display: flex;
+  align-items: center;
+}
+
+.corp-email-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--solar-glow);
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 10px 16px;
+  border-radius: var(--radius-md);
+  transition: var(--transition);
+}
+
+.corp-email-link:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--solar-amber);
+  transform: translateY(-2px);
+  color: var(--white);
+}
+
+.corp-mail-icon {
+  font-size: 1.1rem;
 }
 
 .footer-bottom {
@@ -2611,6 +2988,18 @@ button, input, select, textarea {
   .footer-top-grid {
     grid-template-columns: 1fr;
     gap: 28px;
+  }
+  .cc-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .footer-customercare-bar {
+    padding: 18px 14px;
+  }
+  .footer-corporate-brand-bar {
+    grid-template-columns: 1fr;
+    gap: 22px;
+    padding: 22px 18px;
   }
   
   /* Mobile Sticky Bottom CTA Bar */

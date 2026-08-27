@@ -31,6 +31,7 @@ const DEALERS = {
 const I18N = {
   en: {
     navHome: "Home",
+    navAbout: "About Us",
     navSubsidy: "System Pricing",
     navCalc: "Calculator",
     navServices: "Services",
@@ -82,7 +83,7 @@ const I18N = {
     firmSubtitle: "Solar & Renewables",
     heroBadge: "🏅 An ISO 9001:2015 Certified Company",
     heroTitle: "Power Your Home With Free Solar Energy & Get Up to <span class='highlight-gold'>₹78,000</span> <span class='highlight-green'>Govt Subsidy</span>",
-    heroLead: "Say goodbye to hefty electricity bills forever. Complete turnkey rooftop solar installation for Homes, Businesses, and Agricultural setups in Jammalamadugu and Rayalaseema.",
+    heroLead: "Say goodbye to hefty electricity bills forever. Complete turnkey rooftop solar installation for Homes, Businesses, and Agricultural setups across AP, Telangana, Bangalore, & Chennai.",
     subsidyCardTitle: "PM Surya Ghar Yojana Subsidy",
     subsidyCardDesc: "Direct bank transfer subsidy from Central Government up to ₹78,000. 0-Downpayment bank loans available at 6% interest.",
     btnCalcSubsidy: "Calculate My Subsidy",
@@ -256,26 +257,41 @@ const I18N = {
 
     contactSecTag: "Get In Touch",
     contactSecTitle: "Start Saving With Solar Today",
-    contactSecDesc: "Connect directly with our authorized dealers in Jammalamadugu for a free quote and personalized rooftop assessment.",
+    contactSecDesc: "Connect directly with our authorized dealers for a free quote and personalized rooftop assessment.",
     formTitle: "Request Free Site Inspection & Quote",
     formName: "Full Name",
     formPhone: "Mobile Number",
     formTown: "Town / Village (e.g. JMD, Proddatur)",
+    formUnits: "Monthly Units (kWh)",
     formBill: "Monthly Electricity Bill (₹)",
     formSelectDealer: "Send WhatsApp Inquiry To:",
     btnSubmitQuote: "Submit & Chat on WhatsApp",
 
-    footerDesc: "Authorized Solar & Green Energy Partner providing PM Surya Ghar Muft Bijli Yojana rooftop solutions, RO water plants, and lithium batteries in Rayalaseema.",
+    footerDesc: "Authorized Solar & Green Energy Partner providing PM Surya Ghar Muft Bijli Yojana rooftop solutions, RO water plants, and lithium batteries across AP, Telangana, Bangalore, & Chennai.",
     quickLinksTitle: "Quick Navigation",
     contactInfoTitle: "Office & Contacts",
+    lblOfficeAddress: "Office Address:",
     sudhakarAddress: "Tukkuguda, RangaReddy Dist., Hyderabad, Telangana.",
     addressText: "Nagulakatta, Jammalamadugu (JMD), YSR Kadapa Dist., Andhra Pradesh",
     gstinLabel: "GSTIN: 36ABHPU5110F1ZS",
+    ccMainTitle: "Customer Care",
+    ccTimings: "(10:00 AM to 6:00 PM)",
+    ccRegionAPTG: "Andhra Pradesh & Telangana",
+    ccRegionKNTN: "Karnataka & Tamilnadu",
+    ccMoreInfoLead: "For more information, Look into",
+    ccEmailTitle: "Email Us",
+    ccVisitTitle: "Visit Us (Head Office)",
+    ccAddressText: "#5-2-422 First floor, Opp Hero Honda Showroom, Hyderbasti, Ranigunj R.P. Road, Secunderabad - 500003",
+    corpBrandDesc: "Two specialized brands under one trusted name — delivering water and renewable energy infrastructure across India.",
+    corpLocationsTitle: "LOCATIONS",
+    corpTouchTitle: "GET IN TOUCH",
+    corpAddressSecunderabad: "#5-2-422 First floor, Opp Hero Honda Showroom, Hyderbasti, Ranigunj R.P. Road, Secunderabad - 500003",
     copyrightText: "© 2026 Prasudharka Solar (Aqua Pzone Enterprises). All rights reserved."
   },
 
   te: {
     navHome: "హోమ్",
+    navAbout: "మా గురించి",
     navSubsidy: "ధరలు & సబ్సిడీ",
     navCalc: "కాలిక్యులేటర్",
     navServices: "సేవలు",
@@ -327,7 +343,7 @@ const I18N = {
     firmSubtitle: "సోలార్ & రెన్యూవబుల్స్ (Solar & Renewables)",
     heroBadge: "🏅 ISO 9001:2015 సర్టిఫైడ్ కంపెనీ",
     heroTitle: "మీ ఇంటికి సూర్య శక్తితో ఉచిత విద్యుత్ పొందండి, <span class='highlight-gold'>రూ. 78,000*</span> <span class='highlight-green'>ప్రభుత్వ సబ్సిడీ</span>",
-    heroLead: "కరెంట్ బిల్లుల భారాన్ని పూర్తిగా తగ్గించుకోండి. నివాస గృహాలు, వాణిజ్య సంస్థలు, పరిశ్రమలకు నాణ్యమైన సోలార్ రూఫ్‌టాప్ ఇన్‌స్టాలేషన్ మరియు బ్యాంక్ లోన్ సదుపాయం.",
+    heroLead: "కరెంట్ బిల్లుల భారాన్ని పూర్తిగా తగ్గించుకోండి. AP, తెలంగాణ, బెంగళూరు & చెన్నై వ్యాప్తంగా నివాస గృహాలు, వాణిజ్య సంస్థలు, పరిశ్రమలకు నాణ్యమైన సోలార్ రూఫ్‌టాప్ ఇన్‌స్టాలేషన్ మరియు బ్యాంక్ లోన్ సదుపాయం.",
     subsidyCardTitle: "పి.ఎం సూర్య ఘర్ ముఫ్త్ బిజిలీ యోజన",
     subsidyCardDesc: "కేంద్ర ప్రభుత్వం నుండి నేరుగా మీ బ్యాంక్ ఖాతాకు రూ. 78,000 వరకు సబ్సిడీ. తక్కువ వడ్డీతో జాతీయ బ్యాంకుల నుండి సోలార్ లోన్ సదుపాయం.",
     btnCalcSubsidy: "సబ్సిడీ లెక్కించండి",
@@ -501,21 +517,35 @@ const I18N = {
 
     contactSecTag: "మమ్మల్ని సంప్రదించండి",
     contactSecTitle: "ఈరోజే మీ ఉచిత సోలార్ కొటేషన్ పొందండి",
-    contactSecDesc: "జమ్మలమడుగులోని మా అధికారిక డీలర్లతో మాట్లాడి మీ ఇంటికి సరైన సోలార్ ప్లాన్ ఎంచుకోండి.",
+    contactSecDesc: "మా అధికారిక డీలర్లతో మాట్లాడి మీ ఇంటికి సరైన సోలార్ ప్లాన్ ఎంచుకోండి.",
     formTitle: "ఉచిత సైట్ పరిశీలన & కొటేషన్ ఫారం",
     formName: "మీ పూర్తి పేరు",
     formPhone: "మొబైల్ నంబర్",
     formTown: "మీ ఊరు / మండలం (ఉదా: జమ్మలమడుగు)",
+    formUnits: "నెలవారీ యూనిట్లు (kWh)",
     formBill: "నెలవారీ కరెంట్ బిల్లు (రూ.)",
     formSelectDealer: "వాట్సాప్ సందేశం ఎవరికి పంపాలి:",
     btnSubmitQuote: "వాట్సాప్‌లో కొటేషన్ పంపండి",
 
-    footerDesc: "పి.ఎం సూర్య ఘర్ యోజన అధికారిక సోలార్ రూఫ్‌టాప్ డీలర్స్, RO వాటర్ ప్లాంట్లు మరియు లిథియం ఇన్వర్టర్ సొల్యూషన్స్ - జమ్మలమడుగు, వైఎస్సార్ కడప.",
+    footerDesc: "పి.ఎం సూర్య ఘర్ యోజన అధికారిక సోలార్ రూఫ్‌టాప్ డీలర్స్, RO వాటర్ ప్లాంట్లు మరియు లిథియం ఇన్వర్టర్ సొల్యూషన్స్ - AP, తెలంగాణ, బెంగళూరు & చెన్నై.",
     quickLinksTitle: "ముఖ్యమైన లింకులు",
     contactInfoTitle: "సంప్రదించవలసిన వివరాలు",
+    lblOfficeAddress: "ఆఫీస్ చిరునామా:",
     sudhakarAddress: "తుక్కుగూడ, రంగారెడ్డి జిల్లా, హైదరాబాద్, తెలంగాణ.",
     addressText: "నాగులకట్ట, జమ్మలమడుగు (JMD), వైఎస్సార్ కడప జిల్లా, ఆంధ్రప్రదేశ్",
     gstinLabel: "GSTIN: 36ABHPU5110F1ZS",
+    ccMainTitle: "కస్టమర్ కేర్ (Customer Care)",
+    ccTimings: "(ఉదయం 10:00 నుండి సాయంత్రం 6:00 వరకు)",
+    ccRegionAPTG: "ఆంధ్రప్రదేశ్ & తెలంగాణ",
+    ccRegionKNTN: "కర్ణాటక & తమిళనాడు",
+    ccMoreInfoLead: "మరిన్ని వివరాల కోసం వెబ్‌సైట్ చూడండి:",
+    ccEmailTitle: "ఈమెయిల్ చేయండి",
+    ccVisitTitle: "ప్రధాన కార్యాలయం (Visit Us)",
+    ccAddressText: "#5-2-422 1వ అంతస్తు, హీరో హోండా షోరూమ్ ఎదురుగా, హైదర్‌బస్తీ, రాణిగంజ్ R.P. రోడ్, సికింద్రాబాద్ - 500003",
+    corpBrandDesc: "ఒకే విశ్వసనీయ బ్రాండ్ కింద రెండు విశిష్ట విభాగాలు — భారతదేశ వ్యాప్తంగా నీరు మరియు సౌర విద్యుత్ పరిష్కారాలు.",
+    corpLocationsTitle: "కార్యాలయాలు (LOCATIONS)",
+    corpTouchTitle: "సంప్రదించండి (GET IN TOUCH)",
+    corpAddressSecunderabad: "#5-2-422 1వ అంతస్తు, హీరో హోండా షోరూమ్ ఎదురుగా, హైదర్‌బస్తీ, రాణిగంజ్ R.P. రోడ్, సికింద్రాబాద్ - 500003",
     copyrightText: "© 2026 ప్రసుధార్క సోలార్ (ఆక్వా పిజోన్ ఎంటర్‌ప్రైజెస్). సర్వహక్కులు రక్షించబడ్డాయి."
   }
 };
@@ -737,32 +767,66 @@ function billToUnits(targetBill, stateKey, propTypeKey) {
   return bestUnits;
 }
 
-// 2. Solar Sizing & ROI Calculations
+// 2. Official System Configurations Reference & Solar Sizing Calculations
+const SYSTEM_CONFIG_DATA = {
+  1: { unitCost: 85000, subsidy: 30000, maxLoan: 60000, estEmi: 750, powerGenDay: 5, space: '8 x 10 Feet (Approx)', sqft: 80 },
+  2: { unitCost: 160000, subsidy: 60000, maxLoan: 124000, estEmi: 1450, powerGenDay: 10, space: '8 x 16 Feet', sqft: 128 },
+  3: { unitCost: 220000, subsidy: 78000, maxLoan: 189000, estEmi: 2200, powerGenDay: 15, space: '12 x 16 Feet', sqft: 192 },
+  4: { unitCost: 280000, subsidy: 78000, maxLoan: 245000, estEmi: 2950, powerGenDay: 20, space: '16 x 16 Feet', sqft: 256 },
+  5: { unitCost: 335000, subsidy: 78000, maxLoan: 301500, estEmi: 3800, powerGenDay: 25, space: '20 x 16 Feet', sqft: 320 }
+};
+
 function calculateSolarPlan(units, stateKey, propTypeKey) {
   const tariff = computeDiscomTariff(units, stateKey, propTypeKey);
   
-  // 1 kW solar generates approx 120 units per month in sunny AP & Telangana
-  let recKw = Math.max(1, Math.min(25, Math.ceil((units / 120) * 2) / 2));
-  if (propTypeKey === 'commercial') {
-    recKw = Math.max(2, Math.min(30, Math.ceil((units / 115) * 2) / 2));
-  } else if (propTypeKey === 'farm') {
-    recKw = Math.max(3, Math.min(50, Math.ceil((units / 110) * 2) / 2));
+  // Sizing aligned with System Configurations (1 kW = 5 units/day = 150 units/mo)
+  let recKw = 3;
+  if (units <= 180) {
+    recKw = 1;
+  } else if (units <= 360) {
+    recKw = 2;
+  } else if (units <= 520) {
+    recKw = 3;
+  } else if (units <= 680) {
+    recKw = 4;
+  } else if (units <= 850) {
+    recKw = 5;
+  } else {
+    recKw = Math.min(25, Math.ceil(units / 150));
   }
 
-  const solarMonthlyGen = Math.round(recKw * 120);
+  if (propTypeKey === 'commercial') {
+    recKw = Math.max(2, Math.min(30, Math.ceil(units / 140)));
+  } else if (propTypeKey === 'farm') {
+    recKw = Math.max(3, Math.min(50, Math.ceil(units / 130)));
+  }
+
+  const powerGenDay = recKw * 5;
+  const solarMonthlyGen = powerGenDay * 30;
   const offsetPct = Math.min(100, Math.round((solarMonthlyGen / Math.max(1, units)) * 100));
 
+  // Specifications matching the official System Configurations section
+  let unitCost, subsidy, maxLoan, estEmi, spaceDisplay, sqft;
+  if (SYSTEM_CONFIG_DATA[recKw]) {
+    const cfg = SYSTEM_CONFIG_DATA[recKw];
+    unitCost = cfg.unitCost;
+    subsidy = cfg.subsidy;
+    maxLoan = cfg.maxLoan;
+    estEmi = cfg.estEmi;
+    spaceDisplay = cfg.space;
+    sqft = cfg.sqft;
+  } else {
+    unitCost = Math.round(recKw * 67000);
+    subsidy = 78000;
+    maxLoan = Math.round(unitCost * 0.9);
+    estEmi = Math.round(maxLoan * 0.0126);
+    spaceDisplay = (recKw * 4) + ' x 16 Feet';
+    sqft = recKw * 64;
+  }
+
   // Central Government PM Surya Ghar Subsidy
-  let subsidy = 0;
   let subsidyDisplay = '';
   if (propTypeKey === 'residential') {
-    if (recKw <= 1) {
-      subsidy = 30000;
-    } else if (recKw <= 2) {
-      subsidy = 60000;
-    } else {
-      subsidy = 78000; // Cap at ₹78,000 for 3kW and above
-    }
     subsidyDisplay = '₹' + subsidy.toLocaleString('en-IN');
   } else {
     const lang = appState.currentLang;
@@ -773,22 +837,26 @@ function calculateSolarPlan(units, stateKey, propTypeKey) {
   const netGridUnits = Math.max(0, units - solarMonthlyGen);
   const netBillWithSolar = computeDiscomTariff(netGridUnits, stateKey, propTypeKey, tariff.load).totalBill;
 
-  // Monthly Savings
+  // Monthly Savings & ROI
   const monthlySavings = Math.max(0, tariff.totalBill - netBillWithSolar);
   const annualSavings = monthlySavings * 12;
   const lifetimeSavings = annualSavings * 25;
-  const roofArea = Math.round(recKw * 100);
 
   return {
     units,
     tariff,
     recKw,
+    powerGenDay,
     solarMonthlyGen,
     offsetPct,
     subsidy,
     subsidyDisplay,
+    unitCost,
+    maxLoan,
+    estEmi,
+    spaceDisplay,
+    sqft,
     netBillWithSolar,
-    roofArea,
     monthlySavings,
     annualSavings,
     lifetimeSavings
@@ -865,10 +933,23 @@ function updateCalculatorUI() {
   }
 
   const calcRoof = document.getElementById('calcRoofVal');
-  if (calcRoof) calcRoof.innerText = result.roofArea + ' sq.ft';
+  if (calcRoof) calcRoof.innerText = result.spaceDisplay;
 
   const calcMonthSave = document.getElementById('calcMonthSaveVal');
   if (calcMonthSave) calcMonthSave.innerText = '₹' + result.monthlySavings.toLocaleString('en-IN') + '/mo';
+
+  // Update System Financials & Loan Specifications (From System Configurations)
+  const calcUnitCost = document.getElementById('calcUnitCostVal');
+  if (calcUnitCost) calcUnitCost.innerText = '₹ ' + result.unitCost.toLocaleString('en-IN');
+
+  const calcMaxLoan = document.getElementById('calcMaxLoanVal');
+  if (calcMaxLoan) calcMaxLoan.innerText = '₹ ' + result.maxLoan.toLocaleString('en-IN');
+
+  const calcEstEmi = document.getElementById('calcEstEmiVal');
+  if (calcEstEmi) calcEstEmi.innerText = '₹ ' + result.estEmi.toLocaleString('en-IN') + ' / mo';
+
+  const calcDailyGen = document.getElementById('calcDailyGenVal');
+  if (calcDailyGen) calcDailyGen.innerText = result.powerGenDay + ' units/day';
 
   const solarGenEl = document.getElementById('solarUnitsGenDisplay');
   if (solarGenEl) solarGenEl.innerText = result.solarMonthlyGen + ' units/mo';
@@ -924,6 +1005,8 @@ function setLanguage(lang) {
 function openWhatsAppInquiry(targetDealerKey, customDetails) {
   const dealer = DEALERS[targetDealerKey] || DEALERS.sudhakar;
   const lang = appState.currentLang;
+  const displayUnits = customDetails.units || appState.unitsAmount || 300;
+  const displayBill = customDetails.bill || appState.billAmount || 3000;
 
   let text = '';
   if (lang === 'te') {
@@ -931,8 +1014,8 @@ function openWhatsAppInquiry(targetDealerKey, customDetails) {
            `నాకు సోలార్ రూఫ్‌టాప్ ఇన్‌స్టాలేషన్ వివరాలు మరియు ప్రభుత్వ సబ్సిడీ కొటేషన్ కావాలి.\n\n` +
            `👤 *పేరు:* ${customDetails.name || 'వినియోగదారుడు'}\n` +
            `📱 *ఫోన్:* ${customDetails.phone || 'N/A'}\n` +
-           `📍 *రాష్ట్రం / ప్రాంతం:* ${appState.selectedState === 'TG' ? 'తెలంగాణ (Telangana)' : 'ఆంధ్రప్రదేశ్ (Andhra Pradesh)'}\n` +
-           `⚡ *నెలవారీ వినియోగం:* ${appState.unitsAmount} Units (బిల్లు: ₹${customDetails.bill || appState.billAmount})\n` +
+           `📍 *ప్రాంతం:* ${customDetails.town ? customDetails.town + ', ' : ''}${appState.selectedState === 'TG' ? 'తెలంగాణ (Telangana)' : 'ఆంధ్రప్రదేశ్ (Andhra Pradesh)'}\n` +
+           `⚡ *నెలవారీ వినియోగం:* ${displayUnits} Units (బిల్లు: ₹${displayBill.toLocaleString('en-IN')})\n` +
            `☀️ *సిఫార్సు సోలార్ సామర్థ్యం:* ${customDetails.kw || '3'} kW\n` +
            `💰 *ప్రభుత్వ సబ్సిడీ:* ₹${customDetails.subsidy || '78,000'}\n\n` +
            `దయచేసి పూర్తి కొటేషన్ మరియు ఉచిత సైట్ సర్వే వివరాలను తెలియజేయండి.`;
@@ -941,8 +1024,8 @@ function openWhatsAppInquiry(targetDealerKey, customDetails) {
            `I am interested in Solar Rooftop installation & PM Surya Ghar Subsidy.\n\n` +
            `👤 *Name:* ${customDetails.name || 'Customer'}\n` +
            `📱 *Phone:* ${customDetails.phone || 'N/A'}\n` +
-           `📍 *State / Region:* ${appState.selectedState === 'TG' ? 'Telangana' : 'Andhra Pradesh'}\n` +
-           `⚡ *Monthly Consumption:* ${appState.unitsAmount} Units (Bill: ₹${customDetails.bill || appState.billAmount})\n` +
+           `📍 *Location:* ${customDetails.town ? customDetails.town + ', ' : ''}${appState.selectedState === 'TG' ? 'Telangana' : 'Andhra Pradesh'}\n` +
+           `⚡ *Monthly Consumption:* ${displayUnits} Units (Bill: ₹${displayBill.toLocaleString('en-IN')})\n` +
            `☀️ *Recommended Solar:* ${customDetails.kw || '3'} kW\n` +
            `💰 *Govt Subsidy:* ₹${customDetails.subsidy || '78,000'}\n\n` +
            `Please share the detailed quotation and schedule a free site survey.`;
@@ -1107,23 +1190,45 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Main Contact Form Submission
+  // Main Contact Form Submission & Real-Time Sync
   const mainContactForm = document.getElementById('mainContactForm');
+  const formUnitsInput = document.getElementById('formUnits');
+  const formBillInput = document.getElementById('formBill');
+
+  if (formUnitsInput && formBillInput) {
+    formUnitsInput.addEventListener('input', () => {
+      const units = parseInt(formUnitsInput.value, 10) || 0;
+      if (units > 0) {
+        const tariff = computeDiscomTariff(units, appState.selectedState || 'AP', 'residential');
+        formBillInput.value = tariff.totalBill;
+      }
+    });
+
+    formBillInput.addEventListener('input', () => {
+      const bill = parseInt(formBillInput.value, 10) || 0;
+      if (bill > 0) {
+        const units = billToUnits(bill, appState.selectedState || 'AP', 'residential');
+        formUnitsInput.value = units;
+      }
+    });
+  }
+
   if (mainContactForm) {
     mainContactForm.addEventListener('submit', (e) => {
       e.preventDefault();
       const name = document.getElementById('formName').value.trim();
       const phone = document.getElementById('formPhone').value.trim();
       const town = document.getElementById('formTown').value.trim();
-      const bill = parseInt(document.getElementById('formBill').value, 10) || 3000;
+      const units = parseInt(document.getElementById('formUnits').value, 10) || 350;
+      const bill = parseInt(document.getElementById('formBill').value, 10) || 3500;
       const dealer = document.getElementById('formDealerSelect').value || 'sudhakar';
-      const units = billToUnits(bill, 'AP', 'residential');
-      const plan = calculateSolarPlan(units, 'AP', 'residential');
+      const plan = calculateSolarPlan(units, appState.selectedState || 'AP', 'residential');
 
       openWhatsAppInquiry(dealer, {
         name: name,
         phone: phone,
         town: town,
+        units: units,
         bill: bill,
         kw: plan.recKw,
         subsidy: plan.subsidy.toLocaleString('en-IN')
@@ -1131,22 +1236,63 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Mobile Menu Toggle
-  const mobileMenuToggle = document.getElementById('mobileMenuToggle');
-  const navLinks = document.getElementById('navLinks');
-  if (mobileMenuToggle && navLinks) {
-    mobileMenuToggle.addEventListener('click', () => {
-      navLinks.classList.toggle('open');
+  // Header Navigation Click & ScrollSpy Highlighting
+  const allNavLinks = document.querySelectorAll('.nav-link');
+  const sectionIds = ['home', 'about', 'subsidy', 'calculator', 'services', 'process', 'contact'];
+  const sections = sectionIds
+    .map(id => document.getElementById(id))
+    .filter(sec => sec !== null);
+
+  // Click Handler for Smooth Scroll and Immediate Highlight
+  allNavLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      const targetHref = link.getAttribute('href');
+      if (targetHref && targetHref.startsWith('#')) {
+        const targetSection = document.querySelector(targetHref);
+        if (targetSection) {
+          e.preventDefault();
+          allNavLinks.forEach(l => l.classList.remove('active'));
+          link.classList.add('active');
+
+          targetSection.scrollIntoView({
+            behavior: 'smooth'
+          });
+
+          if (navLinks) navLinks.classList.remove('open');
+        }
+      }
+    });
+  });
+
+  // ScrollSpy to dynamically highlight active navigation link while scrolling
+  function updateScrollSpy() {
+    const scrollPosition = window.scrollY + 140; // 95px header + buffer
+    let currentActiveSectionId = 'home';
+
+    sections.forEach(section => {
+      const top = section.offsetTop;
+      const height = section.offsetHeight;
+      if (scrollPosition >= top && scrollPosition < top + height) {
+        currentActiveSectionId = section.getAttribute('id');
+      }
     });
 
-    navLinks.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        navLinks.classList.remove('open');
-      });
+    // If near the bottom of page, highlight contact
+    if ((window.innerHeight + window.scrollY) >= document.documentElement.scrollHeight - 60) {
+      currentActiveSectionId = 'contact';
+    }
+
+    allNavLinks.forEach(link => {
+      const href = link.getAttribute('href');
+      if (href === `#${currentActiveSectionId}`) {
+        link.classList.add('active');
+      } else {
+        link.classList.remove('active');
+      }
     });
   }
 
-  // Header Scroll Shadow
+  // Header Scroll Shadow & ScrollSpy Listener
   window.addEventListener('scroll', () => {
     const header = document.querySelector('.site-header');
     if (header) {
@@ -1156,7 +1302,11 @@ document.addEventListener('DOMContentLoaded', () => {
         header.classList.remove('scrolled');
       }
     }
+    updateScrollSpy();
   });
+
+  // Run on initial page load
+  updateScrollSpy();
 
   // Initial Calculation Run
   updateCalculatorUI();

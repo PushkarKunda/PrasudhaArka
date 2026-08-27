@@ -1,110 +1,129 @@
-# PraSudhaArka Solar & Green Energy (AquaPzone Enterprises)
-> **Official Business Website | PM Surya Ghar Muft Bijli Yojana Partner**  
-> *An ISO 9001:2015 Certified Company*
+# PraSudhaArka Solar & Green Energy (Aqua Pzone Enterprises)
+> **Official Business Web Application | PM Surya Ghar: Muft Bijli Yojana Approved Partner**  
+> *An ISO 9001:2015 Certified Company • 21+ Years of Clean Energy & Water Engineering Excellence*
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![PM Surya Ghar](https://img.shields.io/badge/PM_Surya_Ghar-Approved_Vendor-green.svg)](https://pmsuryaghar.gov.in)
+[![Coverage](https://img.shields.io/badge/Service_Area-AP_|_TG_|_KA_|_TN-blue.svg)](#-multi-state-customer-care--regional-network)
 
 ---
 
-## ☀️ About The Business
+## ☀️ About PraSudhaArka Solar
 
-**PraSudhaArka Solar & Green Energy** (AquaPzone Enterprises) is a clean energy and water treatment solutions provider based in **Jammalamadugu (JMD), YSR Kadapa District, Andhra Pradesh**. 
-
-We specialize in end-to-end turnkey rooftop solar installations under the Central Government's **PM Surya Ghar: Muft Bijli Yojana**, lithium-ion battery storage, industrial & domestic RO water plants, and agricultural solar pumps.
-
-### 📍 Business Information & Contacts
-- **Firm Name:** AquaPzone Enterprises (Solar & Renewables)
-- **Brand Name:** PraSudhaArka Solar & Green Energy (ప్రసుధార్క సోలార్ & గ్రీన్ ఎనర్జీ)
-- **Certification:** ISO 9001:2015 Certified
-- **GSTIN:** `36ABHPU5110F1ZS`
-- **Location:** Nagulakatta, Jammalamadugu (JMD), YSR Kadapa Dist., Andhra Pradesh
-- **Key Contacts:**
-  - **K. Sudhakar** (Authorised Dealer - Tukkuguda, HYD): [+91 99666 31599](tel:+919966631599)
-  - **K. Bhaskar** (Authorised Dealer): [+91 83282 72376](tel:+918328272376)
+**PraSudhaArka Solar & Green Energy** (Aqua Pzone Enterprises) is an authorized rooftop solar engineering and green energy partner. With over 21 years of proven industry experience across **Andhra Pradesh, Telangana, Karnataka, and Tamil Nadu**, we deliver complete turnkey clean energy solutions—including PM Surya Ghar residential solar systems, commercial & industrial rooftop plants, lithium battery storage, C.R.I. agricultural solar pumps, and commercial stainless-steel RO water purification plants.
 
 ---
 
-## 🌟 Key Website Features
+## 📍 Multi-State Customer Care & Regional Network
 
-1. **🌐 Bilingual Engine (English & Telugu):**
-   - Seamless one-click real-time language toggle between English and Telugu (`తెలుగు`).
-   - Dynamic language-adaptive logos (renders Telugu logo in Telugu mode and English logo in English mode).
+### 📞 Customer Care (10:00 AM – 6:00 PM)
+- **Andhra Pradesh & Telangana:** `98481 40099` / `98481 50099` / `98481 70099`
+- **Karnataka & Tamil Nadu:** `88842 12121`
+- **Email:** `aquapzonehyd@gmail.com`
+- **Official Web Portal:** [https://www.aquapzone.in](https://www.aquapzone.in)
 
-2. **⚡ Interactive Solar ROI & PM Subsidy Calculator:**
-   - Real-time monthly bill slider (₹1,000 to ₹25,000+).
-   - Residential, Commercial, and Agricultural calculation modes.
-   - Calculates recommended solar capacity (kW), central government subsidy (up to ₹78,000), required roof space (sq.ft), monthly savings, and 25-year lifetime financial gains.
-   - Direct button to forward calculated estimate directly to WhatsApp.
+### 🏢 Office Locations & Authorized Dealers
+- **Secunderabad Head Office:**  
+  `#5-2-422, First Floor, Opp. Hero Honda Showroom, Hyderbasti, Ranigunj, R.P. Road, Secunderabad - 500003`
+- **Hyderabad / Tukkuguda Regional Dealer:**  
+  **K. Sudhakar** • [+91 99666 31599](tel:+919966631599)
+- **Andhra Pradesh (Jammalamadugu) Regional Dealer:**  
+  **K. Bhaskar** • [+91 83282 72376](tel:+918328272376) • `Nagulakatta, Jammalamadugu, YSR Kadapa Dist., AP - 516434`
 
-3. **📋 Required Documents Checklist:**
-   - **Basic Details:** Aadhar Card, PAN Card, Bank Passbook / Cheque, Electricity Bill.
-   - **Approvals & Agreements:** Feasibility Report, Netmetering Agreement, Digital Approval Letter, Vendor Agreement, DISCOM Agreement, DCR Declaration.
-   - **Commercial & Financial:** Subsidy / E-Token, Quotation, Invoice / Bill, DCR Certificate, Netmeter Payment Receipt.
-   - **Project & Completion:** Project Completion Report, Netmeter Application, Acknowledgement, Extra Load, Site GPS Photo.
+---
 
-4. **📲 Instant WhatsApp Lead Dispatch:**
-   - Inquiry forms with automatic WhatsApp message formatting tailored to the selected dealer.
+## 🌟 Key Application Features
 
-5. **📱 Mobile-First Responsive Design:**
-   - Clean, lightweight layout optimized for all smartphones and desktop viewports.
-   - Sticky bottom action bar (*Call* & *WhatsApp*) for mobile users.
+### 1. 🧮 Advanced Solar ROI & Official DISCOM Tariff Calculator
+- **Official AP & Telangana Tariff Engines:**
+  - **Andhra Pradesh (APCPDCL / APEPDCL / APSPDCL):** Telescopic residential and non-residential tariff calculation.
+  - **Telangana (TSSPDCL / TSNPDCL):** Exact official slabs for `LT-I(A)` ($\le 100$ u), `LT-I(B)` (101–200 u), `LT-I(C)` (>200 u), `LT-II(A)` ($\le 50$ u), `LT-II(B)` (>50 u), and `LT-V` Agriculture with official fixed charges, meter rents, and electricity duties.
+- **Panel Type Selection (DCR vs. NON-DCR):**
+  - **🇮🇳 DCR Panels (Domestic Content Requirement):** Full PM Surya Ghar government subsidy eligible (up to ₹78,000 for Category-1 Residential).
+  - **🌐 NON-DCR Panels:** Cost-effective commercial configurations with zero subsidy.
+- **Category Subsidy Rules:**
+  - **Category 1 (Residential / Home):** Eligible for central government subsidy with DCR panels.
+  - **Above Category 1 (Commercial / Category-2 & Farm/Industry / Category-3):** Automatically locked to NON-DCR panels (no subsidy per PM Surya Ghar guidelines).
+- **System Configurations Sizing & Loan Breakdown:**
+  - Real-time display of **Unit Cost (DCR/Non-DCR)**, **Central Govt Subsidy**, **Max Bank Loan** (up to 90%), **Estimated Bank EMI** (at ~6% p.a.), and **Daily Units Generation**.
+
+### 2. 🌐 Bilingual Translation Engine (English & Telugu)
+- Instant, client-side dynamic translation between **English** and **Telugu (`తెలుగు`)** with complete coverage of all labels, alerts, tariff breakdowns, and loan estimations.
+- Automatic language-synchronized branding and responsive logo switching.
+
+### 3. 🛡️ Strict Lead Validation & WhatsApp Dispatch
+- Forms enforce complete name, verified 10-digit mobile number, town, units, and bill amounts before submission.
+- Real-time bidirectional synchronization between **Monthly Units (kWh)** and **Monthly Bill (₹)** based on active DISCOM tariff tables.
+- Formatted one-click quote generation and direct routing to authorized WhatsApp dealers.
+
+### 4. 📱 Mobile-First Responsive Design & Navigation
+- Smooth navigation drawer with touch-friendly menu items and ScrollSpy dynamic section highlighting.
+- Zero touch-interception overlays and optimized touch targets across all smartphone viewports.
+
+---
+
+## 📊 Official System Configurations Reference
+
+| Capacity | Daily Generation | Roof Space Required | DCR Base Cost | Govt. Subsidy (DBT) | Max Bank Loan (90%) | Est. Bank EMI |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **1 kW** | 5 Units / Day | `8 x 10 Feet` (80 sq.ft) | ₹85,000 | **₹30,000** | ₹60,000 | **₹750 / mo** |
+| **2 kW** | 10 Units / Day | `8 x 16 Feet` (128 sq.ft) | ₹1,60,000 | **₹60,000** | ₹1,24,000 | **₹1,450 / mo** |
+| **3 kW** | 15 Units / Day | `12 x 16 Feet` (192 sq.ft) | ₹2,20,000 | **₹78,000** | ₹1,89,000 | **₹2,200 / mo** |
+| **4 kW** | 20 Units / Day | `16 x 16 Feet` (256 sq.ft) | ₹2,80,000 | **₹78,000** | ₹2,45,000 | **₹2,950 / mo** |
+| **5 kW** | 25 Units / Day | `20 x 16 Feet` (320 sq.ft) | ₹3,35,000 | **₹78,000** | ₹3,01,500 | **₹3,800 / mo** |
 
 ---
 
 ## 🛠️ Technology Stack
 
-- **Frontend:** HTML5 (Semantic Structure), CSS3 (Modern Design System, CSS Grid, Glassmorphism), Vanilla JavaScript (ES6+ State & Translation Engine).
-- **Icons & Typography:** SVG Vector Icons, Google Fonts (`Outfit`, `Plus Jakarta Sans`, `Noto Sans Telugu`).
-- **Dependencies:** Zero runtime dependencies — ultra-fast loading speed and 100% portable.
+- **Frontend:** Semantic HTML5, Vanilla CSS3 (Custom Design Tokens, CSS Grid, Glassmorphism), Modern Vanilla JavaScript (ES6+ Modules, Zero Framework Bloat).
+- **Typography & Assets:** Google Fonts (`Plus Jakarta Sans`, `Outfit`, `Noto Sans Telugu`), SVG vector icons.
+- **Performance:** 100% Client-side execution with sub-second loading time and zero runtime dependencies.
 
 ---
 
 ## 🚀 How to Run Locally
 
-### Option 1: Using npm (Recommended)
 ```bash
-# Start local dev server
+# 1. Clone repository
+git clone https://github.com/PushkarKunda/PrasudhaArka.git
+cd PrasudhaArka
+
+# 2. Start local development server
 npm run dev
 ```
+
 Open your browser and navigate to: **`http://localhost:8080`**
-
-### Option 2: Direct File Open
-Simply double-click `index.html` to view the website directly in any web browser.
-
-### Option 3: Using Python HTTP Server
-```bash
-python -m http.server 8080
-```
 
 ---
 
 ## 📂 Project Structure
 
 ```text
-Website/
-├── index.html              # Main HTML webpage structure & SEO meta tags
-├── styles.css              # CSS design system, responsive rules & animations
-├── script.js               # Application state, I18N dictionary & calculator logic
-├── package.json            # npm scripts for local dev server
-├── assets/                 # Brand logos and high-resolution graphics
+PrasudhaArka/
+├── index.html              # Main HTML webpage, metadata & semantic sections
+├── styles.css              # Custom styling, responsive breakpoints & themes
+├── script.js               # State engine, tariff calculators & bilingual dictionary
+├── package.json            # Node.js development server configuration
+├── assets/                 # Brand logos and high-resolution assets
 │   ├── logo_te.jpg         # Official Telugu PraSudhaArka logo
 │   ├── logo_en.jpg         # Official English PraSudhaArka logo
-│   ├── aquapzone_logo.jpg  # AquaPzone Enterprises logo
-│   ├── hero_solar.jpg      # Rooftop solar hero image
-│   ├── solar_team.jpg      # Commercial solar team installation image
-│   ├── battery_storage.jpg # Lithium battery inverter storage image
-│   └── ro_plant.jpg        # RO water treatment plant image
-└── README.md               # Project documentation
+│   ├── aquapzone_logo.jpg  # Aqua Pzone corporate logo
+│   ├── hero_solar.jpg      # Rooftop solar installation hero graphic
+│   ├── solar_team.jpg      # Commercial solar installation team image
+│   ├── battery_storage.jpg # Lithium battery inverter storage system
+│   └── ro_plant.jpg        # Industrial RO water treatment plant graphic
+└── README.md               # Comprehensive project documentation
 ```
 
 ---
 
-## 🚢 Deployment
+## 🚢 Deployment Options
 
-This is a static website and can be deployed for free in seconds on:
-- **Vercel:** Drag and drop the folder or connect your Git repository.
-- **GitHub Pages:** Push to a GitHub repository and enable GitHub Pages in repository settings.
-- **Netlify:** Drag and drop the project folder onto Netlify Drop.
-- **Cloudflare Pages:** Connect Git repo and set output directory to `/`.
+This static web application can be deployed instantly to:
+- **Vercel / Netlify / Cloudflare Pages:** Connect the GitHub repository `PushkarKunda/PrasudhaArka` for automatic continuous deployment.
+- **GitHub Pages:** Enable GitHub Pages in repository settings pointing to the `main` branch root.
 
 ---
 
-© 2026 **PraSudhaArka Solar & Green Energy** (AquaPzone Enterprises). All rights reserved.
+© 2026 **PraSudhaArka Solar & Green Energy** (Aqua Pzone Enterprises). All rights reserved.

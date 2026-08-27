@@ -160,12 +160,12 @@
         <form id="heroQuickForm">
           <div class="quick-form-group">
             <label data-i18n="lblMonthlyBill">నెలవారీ కరెంట్ బిల్లు (రూ.)</label>
-            <input type="number" id="quickBill" class="quick-input" placeholder="ఉదా: 3000" value="3000" min="500" max="100000" required>
+            <input type="number" id="quickBill" class="quick-input" placeholder="ఉదా: 3000" min="200" max="200000" required>
           </div>
 
           <div class="quick-form-group">
             <label data-i18n="lblLocation">మీ ఊరు / ప్రాంతం</label>
-            <input type="text" id="quickLocation" class="quick-input" placeholder="ఉదా: జమ్మలమడుగు, ప్రొద్దుటూరు" required>
+            <input type="text" id="quickLocation" class="quick-input" placeholder="ఉదా: జమ్మలమడుగు, ప్రొద్దుటూరు" minlength="2" required>
           </div>
 
           <div class="quick-form-group">
@@ -1055,28 +1055,28 @@
             <div class="form-grid-2">
               <div class="form-group">
                 <label data-i18n="formName">మీ పూర్తి పేరు</label>
-                <input type="text" id="formName" class="form-control" placeholder="మీ పూర్తి పేరు" required>
+                <input type="text" id="formName" class="form-control" placeholder="మీ పూర్తి పేరు" minlength="2" required>
               </div>
               <div class="form-group">
                 <label data-i18n="formPhone">మొబైల్ నంబర్</label>
-                <input type="tel" id="formPhone" class="form-control" placeholder="మొబైల్ నంబర్ (ఉదా: 9966631599)" required>
+                <input type="tel" id="formPhone" class="form-control" placeholder="మొబైల్ నంబర్ (ఉదా: 9966631599)" pattern="[0-9]{10}" minlength="10" maxlength="10" title="10 అంకెల మొబైల్ నంబర్ నమోదు చేయండి" required>
               </div>
             </div>
 
             <div class="form-grid-2">
               <div class="form-group">
                 <label data-i18n="formTown">మీ ఊరు / మండలం</label>
-                <input type="text" id="formTown" class="form-control" placeholder="ఉదా: జమ్మలమడుగు" required>
+                <input type="text" id="formTown" class="form-control" placeholder="ఉదా: జమ్మలమడుగు" minlength="2" required>
               </div>
               <div class="form-group">
                 <label data-i18n="formUnits">నెలవారీ యూనిట్లు (kWh)</label>
-                <input type="number" id="formUnits" class="form-control" placeholder="ఉదా: 350" value="350" min="10" required>
+                <input type="number" id="formUnits" class="form-control" placeholder="ఉదా: 350" min="10" max="10000" required>
               </div>
             </div>
 
             <div class="form-group">
               <label data-i18n="formBill">నెలవారీ కరెంట్ బిల్లు (రూ.)</label>
-              <input type="number" id="formBill" class="form-control" placeholder="ఉదా: 3500" value="3500" min="100" required>
+              <input type="number" id="formBill" class="form-control" placeholder="ఉదా: 3500" min="100" max="200000" required>
             </div>
 
             <div class="form-group">

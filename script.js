@@ -1171,20 +1171,37 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Hero Quick Form Submission
+  // Hero Quick Form Submission with Mandatory Validation
   const heroQuickForm = document.getElementById('heroQuickForm');
   if (heroQuickForm) {
     heroQuickForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      const bill = parseInt(document.getElementById('quickBill').value, 10) || 3000;
-      const town = document.getElementById('quickLocation').value || 'Jammalamadugu';
+      const billInput = document.getElementById('quickBill');
+      const townInput = document.getElementById('quickLocation');
       const prop = document.getElementById('quickPropType').value;
-      const units = billToUnits(bill, 'AP', prop);
-      const plan = calculateSolarPlan(units, 'AP', prop);
 
-      openWhatsAppInquiry('sudhakar', {
+      const bill = parseInt(billInput.value, 10);
+      const town = townInput.value.trim();
+
+      if (!bill || isNaN(bill) || bill <= 0) {
+        billInput.focus();
+        billInput.reportValidity();
+        return;
+      }
+
+      if (!town) {
+        townInput.focus();
+        townInput.reportValidity();
+        return;
+      }
+
+      const units = billToUnits(bill, appState.selectedState || 'AP', prop);
+      const plan = calculateSolarPlan(units, appState.selectedState || 'AP', prop);
+
+      openWhatsAppInquiry(appState.selectedDealer || 'sudhakar', {
         name: 'Quick Lead',
         bill: bill,
+        units: units,
         town: town,
         kw: plan.recKw,
         subsidy: plan.subsidy.toLocaleString('en-IN')
@@ -1192,7 +1209,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Main Contact Form Submission & Real-Time Sync
+  // Main Contact Form Submission & Real-Time Sync with Strict Validation
   const mainContactForm = document.getElementById('mainContactForm');
   const formUnitsInput = document.getElementById('formUnits');
   const formBillInput = document.getElementById('formBill');
@@ -1218,12 +1235,55 @@ document.addEventListener('DOMContentLoaded', () => {
   if (mainContactForm) {
     mainContactForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      const name = document.getElementById('formName').value.trim();
-      const phone = document.getElementById('formPhone').value.trim();
-      const town = document.getElementById('formTown').value.trim();
-      const units = parseInt(document.getElementById('formUnits').value, 10) || 350;
-      const bill = parseInt(document.getElementById('formBill').value, 10) || 3500;
-      const dealer = document.getElementById('formDealerSelect').value || 'sudhakar';
+      const nameInput = document.getElementById('formName');
+      const phoneInput = document.getElementById('formPhone');
+      const townInput = document.getElementById('formTown');
+      const unitsInput = document.getElementById('formUnits');
+      const billInput = document.getElementById('formBill');
+      const dealerSelect = document.getElementById('formDealerSelect');
+
+      const name = nameInput.value.trim();
+      const phone = phoneInput.value.trim();
+      const phoneClean = phone.replace(/[^0-9]/g, '');
+      const town = townInput.value.trim();
+      const units = parseInt(unitsInput.value, 10);
+      const bill = parseInt(billInput.value, 10);
+      const dealer = dealerSelect.value || 'sudhakar';
+
+      // Validation Checks: Stop submission if any required field is empty or invalid
+      if (!name) {
+        nameInput.focus();
+        nameInput.reportValidity();
+        return;
+      }
+
+      if (!phone || phoneClean.length < 10) {
+        phoneInput.focus();
+        phoneInput.setCustomValidity(appState.currentLang === 'te' ? 'దయచేసి 10 అంకెల మొబైల్ నంబర్ నమోదు చేయండి' : 'Please enter a valid 10-digit mobile number');
+        phoneInput.reportValidity();
+        return;
+      } else {
+        phoneInput.setCustomValidity('');
+      }
+
+      if (!town) {
+        townInput.focus();
+        townInput.reportValidity();
+        return;
+      }
+
+      if (!units || isNaN(units) || units <= 0) {
+        unitsInput.focus();
+        unitsInput.reportValidity();
+        return;
+      }
+
+      if (!bill || isNaN(bill) || bill <= 0) {
+        billInput.focus();
+        billInput.reportValidity();
+        return;
+      }
+
       const plan = calculateSolarPlan(units, appState.selectedState || 'AP', 'residential');
 
       openWhatsAppInquiry(dealer, {

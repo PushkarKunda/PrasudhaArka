@@ -1450,7 +1450,7 @@ button, input, select, textarea {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
 .prop-type-btn {
@@ -1464,12 +1464,127 @@ button, input, select, textarea {
   cursor: pointer;
   text-align: center;
   transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
 }
 
 .prop-type-btn.active, .prop-type-btn:hover {
   border-color: var(--primary);
   background: var(--primary-light);
   color: var(--primary-dark);
+}
+
+.cat-badge-tag {
+  font-size: 0.68rem;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  background: rgba(16, 185, 129, 0.15);
+  color: #047857;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.cat-badge-tag.muted {
+  background: rgba(100, 116, 139, 0.12);
+  color: #475569;
+}
+
+/* Panel Type Selector (DCR vs NON-DCR) */
+.field-label-with-badge {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.panel-subsidy-status {
+  font-size: 0.74rem;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  background: rgba(16, 185, 129, 0.15);
+  color: #065f46;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.panel-subsidy-status.no-subsidy {
+  background: rgba(239, 68, 68, 0.1);
+  color: #b91c1c;
+  border-color: rgba(239, 68, 68, 0.25);
+}
+
+.panel-type-selector {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.panel-type-btn {
+  padding: 12px 14px;
+  border: 2px solid var(--gray-300);
+  border-radius: var(--radius-lg);
+  background: var(--white);
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  text-align: left;
+}
+
+.panel-type-btn:hover {
+  border-color: var(--primary);
+  background: #f8fafc;
+}
+
+.panel-type-btn.active {
+  border-color: var(--primary);
+  background: var(--primary-light);
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.15);
+}
+
+.panel-btn-title {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.panel-btn-sub {
+  font-size: 0.74rem;
+  color: #64748b;
+  line-height: 1.35;
+  font-weight: 600;
+}
+
+.panel-type-btn.active .panel-btn-title {
+  color: var(--primary-dark);
+}
+
+.panel-type-btn.active .panel-btn-sub {
+  color: #0369a1;
+}
+
+.panel-type-btn.disabled {
+  opacity: 0.55;
+  background: #f8fafc;
+  border-color: #e2e8f0;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.panel-type-btn.disabled .panel-btn-title {
+  color: #94a3b8;
+}
+
+.panel-type-btn.disabled .panel-btn-sub {
+  color: #94a3b8;
 }
 
 /* Calculator Output Grid */
@@ -2745,11 +2860,17 @@ button, input, select, textarea {
     box-shadow: 0 16px 36px rgba(0, 0, 0, 0.18);
     border-bottom: 3px solid var(--primary);
     clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
-    transition: clip-path 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+    transition: clip-path 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease, visibility 0.25s ease;
     z-index: 10000;
   }
   .nav-links.open {
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    opacity: 1;
+    pointer-events: auto;
+    visibility: visible;
   }
   .nav-links li {
     width: 100%;

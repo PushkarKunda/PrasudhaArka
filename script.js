@@ -6,8 +6,12 @@
 // Global State
 const appState = {
   currentLang: 'te', // Default to Telugu as per local customer base, can toggle to 'en'
+  selectedState: 'AP',
   billAmount: 3000,
-  propType: 'residential',
+  unitsAmount: 300,
+  propType: 'residential', // 'residential' (Cat-1), 'commercial' (Cat-2), 'farm' (Cat-3)
+  panelType: 'dcr', // 'dcr' or 'nondcr'
+  calcMode: 'units',
   selectedDealer: 'sudhakar' // 'sudhakar' or 'bhaskar'
 };
 
@@ -162,10 +166,16 @@ const I18N = {
     calcSecTitle: "Solar Savings & Official Tariff Calculator",
     calcSecDesc: "Calculate your exact DISCOM electricity bill, solar sizing, subsidy, and 25-year financial savings based on official AP & Telangana tariff slabs.",
     calcStateLabel: "Select State:",
-    calcPropLabel: "Select Category:",
-    btnPropHome: "Home (Residential)",
+    calcPropLabel: "Connection Category (Tariff Category):",
+    cat1Badge: "Cat-1 (Subsidy Eligible)",
+    cat2Badge: "Cat-2 (No Subsidy)",
+    cat3Badge: "Cat-3 (No Subsidy)",
+    btnPropHome: "Residential (Home)",
     btnPropShop: "Commercial (Shop/Office)",
-    btnPropFarm: "Farm / Industry",
+    btnPropFarm: "Industry / Agriculture",
+    lblPanelType: "Solar Panel Type (DCR / NON-DCR):",
+    panelDcrSub: "PM Surya Ghar Subsidy Available",
+    panelNonDcrSub: "Commercial / Cost-Effective (No Subsidy)",
     modeUnits: "Units (kWh)",
     modeMeter: "Meter Reading",
     modeBill: "Bill Amount (₹)",
@@ -423,10 +433,16 @@ const I18N = {
     calcSecTitle: "సోలార్ & విద్యుత్ బిల్లు కాలిక్యులేటర్",
     calcSecDesc: "ఆంధ్రప్రదేశ్ & తెలంగాణ రాష్ట్రాల అధికారిక టారిఫ్ స్లాబుల ప్రకారం మీ యూనిట్లు లేదా బిల్లు ఆధారంగా కరెంట్ ఖర్చు, సోలార్ పరిమాణం, సబ్సిడీ మరియు 25 సంవత్సరాల ఆదా వివరాలు లెక్కించండి.",
     calcStateLabel: "రాష్ట్రం ఎంచుకోండి (Select State):",
-    calcPropLabel: "వినియోగ రకం ఎంచుకోండి (Category):",
-    btnPropHome: "ఇల్లు (Home)",
+    calcPropLabel: "కనెక్షన్ కేటగిరీ (Connection Category):",
+    cat1Badge: "Cat-1 (సబ్సిడీ వర్తిస్తుంది)",
+    cat2Badge: "Cat-2 (సబ్సిడీ లేదు)",
+    cat3Badge: "Cat-3 (సబ్సిడీ లేదు)",
+    btnPropHome: "నివాసం / ఇల్లు (Residential)",
     btnPropShop: "వాణిజ్యం (Commercial)",
-    btnPropFarm: "పొలం / పరిశ్రమ",
+    btnPropFarm: "పరిశ్రమ / వ్యవసాయం",
+    lblPanelType: "సోలార్ ప్యానెల్ రకం (Panel Type):",
+    panelDcrSub: "PM Surya Ghar సబ్సిడీ లభిస్తుంది (Subsidy Available)",
+    panelNonDcrSub: "సబ్సిడీ వర్తించదు (No Subsidy)",
     modeUnits: "యూనిట్లు (Units - kWh)",
     modeMeter: "మీటర్ రీడింగ్ (Meter Reading)",
     modeBill: "బిల్లు మొత్తం (Bill - ₹)",
@@ -610,61 +626,130 @@ const TARIFF_CONFIG = {
     name: 'Telangana (TSSPDCL / TSNPDCL)',
     badgeName: 'Telangana Tariff (TSSPDCL / TSNPDCL)',
     residential: {
-      slabs: [
-        { from: 0, to: 50, rate: 1.95 },
-        { from: 50, to: 100, rate: 3.10 },
-        { from: 100, to: 200, rate: 4.80 },
-        { from: 200, to: 300, rate: 7.70 },
-        { from: 300, to: 400, rate: 9.00 },
-        { from: 400, to: Infinity, rate: 9.50 }
-      ],
       fixedChargeType: 'per_kw',
-      ratePerKw: 15,
-      meterRent: 30,
-      wheelingRate: 0.18,
-      facRate: 0.20,
+      ratePerKw: 10,
+      meterRent: 40,
       dutyOn: 'energy_only',
-      dutyPercent: 6,
-      subsidy: { type: 'none' }
+      dutyPercent: 6
     },
     commercial: {
-      slabs: [
-        { from: 0, to: 100, rate: 7.80 },
-        { from: 100, to: 300, rate: 9.20 },
-        { from: 300, to: 500, rate: 10.20 },
-        { from: 500, to: Infinity, rate: 11.20 }
-      ],
       fixedChargeType: 'per_kw',
-      ratePerKw: 75,
-      meterRent: 50,
-      wheelingRate: 0.40,
-      facRate: 0.40,
-      dutyOn: 'energy_plus_fixed',
-      dutyPercent: 6,
-      subsidy: { type: 'none' }
+      ratePerKw: 70,
+      meterRent: 70,
+      dutyOn: 'energy_only',
+      dutyPercent: 8
     },
     farm: {
-      slabs: [
-        { from: 0, to: 300, rate: 4.20 },
-        { from: 300, to: Infinity, rate: 6.50 }
-      ],
       fixedChargeType: 'flat',
-      flatAmount: 60,
-      meterRent: 35,
-      wheelingRate: 0.12,
-      facRate: 0.20,
+      flatAmount: 0,
+      meterRent: 30,
       dutyOn: 'energy_only',
-      dutyPercent: 5,
-      subsidy: { type: 'none' }
+      dutyPercent: 5
     }
   }
 };
 
-// 1. Calculate Telescopic Energy & DISCOM Bill based on User specification
+// 1. Calculate Telescopic Energy & DISCOM Bill based on Official AP & Telangana Slabs
 function computeDiscomTariff(units, stateKey, propTypeKey, sanctionedLoadKw) {
   const stateTariff = TARIFF_CONFIG[stateKey] || TARIFF_CONFIG.AP;
-  const config = stateTariff[propTypeKey] || stateTariff.residential;
+  let config = stateTariff[propTypeKey] || stateTariff.residential;
   const load = sanctionedLoadKw || Math.max(1, Math.ceil(units / 120));
+
+  // Dynamic Official Slabs for Telangana (TSSPDCL / TSNPDCL)
+  if (stateKey === 'TG') {
+    if (propTypeKey === 'residential') {
+      if (units <= 100) {
+        // LT-I(A) Domestic (Up to 100 Units/Month)
+        config = {
+          slabs: [
+            { from: 0, to: 50, rate: 1.95 },
+            { from: 50, to: 100, rate: 3.10 }
+          ],
+          fixedChargeType: 'per_kw',
+          ratePerKw: 10,
+          meterRent: 40,
+          dutyOn: 'energy_only',
+          dutyPercent: 6,
+          tierName: 'LT-I(A) Domestic (≤100 u)'
+        };
+      } else if (units <= 200) {
+        // LT-I(B) Domestic (101 to 200 Units/Month)
+        config = {
+          slabs: [
+            { from: 0, to: 100, rate: 3.40 },
+            { from: 100, to: 200, rate: 4.80 }
+          ],
+          fixedChargeType: 'per_kw',
+          ratePerKw: 10,
+          meterRent: 40,
+          dutyOn: 'energy_only',
+          dutyPercent: 6,
+          tierName: 'LT-I(B) Domestic (101-200 u)'
+        };
+      } else {
+        // LT-I(C) Domestic (Above 200 Units/Month)
+        config = {
+          slabs: [
+            { from: 0, to: 200, rate: 5.10 },
+            { from: 200, to: 300, rate: 7.70 },
+            { from: 300, to: 400, rate: 9.00 },
+            { from: 400, to: 800, rate: 9.50 },
+            { from: 800, to: Infinity, rate: 10.00 }
+          ],
+          fixedChargeType: 'per_kw',
+          ratePerKw: 10,
+          meterRent: 40,
+          dutyOn: 'energy_only',
+          dutyPercent: 6,
+          tierName: 'LT-I(C) Domestic (>200 u)'
+        };
+      }
+    } else if (propTypeKey === 'commercial') {
+      if (units <= 50) {
+        // LT-II(A) Non-Domestic / Commercial (Up to 50 Units)
+        config = {
+          slabs: [
+            { from: 0, to: Infinity, rate: 7.00 }
+          ],
+          fixedChargeType: 'per_kw',
+          ratePerKw: 30,
+          meterRent: 70,
+          dutyOn: 'energy_only',
+          dutyPercent: 8,
+          tierName: 'LT-II(A) Commercial (≤50 u)'
+        };
+      } else {
+        // LT-II(B) Non-Domestic / Commercial (Above 50 Units)
+        config = {
+          slabs: [
+            { from: 0, to: 100, rate: 8.50 },
+            { from: 100, to: 300, rate: 9.90 },
+            { from: 300, to: 500, rate: 10.40 },
+            { from: 500, to: Infinity, rate: 11.00 }
+          ],
+          fixedChargeType: 'per_kw',
+          ratePerKw: 70,
+          meterRent: 70,
+          dutyOn: 'energy_only',
+          dutyPercent: 8,
+          tierName: 'LT-II(B) Commercial (>50 u)'
+        };
+      }
+    } else if (propTypeKey === 'farm') {
+      // LT-V Agriculture (Corporate Farmers)
+      config = {
+        slabs: [
+          { from: 0, to: Infinity, rate: 2.50 }
+        ],
+        fixedChargeType: 'flat',
+        flatAmount: 0,
+        meterRent: 30,
+        dutyOn: 'energy_only',
+        dutyPercent: 5,
+        tierName: 'LT-V Agriculture'
+      };
+    }
+  }
 
   // 1. Energy Charges = Σ (Units in Slab_i × Rate_i)
   let remainingUnits = units;
@@ -699,48 +784,32 @@ function computeDiscomTariff(units, stateKey, propTypeKey, sanctionedLoadKw) {
   // 3. Meter Rent
   const meterRent = config.meterRent || 0;
 
-  // 4. Wheeling Charges = total_units × wheeling_rate_per_unit
-  const wheelingCharges = units * (config.wheelingRate || 0);
-
-  // 5. FAC = total_units × fac_rate_per_unit
-  const facCharges = units * (config.facRate || 0);
-
-  // 6. Electricity Duty
+  // 4. Electricity Duty (6% for Domestic, 8% for Commercial)
   let dutyBase = energyCharges;
   if (config.dutyOn === 'energy_plus_fixed') {
     dutyBase = energyCharges + fixedCharge;
   }
   const electricityDuty = (dutyBase * (config.dutyPercent || 6)) / 100;
 
-  // 7. Subtotal
-  const subtotal = energyCharges + fixedCharge + meterRent + wheelingCharges + facCharges + electricityDuty;
+  // 5. Total DISCOM Bill
+  const subtotal = energyCharges + fixedCharge + meterRent + electricityDuty;
+  const totalBill = Math.max(0, Math.round(subtotal));
 
-  // 8. Subsidy Deduction
-  let subsidyAmount = 0;
-  if (config.subsidy && config.subsidy.type === 'percentage_discount') {
-    subsidyAmount = Math.min((subtotal * config.subsidy.rate) / 100, config.subsidy.cap || Infinity);
-  }
-
-  // 9. Total Bill
-  const totalBill = Math.max(0, Math.round(subtotal - subsidyAmount));
-
-  // 10. Effective Per-Unit Rate
+  // 6. Effective Per-Unit Rate
   const effectiveRate = units > 0 ? (totalBill / units).toFixed(2) : '0.00';
 
   return {
     units,
     energyCharges: Math.round(energyCharges),
     fixedCharge: Math.round(fixedCharge),
-    otherCharges: Math.round(fixedCharge + meterRent + wheelingCharges + facCharges + electricityDuty),
+    otherCharges: Math.round(fixedCharge + meterRent + electricityDuty),
     meterRent,
-    wheelingCharges: Math.round(wheelingCharges),
-    facCharges: Math.round(facCharges),
     electricityDuty: Math.round(electricityDuty),
     subtotal: Math.round(subtotal),
-    subsidyAmount: Math.round(subsidyAmount),
     totalBill,
     effectiveRate,
     slabBreakdown,
+    tierName: config.tierName || '',
     load
   };
 }
@@ -769,16 +838,25 @@ function billToUnits(targetBill, stateKey, propTypeKey) {
   return bestUnits;
 }
 
-// 2. Official System Configurations Reference & Solar Sizing Calculations
+// 2. Official System Configurations Reference & Solar Sizing Calculations (DCR vs NON-DCR)
 const SYSTEM_CONFIG_DATA = {
-  1: { unitCost: 85000, subsidy: 30000, maxLoan: 60000, estEmi: 750, powerGenDay: 5, space: '8 x 10 Feet (Approx)', sqft: 80 },
-  2: { unitCost: 160000, subsidy: 60000, maxLoan: 124000, estEmi: 1450, powerGenDay: 10, space: '8 x 16 Feet', sqft: 128 },
-  3: { unitCost: 220000, subsidy: 78000, maxLoan: 189000, estEmi: 2200, powerGenDay: 15, space: '12 x 16 Feet', sqft: 192 },
-  4: { unitCost: 280000, subsidy: 78000, maxLoan: 245000, estEmi: 2950, powerGenDay: 20, space: '16 x 16 Feet', sqft: 256 },
-  5: { unitCost: 335000, subsidy: 78000, maxLoan: 301500, estEmi: 3800, powerGenDay: 25, space: '20 x 16 Feet', sqft: 320 }
+  dcr: {
+    1: { unitCost: 85000, subsidy: 30000, maxLoan: 60000, estEmi: 750, powerGenDay: 5, space: '8 x 10 Feet (Approx)', sqft: 80 },
+    2: { unitCost: 160000, subsidy: 60000, maxLoan: 124000, estEmi: 1450, powerGenDay: 10, space: '8 x 16 Feet', sqft: 128 },
+    3: { unitCost: 220000, subsidy: 78000, maxLoan: 189000, estEmi: 2200, powerGenDay: 15, space: '12 x 16 Feet', sqft: 192 },
+    4: { unitCost: 280000, subsidy: 78000, maxLoan: 245000, estEmi: 2950, powerGenDay: 20, space: '16 x 16 Feet', sqft: 256 },
+    5: { unitCost: 335000, subsidy: 78000, maxLoan: 301500, estEmi: 3800, powerGenDay: 25, space: '20 x 16 Feet', sqft: 320 }
+  },
+  nondcr: {
+    1: { unitCost: 72000, subsidy: 0, maxLoan: 60000, estEmi: 750, powerGenDay: 5, space: '8 x 10 Feet (Approx)', sqft: 80 },
+    2: { unitCost: 135000, subsidy: 0, maxLoan: 115000, estEmi: 1350, powerGenDay: 10, space: '8 x 16 Feet', sqft: 128 },
+    3: { unitCost: 185000, subsidy: 0, maxLoan: 155000, estEmi: 1850, powerGenDay: 15, space: '12 x 16 Feet', sqft: 192 },
+    4: { unitCost: 240000, subsidy: 0, maxLoan: 205000, estEmi: 2450, powerGenDay: 20, space: '16 x 16 Feet', sqft: 256 },
+    5: { unitCost: 285000, subsidy: 0, maxLoan: 250000, estEmi: 3150, powerGenDay: 25, space: '20 x 16 Feet', sqft: 320 }
+  }
 };
 
-function calculateSolarPlan(units, stateKey, propTypeKey) {
+function calculateSolarPlan(units, stateKey, propTypeKey, panelTypeKey = 'dcr') {
   const tariff = computeDiscomTariff(units, stateKey, propTypeKey);
   
   // Sizing aligned with System Configurations (1 kW = 5 units/day = 150 units/mo)
@@ -807,32 +885,39 @@ function calculateSolarPlan(units, stateKey, propTypeKey) {
   const solarMonthlyGen = powerGenDay * 30;
   const offsetPct = Math.min(100, Math.round((solarMonthlyGen / Math.max(1, units)) * 100));
 
+  const isDcr = (panelTypeKey === 'dcr');
+  const isResidentialCat1 = (propTypeKey === 'residential');
+  const isSubsidyEligible = isResidentialCat1 && isDcr;
+
+  const dataset = isDcr ? SYSTEM_CONFIG_DATA.dcr : SYSTEM_CONFIG_DATA.nondcr;
+
   // Specifications matching the official System Configurations section
   let unitCost, subsidy, maxLoan, estEmi, spaceDisplay, sqft;
-  if (SYSTEM_CONFIG_DATA[recKw]) {
-    const cfg = SYSTEM_CONFIG_DATA[recKw];
+  if (dataset[recKw]) {
+    const cfg = dataset[recKw];
     unitCost = cfg.unitCost;
-    subsidy = cfg.subsidy;
+    subsidy = isSubsidyEligible ? cfg.subsidy : 0;
     maxLoan = cfg.maxLoan;
     estEmi = cfg.estEmi;
     spaceDisplay = cfg.space;
     sqft = cfg.sqft;
   } else {
-    unitCost = Math.round(recKw * 67000);
-    subsidy = 78000;
+    unitCost = isDcr ? Math.round(recKw * 67000) : Math.round(recKw * 57000);
+    subsidy = isSubsidyEligible ? 78000 : 0;
     maxLoan = Math.round(unitCost * 0.9);
     estEmi = Math.round(maxLoan * 0.0126);
     spaceDisplay = (recKw * 4) + ' x 16 Feet';
     sqft = recKw * 64;
   }
 
-  // Central Government PM Surya Ghar Subsidy
+  // Subsidy display handling
   let subsidyDisplay = '';
-  if (propTypeKey === 'residential') {
+  if (isSubsidyEligible) {
     subsidyDisplay = '₹' + subsidy.toLocaleString('en-IN');
+  } else if (!isDcr) {
+    subsidyDisplay = appState.currentLang === 'te' ? 'సబ్సిడీ లేదు (NON-DCR)' : '₹0 (NON-DCR: No Subsidy)';
   } else {
-    const lang = appState.currentLang;
-    subsidyDisplay = lang === 'te' ? 'టాక్స్ లాభాలు' : 'Tax Benefits';
+    subsidyDisplay = appState.currentLang === 'te' ? 'సబ్సిడీ లేదు (Cat-2/3)' : '₹0 (Above Cat-1: No Subsidy)';
   }
 
   // Net Metering: Remaining Grid Units after solar offset
@@ -853,6 +938,8 @@ function calculateSolarPlan(units, stateKey, propTypeKey) {
     offsetPct,
     subsidy,
     subsidyDisplay,
+    isSubsidyEligible,
+    isDcr,
     unitCost,
     maxLoan,
     estEmi,
@@ -869,6 +956,7 @@ function calculateSolarPlan(units, stateKey, propTypeKey) {
 function updateCalculatorUI() {
   const stateKey = appState.selectedState || 'AP';
   const propTypeKey = appState.propType || 'residential';
+  const panelTypeKey = appState.panelType || 'dcr';
   let totalUnits = appState.unitsAmount || 300;
 
   if (appState.calcMode === 'units') {
@@ -897,13 +985,58 @@ function updateCalculatorUI() {
   }
 
   appState.unitsAmount = totalUnits;
-  const result = calculateSolarPlan(totalUnits, stateKey, propTypeKey);
+
+  // Enforce Panel Applicability: If Category has No Subsidy (Commercial / Farm), ONLY NON-DCR panels are applicable
+  const btnDcrEl = document.getElementById('btnPanelDCR');
+  const btnNonDcrEl = document.getElementById('btnPanelNonDCR');
+
+  if (propTypeKey !== 'residential') {
+    appState.panelType = 'nondcr';
+    if (btnDcrEl) {
+      btnDcrEl.classList.add('disabled');
+      btnDcrEl.classList.remove('active');
+    }
+    if (btnNonDcrEl) {
+      btnNonDcrEl.classList.add('active');
+    }
+  } else {
+    if (btnDcrEl) {
+      btnDcrEl.classList.remove('disabled');
+      if (appState.panelType === 'dcr') {
+        btnDcrEl.classList.add('active');
+        if (btnNonDcrEl) btnNonDcrEl.classList.remove('active');
+      } else {
+        btnDcrEl.classList.remove('active');
+        if (btnNonDcrEl) btnNonDcrEl.classList.add('active');
+      }
+    }
+  }
+
+  const activePanelKey = appState.panelType || 'dcr';
+  const result = calculateSolarPlan(totalUnits, stateKey, propTypeKey, activePanelKey);
   appState.billAmount = result.tariff.totalBill;
+
+  // Update Panel Subsidy Status Badge in Header
+  const statusBadge = document.getElementById('panelSubsidyStatusBadge');
+  if (statusBadge) {
+    if (result.isSubsidyEligible) {
+      statusBadge.className = 'panel-subsidy-status';
+      statusBadge.innerText = appState.currentLang === 'te' ? '✅ Cat-1 & DCR: సబ్సిడీ వర్తిస్తుంది' : '✅ Cat-1 & DCR: Govt Subsidy Available';
+    } else if (propTypeKey !== 'residential') {
+      statusBadge.className = 'panel-subsidy-status no-subsidy';
+      statusBadge.innerText = appState.currentLang === 'te' ? '🌐 వాణిజ్యం/పరిశ్రమ: NON-DCR మాత్రమే వర్తిస్తుంది (సబ్సిడీ వర్తించదు)' : '🌐 Commercial / Farm: NON-DCR Only (No Subsidy)';
+    } else {
+      statusBadge.className = 'panel-subsidy-status no-subsidy';
+      statusBadge.innerText = appState.currentLang === 'te' ? '⚠️ NON-DCR: సబ్సిడీ వర్తించదు' : '⚠️ NON-DCR: No Govt Subsidy';
+    }
+  }
 
   // Update DISCOM Summary & Tariff Breakdown
   const discomConfig = TARIFF_CONFIG[stateKey];
   const discomBadge = document.getElementById('currentDiscomBadge');
-  if (discomBadge) discomBadge.innerText = discomConfig.badgeName;
+  if (discomBadge) {
+    discomBadge.innerText = result.tariff.tierName ? `${discomConfig.badgeName} • ${result.tariff.tierName}` : discomConfig.badgeName;
+  }
 
   const effectiveRateEl = document.getElementById('effectiveRateDisplay');
   if (effectiveRateEl) effectiveRateEl.innerText = `Avg: ₹${result.tariff.effectiveRate} / unit`;
@@ -919,19 +1052,14 @@ function updateCalculatorUI() {
 
   // Update Solar Outputs
   const resBadge = document.getElementById('resStateBadge');
-  if (resBadge) resBadge.innerText = `${stateKey} • ${result.tariff.load} kW Load`;
+  if (resBadge) resBadge.innerText = `${stateKey} • ${result.tariff.load} kW Load • ${panelTypeKey.toUpperCase()}`;
 
   const calcKw = document.getElementById('calcKwVal');
   if (calcKw) calcKw.innerText = result.recKw + ' kW';
 
   const calcSubsidy = document.getElementById('calcSubsidyVal');
   if (calcSubsidy) {
-    if (propTypeKey === 'residential') {
-      calcSubsidy.innerText = '₹' + result.subsidy.toLocaleString('en-IN');
-    } else {
-      const lang = appState.currentLang;
-      calcSubsidy.innerText = lang === 'te' ? 'టాక్స్ లాభాలు' : 'Tax Benefits';
-    }
+    calcSubsidy.innerText = result.subsidyDisplay;
   }
 
   const calcRoof = document.getElementById('calcRoofVal');
@@ -1146,7 +1274,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Property Type Buttons in Calculator
+  // Property / Category Type Buttons in Calculator
   document.querySelectorAll('.prop-type-btn').forEach(btn => {
     btn.addEventListener('click', (e) => {
       document.querySelectorAll('.prop-type-btn').forEach(b => b.classList.remove('active'));
@@ -1156,17 +1284,35 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // Panel Type (DCR vs NON-DCR) Buttons in Calculator
+  document.querySelectorAll('.panel-type-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const panel = e.currentTarget.getAttribute('data-panel');
+      if (panel === 'dcr' && appState.propType !== 'residential') {
+        alert(appState.currentLang === 'te' 
+          ? 'గమనిక: DCR సబ్సిడీ ప్యానెల్స్ నివాస గృహాలకు (Cat-1) మాత్రమే వర్తిస్తాయి. వాణిజ్యం & పరిశ్రమలకు NON-DCR ప్యానెల్స్ మాత్రమే వర్తిస్తాయి.'
+          : 'Note: DCR subsidy panels only apply to Residential (Cat-1). For Commercial & Farm, NON-DCR panels apply.');
+        return;
+      }
+      document.querySelectorAll('.panel-type-btn').forEach(b => b.classList.remove('active'));
+      e.currentTarget.classList.add('active');
+      appState.panelType = panel;
+      updateCalculatorUI();
+    });
+  });
+
   // Calculator "Send to WhatsApp" Button
   const btnSendCalcWhatsApp = document.getElementById('btnSendCalcWhatsApp');
   if (btnSendCalcWhatsApp) {
     btnSendCalcWhatsApp.addEventListener('click', () => {
-      const plan = calculateSolarPlan(appState.unitsAmount, appState.selectedState, appState.propType);
+      const plan = calculateSolarPlan(appState.unitsAmount, appState.selectedState, appState.propType, appState.panelType);
       openWhatsAppInquiry(appState.selectedDealer, {
         name: 'Website Visitor',
         bill: plan.tariff.totalBill,
         kw: plan.recKw,
-        subsidy: plan.subsidy.toLocaleString('en-IN'),
-        town: appState.selectedState === 'TG' ? 'Telangana' : 'Andhra Pradesh'
+        units: appState.unitsAmount,
+        subsidy: plan.subsidy > 0 ? plan.subsidy.toLocaleString('en-IN') : '0 (No Subsidy)',
+        town: `${appState.selectedState === 'TG' ? 'Telangana' : 'Andhra Pradesh'} [${appState.panelType.toUpperCase()} Panels - ${appState.propType.toUpperCase()}]`
       });
     });
   }

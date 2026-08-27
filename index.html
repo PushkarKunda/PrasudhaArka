@@ -478,13 +478,40 @@
             </div>
           </div>
 
-          <!-- Property / Category Type -->
+          <!-- Property / Connection Category Type -->
           <div class="calc-field-group">
-            <label class="calc-label" data-i18n="calcPropLabel">వినియోగ రకం ఎంచుకోండి (Category):</label>
+            <label class="calc-label" data-i18n="calcPropLabel">కనెక్షన్ కేటగిరీ (Connection Category):</label>
             <div class="property-type-selector">
-              <button type="button" class="prop-type-btn active" data-type="residential" data-i18n="btnPropHome">ఇల్లు (Home)</button>
-              <button type="button" class="prop-type-btn" data-type="commercial" data-i18n="btnPropShop">వాణిజ్యం (Commercial)</button>
-              <button type="button" class="prop-type-btn" data-type="farm" data-i18n="btnPropFarm">పొలం / పరిశ్రమ</button>
+              <button type="button" class="prop-type-btn active" data-type="residential">
+                <span class="cat-badge-tag" data-i18n="cat1Badge">Cat-1 (సబ్సిడీ వర్తిస్తుంది)</span>
+                <span data-i18n="btnPropHome">నివాసం / ఇల్లు (Residential)</span>
+              </button>
+              <button type="button" class="prop-type-btn" data-type="commercial">
+                <span class="cat-badge-tag muted" data-i18n="cat2Badge">Cat-2 (సబ్సిడీ లేదు)</span>
+                <span data-i18n="btnPropShop">వాణిజ్యం (Commercial)</span>
+              </button>
+              <button type="button" class="prop-type-btn" data-type="farm">
+                <span class="cat-badge-tag muted" data-i18n="cat3Badge">Cat-3 (సబ్సిడీ లేదు)</span>
+                <span data-i18n="btnPropFarm">పరిశ్రమ / వ్యవసాయం</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Panel Type Selector (DCR vs NON-DCR) -->
+          <div class="calc-field-group">
+            <div class="field-label-with-badge">
+              <label class="calc-label" data-i18n="lblPanelType">సోలార్ ప్యానెల్ రకం (Panel Type):</label>
+              <span class="panel-subsidy-status" id="panelSubsidyStatusBadge">🇮🇳 DCR: Govt Subsidy Available</span>
+            </div>
+            <div class="panel-type-selector">
+              <button type="button" class="panel-type-btn active" data-panel="dcr" id="btnPanelDCR">
+                <span class="panel-btn-title">🇮🇳 DCR Panels</span>
+                <span class="panel-btn-sub" data-i18n="panelDcrSub">PM Surya Ghar సబ్సిడీ లభిస్తుంది (Subsidy Available)</span>
+              </button>
+              <button type="button" class="panel-type-btn" data-panel="nondcr" id="btnPanelNonDCR">
+                <span class="panel-btn-title">🌐 NON-DCR Panels</span>
+                <span class="panel-btn-sub" data-i18n="panelNonDcrSub">సబ్సిడీ వర్తించదు (No Subsidy)</span>
+              </button>
             </div>
           </div>
 

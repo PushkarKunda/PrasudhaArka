@@ -2196,46 +2196,34 @@ button, input, select, textarea {
   background: var(--gray-100);
 }
 
-.contact-layout {
+.contact-layout-3col {
   display: grid;
-  grid-template-columns: 0.9fr 1.1fr;
-  gap: 44px;
+  grid-template-columns: 1fr 1.32fr 1fr;
+  gap: 24px;
+  align-items: stretch;
 }
 
-.contact-info-panel {
+.contact-dealer-col {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 }
 
-.dealer-cards-stack {
+.contact-form-col {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  margin: 24px 0;
-}
-
-.dealer-contact-card {
-  background: var(--white);
-  border: 1.5px solid var(--gray-200);
-  border-radius: var(--radius-md);
-  padding: 18px 20px;
-  box-shadow: var(--shadow-sm);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  transition: var(--transition);
 }
 
 .dealer-contact-card.unified {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
   background: #ffffff;
   border: 1.5px solid var(--gray-200);
-  border-radius: var(--radius-lg);
-  padding: 22px 24px;
+  border-radius: var(--radius-xl);
+  padding: 24px 22px;
   gap: 14px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
   transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
@@ -2845,6 +2833,12 @@ button, input, select, textarea {
   .config-tiers-grid, .services-grid, .process-grid, .docs-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+  .contact-layout-3col {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    max-width: 620px;
+    margin: 0 auto;
+  }
   .about-pillars-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -3180,9 +3174,11 @@ button, input, select, textarea {
   }
 
   /* Contact & Form on Mobile */
-  .contact-layout {
+  .contact-layout-3col {
     grid-template-columns: 1fr;
     gap: 20px;
+    max-width: 100%;
+    margin: 0;
   }
   .contact-form-panel {
     padding: 22px 14px;

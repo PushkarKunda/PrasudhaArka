@@ -1635,12 +1635,35 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
+    // Scroll To Top Button Visibility
+    if (scrollToTopBtn) {
+      if (currentScrollY > 260) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+      }
+    }
+
     lastScrollY = Math.max(0, currentScrollY);
     updateScrollSpy();
   }, { passive: true });
 
+  // Scroll To Top Button Click Handler
+  const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+  if (scrollToTopBtn) {
+    scrollToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  }
+
   // Run on initial page load
   updateScrollSpy();
+  if (scrollToTopBtn && (window.pageYOffset || document.documentElement.scrollTop) > 260) {
+    scrollToTopBtn.classList.add('visible');
+  }
 
   // Initial Calculation Run
   updateCalculatorUI();

@@ -452,54 +452,138 @@
     </div>
   </section>
 
-  <!-- Interactive Solar Savings & Subsidy Calculator -->
+  <!-- Interactive Solar Savings & Subsidy Calculator (AP & Telangana Official Tariff) -->
   <section class="calculator-section" id="calculator">
     <div class="container">
       <div class="section-header">
         <span class="section-tag" data-i18n="calcSecTag">ఖర్చు & ఆదా లెక్కించండి</span>
-        <h2 class="section-title" data-i18n="calcSecTitle">సోలార్ కాలిక్యులేటర్</h2>
-        <p class="section-desc" data-i18n="calcSecDesc">మీ ప్రస్తుత నెలవారీ విద్యుత్ బిల్లును ఎంచుకోండి, మీకు సరిపోయే సోలార్ పరిమాణం, సబ్సిడీ మరియు 25 సంవత్సరాలలో మీరు ఆదా చేసే మొత్తాన్ని తెలుసుకోండి.</p>
+        <h2 class="section-title" data-i18n="calcSecTitle">సోలార్ & విద్యుత్ బిల్లు కాలిక్యులేటర్</h2>
+        <p class="section-desc" data-i18n="calcSecDesc">ఆంధ్రప్రదేశ్ & తెలంగాణ రాష్ట్రాల అధికారిక టారిఫ్ స్లాబుల ప్రకారం మీ యూనిట్లు లేదా బిల్లు ఆధారంగా కరెంట్ ఖర్చు, సోలార్ పరిమాణం, సబ్సిడీ మరియు 25 సంవత్సరాల ఆదా వివరాలు లెక్కించండి.</p>
       </div>
 
       <div class="calc-container-box">
         <!-- Inputs Column -->
         <div class="calc-inputs-pane">
-          <h3 class="calc-pane-title" data-i18n="calcBillLabel">నెలవారీ కరెంట్ బిల్లు:</h3>
-          
-          <div class="slider-group">
-            <div class="slider-header">
-              <span class="slider-label" data-i18n="billAmount">బిల్లు మొత్తం</span>
-              <span class="slider-display-val" id="billDisplayVal">₹3,000</span>
-            </div>
-            <input type="range" id="billRange" class="range-slider" min="1000" max="25000" step="500" value="3000">
-            <div style="display:flex; justify-content:space-between; font-size:0.8rem; color:#64748b; margin-top:6px;">
-              <span>₹1,000</span>
-              <span>₹10,000</span>
-              <span>₹25,000+</span>
+          <!-- State Selector -->
+          <div class="calc-field-group">
+            <label class="calc-label" data-i18n="calcStateLabel">రాష్ట్రం ఎంచుకోండి (Select State):</label>
+            <div class="calc-toggle-group">
+              <button type="button" class="calc-toggle-btn active" data-state="AP" id="btnStateAP">
+                <span>⚡ ఆంధ్రప్రదేశ్ (AP)</span>
+              </button>
+              <button type="button" class="calc-toggle-btn" data-state="TG" id="btnStateTG">
+                <span>⚡ తెలంగాణ (TG)</span>
+              </button>
             </div>
           </div>
 
-          <div style="margin-bottom: 12px; font-weight: 700; color: #334155;" data-i18n="calcPropLabel">వినియోగ రకం ఎంచుకోండి:</div>
-          <div class="property-type-selector">
-            <button class="prop-type-btn active" data-type="residential" data-i18n="btnPropHome">ఇల్లు</button>
-            <button class="prop-type-btn" data-type="commercial" data-i18n="btnPropShop">షాప్ / వ్యాపారం</button>
-            <button class="prop-type-btn" data-type="farm" data-i18n="btnPropFarm">పొలం / పరిశ్రమ</button>
+          <!-- Property / Category Type -->
+          <div class="calc-field-group">
+            <label class="calc-label" data-i18n="calcPropLabel">వినియోగ రకం ఎంచుకోండి (Category):</label>
+            <div class="property-type-selector">
+              <button type="button" class="prop-type-btn active" data-type="residential" data-i18n="btnPropHome">ఇల్లు (Home)</button>
+              <button type="button" class="prop-type-btn" data-type="commercial" data-i18n="btnPropShop">వాణిజ్యం (Commercial)</button>
+              <button type="button" class="prop-type-btn" data-type="farm" data-i18n="btnPropFarm">పొలం / పరిశ్రమ</button>
+            </div>
           </div>
 
-          <div style="background: #f8fafc; border-radius: 12px; padding: 16px; border: 1px dashed #cbd5e1; font-size: 0.88rem; color: #475569;">
-            💡 <strong data-i18n="note">గమనిక:</strong> <span data-i18n="calcNote">3-5 సంవత్సరాలలో మీ పెట్టుబడి పూర్తిగా తిరిగి వస్తుంది. ఆ తర్వాత 20+ సంవత్సరాల పాటు ఉచిత విద్యుత్ లభిస్తుంది.</span>
+          <!-- Calculation Input Mode (Units vs Meter vs Bill) -->
+          <div class="calc-field-group">
+            <div class="calc-mode-bar">
+              <button type="button" class="mode-tab active" id="tabUnitsMode" data-mode="units" data-i18n="modeUnits">యూనిట్లు (Units - kWh)</button>
+              <button type="button" class="mode-tab" id="tabMeterMode" data-mode="meter" data-i18n="modeMeter">మీటర్ రీడింగ్ (Meter Reading)</button>
+              <button type="button" class="mode-tab" id="tabBillMode" data-mode="bill" data-i18n="modeBill">బిల్లు మొత్తం (Bill - ₹)</button>
+            </div>
+
+            <!-- Mode 1: Units Input Pane -->
+            <div id="paneUnitsMode" class="calc-mode-content">
+              <div class="slider-group">
+                <div class="slider-header">
+                  <span class="slider-label" data-i18n="lblMonthlyUnits">నెలవారీ యూనిట్లు (Monthly Units)</span>
+                  <div class="slider-display-box">
+                    <input type="number" id="unitsNumberInput" min="10" max="3000" step="10" value="300" class="calc-num-input" />
+                    <span class="slider-unit-tag">kWh</span>
+                  </div>
+                </div>
+                <input type="range" id="unitsRange" class="range-slider" min="10" max="1500" step="10" value="300">
+                <div class="slider-ticks">
+                  <span>50 u</span>
+                  <span>300 u</span>
+                  <span>750 u</span>
+                  <span>1500+ u</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Mode 2: Meter Reading Pane -->
+            <div id="paneMeterMode" class="calc-mode-content" style="display: none;">
+              <div class="meter-readings-grid">
+                <div class="meter-field">
+                  <label data-i18n="lblCurrReading">ప్రస్తుత రీడింగ్ (Current Reading)</label>
+                  <input type="number" id="currReadingInput" placeholder="4520" value="4520" class="calc-input-box" />
+                </div>
+                <div class="meter-field">
+                  <label data-i18n="lblPrevReading">గత రీడింగ్ (Previous Reading)</label>
+                  <input type="number" id="prevReadingInput" placeholder="4220" value="4220" class="calc-input-box" />
+                </div>
+              </div>
+              <div class="meter-derived-result">
+                <span data-i18n="lblConsumedUnits">మొత్తం వినియోగించిన యూనిట్లు:</span>
+                <strong id="meterUnitsCalcDisplay">300 Units (kWh)</strong>
+              </div>
+            </div>
+
+            <!-- Mode 3: Bill Amount Pane -->
+            <div id="paneBillMode" class="calc-mode-content" style="display: none;">
+              <div class="slider-group">
+                <div class="slider-header">
+                  <span class="slider-label" data-i18n="billAmount">నెలవారీ బిల్లు మొత్తం</span>
+                  <span class="slider-display-val" id="billDisplayVal">₹3,000</span>
+                </div>
+                <input type="range" id="billRange" class="range-slider" min="500" max="25000" step="500" value="3000">
+                <div class="slider-ticks">
+                  <span>₹500</span>
+                  <span>₹5,000</span>
+                  <span>₹15,000</span>
+                  <span>₹25,000+</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bill & Tariff Breakdown Summary -->
+          <div class="calc-discom-summary">
+            <div class="discom-summary-header">
+              <span class="discom-badge" id="currentDiscomBadge">AP Tariff (APCPDCL / APSPDCL)</span>
+              <span class="effective-rate-pill" id="effectiveRateDisplay">Avg: ₹6.85 / unit</span>
+            </div>
+            <div class="discom-breakdown-row">
+              <span data-i18n="lblEnergyCharges">Energy Charges (స్లాబుల ప్రకారం):</span>
+              <strong id="bdEnergyCharges">₹1,845</strong>
+            </div>
+            <div class="discom-breakdown-row">
+              <span data-i18n="lblOtherCharges">Fixed + Meter + Duty + FAC:</span>
+              <strong id="bdOtherCharges">₹185</strong>
+            </div>
+            <div class="discom-total-row">
+              <span data-i18n="lblCurrentBill">ప్రస్తుత నెలవారీ బిల్లు (Current Bill):</span>
+              <span class="discom-total-val" id="bdTotalBill">₹2,030</span>
+            </div>
           </div>
         </div>
 
         <!-- Outputs Column -->
         <div class="calc-results-pane">
           <div>
-            <h3 class="calc-pane-title" data-i18n="calcResultTitle">మీ సోలార్ ప్లాన్ అంచనా</h3>
+            <div class="results-header-flex">
+              <h3 class="calc-pane-title" data-i18n="calcResultTitle">మీ సోలార్ ప్లాన్ అంచనా</h3>
+              <span class="plan-state-badge" id="resStateBadge">AP • 3 kW Load</span>
+            </div>
 
             <div class="calc-metrics-grid">
               <div class="calc-metric-card">
-                <div class="metric-label" data-i18n="metricRecSize">సిఫార్సు సామర్థ్యం</div>
-                <div class="metric-value" id="calcKwVal">3.5 kW</div>
+                <div class="metric-label" data-i18n="metricRecSize">సిఫార్సు సోలార్ సామర్థ్యం</div>
+                <div class="metric-value" id="calcKwVal">3 kW</div>
               </div>
 
               <div class="calc-metric-card subsidy">
@@ -509,20 +593,31 @@
 
               <div class="calc-metric-card">
                 <div class="metric-label" data-i18n="metricRoofArea">అవసరమైన రూఫ్ స్థలం</div>
-                <div class="metric-value" id="calcRoofVal">350 sq.ft</div>
+                <div class="metric-value" id="calcRoofVal">300 sq.ft</div>
               </div>
 
               <div class="calc-metric-card highlight">
-                <div class="metric-label" data-i18n="metricMonthlySave">నెలవారీ కరెంట్ బిల్లు ఆదా</div>
-                <div class="metric-value" id="calcMonthSaveVal">₹2,700/mo</div>
+                <div class="metric-label" data-i18n="metricMonthlySave">నెలవారీ కరెంట్ ఆదా</div>
+                <div class="metric-value" id="calcMonthSaveVal">₹1,950/mo</div>
+              </div>
+            </div>
+
+            <div class="solar-offset-bar-card">
+              <div class="offset-bar-labels">
+                <span>Solar Generation: <strong id="solarUnitsGenDisplay">360 units/mo</strong></span>
+                <span>Offset: <strong id="solarOffsetPct">100%</strong></span>
+              </div>
+              <div class="offset-progress-bg">
+                <div class="offset-progress-fill" id="offsetProgressBar" style="width: 100%;"></div>
               </div>
             </div>
 
             <div class="lifetime-savings-banner">
               <div>
                 <h4 data-i18n="lifetimeSaveLabel">25 సంవత్సరాల జీవితకాల విద్యుత్ ఆదా:</h4>
+                <div style="font-size: 0.8rem; color: #cbd5e1; margin-top: 2px;" data-i18n="roiTimelineLabel">ROI కాలపరిమితి: 3-4 సంవత్సరాలు • ఆ తర్వాత ఉచిత విద్యుత్</div>
               </div>
-              <div class="big-amount" id="calcLifetimeVal">₹8,10,000</div>
+              <div class="big-amount" id="calcLifetimeVal">₹5,85,000</div>
             </div>
           </div>
 
@@ -535,13 +630,13 @@
     </div>
   </section>
 
-  <!-- Complete Solutions Grid -->
+  <!-- Complete Solutions Grid (Our Offerings) -->
   <section class="services-section" id="services">
     <div class="container">
       <div class="section-header">
         <span class="section-tag" data-i18n="servicesSecTag">మా సేవలు & ఉత్పత్తులు</span>
-        <h2 class="section-title" data-i18n="servicesSecTitle">గ్రీన్ ఎనర్జీ & వాటర్ ప్లాంట్ సొల్యూషన్స్</h2>
-        <p class="section-desc" data-i18n="servicesSecDesc">రూఫ్‌టాప్ సోలార్ పవర్ ప్లాంట్లు, లిథియం బ్యాటరీలు, వాటర్ ప్యూరిఫికేషన్ ఆర్.ఓ ప్లాంట్లు రాయలసీమ వ్యాప్తంగా అందుబాటులో ఉన్నాయి.</p>
+        <h2 class="section-title" data-i18n="servicesSecTitle">పూర్తి సోలార్ & గ్రీన్ ఎనర్జీ సొల్యూషన్స్ (Our Offerings)</h2>
+        <p class="section-desc" data-i18n="servicesSecDesc">పీఎం సూర్య ఘర్ ఆమోదిత వెండర్‌గా, ఆంధ్రప్రదేశ్, తెలంగాణ, బెంగళూరు & చెన్నై వ్యాప్తంగా 21 ఏళ్ల అనుభవంతో అత్యుత్తమ Panasonic, Havells, Polycab, మరియు JSW బ్రాండ్ల పరికరాలతో సమగ్ర పరిష్కారాలు.</p>
       </div>
 
       <div class="services-grid">
@@ -549,15 +644,16 @@
         <div class="service-card">
           <div class="service-card-img-wrap">
             <img src="assets/hero_solar.jpg" alt="Residential Solar Rooftop">
-            <span class="service-card-badge" data-i18n="badgePM">PM Surya Ghar</span>
+            <span class="service-card-badge" data-i18n="badgePM">PM Surya Ghar Approved</span>
           </div>
           <div class="service-card-body">
-            <h3 class="service-card-title" data-i18n="serv1Title">నివాస గృహాల సోలార్ (Residential)</h3>
-            <p class="service-card-desc" data-i18n="serv1Desc">ఇళ్లపై సోలార్ ప్యానెల్స్ అమర్చి 90% వరకు కరెంట్ బిల్లును తగ్గించుకోండి. రూ. 78,000 ప్రభుత్వ సబ్సిడీని పొందండి.</p>
+            <h3 class="service-card-title" data-i18n="serv1Title">నివాస గృహాల సోలార్ (Residential Solar)</h3>
+            <p class="service-card-desc" data-i18n="serv1Desc">Panasonic 35mm ప్రీమియం ప్యానెల్స్ & ఇన్వర్టర్లతో ఇళ్లపై సోలార్ ప్లాంట్లు. 90% వరకు కరెంట్ బిల్లు ఆదా, ₹78,000 కేంద్ర ప్రభుత్వ సబ్సిడీ మరియు జీరో అడ్వాన్స్ పేమెంట్ సదుపాయం.</p>
             <div class="service-features-pills">
               <span class="service-pill" data-i18n="pillSubsidy">₹78,000 సబ్సిడీ</span>
+              <span class="service-pill">Panasonic 25Y Warranty</span>
               <span class="service-pill" data-i18n="pillNetMeter">నెట్ మీటరింగ్</span>
-              <span class="service-pill" data-i18n="pillWarranty">25 ఏళ్ల వారంటీ</span>
+              <span class="service-pill" data-i18n="pillar1">జీరో అడ్వాన్స్ పేమెంట్</span>
             </div>
           </div>
         </div>
@@ -569,12 +665,13 @@
             <span class="service-card-badge" data-i18n="badgeComm">Commercial & Industry</span>
           </div>
           <div class="service-card-body">
-            <h3 class="service-card-title" data-i18n="serv2Title">వాణిజ్య & పారిశ్రామిక సోలార్</h3>
-            <p class="service-card-desc" data-i18n="serv2Desc">పాఠశాలలు, ఆసుపత్రులు, కర్మాగారాలు, దుకాణాలు మరియు పెట్రోల్ బంకులకు భారీ విద్యుత్ ఖర్చులను నివారించే సోలార్ ప్లాంట్లు.</p>
+            <h3 class="service-card-title" data-i18n="serv2Title">వాణిజ్య & పారిశ్రామిక సోలార్ (Commercial)</h3>
+            <p class="service-card-desc" data-i18n="serv2Desc">పాఠశాలలు, ఆసుపత్రులు, కర్మాగారాలు, దుకాణాలు మరియు పెట్రోల్ బంకులకు 160 km/h గాలిని తట్టుకునే JSW GI హాట్ డిప్డ్ స్ట్రక్చర్లు, Havells DCDB & Polycab కేబుల్స్‌తో భారీ పవర్ ప్లాంట్లు.</p>
             <div class="service-features-pills">
-              <span class="service-pill">Tax Depreciation 40%</span>
-              <span class="service-pill" data-i18n="pillSavings">భారీ కరెంట్ బిల్లు ఆదా</span>
-              <span class="service-pill">JSW స్ట్రక్చర్స్</span>
+              <span class="service-pill">40% Tax Depreciation</span>
+              <span class="service-pill">JSW 160 km/h Structure</span>
+              <span class="service-pill">Havells MCB Protection</span>
+              <span class="service-pill">ROI 3-4 Years</span>
             </div>
           </div>
         </div>
@@ -586,10 +683,11 @@
             <span class="service-card-badge" data-i18n="badgeStorage">Smart Energy Storage</span>
           </div>
           <div class="service-card-body">
-            <h3 class="service-card-title" data-i18n="serv3Title">లిథియం-అయాన్ బ్యాటరీ స్టోరేజ్</h3>
-            <p class="service-card-desc" data-i18n="serv3Desc">అధునాతన వాల్-మౌంటెడ్ లిథియం బ్యాటరీలు & హైబ్రిడ్ ఇన్వర్టర్లతో 24 గంటల అంతరాయం లేని విద్యుత్ సరఫరా.</p>
+            <h3 class="service-card-title" data-i18n="serv3Title">లిథియం-అయాన్ బ్యాటరీ & హైబ్రిడ్ ఇన్వర్టర్లు</h3>
+            <p class="service-card-desc" data-i18n="serv3Desc">అధునాతన RF టెక్నాలజీతో Panasonic 10 సంవత్సరాల వారంటీ ఇన్వర్టర్లు మరియు వాల్-మౌంటెడ్ లిథియం బ్యాటరీలతో 24x7 నిరంతర విద్యుత్ బ్యాకప్.</p>
             <div class="service-features-pills">
-              <span class="service-pill">Lithium-Ion</span>
+              <span class="service-pill">Panasonic RF Technology</span>
+              <span class="service-pill">10 Years Inverter Warranty</span>
               <span class="service-pill" data-i18n="pillZeroMaint">జీరో మెయింటెనెన్స్</span>
               <span class="service-pill" data-i18n="pillFastCharge">ఫాస్ట్ ఛార్జింగ్</span>
             </div>
@@ -603,12 +701,13 @@
             <span class="service-card-badge" data-i18n="badgeRO">Aqua Pzone RO</span>
           </div>
           <div class="service-card-body">
-            <h3 class="service-card-title" data-i18n="serv4Title">డొమెస్టిక్ & కమర్షియల్ RO ప్లాంట్స్</h3>
-            <p class="service-card-desc" data-i18n="serv4Desc">నాణ్యమైన స్టెయిన్‌లెస్ స్టీల్ వాటర్ ప్లాంట్లు మరియు గృహ అవసరాలకు ఆల్కలీన్ RO వాటర్ ప్యూరిఫైయర్లు.</p>
+            <h3 class="service-card-title" data-i18n="serv4Title">డొమెస్టిక్ & కమర్షియల్ RO వాటర్ ప్లాంట్స్</h3>
+            <p class="service-card-desc" data-i18n="serv4Desc">ఆక్వా పిజోన్ ఎంటర్‌ప్రైజెస్ ద్వారా 250 నుండి 5000 LPH వరకు ప్రీమియం SS-304/316 గ్రేడ్ వాటర్ ప్లాంట్లు మరియు గృహాల కోసం మినరల్ & ఆల్కలీన్ వాటర్ ప్యూరిఫైయర్లు.</p>
             <div class="service-features-pills">
               <span class="service-pill">250 - 5000 LPH Plants</span>
-              <span class="service-pill">Alkaline Filter</span>
-              <span class="service-pill">TDS Control</span>
+              <span class="service-pill">SS-304 Grade Stainless</span>
+              <span class="service-pill">Alkaline TDS Controller</span>
+              <span class="service-pill">21+ Years Expertise</span>
             </div>
           </div>
         </div>
@@ -617,14 +716,15 @@
         <div class="service-card">
           <div class="service-card-img-wrap">
             <img src="assets/solar_team.jpg" alt="Agricultural Solar Pumps">
-            <span class="service-card-badge" data-i18n="badgeAgri">Agri Solutions</span>
+            <span class="service-card-badge" data-i18n="badgeAgri">Agri Solar Solutions</span>
           </div>
           <div class="service-card-body">
-            <h3 class="service-card-title" data-i18n="serv5Title">వ్యవసాయ సోలార్ పంపులు</h3>
-            <p class="service-card-desc" data-i18n="serv5Desc">రైతుల కోసం నాణ్యమైన సోలార్ పంపుసెట్లు మరియు వ్యవసాయ మోటార్లు, నిరంతర నీటి పారుదల సౌలభ్యం.</p>
+            <h3 class="service-card-title" data-i18n="serv5Title">వ్యవసాయ సోలార్ పంపులు (Agricultural Pumps)</h3>
+            <p class="service-card-desc" data-i18n="serv5Desc">రైతుల కోసం నాణ్యమైన C.R.I. సోలార్ పంపుసెట్లు మరియు వ్యవసాయ మోటార్లు, తక్కువ వోల్టేజీ సమస్యలు లేకుండా నిరంతర నీటి పారుదల సౌలభ్యం.</p>
             <div class="service-features-pills">
-              <span class="service-pill">C.R.I. Pumps</span>
+              <span class="service-pill">C.R.I. Solar Pumps</span>
               <span class="service-pill" data-i18n="pillHighFlow">హై ప్రెషర్ ఫ్లో</span>
+              <span class="service-pill">PM-KUSUM Support</span>
               <span class="service-pill" data-i18n="pillFarmer">రైతులకు రక్ష</span>
             </div>
           </div>
@@ -634,15 +734,16 @@
         <div class="service-card">
           <div class="service-card-img-wrap">
             <img src="assets/hero_solar.jpg" alt="Solar Net Metering Documentation">
-            <span class="service-card-badge" data-i18n="badgePaper">Complete Paperwork</span>
+            <span class="service-card-badge" data-i18n="badgePaper">Complete Documentation</span>
           </div>
           <div class="service-card-body">
-            <h3 class="service-card-title" data-i18n="serv6Title">డాక్యుమెంటేషన్ & నెట్ మీటరింగ్</h3>
-            <p class="service-card-desc" data-i18n="serv6Desc">బ్యాంక్ లోన్ ప్రాసెస్, గవర్నమెంట్ పోర్టల్ రిజిస్ట్రేషన్, డిస్కం నెట్ మీటర్ కనెక్షన్ మరియు సబ్సిడీ డెలివరీ పూర్తి బాధ్యత మాదే.</p>
+            <h3 class="service-card-title" data-i18n="serv6Title">పూర్తి డాక్యుమెంటేషన్ & నెట్ మీటరింగ్ బాధ్యత</h3>
+            <p class="service-card-desc" data-i18n="serv6Desc">APCPDCL / TSSPDCL నెట్ మీటర్ అగ్రిమెంట్, DCR సర్టిఫికేషన్, బ్యాంక్ లోన్ (6.7% వడ్డీ), డిజిటల్ అప్రూవల్ మరియు DBT సబ్సిడీ వరకు మా సర్వీస్ బృందమే పూర్తి బాధ్యత వహిస్తుంది.</p>
             <div class="service-features-pills">
-              <span class="service-pill">APCPDCL / APEPDCL</span>
-              <span class="service-pill">DBT Subsidy</span>
-              <span class="service-pill" data-i18n="pillTransparent">100% పారదర్శకత</span>
+              <span class="service-pill">AP & TG DISCOM Liaison</span>
+              <span class="service-pill">Bank Loan @ 6.7%</span>
+              <span class="service-pill">DCR Certification</span>
+              <span class="service-pill" data-i18n="pillar4">పూర్తి డాక్యుమెంటేషన్ బాధ్యత</span>
             </div>
           </div>
         </div>

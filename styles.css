@@ -948,8 +948,280 @@ button, input, select, textarea {
   color: var(--white);
 }
 
+/* Enhanced Calculator Elements */
+.calc-field-group {
+  margin-bottom: 20px;
+}
+
+.calc-label {
+  display: block;
+  font-weight: 700;
+  color: var(--navy-900);
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+}
+
+.calc-toggle-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.calc-toggle-btn {
+  padding: 10px 14px;
+  border: 1.5px solid var(--gray-300);
+  border-radius: var(--radius-md);
+  background: var(--white);
+  color: var(--navy-900);
+  font-weight: 700;
+  font-size: 0.88rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: var(--transition);
+}
+
+.calc-toggle-btn.active {
+  border-color: var(--primary);
+  background: var(--primary-light);
+  color: var(--primary-dark);
+  box-shadow: 0 2px 8px rgba(2, 132, 199, 0.2);
+}
+
+.calc-mode-bar {
+  display: flex;
+  background: var(--gray-100);
+  border-radius: var(--radius-md);
+  padding: 4px;
+  gap: 4px;
+  margin-bottom: 14px;
+}
+
+.mode-tab {
+  flex: 1;
+  padding: 8px 6px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  border-radius: var(--radius-sm);
+  border: none;
+  background: transparent;
+  color: var(--gray-600);
+  cursor: pointer;
+  transition: var(--transition);
+  text-align: center;
+}
+
+.mode-tab.active {
+  background: var(--white);
+  color: var(--primary-dark);
+  box-shadow: var(--shadow-sm);
+}
+
+.slider-display-box {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--primary-light);
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(2, 132, 199, 0.25);
+}
+
+.calc-num-input {
+  width: 70px;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 900;
+  color: var(--primary-dark);
+  text-align: right;
+}
+
+.slider-unit-tag {
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--primary);
+}
+
+.slider-ticks {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: var(--gray-500);
+  margin-top: 6px;
+  font-weight: 600;
+}
+
+.meter-readings-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.meter-field label {
+  display: block;
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--gray-600);
+  margin-bottom: 4px;
+}
+
+.calc-input-box {
+  width: 100%;
+  padding: 9px 12px;
+  border: 1.5px solid var(--gray-300);
+  border-radius: var(--radius-sm);
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--navy-950);
+  outline: none;
+  box-sizing: border-box;
+}
+
+.calc-input-box:focus {
+  border-color: var(--primary);
+}
+
+.meter-derived-result {
+  background: #f1f5f9;
+  border-radius: var(--radius-sm);
+  padding: 8px 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.84rem;
+  color: var(--navy-900);
+}
+
+.meter-derived-result strong {
+  color: var(--primary);
+  font-size: 0.98rem;
+}
+
+.calc-discom-summary {
+  background: #f8fafc;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.discom-summary-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--gray-200);
+  margin-bottom: 2px;
+}
+
+.discom-badge {
+  font-size: 0.76rem;
+  font-weight: 800;
+  color: var(--primary-dark);
+  text-transform: uppercase;
+}
+
+.effective-rate-pill {
+  font-size: 0.76rem;
+  font-weight: 700;
+  background: rgba(16, 185, 129, 0.12);
+  color: var(--eco-dark);
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+}
+
+.discom-breakdown-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: var(--gray-600);
+}
+
+.discom-breakdown-row strong {
+  color: var(--navy-900);
+}
+
+.discom-total-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 6px;
+  border-top: 1.5px dashed var(--gray-300);
+  margin-top: 2px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--navy-950);
+}
+
+.discom-total-val {
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: var(--primary);
+}
+
+.results-header-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.plan-state-badge {
+  background: var(--solar-amber);
+  color: var(--navy-950);
+  font-size: 0.72rem;
+  font-weight: 900;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  text-transform: uppercase;
+}
+
+.solar-offset-bar-card {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+  margin-bottom: 16px;
+}
+
+.offset-bar-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  color: var(--gray-300);
+  margin-bottom: 6px;
+}
+
+.offset-bar-labels strong {
+  color: var(--solar-glow);
+}
+
+.offset-progress-bg {
+  width: 100%;
+  height: 7px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.offset-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #10b981 0%, #38bdf8 100%);
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
 .slider-group {
-  margin-bottom: 28px;
+  margin-bottom: 18px;
 }
 
 .slider-header {
@@ -962,7 +1234,7 @@ button, input, select, textarea {
 .slider-label {
   font-weight: 700;
   color: var(--gray-700);
-  font-size: 0.98rem;
+  font-size: 0.95rem;
 }
 
 .slider-display-val {
@@ -1003,17 +1275,17 @@ button, input, select, textarea {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 
 .prop-type-btn {
-  padding: 12px 10px;
+  padding: 10px 8px;
   border: 1.5px solid var(--gray-300);
   border-radius: var(--radius-md);
   background: var(--white);
   color: var(--gray-700);
   font-weight: 700;
-  font-size: 0.88rem;
+  font-size: 0.85rem;
   cursor: pointer;
   text-align: center;
   transition: var(--transition);

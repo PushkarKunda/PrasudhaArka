@@ -986,48 +986,47 @@ function updateCalculatorUI() {
 
   appState.unitsAmount = totalUnits;
 
-  // Enforce Panel Applicability: If Category has No Subsidy (Commercial / Farm), ONLY NON-DCR panels are applicable
+  // Enforce Panel Applicability:
+  // - Category 1 (Residential): DCR Panels ONLY (Govt Subsidy)
+  // - Above Category 1 (Commercial / Farm): NON-DCR Panels ONLY (No Subsidy)
   const btnDcrEl = document.getElementById('btnPanelDCR');
   const btnNonDcrEl = document.getElementById('btnPanelNonDCR');
 
-  if (propTypeKey !== 'residential') {
+  if (propTypeKey === 'residential') {
+    appState.panelType = 'dcr';
+    if (btnDcrEl) {
+      btnDcrEl.classList.remove('disabled');
+      btnDcrEl.classList.add('active');
+    }
+    if (btnNonDcrEl) {
+      btnNonDcrEl.classList.add('disabled');
+      btnNonDcrEl.classList.remove('active');
+    }
+  } else {
     appState.panelType = 'nondcr';
     if (btnDcrEl) {
       btnDcrEl.classList.add('disabled');
       btnDcrEl.classList.remove('active');
     }
     if (btnNonDcrEl) {
+      btnNonDcrEl.classList.remove('disabled');
       btnNonDcrEl.classList.add('active');
-    }
-  } else {
-    if (btnDcrEl) {
-      btnDcrEl.classList.remove('disabled');
-      if (appState.panelType === 'dcr') {
-        btnDcrEl.classList.add('active');
-        if (btnNonDcrEl) btnNonDcrEl.classList.remove('active');
-      } else {
-        btnDcrEl.classList.remove('active');
-        if (btnNonDcrEl) btnNonDcrEl.classList.add('active');
-      }
     }
   }
 
-  const activePanelKey = appState.panelType || 'dcr';
+  const activePanelKey = appState.panelType || (propTypeKey === 'residential' ? 'dcr' : 'nondcr');
   const result = calculateSolarPlan(totalUnits, stateKey, propTypeKey, activePanelKey);
   appState.billAmount = result.tariff.totalBill;
 
   // Update Panel Subsidy Status Badge in Header
   const statusBadge = document.getElementById('panelSubsidyStatusBadge');
   if (statusBadge) {
-    if (result.isSubsidyEligible) {
+    if (propTypeKey === 'residential') {
       statusBadge.className = 'panel-subsidy-status';
-      statusBadge.innerText = appState.currentLang === 'te' ? '✅ Cat-1 & DCR: సబ్సిడీ వర్తిస్తుంది' : '✅ Cat-1 & DCR: Govt Subsidy Available';
-    } else if (propTypeKey !== 'residential') {
-      statusBadge.className = 'panel-subsidy-status no-subsidy';
-      statusBadge.innerText = appState.currentLang === 'te' ? '🌐 వాణిజ్యం/పరిశ్రమ: NON-DCR మాత్రమే వర్తిస్తుంది (సబ్సిడీ వర్తించదు)' : '🌐 Commercial / Farm: NON-DCR Only (No Subsidy)';
+      statusBadge.innerText = appState.currentLang === 'te' ? '🇮🇳 Cat-1: DCR మాత్రమే వర్తిస్తుంది (సబ్సిడీ అర్హత)' : '🇮🇳 Cat-1: DCR Only (Govt Subsidy Eligible)';
     } else {
       statusBadge.className = 'panel-subsidy-status no-subsidy';
-      statusBadge.innerText = appState.currentLang === 'te' ? '⚠️ NON-DCR: సబ్సిడీ వర్తించదు' : '⚠️ NON-DCR: No Govt Subsidy';
+      statusBadge.innerText = appState.currentLang === 'te' ? '🌐 Cat-2/3: NON-DCR మాత్రమే వర్తిస్తుంది (సబ్సిడీ లేదు)' : '🌐 Above Cat-1: NON-DCR Only (No Subsidy)';
     }
   }
 
@@ -1288,10 +1287,16 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.panel-type-btn').forEach(btn => {
     btn.addEventListener('click', (e) => {
       const panel = e.currentTarget.getAttribute('data-panel');
-      if (panel === 'dcr' && appState.propType !== 'residential') {
+      if (appState.propType === 'residential' && panel === 'nondcr') {
         alert(appState.currentLang === 'te' 
-          ? 'గమనిక: DCR సబ్సిడీ ప్యానెల్స్ నివాస గృహాలకు (Cat-1) మాత్రమే వర్తిస్తాయి. వాణిజ్యం & పరిశ్రమలకు NON-DCR ప్యానెల్స్ మాత్రమే వర్తిస్తాయి.'
-          : 'Note: DCR subsidy panels only apply to Residential (Cat-1). For Commercial & Farm, NON-DCR panels apply.');
+          ? 'గమనిక: కేటగిరీ-1 (నివాసం) వినియోగదారులకు కేంద్ర ప్రభుత్వ PM Surya Ghar సబ్సిడీ కోసం DCR ప్యానెల్స్ మాత్రమే వర్తిస్తాయి. NON-DCR ఎంచుకోలేరు.'
+          : 'Note: For Category-1 (Residential), only DCR panels are applicable under PM Surya Ghar. NON-DCR cannot be chosen.');
+        return;
+      }
+      if (appState.propType !== 'residential' && panel === 'dcr') {
+        alert(appState.currentLang === 'te' 
+          ? 'గమనిక: వాణిజ్యం & పరిశ్రమలకు (Cat-2/3) సబ్సిడీ వర్తించదు కాబట్టి NON-DCR ప్యానెల్స్ మాత్రమే వర్తిస్తాయి.'
+          : 'Note: For Commercial & Farm (Above Cat-1), no subsidy applies, so only NON-DCR panels are applicable.');
         return;
       }
       document.querySelectorAll('.panel-type-btn').forEach(b => b.classList.remove('active'));

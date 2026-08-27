@@ -1298,6 +1298,24 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Mobile Navigation Drawer & Hamburger Toggle
+  const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+  const navLinks = document.getElementById('navLinks');
+
+  if (mobileMenuToggle && navLinks) {
+    mobileMenuToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      navLinks.classList.toggle('open');
+    });
+
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!navLinks.contains(e.target) && !mobileMenuToggle.contains(e.target)) {
+        navLinks.classList.remove('open');
+      }
+    });
+  }
+
   // Header Navigation Click & ScrollSpy Highlighting
   const allNavLinks = document.querySelectorAll('.nav-link');
   const sectionIds = ['home', 'about', 'subsidy', 'calculator', 'services', 'process', 'contact'];

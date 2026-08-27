@@ -2738,23 +2738,38 @@ button, input, select, textarea {
     top: 64px;
     left: 0;
     width: 100%;
-    background: var(--white);
+    background: #ffffff;
     flex-direction: column;
-    padding: 24px 20px;
-    gap: 16px;
-    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.15);
+    padding: 16px 22px 24px;
+    gap: 4px;
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.18);
+    border-bottom: 3px solid var(--primary);
     clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
-    transition: clip-path 0.35s ease;
-    z-index: 999;
+    transition: clip-path 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 10000;
   }
   .nav-links.open {
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
   }
-  .nav-link {
-    font-size: 1.05rem;
-    padding: 8px 0;
+  .nav-links li {
     width: 100%;
+    list-style: none;
+  }
+  .nav-link {
+    font-size: 1.02rem;
+    font-weight: 700;
+    padding: 12px 6px;
+    width: 100%;
+    display: flex;
+    align-items: center;
     border-bottom: 1px solid var(--gray-100);
+    color: var(--gray-800);
+  }
+  .nav-link:hover, .nav-link.active {
+    color: var(--primary);
+    background: var(--primary-light);
+    border-radius: var(--radius-sm);
+    padding-left: 10px;
   }
 
   /* Hero Section on Mobile */

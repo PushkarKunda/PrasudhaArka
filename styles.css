@@ -2929,20 +2929,35 @@ button, input, select, textarea {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 4px;
+    padding: 6px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
     color: var(--navy-900);
+    border-radius: var(--radius-sm);
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+  .mobile-menu-toggle .icon-close {
+    display: none;
+  }
+  .mobile-menu-toggle.open .icon-menu {
+    display: none;
+  }
+  .mobile-menu-toggle.open .icon-close {
+    display: block;
+    color: var(--primary);
   }
 
   .nav-links {
-    position: fixed;
-    top: 64px;
+    position: absolute;
+    top: 100%;
     left: 0;
     width: 100%;
     background: #ffffff;
     flex-direction: column;
     padding: 16px 22px 24px;
     gap: 4px;
-    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.18);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
     border-bottom: 3px solid var(--primary);
     clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
     opacity: 0;

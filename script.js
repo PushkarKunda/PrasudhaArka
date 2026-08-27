@@ -1506,17 +1506,28 @@ document.addEventListener('DOMContentLoaded', () => {
   // Mobile Navigation Drawer & Hamburger Toggle
   const mobileMenuToggle = document.getElementById('mobileMenuToggle');
   const navLinks = document.getElementById('navLinks');
+  const siteHeader = document.querySelector('.site-header');
 
   if (mobileMenuToggle && navLinks) {
     mobileMenuToggle.addEventListener('click', (e) => {
       e.stopPropagation();
-      navLinks.classList.toggle('open');
+      const isOpen = navLinks.classList.toggle('open');
+      mobileMenuToggle.classList.toggle('open', isOpen);
+      mobileMenuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+
+      if (isOpen && siteHeader) {
+        siteHeader.classList.remove('header-hidden');
+      }
     });
 
     // Close mobile menu when clicking outside
     document.addEventListener('click', (e) => {
-      if (!navLinks.contains(e.target) && !mobileMenuToggle.contains(e.target)) {
-        navLinks.classList.remove('open');
+      if (navLinks.classList.contains('open')) {
+        if (!navLinks.contains(e.target) && !mobileMenuToggle.contains(e.target)) {
+          navLinks.classList.remove('open');
+          mobileMenuToggle.classList.remove('open');
+          mobileMenuToggle.setAttribute('aria-expanded', 'false');
+        }
       }
     });
   }
@@ -1539,11 +1550,19 @@ document.addEventListener('DOMContentLoaded', () => {
           allNavLinks.forEach(l => l.classList.remove('active'));
           link.classList.add('active');
 
-          targetSection.scrollIntoView({
+          if (navLinks) navLinks.classList.remove('open');
+          if (mobileMenuToggle) {
+            mobileMenuToggle.classList.remove('open');
+            mobileMenuToggle.setAttribute('aria-expanded', 'false');
+          }
+
+          const headerHeight = siteHeader ? siteHeader.offsetHeight : 70;
+          const targetY = targetSection.getBoundingClientRect().top + (window.pageYOffset || document.documentElement.scrollTop) - headerHeight;
+
+          window.scrollTo({
+            top: targetY,
             behavior: 'smooth'
           });
-
-          if (navLinks) navLinks.classList.remove('open');
         }
       }
     });
@@ -1551,7 +1570,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ScrollSpy to dynamically highlight active navigation link while scrolling
   function updateScrollSpy() {
-    const scrollPosition = window.scrollY + 140; // 95px header + buffer
+    const currentY = window.pageYOffset || document.documentElement.scrollTop;
+    const scrollPosition = currentY + 120;
     let currentActiveSectionId = 'home';
 
     sections.forEach(section => {
@@ -1563,7 +1583,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // If near the bottom of page, highlight contact
-    if ((window.innerHeight + window.scrollY) >= document.documentElement.scrollHeight - 60) {
+    if ((window.innerHeight + currentY) >= document.documentElement.scrollHeight - 60) {
       currentActiveSectionId = 'contact';
     }
 
@@ -1578,41 +1598,40 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Smart Mobile Header: Hide on Scroll Down & Reveal on Scroll Up
-  let lastScrollY = window.scrollY;
-  const scrollThreshold = 8; // buffer in px to prevent jitter
+  let lastScrollY = window.pageYOffset || document.documentElement.scrollTop;
+  const scrollThreshold = 5; // smooth threshold
 
   window.addEventListener('scroll', () => {
-    const currentScrollY = window.scrollY;
-    const header = document.querySelector('.site-header');
+    const currentScrollY = window.pageYOffset || document.documentElement.scrollTop;
 
-    if (header) {
+    if (siteHeader) {
       // Scrolled styling (shadow + solid background)
-      if (currentScrollY > 20) {
-        header.classList.add('scrolled');
+      if (currentScrollY > 15) {
+        siteHeader.classList.add('scrolled');
       } else {
-        header.classList.remove('scrolled');
+        siteHeader.classList.remove('scrolled');
       }
 
-      // Check if mobile / tablet viewport (width <= 768px)
-      if (window.innerWidth <= 768) {
+      // Check if mobile / tablet viewport (width <= 1024px)
+      if (window.innerWidth <= 1024) {
         const isMenuOpen = navLinks && navLinks.classList.contains('open');
 
         // Only hide if menu drawer is closed and scrolled past top header area
-        if (!isMenuOpen && currentScrollY > 80) {
+        if (!isMenuOpen && currentScrollY > 60) {
           if (currentScrollY > lastScrollY + scrollThreshold) {
             // Scrolling Down -> Hide Header
-            header.classList.add('header-hidden');
+            siteHeader.classList.add('header-hidden');
           } else if (currentScrollY < lastScrollY - scrollThreshold) {
             // Scrolling Up -> Reveal Header
-            header.classList.remove('header-hidden');
+            siteHeader.classList.remove('header-hidden');
           }
         } else {
           // At top of page or menu drawer is open
-          header.classList.remove('header-hidden');
+          siteHeader.classList.remove('header-hidden');
         }
       } else {
         // Desktop always stays visible
-        header.classList.remove('header-hidden');
+        siteHeader.classList.remove('header-hidden');
       }
     }
 

@@ -1,11 +1,22 @@
 {
-  "name": "prasudharka-solar-website",
-  "version": "1.0.0",
-  "description": "Prasudharka Solar & Green Energy - Aqua Pzone Enterprises Website",
+  "name": "prasudharka-solar-react",
+  "private": true,
+  "version": "2.0.0",
+  "type": "module",
   "scripts": {
-    "dev": "npx serve . --listen 8080 --no-clipboard",
-    "start": "npx serve . --listen 8080 --no-clipboard"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
-  "keywords": ["solar", "green-energy", "website"],
-  "author": "Prasudharka Solar"
+  "dependencies": {
+    "canvas-confetti": "^1.9.4",
+    "framer-motion": "^12.4.7",
+    "lucide-react": "^1.16.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "vite": "^6.2.0"
+  }
 }

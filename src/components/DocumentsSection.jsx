@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FileCheck, CheckSquare, Sparkles, Download, MessageCircle, HelpCircle } from 'lucide-react';
+import { FileCheck, CheckSquare, Sparkles, Download, HelpCircle } from 'lucide-react';
+import { WhatsAppIcon } from './WhatsAppIcon';
 import { DOCUMENTS_DATA } from '../data/services';
 import { DEALERS, getWhatsAppUrl } from '../data/dealers';
 
@@ -78,7 +79,7 @@ export const DocumentsSection = ({ lang, t }) => {
               </span>
             </div>
             <button onClick={handleHelpWithDocs} className="btn btn-outline btn-sm">
-              <MessageCircle size={15} />
+              <WhatsAppIcon size={15} />
               <span>{lang === 'te' ? 'డాక్యుమెంట్ హెల్ప్ పొందండి' : 'Get Document Help'}</span>
             </button>
           </div>

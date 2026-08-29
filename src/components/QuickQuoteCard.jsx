@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Send, Sparkles, MapPin, IndianRupee, Home, Building2, CheckCircle2 } from 'lucide-react';
+import { Sparkles, MapPin, IndianRupee, Home, Building2, CheckCircle2 } from 'lucide-react';
+import { WhatsAppIcon } from './WhatsAppIcon';
 import { DEALERS, getWhatsAppUrl } from '../data/dealers';
 import { calculateSolarSpecs } from '../data/tariffs';
 
@@ -151,7 +152,7 @@ export const QuickQuoteCard = ({ lang, t }) => {
 
         {/* Submit */}
         <button type="submit" className="btn btn-whatsapp btn-block btn-lg">
-          <Send size={18} />
+          <WhatsAppIcon size={18} />
           <span>{t.btnGetQuickQuote}</span>
         </button>
       </form>

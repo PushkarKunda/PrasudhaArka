@@ -15,6 +15,7 @@ import {
   Sun,
   Layers
 } from 'lucide-react';
+import { WhatsAppIcon } from './WhatsAppIcon';
 import { computeDiscomTariff, calculateSolarPlan, billToUnits } from '../data/tariffs';
 import { DEALERS, getWhatsAppUrl } from '../data/dealers';
 
@@ -506,7 +507,7 @@ export const SolarCalculator = ({ lang, t }) => {
                 onClick={handleSendWhatsAppPlan}
                 className="btn btn-whatsapp btn-block btn-lg"
               >
-                <Share2 size={18} />
+                <WhatsAppIcon size={18} />
                 <span>{lang === 'te' ? 'ఈ ప్లాన్‌ను వాట్సాప్‌కి పంపి కొటేషన్ పొందండి' : 'Send This Plan to WhatsApp for Quotation'}</span>
               </button>
             </div>

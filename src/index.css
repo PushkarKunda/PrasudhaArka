@@ -370,7 +370,7 @@ button, input, select, textarea {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 74px;
+  height: 84px;
   gap: 16px;
 }
 
@@ -387,11 +387,37 @@ button, input, select, textarea {
 }
 
 .brand-logo-img {
-  height: 50px;
-  max-width: 210px;
+  height: 70px;
+  max-width: 260px;
+  width: auto;
   border-radius: 6px;
   object-fit: contain;
   display: block;
+  transition: transform 0.2s ease;
+}
+
+.brand-identity:hover .brand-logo-img {
+  transform: scale(1.03);
+}
+
+.brand-text-fallback {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+
+.brand-main {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--navy-900);
+  letter-spacing: -0.5px;
+}
+
+.brand-sub {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--gold-600);
+  letter-spacing: 1px;
 }
 
 .desktop-nav {
@@ -2710,76 +2736,168 @@ select.custom-input {
 }
 
 .floating-dealer-modal {
-  width: 290px;
-  padding: 14px;
+  width: 320px;
+  padding: 16px;
   background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 12px 36px -4px rgba(15, 23, 42, 0.22), 0 0 0 1px rgba(0, 0, 0, 0.06);
+  border: 1px solid var(--border-light);
 }
 
 .modal-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 8px;
-  padding-bottom: 6px;
-  border-bottom: 1px solid var(--border-light);
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.modal-header-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .modal-header h4 {
-  font-size: 0.82rem;
-  color: var(--text-main);
+  font-size: 0.88rem;
+  color: var(--navy-900);
   font-weight: 800;
+  margin: 0;
 }
 
 .close-popup-btn {
-  background: transparent;
-  color: var(--text-muted);
+  background: #f1f5f9;
+  border: none;
+  color: #64748b;
   cursor: pointer;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+}
+
+.close-popup-btn:hover {
+  background: #e2e8f0;
+  color: #0f172a;
 }
 
 .dealer-popup-options {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 10px;
 }
 
 .popup-dealer-item {
   display: flex;
   align-items: center;
-  gap: 8px;
-  background: var(--bg-muted);
-  padding: 8px 10px;
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--border-light);
+  gap: 10px;
+  background: #f8fafc;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  transition: all 0.2s ease;
+}
+
+.popup-dealer-item:hover {
+  background: #ffffff;
+  border-color: #cbd5e1;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
 }
 
 .p-avatar {
-  width: 32px;
-  height: 32px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
-  background: var(--gold-500);
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
   color: #ffffff;
   font-weight: 800;
-  font-size: 0.78rem;
+  font-size: 0.85rem;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(245, 158, 11, 0.3);
+}
+
+.popup-dealer-item:nth-child(2) .p-avatar {
+  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+  box-shadow: 0 2px 6px rgba(2, 132, 199, 0.3);
 }
 
 .p-info {
   flex: 1;
   display: flex;
   flex-direction: column;
+  min-width: 0;
 }
 
 .p-info strong {
-  font-size: 0.82rem;
-  color: var(--text-main);
+  font-size: 0.86rem;
+  color: var(--navy-900);
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .p-info span {
-  font-size: 0.7rem;
-  color: var(--text-muted);
+  font-size: 0.72rem;
+  color: #64748b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.popup-action-btns {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.popup-icon-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.popup-icon-btn.phone-btn {
+  background: #eff6ff;
+  color: #0284c7;
+  border: 1px solid #bfdbfe;
+}
+
+.popup-icon-btn.phone-btn:hover {
+  background: #0284c7;
+  color: #ffffff;
+  border-color: #0284c7;
+  transform: translateY(-2px) scale(1.08);
+  box-shadow: 0 4px 10px rgba(2, 132, 199, 0.35);
+}
+
+.popup-icon-btn.whatsapp-btn {
+  background: #25d366;
+  color: #ffffff;
+  border: 1px solid #20bd5a;
+  box-shadow: 0 2px 8px rgba(37, 211, 102, 0.35);
+}
+
+.popup-icon-btn.whatsapp-btn:hover {
+  background: #20bd5a;
+  color: #ffffff;
+  transform: translateY(-2px) scale(1.08);
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.5);
 }
 
 /* ==========================================================================
@@ -3260,13 +3378,13 @@ select.custom-input {
   }
 
   .navbar {
-    height: 62px;
+    height: 72px;
     gap: 10px;
   }
 
   .brand-logo-img {
-    height: 38px;
-    max-width: 170px;
+    height: 58px;
+    max-width: 200px;
   }
 
   .nav-actions {
@@ -3288,7 +3406,7 @@ select.custom-input {
   }
 
   .mobile-menu-overlay {
-    max-height: calc(100vh - 62px);
+    max-height: calc(100vh - 72px);
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     padding-bottom: 20px;
@@ -3894,35 +4012,8 @@ select.custom-input {
   .floating-dealer-modal {
     width: calc(100vw - 28px);
     max-width: 320px;
-    padding: 12px 14px;
-    border-radius: var(--radius-md);
-  }
-
-  .popup-action-btns {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  .popup-icon-btn {
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.15s;
-    cursor: pointer;
-  }
-
-  .popup-icon-btn.phone-btn {
-    background: var(--gold-100);
-    color: var(--gold-700);
-  }
-
-  .popup-icon-btn.whatsapp-btn {
-    background: #25d366;
-    color: #ffffff;
+    padding: 14px;
+    border-radius: 14px;
   }
 
   .site-footer {
@@ -3978,8 +4069,8 @@ select.custom-input {
   }
 
   .brand-logo-img {
-    height: 34px;
-    max-width: 145px;
+    height: 52px;
+    max-width: 180px;
   }
 
   .state-pills-group {

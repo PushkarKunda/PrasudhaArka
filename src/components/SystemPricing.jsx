@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Sparkles, CheckCircle, Zap, Shield, MessageCircle } from 'lucide-react';
+import { Sparkles, CheckCircle, Zap, Shield } from 'lucide-react';
+import { WhatsAppIcon } from './WhatsAppIcon';
 import { PRODUCTS } from '../data/products';
 import { DEALERS, getWhatsAppUrl } from '../data/dealers';
 
@@ -130,7 +131,7 @@ export const SystemPricing = ({ lang, t }) => {
                 onClick={() => handleQuoteClick(prod)}
                 className={`btn btn-block ${prod.isPopular ? 'btn-primary btn-glow' : 'btn-outline'}`}
               >
-                <MessageCircle size={16} />
+                <WhatsAppIcon size={16} />
                 <span>{t.btnGetQuoteTier}</span>
               </button>
             </div>

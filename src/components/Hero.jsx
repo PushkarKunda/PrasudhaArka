@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Award, Sun, MessageCircle, ArrowDownCircle, ShieldCheck, Zap, TrendingUp } from 'lucide-react';
+import { Award, Sun, ArrowDownCircle, ShieldCheck, Zap, TrendingUp } from 'lucide-react';
+import { WhatsAppIcon } from './WhatsAppIcon';
 import { QuickQuoteCard } from './QuickQuoteCard';
 import { EnergyFlowVisualizer } from './EnergyFlowVisualizer';
 import { getWhatsAppUrl } from '../data/dealers';
@@ -83,7 +84,7 @@ export const Hero = ({ lang, t }) => {
               rel="noopener noreferrer" 
               className="btn btn-whatsapp btn-lg"
             >
-              <MessageCircle size={20} />
+              <WhatsAppIcon size={20} />
               <span>{t.btnWhatsAppNow}</span>
             </a>
           </div>

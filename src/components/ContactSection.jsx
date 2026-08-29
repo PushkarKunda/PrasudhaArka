@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { 
   PhoneCall, 
-  MessageCircle, 
   MapPin, 
   Mail, 
   Clock, 
@@ -13,6 +12,7 @@ import {
   Sparkles,
   Zap
 } from 'lucide-react';
+import { WhatsAppIcon } from './WhatsAppIcon';
 import { DEALERS, getWhatsAppUrl } from '../data/dealers';
 
 export const ContactSection = ({ lang, t }) => {
@@ -90,7 +90,7 @@ export const ContactSection = ({ lang, t }) => {
                 rel="noopener noreferrer" 
                 className="btn btn-whatsapp btn-block"
               >
-                <MessageCircle size={16} />
+                <WhatsAppIcon size={16} />
                 <span>{t.btnChatWhatsApp}</span>
               </a>
             </div>
@@ -127,7 +127,7 @@ export const ContactSection = ({ lang, t }) => {
                 rel="noopener noreferrer" 
                 className="btn btn-whatsapp btn-block"
               >
-                <MessageCircle size={16} />
+                <WhatsAppIcon size={16} />
                 <span>{t.btnChatWhatsApp}</span>
               </a>
             </div>

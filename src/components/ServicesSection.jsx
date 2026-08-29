@@ -9,9 +9,9 @@ import {
   Sun, 
   FileCheck2, 
   CheckCircle2, 
-  MessageCircle,
   ArrowRight
 } from 'lucide-react';
+import { WhatsAppIcon } from './WhatsAppIcon';
 import { SERVICES } from '../data/services';
 import { DEALERS, getWhatsAppUrl } from '../data/dealers';
 
@@ -91,7 +91,7 @@ export const ServicesSection = ({ lang, t }) => {
                     onClick={() => handleInquireService(service)}
                     className="btn btn-outline btn-sm btn-block"
                   >
-                    <MessageCircle size={15} />
+                    <WhatsAppIcon size={15} />
                     <span>{lang === 'te' ? 'వివరాలు & కొటేషన్' : 'Inquire on WhatsApp'}</span>
                   </button>
                 </div>

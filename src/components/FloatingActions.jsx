@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageCircle, ArrowUp, Phone, X, User } from 'lucide-react';
+import { ArrowUp, Phone, X, User } from 'lucide-react';
+import { WhatsAppIcon } from './WhatsAppIcon';
 import { DEALERS, getWhatsAppUrl } from '../data/dealers';
 
 export const FloatingActions = ({ lang }) => {
@@ -37,19 +38,23 @@ export const FloatingActions = ({ lang }) => {
       <AnimatePresence>
         {showDealerPopup && (
           <motion.div
-            className="floating-dealer-modal glassmorphism-card-glow"
+            className="floating-dealer-modal"
             initial={{ opacity: 0, scale: 0.85, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.85, y: 20 }}
             transition={{ duration: 0.2 }}
           >
             <div className="modal-header">
-              <h4>{lang === 'te' ? 'డీలర్‌తో వాట్సాప్‌లో మాట్లాడండి' : 'Chat on WhatsApp with Dealer'}</h4>
+              <div className="modal-header-title">
+                <WhatsAppIcon size={18} color="#25d366" />
+                <h4>{lang === 'te' ? 'డీలర్‌తో వాట్సాప్‌లో మాట్లాడండి' : 'Chat on WhatsApp with Dealer'}</h4>
+              </div>
               <button 
                 className="close-popup-btn" 
                 onClick={() => setShowDealerPopup(false)}
+                aria-label="Close"
               >
-                <X size={18} />
+                <X size={16} />
               </button>
             </div>
 
@@ -64,7 +69,8 @@ export const FloatingActions = ({ lang }) => {
                   <a
                     href={`tel:${DEALERS.sudhakar.phone}`}
                     className="popup-icon-btn phone-btn"
-                    title="Call Sudhakar"
+                    title="Call K. Sudhakar"
+                    aria-label="Call K. Sudhakar"
                   >
                     <Phone size={15} />
                   </a>
@@ -73,9 +79,10 @@ export const FloatingActions = ({ lang }) => {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="popup-icon-btn whatsapp-btn"
-                    title="WhatsApp Sudhakar"
+                    title="WhatsApp K. Sudhakar"
+                    aria-label="WhatsApp K. Sudhakar"
                   >
-                    <MessageCircle size={16} />
+                    <WhatsAppIcon size={16} />
                   </a>
                 </div>
               </div>
@@ -90,7 +97,8 @@ export const FloatingActions = ({ lang }) => {
                   <a
                     href={`tel:${DEALERS.bhaskar.phone}`}
                     className="popup-icon-btn phone-btn"
-                    title="Call Bhaskar"
+                    title="Call K. Bhaskar"
+                    aria-label="Call K. Bhaskar"
                   >
                     <Phone size={15} />
                   </a>
@@ -99,9 +107,10 @@ export const FloatingActions = ({ lang }) => {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="popup-icon-btn whatsapp-btn"
-                    title="WhatsApp Bhaskar"
+                    title="WhatsApp K. Bhaskar"
+                    aria-label="WhatsApp K. Bhaskar"
                   >
-                    <MessageCircle size={16} />
+                    <WhatsAppIcon size={16} />
                   </a>
                 </div>
               </div>
@@ -118,7 +127,7 @@ export const FloatingActions = ({ lang }) => {
         onClick={() => setShowDealerPopup(!showDealerPopup)}
         aria-label="WhatsApp Dealers"
       >
-        <MessageCircle size={28} />
+        <WhatsAppIcon size={26} />
         <span className="btn-badge-pulse"></span>
       </motion.button>
 

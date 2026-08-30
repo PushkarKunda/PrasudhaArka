@@ -3,6 +3,8 @@
 > *An ISO 9001:2015 Certified Company • 21+ Years of Clean Energy & Water Engineering Excellence*
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![React](https://img.shields.io/badge/React-19.0.0-61dafb.svg?logo=react&logoColor=black)](https://react.dev)
+[![Vite](https://img.shields.io/badge/Vite-6.2.0-646cff.svg?logo=vite&logoColor=white)](https://vitejs.dev)
 [![PM Surya Ghar](https://img.shields.io/badge/PM_Surya_Ghar-Approved_Vendor-green.svg)](https://pmsuryaghar.gov.in)
 [![Coverage](https://img.shields.io/badge/Service_Area-AP_|_TG_|_KA_|_TN-blue.svg)](#-multi-state-customer-care--regional-network)
 
@@ -10,7 +12,7 @@
 
 ## ☀️ About PraSudhaArka Solar
 
-**PraSudhaArka Solar & Green Energy** (Aqua Pzone Enterprises) is an authorized rooftop solar engineering and green energy partner. With over 21 years of proven industry experience across **Andhra Pradesh, Telangana, Karnataka, and Tamil Nadu**, we deliver complete turnkey clean energy solutions—including PM Surya Ghar residential solar systems, commercial & industrial rooftop plants, lithium battery storage, C.R.I. agricultural solar pumps, and commercial stainless-steel RO water purification plants.
+**PraSudhaArka Solar & Green Energy** (Aqua Pzone Enterprises) is an authorized rooftop solar engineering and green energy partner. With over 21 years of proven industry excellence across **Andhra Pradesh, Telangana, Karnataka, and Tamil Nadu**, we deliver complete turnkey clean energy solutions—including PM Surya Ghar residential solar rooftop installations, commercial & industrial solar plants, lithium battery storage systems, C.R.I. agricultural solar pumps, and commercial stainless-steel RO water purification plants.
 
 ---
 
@@ -23,7 +25,7 @@
 - **Official Web Portal:** [https://www.aquapzone.in](https://www.aquapzone.in)
 
 ### 🏢 Office Locations & Authorized Dealers
-- **Secunderabad Head Office:**  
+- **Secunderabad Corporate Office:**  
   `#5-2-422, First Floor, Opp. Hero Honda Showroom, Hyderbasti, Ranigunj, R.P. Road, Secunderabad - 500003`
 - **Hyderabad / Tukkuguda Regional Dealer:**  
   **K. Sudhakar** • [+91 99666 31599](tel:+919966631599)
@@ -35,30 +37,31 @@
 ## 🌟 Key Application Features
 
 ### 1. 🧮 Advanced Solar ROI & Official DISCOM Tariff Calculator
-- **Official AP & Telangana Tariff Engines:**
-  - **Andhra Pradesh (APCPDCL / APEPDCL / APSPDCL):** Telescopic residential and non-residential tariff calculation.
-  - **Telangana (TSSPDCL / TSNPDCL):** Exact official slabs for `LT-I(A)` ($\le 100$ u), `LT-I(B)` (101–200 u), `LT-I(C)` (>200 u), `LT-II(A)` ($\le 50$ u), `LT-II(B)` (>50 u), and `LT-V` Agriculture with official fixed charges, meter rents, and electricity duties.
+- **Official AP & Telangana DISCOM Tariff Engines:**
+  - **Andhra Pradesh (APCPDCL / APEPDCL / APSPDCL):** Telescopic residential and non-residential tariff slabs.
+  - **Telangana (TSSPDCL / TSNPDCL):** Exact official slabs for `LT-I(A)` ($\le 100$ units), `LT-I(B)` (101–200 units), `LT-I(C)` (>200 units), `LT-II(A)` ($\le 50$ units), `LT-II(B)` (>50 units), and `LT-V` Agriculture with official fixed charges, meter rents, and electricity duties.
 - **Panel Type Selection (DCR vs. NON-DCR):**
   - **🇮🇳 DCR Panels (Domestic Content Requirement):** Full PM Surya Ghar government subsidy eligible (up to ₹78,000 for Category-1 Residential).
-  - **🌐 NON-DCR Panels:** Cost-effective commercial configurations with zero subsidy.
-- **Category Subsidy Rules:**
+  - **🌐 NON-DCR Panels:** Cost-effective commercial configurations with zero central subsidy.
+- **Category Subsidy Rules & Logic:**
   - **Category 1 (Residential / Home):** Eligible for central government subsidy with DCR panels.
-  - **Above Category 1 (Commercial / Category-2 & Farm/Industry / Category-3):** Automatically locked to NON-DCR panels (no subsidy per PM Surya Ghar guidelines).
-- **System Configurations Sizing & Loan Breakdown:**
-  - Real-time display of **Unit Cost (DCR/Non-DCR)**, **Central Govt Subsidy**, **Max Bank Loan** (up to 90%), **Estimated Bank EMI** (at ~6% p.a.), and **Daily Units Generation**.
+  - **Commercial & Farm/Industry (Categories 2 & 3):** Automatically locked to NON-DCR panels per official PM Surya Ghar guidelines.
+- **Financial & Loan Estimations:**
+  - Real-time display of **Base Cost**, **Direct Benefit Transfer (DBT) Central Subsidy**, **Customer Net Cost**, **Max Bank Loan** (up to 90%), and **Estimated Bank EMI** (~6% p.a. over 5 years).
 
-### 2. 🌐 Bilingual Translation Engine (English & Telugu)
-- Instant, client-side dynamic translation between **English** and **Telugu (`తెలుగు`)** with complete coverage of all labels, alerts, tariff breakdowns, and loan estimations.
-- Automatic language-synchronized branding and responsive logo switching.
+### 2. ⚡ Live Energy Flow & Solar Simulator
+- Interactive real-time solar generation, home consumption, battery storage, and grid export/import simulation widget on the Hero banner.
 
-### 3. 🛡️ Strict Lead Validation & WhatsApp Dispatch
-- Forms enforce complete name, verified 10-digit mobile number, town, units, and bill amounts before submission.
-- Real-time bidirectional synchronization between **Monthly Units (kWh)** and **Monthly Bill (₹)** based on active DISCOM tariff tables.
-- Formatted one-click quote generation and direct routing to authorized WhatsApp dealers.
+### 3. 🌐 Bilingual Engine (English & Telugu)
+- Instant, dynamic switching between **English** and **Telugu (`తెలుగు`)** with complete coverage across all sections, calculation results, process steps, and documentation guidelines.
+- Localized typography with optimized line heights for Telugu script.
 
-### 4. 📱 Mobile-First Responsive Design & Navigation
-- Smooth navigation drawer with touch-friendly menu items and ScrollSpy dynamic section highlighting.
-- Zero touch-interception overlays and optimized touch targets across all smartphone viewports.
+### 4. 📱 Mobile-First Responsive Navigation
+- Smooth mobile drawer menu with touch-friendly navigation and coordinated scroll offset calculation for sticky headers.
+- Direct quick-action floating buttons for instant dealer WhatsApp inquiries and smooth scroll-to-top.
+
+### 5. 🛡️ Interactive Lead Generation & Direct WhatsApp Dispatch
+- Dynamic form validation with instant formatted quote compilation routed directly to regional dealer WhatsApp chats.
 
 ---
 
@@ -76,24 +79,45 @@
 
 ## 🛠️ Technology Stack
 
-- **Frontend:** Semantic HTML5, Vanilla CSS3 (Custom Design Tokens, CSS Grid, Glassmorphism), Modern Vanilla JavaScript (ES6+ Modules, Zero Framework Bloat).
-- **Typography & Assets:** Google Fonts (`Plus Jakarta Sans`, `Outfit`, `Noto Sans Telugu`), SVG vector icons.
-- **Performance:** 100% Client-side execution with sub-second loading time and zero runtime dependencies.
+- **Framework & Core:** [React 19](https://react.dev) + [Vite 6](https://vitejs.dev)
+- **Animations:** [Framer Motion](https://www.framer.com/motion/)
+- **Icons:** [Lucide React](https://lucide.dev)
+- **Delight & Effects:** [Canvas Confetti](https://www.npmjs.com/package/canvas-confetti)
+- **Styling:** Custom CSS Design Tokens, Glassmorphism, CSS Grid & Flexbox
+- **Typography:** Google Fonts (`Plus Jakarta Sans`, `Outfit`, `Noto Sans Telugu`)
+- **Performance:** Hardware-accelerated transitions, 60fps animations, zero runtime bundle bloat
 
 ---
 
 ## 🚀 How to Run Locally
 
+### Prerequisites
+- Node.js (v18.0.0 or higher recommended)
+- npm or yarn / pnpm
+
+### Installation & Development
 ```bash
-# 1. Clone repository
+# 1. Clone the repository
 git clone https://github.com/PushkarKunda/PrasudhaArka.git
 cd PrasudhaArka
 
-# 2. Start local development server
+# 2. Install dependencies
+npm install
+
+# 3. Start local development server
 npm run dev
 ```
 
-Open your browser and navigate to: **`http://localhost:8080`**
+Open your browser and navigate to: **`http://localhost:5173`**
+
+### Production Build
+```bash
+# Build optimized production bundle
+npm run build
+
+# Preview production build locally
+npm run preview
+```
 
 ---
 
@@ -101,28 +125,53 @@ Open your browser and navigate to: **`http://localhost:8080`**
 
 ```text
 PrasudhaArka/
-├── index.html              # Main HTML webpage, metadata & semantic sections
-├── styles.css              # Custom styling, responsive breakpoints & themes
-├── script.js               # State engine, tariff calculators & bilingual dictionary
-├── package.json            # Node.js development server configuration
-├── assets/                 # Brand logos and high-resolution assets
-│   ├── logo_te.jpg         # Official Telugu PraSudhaArka logo
-│   ├── logo_en.jpg         # Official English PraSudhaArka logo
-│   ├── aquapzone_logo.jpg  # Aqua Pzone corporate logo
-│   ├── hero_solar.jpg      # Rooftop solar installation hero graphic
-│   ├── solar_team.jpg      # Commercial solar installation team image
-│   ├── battery_storage.jpg # Lithium battery inverter storage system
-│   └── ro_plant.jpg        # Industrial RO water treatment plant graphic
-└── README.md               # Comprehensive project documentation
+├── index.html                  # Main HTML entry point & SEO meta tags
+├── package.json                # Project dependencies & scripts
+├── vite.config.js              # Vite configuration
+├── public/                     # Static public assets
+├── assets/                     # Brand logos, hero and product graphics
+│   ├── logo_te.jpg             # Official Telugu PraSudhaArka logo
+│   ├── logo_en.jpg             # Official English PraSudhaArka logo
+│   ├── aquapzone_logo.jpg      # Aqua Pzone corporate brand logo
+│   ├── hero_solar.jpg          # Rooftop solar installation hero visual
+│   ├── battery_storage.jpg     # Lithium battery storage graphic
+│   └── ro_plant.jpg            # Commercial RO water treatment plant
+└── src/
+    ├── main.jsx                # Application root mount
+    ├── App.jsx                 # Main layout & language state coordinator
+    ├── index.css               # Design system, CSS variables & responsive layout
+    ├── components/             # Reusable UI Components
+    │   ├── Navbar.jsx          # Sticky navbar with mobile drawer & smooth scroll
+    │   ├── Hero.jsx            # Hero section with interactive simulator switch
+    │   ├── QuickQuoteCard.jsx  # Instant bill estimate input card
+    │   ├── EnergyFlowVisualizer.jsx # Interactive live energy flow diagram
+    │   ├── BrandShowcase.jsx   # Authorized brand partners & trust badges
+    │   ├── SystemPricing.jsx   # System size pricing matrix (1kW - 5kW)
+    │   ├── SolarCalculator.jsx # Comprehensive DISCOM tariff & ROI calculator
+    │   ├── ServicesSection.jsx # Solar, RO, battery, & agri pump services
+    │   ├── ProcessTimeline.jsx # 5-step PM Surya Ghar installation roadmap
+    │   ├── DocumentsSection.jsx# Required documentation checklist
+    │   ├── Testimonials.jsx    # Verified customer reviews
+    │   ├── FaqSection.jsx      # Frequently asked questions accordion
+    │   ├── ContactSection.jsx  # Inquiry form & regional dealer details
+    │   ├── FloatingActions.jsx # Floating WhatsApp dealer modal & scroll top
+    │   ├── Footer.jsx          # Multi-state contacts & corporate footer
+    │   └── WhatsAppIcon.jsx    # Crisp vector WhatsApp badge
+    └── data/                   # Data Stores & Business Logic
+        ├── i18n.js             # Bilingual dictionary (English & Telugu)
+        ├── tariffs.js          # AP & TS DISCOM tariff engines & slabs
+        ├── dealers.js          # Authorized dealer contact info & WhatsApp links
+        ├── products.js         # Solar panel & system specifications
+        └── services.js         # Service catalog details
 ```
 
 ---
 
 ## 🚢 Deployment Options
 
-This static web application can be deployed instantly to:
-- **Vercel / Netlify / Cloudflare Pages:** Connect the GitHub repository `PushkarKunda/PrasudhaArka` for automatic continuous deployment.
-- **GitHub Pages:** Enable GitHub Pages in repository settings pointing to the `main` branch root.
+This web application can be deployed instantly to modern edge hosting platforms:
+- **Vercel / Netlify:** Connected directly to the GitHub repository `PushkarKunda/PrasudhaArka` with build command `npm run build` and output directory `dist`.
+- **GitHub Pages / Cloudflare Pages:** Fast global edge distribution.
 
 ---
 

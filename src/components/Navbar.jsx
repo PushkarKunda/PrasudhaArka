@@ -45,28 +45,48 @@ export const Navbar = ({ lang, setLang, t }) => {
     if (e && e.preventDefault) {
       e.preventDefault();
     }
-    setMobileMenuOpen(false);
 
-    const targetId = href.replace('#', '');
-    const element = document.getElementById(targetId);
-    if (element) {
-      // Execute scroll after mobile drawer starts closing
-      setTimeout(() => {
-        const headerOffset = 80;
-        const bodyRect = document.body.getBoundingClientRect().top;
-        const elementRect = element.getBoundingClientRect().top;
-        const elementPosition = elementRect - bodyRect;
-        const offsetPosition = elementPosition - headerOffset;
+    const wasMobileMenuOpen = mobileMenuOpen;
+    if (wasMobileMenuOpen) {
+      setMobileMenuOpen(false);
+    }
+
+    const targetId = href ? href.replace('#', '') : '';
+    if (!targetId) return;
+
+    const performScroll = () => {
+      if (targetId === 'home') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        if (window.history.pushState) {
+          window.history.pushState(null, null, '#home');
+        }
+        return;
+      }
+
+      const element = document.getElementById(targetId);
+      if (element) {
+        const isMobile = window.innerWidth <= 768;
+        const headerOffset = isMobile ? 74 : 88;
+        const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+        const offsetPosition = Math.max(0, elementPosition - headerOffset);
 
         window.scrollTo({
-          top: Math.max(0, offsetPosition),
+          top: offsetPosition,
           behavior: 'smooth'
         });
-      }, 50);
 
-      if (window.history.pushState) {
-        window.history.pushState(null, null, href);
+        if (window.history.pushState) {
+          window.history.pushState(null, null, href);
+        }
       }
+    };
+
+    // If mobile menu was open, wait a short moment for the drawer closing
+    // so layout recalculations don't cancel browser smooth scrolling
+    if (wasMobileMenuOpen) {
+      setTimeout(performScroll, 80);
+    } else {
+      performScroll();
     }
   };
 

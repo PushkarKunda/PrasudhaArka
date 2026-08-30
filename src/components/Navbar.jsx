@@ -41,14 +41,44 @@ export const Navbar = ({ lang, setLang, t }) => {
     { label: t.navContact, href: '#contact' },
   ];
 
-  const handleNavClick = () => {
+  const handleNavScroll = (e, href) => {
+    if (e && e.preventDefault) {
+      e.preventDefault();
+    }
     setMobileMenuOpen(false);
+
+    const targetId = href.replace('#', '');
+    const element = document.getElementById(targetId);
+    if (element) {
+      // Execute scroll after mobile drawer starts closing
+      setTimeout(() => {
+        const headerOffset = 80;
+        const bodyRect = document.body.getBoundingClientRect().top;
+        const elementRect = element.getBoundingClientRect().top;
+        const elementPosition = elementRect - bodyRect;
+        const offsetPosition = elementPosition - headerOffset;
+
+        window.scrollTo({
+          top: Math.max(0, offsetPosition),
+          behavior: 'smooth'
+        });
+      }, 50);
+
+      if (window.history.pushState) {
+        window.history.pushState(null, null, href);
+      }
+    }
   };
 
   return (
     <header className={`site-header ${isScrolled ? 'header-scrolled' : ''}`}>
       <div className="container navbar">
-        <a href="#home" className="brand-identity" title="Prasudharka Solar">
+        <a 
+          href="#home" 
+          onClick={(e) => handleNavScroll(e, '#home')}
+          className="brand-identity" 
+          title="Prasudharka Solar"
+        >
           <div className="brand-logo-container">
             <img 
               src={lang === 'te' ? '/assets/logo_te.jpg' : '/assets/logo_en.jpg'} 
@@ -72,7 +102,11 @@ export const Navbar = ({ lang, setLang, t }) => {
           <ul className="nav-links">
             {navItems.map((item, idx) => (
               <li key={idx}>
-                <a href={item.href} className="nav-link">
+                <a 
+                  href={item.href} 
+                  onClick={(e) => handleNavScroll(e, item.href)}
+                  className="nav-link"
+                >
                   {item.label}
                 </a>
               </li>
@@ -93,7 +127,11 @@ export const Navbar = ({ lang, setLang, t }) => {
             <span className="lang-btn-text">{t.langBtnText}</span>
           </motion.button>
 
-          <a href="#calculator" className="btn btn-primary btn-sm btn-glow nav-calc-btn">
+          <a 
+            href="#calculator" 
+            onClick={(e) => handleNavScroll(e, '#calculator')}
+            className="btn btn-primary btn-sm btn-glow nav-calc-btn"
+          >
             <Calculator size={16} />
             <span className="nav-calc-btn-text">{t.btnCalcSubsidy}</span>
           </a>
@@ -127,7 +165,11 @@ export const Navbar = ({ lang, setLang, t }) => {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: idx * 0.05 }}
                   >
-                    <a href={item.href} onClick={handleNavClick} className="mobile-nav-link">
+                    <a 
+                      href={item.href} 
+                      onClick={(e) => handleNavScroll(e, item.href)} 
+                      className="mobile-nav-link"
+                    >
                       <span>{item.label}</span>
                       <ChevronRight size={18} />
                     </a>
@@ -140,7 +182,11 @@ export const Navbar = ({ lang, setLang, t }) => {
                   <Globe size={18} />
                   <span>{t.langBtnText} ({lang === 'te' ? 'English' : 'తెలుగు'})</span>
                 </button>
-                <a href="#calculator" onClick={handleNavClick} className="btn btn-primary btn-block">
+                <a 
+                  href="#calculator" 
+                  onClick={(e) => handleNavScroll(e, '#calculator')} 
+                  className="btn btn-primary btn-block"
+                >
                   <Calculator size={18} />
                   <span>{t.btnCalcSubsidy}</span>
                 </a>

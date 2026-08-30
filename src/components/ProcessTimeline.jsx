@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
 import { 
   GitCommit, 
   MapPin, 
@@ -8,7 +7,6 @@ import {
   Wrench, 
   Zap, 
   CheckCircle,
-  ArrowRight,
   ShieldCheck
 } from 'lucide-react';
 import { PROCESS_STEPS } from '../data/services';
@@ -38,8 +36,8 @@ export const ProcessTimeline = ({ lang, t }) => {
           <p className="section-subtitle">{t.processDesc}</p>
         </div>
 
-        {/* 6-Step Turnkey Timeline */}
-        <div className="process-timeline-grid">
+        {/* 6-Step Turnkey Timeline Grid */}
+        <div className="process-timeline-grid-6">
           {PROCESS_STEPS.map((step, idx) => {
             const IconComp = iconMap[step.icon] || Zap;
             const isSelected = activeStep === idx;
@@ -47,36 +45,32 @@ export const ProcessTimeline = ({ lang, t }) => {
             return (
               <div
                 key={idx}
-                className={`process-step-card glassmorphism-card ${isSelected ? 'active-step' : ''}`}
+                className={`process-step-compact-card ${isSelected ? 'active-step' : ''}`}
                 onClick={() => setActiveStep(idx)}
               >
-                <div className="step-number-badge">
-                  <span>{step.step}</span>
+                {/* Header row: Number on left, Golden Icon on right */}
+                <div className="step-card-top-row">
+                  <span className="step-num-text">{step.step}</span>
+                  <div className="step-icon-circle">
+                    <IconComp size={20} className="step-icon-gold" />
+                  </div>
                 </div>
 
-                <div className="step-icon-wrap">
-                  <IconComp size={24} className="text-gold" />
-                </div>
-
-                <h3 className="step-title">
+                <h3 className="step-compact-title">
                   {lang === 'te' ? step.titleTe : step.titleEn}
                 </h3>
 
-                <p className="step-desc">
+                <p className="step-compact-desc">
                   {lang === 'te' ? step.descTe : step.descEn}
                 </p>
-
-                <div className="step-indicator-bar">
-                  <div className="indicator-fill" />
-                </div>
               </div>
             );
           })}
         </div>
 
         {/* Process Guarantee Callout */}
-        <div className="process-guarantee-card glassmorphism-card">
-          <ShieldCheck size={28} className="text-emerald-400 flex-shrink-0" />
+        <div className="process-guarantee-card">
+          <ShieldCheck size={28} className="text-emerald-500 flex-shrink-0" />
           <div className="guarantee-text">
             <h4>
               {lang === 'te' 

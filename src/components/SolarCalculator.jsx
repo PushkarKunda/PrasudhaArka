@@ -13,7 +13,8 @@ import {
   Tractor,
   Sparkles,
   Sun,
-  Layers
+  Layers,
+  Globe
 } from 'lucide-react';
 import { WhatsAppIcon } from './WhatsAppIcon';
 import { computeDiscomTariff, calculateSolarPlan, billToUnits } from '../data/tariffs';
@@ -34,12 +35,14 @@ export const SolarCalculator = ({ lang, t }) => {
   // Compute effective units from active input mode
   const effectiveUnits = useMemo(() => {
     if (calcMode === 'meter') {
-      return Math.max(10, Math.max(0, currentReading - prevReading));
+      const cur = Number(currentReading) || 0;
+      const prev = Number(prevReading) || 0;
+      return Math.max(10, Math.max(0, cur - prev));
     }
     if (calcMode === 'bill') {
-      return billToUnits(billAmount, state, propType);
+      return billToUnits(Number(billAmount) || 3000, state, propType);
     }
-    return Math.max(10, units);
+    return Math.max(10, Number(units) || 300);
   }, [calcMode, units, billAmount, currentReading, prevReading, state, propType]);
 
   // Compute DISCOM Tariff Breakdown
@@ -101,7 +104,7 @@ export const SolarCalculator = ({ lang, t }) => {
             `• *25-Year Lifetime Savings:* ₹${solarPlan.lifetimeSavings.toLocaleString('en-IN')}\n` +
             `• *Roof Space Required:* ${solarPlan.spaceDisplay} (${solarPlan.sqft} Sq.Ft)\n` +
             `------------------------------------\n` +
-            `Hello ${dealerInfo.name}, please verify my solar calculation and schedule a rooftop feasibility survey.`;
+            `Hello ${dealerInfo.name}, please share detailed solar proposal & schedule rooftop site survey.`;
     }
 
     window.open(getWhatsAppUrl(selectedDealer, msg), '_blank');
@@ -122,165 +125,150 @@ export const SolarCalculator = ({ lang, t }) => {
 
         <div className="calculator-grid">
           {/* Left Column: Interactive Inputs */}
-          <div className="calculator-controls-card glassmorphism-card">
-            <h3 className="calc-card-title">
-              <Zap size={20} className="text-gold" />
-              <span>{lang === 'te' ? 'మీ విద్యుత్ వివరాలు నమోదు చేయండి' : 'Enter Electricity Parameters'}</span>
-            </h3>
-
+          <div className="calculator-controls-card">
             {/* 1. State Selector */}
-            <div className="form-group">
-              <label className="form-label">
-                {lang === 'te' ? 'రాష్ట్రం ఎంచుకోండి (Select State):' : 'Select State (Official DISCOM):'}
-              </label>
-              <div className="state-pills-group">
+            <div className="form-group-block">
+              <label className="calc-field-label">Select State:</label>
+              <div className="state-pills-row">
                 <button
                   type="button"
-                  className={`state-pill ${state === 'AP' ? 'active' : ''}`}
+                  className={`state-select-btn ${state === 'AP' ? 'active' : ''}`}
                   onClick={() => setState('AP')}
                 >
-                  <span className="state-code">AP</span>
-                  <span>{lang === 'te' ? 'ఆంధ్రప్రదేశ్ (APCPDCL / APSPDCL)' : 'Andhra Pradesh (APCPDCL / APSPDCL)'}</span>
+                  <span className="lightning-icon">⚡</span>
+                  <span>ఆంధ్రప్రదేశ్ (AP)</span>
                 </button>
                 <button
                   type="button"
-                  className={`state-pill ${state === 'TS' ? 'active' : ''}`}
+                  className={`state-select-btn ${state === 'TS' ? 'active' : ''}`}
                   onClick={() => setState('TS')}
                 >
-                  <span className="state-code">TG</span>
-                  <span>{lang === 'te' ? 'తెలంగాణ (TSSPDCL / TSNPDCL)' : 'Telangana (TSSPDCL / TSNPDCL)'}</span>
+                  <span className="lightning-icon">⚡</span>
+                  <span>తెలంగాణ (TG)</span>
                 </button>
               </div>
             </div>
 
             {/* 2. Connection Category */}
-            <div className="form-group">
-              <label className="form-label">
-                {lang === 'te' ? 'కనెక్షన్ కేటగిరీ (Connection Category):' : 'Connection Category:'}
-              </label>
-              <div className="category-btn-group">
+            <div className="form-group-block">
+              <label className="calc-field-label">Connection Category (Tariff Category):</label>
+              <div className="cat-selector-grid-3">
                 <button
                   type="button"
-                  className={`cat-btn ${propType === 'residential' ? 'active' : ''}`}
+                  className={`cat-card-btn ${propType === 'residential' ? 'active' : ''}`}
                   onClick={() => handlePropTypeChange('residential')}
                 >
-                  <span className="cat-badge-tag">{lang === 'te' ? 'Cat-1 (సబ్సిడీ వర్తిస్తుంది)' : 'Cat-1 (Subsidy Eligible)'}</span>
-                  <div className="cat-title-row">
-                    <Home size={16} />
-                    <span>{lang === 'te' ? 'నివాసం / ఇల్లు (Residential)' : 'Residential (Home)'}</span>
-                  </div>
+                  <span className="cat-pill-tag green-tag">CAT-1 (SUBSIDY ELIGIBLE)</span>
+                  <span className="cat-card-text">Residential (Home)</span>
                 </button>
 
                 <button
                   type="button"
-                  className={`cat-btn ${propType === 'commercial' ? 'active' : ''}`}
+                  className={`cat-card-btn ${propType === 'commercial' ? 'active' : ''}`}
                   onClick={() => handlePropTypeChange('commercial')}
                 >
-                  <span className="cat-badge-tag muted">{lang === 'te' ? 'Cat-2 (సబ్సిడీ లేదు)' : 'Cat-2 (No Subsidy)'}</span>
-                  <div className="cat-title-row">
-                    <Building size={16} />
-                    <span>{lang === 'te' ? 'వాణిజ్యం (Commercial)' : 'Commercial (Shop/Office)'}</span>
-                  </div>
+                  <span className="cat-pill-tag grey-tag">CAT-2 (NO SUBSIDY)</span>
+                  <span className="cat-card-text">Commercial (Shop/Office)</span>
                 </button>
 
                 <button
                   type="button"
-                  className={`cat-btn ${propType === 'farm' ? 'active' : ''}`}
+                  className={`cat-card-btn ${propType === 'farm' ? 'active' : ''}`}
                   onClick={() => handlePropTypeChange('farm')}
                 >
-                  <span className="cat-badge-tag muted">{lang === 'te' ? 'Cat-3 (సబ్సిడీ లేదు)' : 'Cat-3 (No Subsidy)'}</span>
-                  <div className="cat-title-row">
-                    <Tractor size={16} />
-                    <span>{lang === 'te' ? 'పరిశ్రమ / వ్యవసాయం' : 'Industry / Agriculture'}</span>
-                  </div>
+                  <span className="cat-pill-tag grey-tag">CAT-3 (NO SUBSIDY)</span>
+                  <span className="cat-card-text">Industry / Agriculture</span>
                 </button>
               </div>
             </div>
 
             {/* 3. Solar Panel Type (DCR vs NON-DCR) */}
-            <div className="form-group">
-              <div className="field-label-with-badge">
-                <label className="form-label">
-                  {lang === 'te' ? 'సోలార్ ప్యానెల్ రకం (Panel Type):' : 'Solar Panel Type (DCR / NON-DCR):'}
-                </label>
-                <span className={`panel-subsidy-status ${propType === 'residential' && panelType === 'dcr' ? '' : 'no-subsidy'}`}>
+            <div className="form-group-block">
+              <div className="field-header-row">
+                <label className="calc-field-label">Solar Panel Type (DCR / NON-DCR):</label>
+                <span className={`panel-status-pill ${propType === 'residential' && panelType === 'dcr' ? 'active' : 'inactive'}`}>
                   {propType === 'residential' && panelType === 'dcr'
-                    ? (lang === 'te' ? '✓ DCR: కేంద్ర ప్రభుత్వ సబ్సిడీ వర్తిస్తుంది' : '✓ DCR: PM Surya Ghar Subsidy Available')
-                    : (lang === 'te' ? 'NON-DCR: సబ్సిడీ వర్తించదు' : 'NON-DCR: No Subsidy')}
+                    ? '✓ Cat-1: DCR Only (Govt Subsidy Eligible)'
+                    : 'NON-DCR: No Subsidy'}
                 </span>
               </div>
-              <div className="panel-type-selector">
+
+              <div className="panel-toggle-grid-2">
                 <button
                   type="button"
-                  className={`panel-type-pill ${panelType === 'dcr' ? 'active' : ''}`}
+                  className={`panel-choice-card ${panelType === 'dcr' ? 'active' : ''}`}
                   onClick={() => setPanelType('dcr')}
                 >
-                  <ShieldCheck size={18} className="text-emerald-400" />
-                  <div>
-                    <strong>{lang === 'te' ? 'DCR ప్యానెల్స్' : 'DCR Solar Panels'}</strong>
-                    <small>{lang === 'te' ? 'PM Surya Ghar సబ్సిడీ లభిస్తుంది' : 'PM Surya Ghar Subsidy Eligible'}</small>
+                  <span className="flag-icon-wrap">🇮🇳</span>
+                  <div className="panel-choice-info">
+                    <strong className="panel-title">DCR Panels</strong>
+                    <span className="panel-desc">PM Surya Ghar Subsidy Available</span>
                   </div>
                 </button>
 
                 <button
                   type="button"
-                  className={`panel-type-pill ${panelType === 'nondcr' ? 'active' : ''}`}
+                  className={`panel-choice-card ${panelType === 'nondcr' ? 'active' : 'disabled'}`}
                   onClick={() => setPanelType('nondcr')}
                 >
-                  <Layers size={18} className="text-cyan-400" />
-                  <div>
-                    <strong>{lang === 'te' ? 'NON-DCR ప్యానెల్స్' : 'NON-DCR Panels'}</strong>
-                    <small>{lang === 'te' ? 'వాణిజ్య/చవకైన ప్రాజెక్టులకు' : 'Commercial & Cost-Effective'}</small>
+                  <span className="flag-icon-wrap globe-icon">🌐</span>
+                  <div className="panel-choice-info">
+                    <strong className="panel-title">NON-DCR Panels</strong>
+                    <span className="panel-desc">Commercial / Cost-Effective (No Subsidy)</span>
                   </div>
                 </button>
               </div>
             </div>
 
             {/* 4. Calculation Input Mode Tabs */}
-            <div className="form-group">
-              <label className="form-label">
-                {lang === 'te' ? 'లెక్కించే పద్ధతి (Input Mode):' : 'Calculation Input Mode:'}
-              </label>
-              <div className="calc-mode-tabs">
+            <div className="form-group-block">
+              <div className="input-mode-track">
                 <button
                   type="button"
-                  className={`mode-tab ${calcMode === 'units' ? 'active' : ''}`}
+                  className={`mode-track-tab ${calcMode === 'units' ? 'active' : ''}`}
                   onClick={() => setCalcMode('units')}
                 >
-                  {lang === 'te' ? 'యూనిట్లు (Units)' : 'Units (kWh)'}
+                  Units (kWh)
                 </button>
                 <button
                   type="button"
-                  className={`mode-tab ${calcMode === 'meter' ? 'active' : ''}`}
+                  className={`mode-track-tab ${calcMode === 'meter' ? 'active' : ''}`}
                   onClick={() => setCalcMode('meter')}
                 >
-                  {lang === 'te' ? 'మీటర్ రీడింగ్' : 'Meter Reading'}
+                  Meter Reading
                 </button>
                 <button
                   type="button"
-                  className={`mode-tab ${calcMode === 'bill' ? 'active' : ''}`}
+                  className={`mode-track-tab ${calcMode === 'bill' ? 'active' : ''}`}
                   onClick={() => setCalcMode('bill')}
                 >
-                  {lang === 'te' ? 'బిల్లు మొత్తం (₹)' : 'Bill (₹)'}
+                  Bill Amount (₹)
                 </button>
               </div>
 
               {/* Mode 1: Units Input */}
               {calcMode === 'units' && (
-                <div className="slider-group-box">
-                  <div className="slider-header-row">
-                    <span className="slider-title-text">{lang === 'te' ? 'నెలవారీ యూనిట్లు (Monthly Units)' : 'Monthly Consumption (kWh)'}</span>
-                    <div className="slider-input-badge">
+                <div className="calc-slider-box">
+                  <div className="slider-label-row">
+                    <span className="slider-left-label">Monthly Consumption (Units)</span>
+                    <div className="slider-val-badge">
                       <input 
                         type="number" 
                         min="10" 
-                        max="3000" 
+                        max="10000" 
                         step="10" 
-                        value={units} 
-                        onChange={(e) => setUnits(Math.max(10, Number(e.target.value)))}
-                        className="calc-num-input"
+                        value={units === '' ? '' : units} 
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          setUnits(val === '' ? '' : parseInt(val, 10) || 0);
+                        }}
+                        onBlur={() => {
+                          if (units === '' || Number(units) < 10) setUnits(300);
+                        }}
+                        className="calc-inline-input"
+                        aria-label="Monthly Units"
                       />
-                      <span className="unit-tag">kWh</span>
+                      <span className="unit-label-tag">kWh</span>
                     </div>
                   </div>
                   <input
@@ -288,11 +276,12 @@ export const SolarCalculator = ({ lang, t }) => {
                     min="10"
                     max="1500"
                     step="10"
-                    value={units}
+                    value={Math.min(1500, Math.max(10, Number(units) || 10))}
                     onChange={(e) => setUnits(Number(e.target.value))}
-                    className="custom-range"
+                    className="calc-blue-range"
+                    aria-label="Monthly Units Slider"
                   />
-                  <div className="slider-ticks-row">
+                  <div className="slider-tick-labels">
                     <span>50 u</span>
                     <span>300 u</span>
                     <span>750 u</span>
@@ -303,29 +292,41 @@ export const SolarCalculator = ({ lang, t }) => {
 
               {/* Mode 2: Meter Reading */}
               {calcMode === 'meter' && (
-                <div className="meter-mode-box">
+                <div className="calc-slider-box">
                   <div className="meter-reading-grid">
                     <div className="meter-input-cell">
-                      <label>{lang === 'te' ? 'ప్రస్తుత రీడింగ్ (Current Reading):' : 'Current Reading:'}</label>
+                      <label>Current Reading:</label>
                       <input
                         type="number"
-                        value={currentReading}
-                        onChange={(e) => setCurrentReading(Number(e.target.value))}
+                        value={currentReading === '' ? '' : currentReading}
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          setCurrentReading(val === '' ? '' : parseInt(val, 10) || 0);
+                        }}
+                        onBlur={() => {
+                          if (currentReading === '') setCurrentReading(4520);
+                        }}
                         className="custom-input"
                       />
                     </div>
                     <div className="meter-input-cell">
-                      <label>{lang === 'te' ? 'మునుపటి రీడింగ్ (Previous Reading):' : 'Previous Reading:'}</label>
+                      <label>Previous Reading:</label>
                       <input
                         type="number"
-                        value={prevReading}
-                        onChange={(e) => setPrevReading(Number(e.target.value))}
+                        value={prevReading === '' ? '' : prevReading}
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          setPrevReading(val === '' ? '' : parseInt(val, 10) || 0);
+                        }}
+                        onBlur={() => {
+                          if (prevReading === '') setPrevReading(4220);
+                        }}
                         className="custom-input"
                       />
                     </div>
                   </div>
                   <div className="meter-diff-badge">
-                    <span>{lang === 'te' ? 'మొత్తం వినియోగించిన యూనిట్లు:' : 'Calculated Monthly Units:'}</span>
+                    <span>Calculated Monthly Units:</span>
                     <strong className="text-gold">{effectiveUnits} Units (kWh)</strong>
                   </div>
                 </div>
@@ -333,19 +334,26 @@ export const SolarCalculator = ({ lang, t }) => {
 
               {/* Mode 3: Bill Amount */}
               {calcMode === 'bill' && (
-                <div className="slider-group-box">
-                  <div className="slider-header-row">
-                    <span className="slider-title-text">{lang === 'te' ? 'నెలవారీ బిల్లు మొత్తం (Monthly Bill)' : 'Monthly Power Bill (₹)'}</span>
-                    <div className="slider-input-badge">
-                      <span className="rupee-sign">₹</span>
+                <div className="calc-slider-box">
+                  <div className="slider-label-row">
+                    <span className="slider-left-label">Monthly Power Bill (₹)</span>
+                    <div className="slider-val-badge">
+                      <span className="rupee-sym-blue">₹</span>
                       <input 
                         type="number" 
                         min="500" 
-                        max="50000" 
+                        max="500000" 
                         step="100" 
-                        value={billAmount} 
-                        onChange={(e) => setBillAmount(Math.max(500, Number(e.target.value)))}
-                        className="calc-num-input bill-width"
+                        value={billAmount === '' ? '' : billAmount} 
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          setBillAmount(val === '' ? '' : parseInt(val, 10) || 0);
+                        }}
+                        onBlur={() => {
+                          if (billAmount === '' || Number(billAmount) < 100) setBillAmount(3000);
+                        }}
+                        className="calc-inline-input"
+                        aria-label="Monthly Power Bill in Rupees"
                       />
                     </div>
                   </div>
@@ -354,11 +362,12 @@ export const SolarCalculator = ({ lang, t }) => {
                     min="500"
                     max="25000"
                     step="100"
-                    value={billAmount}
+                    value={Math.min(25000, Math.max(500, Number(billAmount) || 500))}
                     onChange={(e) => setBillAmount(Number(e.target.value))}
-                    className="custom-range"
+                    className="calc-blue-range"
+                    aria-label="Monthly Power Bill Slider"
                   />
-                  <div className="slider-ticks-row">
+                  <div className="slider-tick-labels">
                     <span>₹500</span>
                     <span>₹5,000</span>
                     <span>₹15,000</span>
@@ -369,149 +378,117 @@ export const SolarCalculator = ({ lang, t }) => {
             </div>
 
             {/* Current DISCOM Bill & Tariff Breakdown Summary */}
-            <div className="calc-discom-summary">
-              <div className="discom-summary-header">
-                <span className="discom-badge">
-                  {tariffResult.tierName 
-                    ? `${state === 'AP' ? 'AP Tariff (APCPDCL / APSPDCL)' : 'Telangana Tariff (TSSPDCL)'} • ${tariffResult.tierName}`
-                    : (state === 'AP' ? 'AP Tariff (APCPDCL / APSPDCL)' : 'Telangana Tariff (TSSPDCL)')}
+            <div className="discom-tariff-box">
+              <div className="tariff-box-header">
+                <span className="tariff-header-title">
+                  {state === 'AP' ? 'AP TARIFF (APCPDCL / APSPDCL)' : 'TELANGANA TARIFF (TSSPDCL)'}
                 </span>
-                <span className="effective-rate-pill">
+                <span className="tariff-rate-badge">
                   Avg: ₹{tariffResult.effectiveRate} / unit
                 </span>
               </div>
 
-              <div className="discom-breakdown-row">
-                <span>{lang === 'te' ? 'Energy Charges (స్లాబుల ప్రకారం):' : 'Energy Charges (Telescopic Slabs):'}</span>
+              <div className="tariff-data-row">
+                <span>Energy Charges (Telescopic Slabs):</span>
                 <strong>₹{tariffResult.energyCharges.toLocaleString('en-IN')}</strong>
               </div>
 
-              <div className="discom-breakdown-row">
-                <span>{lang === 'te' ? 'Fixed + Meter + Duty + FAC:' : 'Fixed + Meter + Duty + FAC:'}</span>
+              <div className="tariff-data-row">
+                <span>Fixed + Meter + Duty + FAC:</span>
                 <strong>₹{tariffResult.otherCharges.toLocaleString('en-IN')}</strong>
               </div>
 
-              <div className="discom-total-row">
-                <span>{lang === 'te' ? 'ప్రస్తుత నెలవారీ బిల్లు (Current Bill):' : 'Current Monthly Electricity Bill:'}</span>
-                <span className="discom-total-val">₹{tariffResult.totalBill.toLocaleString('en-IN')}</span>
+              <div className="tariff-total-highlight-row">
+                <span className="total-label">Current Monthly Electricity Bill:</span>
+                <span className="total-amount-blue">₹{tariffResult.totalBill.toLocaleString('en-IN')}</span>
               </div>
             </div>
           </div>
 
-          {/* Right Column: Calculated Solar ROI & Output Card */}
-          <div className="calculator-results-card glassmorphism-card-glow">
-            <div className="results-header-flex">
-              <div className="result-header-badge">
-                <Sparkles size={16} className="text-gold" />
-                <span>{lang === 'te' ? 'మీ సోలార్ ప్లాన్ అంచనా' : 'Your Solar Plan & ROI Estimate'}</span>
-              </div>
-              <span className="plan-state-badge">
-                {state} • {tariffResult.load} kW Load • {panelType.toUpperCase()}
+          {/* Right Column: Dark Navy Card */}
+          <div className="calculator-dark-results-card">
+            <div className="dark-card-header">
+              <h3 className="dark-card-title">Your Solar Estimate & Returns</h3>
+              <span className="dark-card-pill-tag">
+                {state} • {tariffResult.load} KW LOAD • {panelType.toUpperCase()}
               </span>
             </div>
 
-            {/* 4 Key Metric Cards Grid */}
-            <div className="calc-metrics-grid">
-              <div className="calc-metric-card">
-                <div className="metric-label">{lang === 'te' ? 'సిఫార్సు సోలార్ సామర్థ్యం' : 'Recommended Solar Size'}</div>
-                <div className="metric-value">{solarPlan.recKw} kW</div>
+            {/* 4 Metric Cards Grid (2x2) */}
+            <div className="dark-metrics-grid">
+              <div className="dark-metric-box">
+                <div className="dark-metric-label">RECOMMENDED SOLAR SIZE</div>
+                <div className="dark-metric-val">{solarPlan.recKw} kW</div>
               </div>
 
-              <div className="calc-metric-card subsidy">
-                <div className="metric-label">{lang === 'te' ? 'కేంద్ర ప్రభుత్వ సబ్సిడీ' : 'Central Govt Subsidy'}</div>
-                <div className="metric-value">
-                  {solarPlan.subsidy > 0 ? `₹${solarPlan.subsidy.toLocaleString('en-IN')}` : (lang === 'te' ? 'సబ్సిడీ లేదు' : 'No Subsidy')}
+              <div className="dark-metric-box gold-border">
+                <div className="dark-metric-label">CENTRAL GOVT SUBSIDY</div>
+                <div className="dark-metric-val text-gold">
+                  {solarPlan.subsidy > 0 ? `₹${solarPlan.subsidy.toLocaleString('en-IN')}` : '₹0'}
                 </div>
               </div>
 
-              <div className="calc-metric-card">
-                <div className="metric-label">{lang === 'te' ? 'అవసరమైన స్థలం (Space)' : 'Required Roof Space'}</div>
-                <div className="metric-value">{solarPlan.spaceDisplay}</div>
+              <div className="dark-metric-box">
+                <div className="dark-metric-label">REQUIRED ROOF SPACE</div>
+                <div className="dark-metric-val">{solarPlan.spaceDisplay}</div>
               </div>
 
-              <div className="calc-metric-card highlight">
-                <div className="metric-label">{lang === 'te' ? 'నెలవారీ కరెంట్ ఆదా' : 'Monthly Power Savings'}</div>
-                <div className="metric-value">₹{solarPlan.monthlySavings.toLocaleString('en-IN')}/mo</div>
+              <div className="dark-metric-box green-border">
+                <div className="dark-metric-label">MONTHLY POWER SAVINGS</div>
+                <div className="dark-metric-val text-green">₹{solarPlan.monthlySavings.toLocaleString('en-IN')}/mo</div>
               </div>
             </div>
 
-            {/* Financial & Loan Specifications (From System Configurations) */}
-            <div className="calc-finance-box">
-              <div className="finance-row">
-                <span className="fin-label">{lang === 'te' ? 'సిస్టమ్ ఖర్చు (Unit Cost):' : 'Unit Cost (DCR):'}</span>
-                <strong className="fin-val">₹ {solarPlan.unitCost.toLocaleString('en-IN')}</strong>
+            {/* Financial 2x2 Box */}
+            <div className="dark-finance-specs-box">
+              <div className="finance-spec-cell">
+                <span className="fin-lbl">Unit Cost (DCR)</span>
+                <span className="fin-amt">₹{solarPlan.unitCost.toLocaleString('en-IN')}</span>
               </div>
-              <div className="finance-row">
-                <span className="fin-label">{lang === 'te' ? 'బ్యాంక్ లోన్ సదుపాయం (Max Loan):' : 'Max Bank Loan:'}</span>
-                <strong className="fin-val">₹ {solarPlan.maxLoan.toLocaleString('en-IN')}</strong>
+              <div className="finance-spec-cell">
+                <span className="fin-lbl">Max Loan</span>
+                <span className="fin-amt">₹{solarPlan.maxLoan.toLocaleString('en-IN')}</span>
               </div>
-              <div className="finance-row highlight">
-                <span className="fin-label">{lang === 'te' ? 'అంచనా నెలవారీ EMI:' : 'Est. Bank EMI:'}</span>
-                <strong className="fin-val emi">₹ {solarPlan.estEmi.toLocaleString('en-IN')} / mo</strong>
+              <div className="finance-spec-cell">
+                <span className="fin-lbl">Est. EMI</span>
+                <span className="fin-emi-tag">₹{solarPlan.estEmi.toLocaleString('en-IN')} / mo</span>
               </div>
-              <div className="finance-row">
-                <span className="fin-label">{lang === 'te' ? 'రోజువారీ ఉత్పత్తి (Daily Gen):' : 'Daily Power Gen:'}</span>
-                <strong className="fin-val">{solarPlan.powerGenDay} units/day</strong>
+              <div className="finance-spec-cell">
+                <span className="fin-lbl">Power Gen.</span>
+                <span className="fin-amt">{solarPlan.powerGenDay} units/day</span>
               </div>
             </div>
 
-            {/* Solar Generation & Net Metering Offset Progress Bar */}
-            <div className="solar-offset-bar-card">
-              <div className="offset-bar-labels">
+            {/* Solar Generation & Offset Bar */}
+            <div className="dark-offset-bar-section">
+              <div className="offset-text-flex">
                 <span>Solar Generation: <strong>{solarPlan.solarMonthlyGen} units/mo</strong></span>
                 <span>Offset: <strong>{solarPlan.offsetPct}%</strong></span>
               </div>
-              <div className="offset-progress-bg">
-                <div className="offset-progress-fill" style={{ width: `${solarPlan.offsetPct}%` }}></div>
+              <div className="offset-bar-bg-track">
+                <div className="offset-bar-cyan-fill" style={{ width: `${solarPlan.offsetPct}%` }}></div>
               </div>
             </div>
 
-            {/* 25-Year Cumulative Savings Banner */}
-            <div className="lifetime-savings-banner">
-              <div className="lifetime-text-wrap">
-                <h4>{lang === 'te' ? '25 సంవత్సరాల జీవితకాల విద్యుత్ ఆదా:' : '25-Year Lifetime Electricity Savings:'}</h4>
-                <p>{lang === 'te' ? 'ROI కాలపరిమితి: 3-4 సంవత్సరాలు • ఆ తర్వాత ఉచిత విద్యుత్' : 'ROI Timeline: 3 to 4 Years • Zero Electricity Bill Thereafter'}</p>
+            {/* 25-Year Lifetime Savings Banner */}
+            <div className="dark-lifetime-banner">
+              <div className="lifetime-info-col">
+                <h4 className="lifetime-heading">Estimated 25-Year Lifetime Electricity Savings:</h4>
+                <p className="lifetime-subtext">ROI Timeline: 3 to 4 Years • Zero Electricity Bill Thereafter</p>
               </div>
-              <div className="lifetime-amount-box">
-                <span>₹{solarPlan.lifetimeSavings.toLocaleString('en-IN')}</span>
+              <div className="lifetime-val-blue">
+                ₹{solarPlan.lifetimeSavings.toLocaleString('en-IN')}
               </div>
             </div>
 
-            {/* Dealer Picker & WhatsApp Dispatch */}
-            <div className="calc-action-section">
-              <div className="dealer-pick-row">
-                <span className="dealer-pick-label">{lang === 'te' ? 'కొటేషన్ పంపాల్సిన డీలర్:' : 'Send Plan To:'}</span>
-                <div className="dealer-radios">
-                  <label className={`dealer-mini-pill ${selectedDealer === 'sudhakar' ? 'active' : ''}`}>
-                    <input 
-                      type="radio" 
-                      name="calcDealer"
-                      checked={selectedDealer === 'sudhakar'} 
-                      onChange={() => setSelectedDealer('sudhakar')} 
-                    />
-                    <span>K. Sudhakar (HYD)</span>
-                  </label>
-                  <label className={`dealer-mini-pill ${selectedDealer === 'bhaskar' ? 'active' : ''}`}>
-                    <input 
-                      type="radio" 
-                      name="calcDealer"
-                      checked={selectedDealer === 'bhaskar'} 
-                      onChange={() => setSelectedDealer('bhaskar')} 
-                    />
-                    <span>K. Bhaskar (JMD/AP)</span>
-                  </label>
-                </div>
-              </div>
-
-              <button
-                onClick={handleSendWhatsAppPlan}
-                className="btn btn-whatsapp btn-block btn-lg"
-              >
-                <WhatsAppIcon size={18} />
-                <span>{lang === 'te' ? 'ఈ ప్లాన్‌ను వాట్సాప్‌కి పంపి కొటేషన్ పొందండి' : 'Send This Plan to WhatsApp for Quotation'}</span>
-              </button>
-            </div>
-
+            {/* WhatsApp Quote Button */}
+            <button
+              onClick={handleSendWhatsAppPlan}
+              className="dark-calc-whatsapp-btn"
+            >
+              <WhatsAppIcon size={20} />
+              <span>Send This Plan to WhatsApp for Quotation</span>
+            </button>
           </div>
         </div>
       </div>

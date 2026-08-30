@@ -968,12 +968,12 @@ button, input, select, textarea {
 .range-with-input {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 
 .custom-range {
   flex: 1;
-  height: 5px;
+  height: 6px;
   border-radius: 4px;
   background: #e2e8f0;
   accent-color: var(--gold-500);
@@ -989,6 +989,52 @@ button, input, select, textarea {
   border-radius: var(--radius-sm);
   font-size: 0.82rem;
   white-space: nowrap;
+}
+
+.bill-input-badge {
+  display: inline-flex;
+  align-items: center;
+  background: var(--gold-50);
+  border: 1.5px solid var(--gold-500);
+  border-radius: var(--radius-sm);
+  padding: 3px 8px;
+  box-shadow: 0 1px 4px rgba(245, 158, 11, 0.12);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  flex-shrink: 0;
+}
+
+.bill-input-badge:focus-within {
+  border-color: var(--gold-600);
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.25);
+}
+
+.bill-currency-symbol {
+  font-weight: 800;
+  font-size: 0.95rem;
+  color: var(--gold-700);
+  margin-right: 2px;
+  user-select: none;
+}
+
+.bill-number-input {
+  width: 68px;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-family: inherit;
+  font-weight: 800;
+  font-size: 0.95rem;
+  color: var(--gold-700);
+  padding: 0;
+  text-align: right;
+  -moz-appearance: textfield;
+}
+
+.bill-number-input::-webkit-outer-spin-button,
+.bill-number-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 .custom-input {
@@ -1094,97 +1140,209 @@ select.custom-input {
 }
 
 /* ==========================================================================
-   BRANDS & HARDWARE (ABOUT SECTION)
+   ABOUT US & PREMIUM BRANDS SECTION
    ========================================================================== */
-.brands-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 18px;
-  margin-bottom: 24px;
+.about-company-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 24px;
+  padding: 32px 36px;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+  margin-bottom: 45px;
 }
 
-.brand-hardware-card {
+.about-card-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.company-logo-container {
+  display: inline-flex;
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 4px 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.about-aquapzone-logo {
+  height: 28px;
+  width: auto;
+  object-fit: contain;
+}
+
+.fallback-logo-text {
+  font-weight: 900;
+  font-size: 0.9rem;
+  color: #0f172a;
+  letter-spacing: 0.5px;
+}
+
+.approved-vendor-badge {
+  display: inline-flex;
+  align-items: center;
+  background: #e0f2fe;
+  color: #0284c7;
+  font-size: 0.76rem;
+  font-weight: 800;
+  padding: 5px 14px;
+  border-radius: var(--radius-full);
+  letter-spacing: 0.4px;
+}
+
+.about-company-title {
+  font-size: 2rem;
+  font-weight: 900;
+  color: #0f172a;
+  margin-bottom: 12px;
+  line-height: 1.3;
+}
+
+.about-company-desc {
+  font-size: 0.96rem;
+  color: #334155;
+  line-height: 1.65;
+  margin-bottom: 24px;
+  max-width: 100%;
+}
+
+.about-pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+.pillar-badge-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #e0f2fe;
+  border: 1px solid #bae6fd;
+  padding: 10px 16px;
+  border-radius: 12px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #0f172a;
+  text-align: center;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.pillar-badge-item:hover {
+  transform: translateY(-2px);
+  background: #bae6fd;
+}
+
+.pillar-icon {
+  font-size: 1.1rem;
+}
+
+/* Premium Brands & Warranty */
+.premium-brands-header {
+  margin-bottom: 28px;
+}
+
+.premium-brands-title {
+  font-size: 2.1rem;
+  font-weight: 900;
+  color: #0f172a;
+  margin-bottom: 6px;
+}
+
+.premium-brands-sub {
+  font-size: 0.95rem;
+  color: #64748b;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.premium-brands-grid-5 {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 16px;
+  width: 100%;
+}
+
+.brand-spec-card {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   background: #ffffff;
-  padding: 18px 20px;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 20px 16px;
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.03);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.brand-header {
+.brand-spec-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+}
+
+.brand-card-top-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
 }
 
-.brand-icon-box {
-  background: var(--gold-100);
-  padding: 7px;
-  border-radius: var(--radius-sm);
+.brand-card-num {
+  font-size: 1.25rem;
+  font-weight: 900;
+  color: #0284c7;
 }
 
-.brand-badge-label {
-  font-size: 0.72rem;
+.brand-chip-dark {
+  background: #0f172a;
+  color: #ffffff;
+  font-size: 0.65rem;
   font-weight: 800;
-  color: var(--gold-700);
-  background: var(--bg-muted);
-  padding: 2px 8px;
-  border-radius: 4px;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  letter-spacing: 0.5px;
 }
 
-.hardware-title {
-  font-size: 0.98rem;
+.brand-card-title {
+  font-size: 0.92rem;
   font-weight: 800;
-  color: var(--text-main);
-  margin-bottom: 4px;
+  color: #0f172a;
+  margin-bottom: 6px;
   line-height: 1.35;
 }
 
-.hardware-spec {
-  font-size: 0.82rem;
-  color: var(--text-muted);
+.brand-card-desc {
+  font-size: 0.78rem;
+  color: #475569;
   line-height: 1.45;
-  margin-bottom: 10px;
+  margin-bottom: 16px;
+  flex: 1;
 }
 
-.hardware-warranty-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  background: var(--emerald-50);
-  border: 1px solid rgba(16, 185, 129, 0.4);
-  padding: 3px 9px;
+.brand-card-warranty-pill {
+  width: 100%;
+  text-align: center;
+  padding: 5px 8px;
   border-radius: var(--radius-full);
   font-size: 0.74rem;
-  color: var(--emerald-700);
   font-weight: 700;
+  white-space: nowrap;
 }
 
-.corporate-trust-strip {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 14px;
-  padding: 16px 20px;
-  background: #ffffff;
+.brand-card-warranty-pill.green-pill {
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  color: #059669;
 }
 
-.trust-strip-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.trust-strip-item strong {
-  display: block;
-  font-size: 0.88rem;
-  color: var(--text-main);
-  line-height: 1.3;
-}
-
-.trust-strip-item span {
-  font-size: 0.76rem;
-  color: var(--text-muted);
+.brand-card-warranty-pill.blue-pill {
+  background: #e0f2fe;
+  border: 1px solid #bae6fd;
+  color: #0284c7;
 }
 
 /* ==========================================================================
@@ -1230,138 +1388,193 @@ select.custom-input {
   font-weight: 700;
 }
 
+.config-tag-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #e0f2fe;
+  color: #0284c7;
+  padding: 5px 16px;
+  border-radius: var(--radius-full);
+  font-size: 0.76rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
+}
+
 .pricing-grid-4 {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 14px;
+  gap: 18px;
   margin-bottom: 20px;
   width: 100%;
+  align-items: stretch;
 }
 
-.pricing-card {
+.system-config-card {
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 20px 14px;
   background: #ffffff;
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--border-card);
-  box-shadow: var(--shadow-card);
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  padding: 26px 20px 20px 20px;
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.pricing-card.popular-card {
-  border: 2px solid var(--gold-500);
-  box-shadow: 0 4px 16px rgba(245, 158, 11, 0.14);
+.system-config-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
 }
 
-.popular-badge {
+.system-config-card.popular-config-card {
+  border: 2px solid #f59e0b;
+  box-shadow: 0 4px 20px rgba(245, 158, 11, 0.15);
+}
+
+.popular-top-badge {
   position: absolute;
-  top: -10px;
+  top: -12px;
   left: 50%;
   transform: translateX(-50%);
-  background: linear-gradient(135deg, #f59e0b, #d97706);
+  background: #f97316;
+  background: linear-gradient(135deg, #f97316, #ea580c);
   color: #ffffff;
   font-weight: 800;
-  font-size: 0.66rem;
-  padding: 2px 10px;
+  font-size: 0.68rem;
+  padding: 3px 14px;
   border-radius: var(--radius-full);
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
   white-space: nowrap;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.12);
+  box-shadow: 0 2px 6px rgba(234, 88, 12, 0.3);
   z-index: 2;
+  letter-spacing: 0.3px;
 }
 
-.subsidy-badge-pill {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  background: var(--emerald-50);
-  border: 1px solid var(--emerald-500);
-  color: var(--emerald-700);
-  font-size: 0.66rem;
-  font-weight: 700;
-  padding: 2px 7px;
-  border-radius: var(--radius-full);
-  white-space: nowrap;
-}
-
-.card-top {
-  margin-bottom: 8px;
-}
-
-.capacity-tag {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  margin-bottom: 2px;
-}
-
-.capacity-tag h3 {
-  font-size: 1.3rem;
-  font-weight: 900;
-  color: var(--text-main);
-}
-
-.ideal-for {
-  font-size: 0.76rem;
-  color: var(--text-muted);
-  line-height: 1.3;
-  margin-bottom: 4px;
-  min-height: 32px;
-}
-
-.pricing-breakdown {
-  background: var(--bg-muted);
-  border-radius: var(--radius-sm);
-  padding: 8px 10px;
-  margin-bottom: 10px;
-}
-
-.price-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 6px;
-  font-size: 0.78rem;
-  padding: 2px 0;
-  color: var(--text-body);
-}
-
-.price-row .p-label {
-  white-space: nowrap;
-  font-size: 0.76rem;
-}
-
-.price-row .p-val {
-  white-space: nowrap;
-  font-size: 0.82rem;
-  text-align: right;
-}
-
-.tier-specs-list {
-  list-style: none;
+.config-card-content {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  flex: 1;
+}
+
+.config-card-title {
+  font-size: 1.28rem;
+  font-weight: 800;
+  color: var(--text-main);
   margin-bottom: 12px;
 }
 
-.tier-specs-list li {
+.subsidy-highlight-box {
   display: flex;
-  align-items: flex-start;
-  gap: 5px;
-  font-size: 0.74rem;
-  color: var(--text-body);
-  line-height: 1.3;
+  flex-direction: column;
+  border-radius: 12px;
+  padding: 10px 14px;
+  margin-bottom: 18px;
 }
 
-.pricing-card .btn {
-  padding: 9px 10px;
-  font-size: 0.8rem;
-  white-space: nowrap;
+.subsidy-highlight-box.green-box {
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+}
+
+.subsidy-highlight-box.green-box .subsidy-box-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #065f46;
+  letter-spacing: 0.5px;
+  margin-bottom: 2px;
+}
+
+.subsidy-highlight-box.green-box .subsidy-box-amount {
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: #059669;
+  line-height: 1.1;
+}
+
+.subsidy-highlight-box.gold-box {
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+}
+
+.subsidy-highlight-box.gold-box .subsidy-box-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #92400e;
+  letter-spacing: 0.5px;
+  margin-bottom: 2px;
+}
+
+.subsidy-highlight-box.gold-box .subsidy-box-amount {
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: #d97706;
+  line-height: 1.1;
+}
+
+.config-specs-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 22px;
+  flex: 1;
+}
+
+.spec-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.84rem;
+  padding: 2px 0;
+}
+
+.spec-row.highlight-blue-box {
+  background: #f0f9ff;
+  border-radius: 8px;
+  padding: 7px 10px;
+}
+
+.spec-row.highlight-green-box {
+  background: #ecfdf5;
+  border-radius: 8px;
+  padding: 7px 10px;
+}
+
+.spec-row .spec-label {
+  color: #475569;
+  font-weight: 500;
+}
+
+.spec-row .spec-value {
+  color: #0f172a;
+  font-weight: 800;
+}
+
+.spec-row .spec-value.emi-val {
+  color: #059669;
+}
+
+.config-quote-btn {
+  width: 100%;
+  padding: 11px 16px;
+  background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+  color: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 700;
+  border: none;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  text-align: center;
+  box-shadow: 0 3px 10px rgba(234, 88, 12, 0.25);
+  transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+}
+
+.config-quote-btn:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, #fb923c 0%, #f97316 100%);
+  box-shadow: 0 5px 14px rgba(234, 88, 12, 0.35);
 }
 
 .bank-loan-infobox {
@@ -1388,7 +1601,7 @@ select.custom-input {
 }
 
 /* ==========================================================================
-   CALCULATOR SECTION
+   CALCULATOR SECTION (MATCHING SCREENSHOT DESIGN)
    ========================================================================== */
 .calculator-section {
   overflow-x: clip;
@@ -1398,7 +1611,7 @@ select.custom-input {
 
 .calculator-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 24px;
   align-items: start;
   width: 100%;
@@ -1406,647 +1619,626 @@ select.custom-input {
   box-sizing: border-box;
 }
 
+/* Left Column: Light Card */
 .calculator-controls-card {
   background: #ffffff;
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--border-card);
-  box-shadow: var(--shadow-card);
-  padding: 24px 20px;
+  border-radius: 20px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+  padding: 24px 22px;
   width: 100%;
-  max-width: 100%;
   box-sizing: border-box;
-  overflow: hidden;
 }
 
-.calculator-results-card {
-  background: linear-gradient(145deg, #0f172a 0%, #1e293b 100%);
-  border-radius: var(--radius-lg);
-  border: 1px solid rgba(245, 158, 11, 0.3);
-  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.3);
-  padding: 24px 20px;
-  color: #ffffff;
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
-  overflow: hidden;
+.form-group-block {
+  margin-bottom: 18px;
 }
 
-.calc-card-title {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  font-size: 1.05rem;
+.calc-field-label {
+  display: block;
+  font-size: 0.85rem;
   font-weight: 800;
-  color: var(--text-main);
-  margin-bottom: 14px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid var(--border-light);
-  word-break: break-word;
+  color: #0f172a;
+  margin-bottom: 6px;
 }
 
-.state-pills-group {
+/* 1. State Selector */
+.state-pills-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 8px;
-  width: 100%;
-  box-sizing: border-box;
+  gap: 10px;
 }
 
-.state-pill {
+.state-select-btn {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
-  padding: 9px 10px;
-  background: var(--bg-muted);
-  border: 1px solid var(--border-light);
-  border-radius: var(--radius-sm);
-  color: var(--text-body);
-  cursor: pointer;
-  text-align: left;
-  min-width: 0;
-  box-sizing: border-box;
-}
-
-.state-pill .state-code {
-  background: #cbd5e1;
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-weight: 800;
-  font-size: 0.8rem;
-  color: var(--text-main);
-  flex-shrink: 0;
-}
-
-.state-pill.active {
-  background: var(--gold-50);
-  border-color: var(--gold-500);
-  color: var(--gold-700);
+  padding: 10px 14px;
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 12px;
+  font-size: 0.88rem;
   font-weight: 700;
+  color: #0f172a;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
-.state-pill.active .state-code {
-  background: var(--gold-500);
-  color: #ffffff;
+.state-select-btn:hover {
+  border-color: #0284c7;
 }
 
-.category-btn-group {
+.state-select-btn.active {
+  background: #e0f7fa;
+  border-color: #0284c7;
+  border-width: 2px;
+  color: #0f172a;
+  box-shadow: 0 2px 8px rgba(2, 132, 199, 0.15);
+}
+
+.lightning-icon {
+  color: #f59e0b;
+  font-size: 1rem;
+}
+
+/* 2. Connection Category */
+.cat-selector-grid-3 {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 8px;
-  width: 100%;
-  box-sizing: border-box;
 }
 
-.cat-btn {
+.cat-card-btn {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 4px;
+  justify-content: space-between;
   padding: 8px 10px;
-  background: var(--bg-muted);
-  border: 1.5px solid var(--border-light);
-  border-radius: var(--radius-sm);
-  color: var(--text-body);
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 12px;
   cursor: pointer;
-  transition: all 0.15s ease;
   text-align: left;
-  min-width: 0;
-  box-sizing: border-box;
+  transition: all 0.2s ease;
+  min-height: 58px;
 }
 
-.cat-btn:hover {
-  border-color: var(--gold-500);
+.cat-card-btn:hover {
+  border-color: #0284c7;
 }
 
-.cat-btn.active {
-  background: var(--emerald-50);
-  border-color: var(--emerald-500);
-  color: var(--emerald-700);
-  font-weight: 700;
-  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.15);
+.cat-card-btn.active {
+  background: #e0f7fa;
+  border-color: #0284c7;
+  box-shadow: 0 2px 8px rgba(2, 132, 199, 0.15);
 }
 
-.cat-badge-tag {
-  font-size: 0.64rem;
-  background: var(--emerald-100);
-  color: var(--emerald-700);
+.cat-pill-tag {
+  font-size: 0.58rem;
+  font-weight: 800;
   padding: 2px 6px;
   border-radius: 4px;
-  font-weight: 700;
+  margin-bottom: 4px;
   white-space: nowrap;
+  letter-spacing: 0.2px;
 }
 
-.cat-badge-tag.muted {
-  background: #e2e8f0;
+.cat-pill-tag.green-tag {
+  background: #a7f3d0;
+  color: #065f46;
+}
+
+.cat-pill-tag.grey-tag {
+  background: #f1f5f9;
   color: #64748b;
 }
 
-.cat-title-row {
-  display: flex;
-  align-items: center;
-  gap: 5px;
+.cat-card-text {
   font-size: 0.78rem;
   font-weight: 700;
-  word-break: break-word;
+  color: #0f172a;
+  line-height: 1.2;
 }
 
-.field-label-with-badge {
+/* 3. Solar Panel Type */
+.field-header-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 6px;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 4px;
 }
 
-.panel-subsidy-status {
+.field-header-row .calc-field-label {
+  margin-bottom: 0;
+}
+
+.panel-status-pill {
   font-size: 0.72rem;
   font-weight: 700;
-  color: var(--emerald-700);
-  background: var(--emerald-50);
-  border: 1px solid rgba(16, 185, 129, 0.3);
   padding: 2px 8px;
   border-radius: var(--radius-full);
 }
 
-.panel-subsidy-status.no-subsidy {
-  color: #64748b;
-  background: var(--bg-muted);
-  border-color: #cbd5e1;
+.panel-status-pill.active {
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  color: #059669;
 }
 
-.panel-type-selector {
+.panel-status-pill.inactive {
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  color: #64748b;
+}
+
+.panel-toggle-grid-2 {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 8px;
-  width: 100%;
-  box-sizing: border-box;
+  gap: 10px;
 }
 
-.panel-type-pill {
+.panel-choice-card {
   display: flex;
-  align-items: flex-start;
-  gap: 8px;
-  padding: 10px 12px;
-  background: var(--bg-muted);
-  border: 1.5px solid var(--border-light);
-  border-radius: var(--radius-sm);
-  color: var(--text-body);
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 14px;
   cursor: pointer;
   text-align: left;
-  transition: all 0.15s ease;
-  min-width: 0;
-  box-sizing: border-box;
+  transition: all 0.2s ease;
 }
 
-.panel-type-pill:hover {
-  border-color: var(--gold-500);
+.panel-choice-card:hover {
+  border-color: #0284c7;
 }
 
-.panel-type-pill strong {
-  display: block;
-  font-size: 0.82rem;
-  color: var(--text-main);
+.panel-choice-card.active {
+  background: #e0f7fa;
+  border-color: #0284c7;
+  border-width: 2px;
+  box-shadow: 0 2px 8px rgba(2, 132, 199, 0.15);
 }
 
-.panel-type-pill small {
-  font-size: 0.68rem;
-  color: var(--text-muted);
+.panel-choice-card.disabled {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+  opacity: 0.75;
 }
 
-.panel-type-pill.active {
-  background: var(--gold-50);
-  border-color: var(--gold-500);
-  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.15);
+.flag-icon-wrap {
+  font-size: 1.4rem;
+  flex-shrink: 0;
 }
 
-.calc-mode-tabs {
+.globe-icon {
+  font-size: 1.2rem;
+  opacity: 0.7;
+}
+
+.panel-choice-info {
   display: flex;
-  gap: 5px;
-  margin-bottom: 10px;
-  width: 100%;
-  box-sizing: border-box;
+  flex-direction: column;
 }
 
-.mode-tab {
+.panel-title {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 2px;
+}
+
+.panel-desc {
+  display: block;
+  font-size: 0.68rem;
+  color: #0369a1;
+  line-height: 1.2;
+}
+
+.panel-choice-card.disabled .panel-desc {
+  color: #94a3b8;
+}
+
+/* 4. Input Mode Switcher */
+.input-mode-track {
+  display: flex;
+  background: #f1f5f9;
+  padding: 4px;
+  border-radius: 12px;
+  margin-bottom: 12px;
+}
+
+.mode-track-tab {
   flex: 1;
-  padding: 8px 6px;
-  background: var(--bg-muted);
-  border: 1px solid var(--border-light);
-  border-radius: var(--radius-sm);
-  color: var(--text-body);
-  font-size: 0.78rem;
-  font-weight: 600;
+  padding: 8px 10px;
+  background: transparent;
+  border: none;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #475569;
+  border-radius: 8px;
   cursor: pointer;
   text-align: center;
   transition: all 0.15s ease;
-  min-width: 0;
-  box-sizing: border-box;
 }
 
-.mode-tab.active {
-  background: var(--gold-500);
-  color: #ffffff;
-  font-weight: 700;
-  border-color: var(--gold-500);
+.mode-track-tab.active {
+  background: #ffffff;
+  color: #0284c7;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
 }
 
-.slider-group-box {
-  background: var(--bg-muted);
-  border: 1px solid var(--border-light);
-  border-radius: var(--radius-md);
-  padding: 14px;
-  margin-bottom: 12px;
-  width: 100%;
-  box-sizing: border-box;
+.calc-slider-box {
+  margin-top: 8px;
 }
 
-.slider-header-row {
+.slider-label-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 8px;
-  flex-wrap: wrap;
-  gap: 6px;
 }
 
-.slider-title-text {
-  font-size: 0.82rem;
-  font-weight: 700;
-  color: var(--text-main);
+.slider-left-label {
+  font-size: 0.84rem;
+  font-weight: 800;
+  color: #0f172a;
 }
 
-.slider-input-badge {
+.slider-val-badge {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  background: #ffffff;
-  border: 1.5px solid var(--gold-500);
-  padding: 3px 8px;
-  border-radius: var(--radius-sm);
+  background: #e0f2fe;
+  border: 1.5px solid #bae6fd;
+  padding: 3px 10px;
+  border-radius: 8px;
 }
 
-.calc-num-input {
+.calc-inline-input {
   width: 55px;
   border: none;
+  background: transparent;
   font-size: 0.95rem;
-  font-weight: 800;
-  color: var(--gold-700);
+  font-weight: 900;
+  color: #0284c7;
   outline: none;
   text-align: right;
-  background: transparent;
+  -moz-appearance: textfield;
 }
 
-.calc-num-input.bill-width {
-  width: 70px;
+.calc-inline-input::-webkit-outer-spin-button,
+.calc-inline-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
-.unit-tag, .rupee-sign {
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: var(--text-muted);
+.unit-label-tag, .rupee-sym-blue {
+  font-size: 0.84rem;
+  font-weight: 800;
+  color: #0284c7;
 }
 
-.custom-range {
+.calc-blue-range {
   width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
+  height: 6px;
+  border-radius: 4px;
+  background: #e2e8f0;
+  accent-color: #0284c7;
+  cursor: pointer;
 }
 
-.slider-ticks-row {
+.slider-tick-labels {
   display: flex;
   justify-content: space-between;
-  font-size: 0.7rem;
-  color: var(--text-dim);
+  font-size: 0.72rem;
+  color: #94a3b8;
   margin-top: 4px;
 }
 
-.meter-mode-box {
-  background: var(--bg-muted);
-  border: 1px solid var(--border-light);
-  border-radius: var(--radius-md);
-  padding: 14px;
-  margin-bottom: 12px;
-  width: 100%;
-  box-sizing: border-box;
+/* 5. DISCOM Tariff Summary */
+.discom-tariff-box {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 14px 18px;
+  margin-top: 14px;
 }
 
-.meter-reading-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin-bottom: 8px;
-}
-
-.meter-input-cell label {
-  display: block;
-  font-size: 0.76rem;
-  font-weight: 600;
-  color: var(--text-muted);
-  margin-bottom: 4px;
-}
-
-.meter-input-cell .custom-input {
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.meter-diff-badge {
+.tariff-box-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: var(--cyan-50);
-  border: 1px solid var(--cyan-500);
-  padding: 8px 12px;
-  border-radius: var(--radius-sm);
-  font-size: 0.82rem;
-  color: var(--cyan-700);
-  font-weight: 700;
+  margin-bottom: 8px;
   flex-wrap: wrap;
   gap: 4px;
 }
 
-/* Current DISCOM Bill Summary Preview */
-.calc-discom-summary {
-  background: var(--bg-muted);
-  border-radius: var(--radius-sm);
-  padding: 12px 14px;
-  border: 1px dashed #cbd5e1;
-  margin-top: 10px;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.discom-summary-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 8px;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
-.discom-badge {
-  font-size: 0.72rem;
-  font-weight: 800;
-  color: var(--gold-700);
-  background: var(--gold-100);
-  border: 1px solid rgba(245, 158, 11, 0.4);
-  padding: 2px 8px;
-  border-radius: var(--radius-full);
-}
-
-.effective-rate-pill {
-  font-size: 0.74rem;
-  font-weight: 700;
-  color: var(--text-muted);
-}
-
-.discom-breakdown-row {
-  display: flex;
-  justify-content: space-between;
+.tariff-header-title {
   font-size: 0.78rem;
-  padding: 3px 0;
-  color: var(--text-body);
-}
-
-.discom-total-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-top: 1.5px solid #cbd5e1;
-  margin-top: 6px;
-  padding-top: 6px;
-}
-
-.discom-total-row span {
-  font-size: 0.82rem;
-  font-weight: 700;
-  color: var(--text-main);
-}
-
-.discom-total-val {
-  font-size: 1.05rem;
-  font-weight: 900;
-  color: var(--gold-700);
-}
-
-/* Calculator Results Card (Dark Aesthetic) */
-.results-header-flex {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 14px;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
-.result-header-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 0.82rem;
   font-weight: 800;
-  color: var(--solar-glow, #fbbf24);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.plan-state-badge {
-  font-size: 0.72rem;
-  font-weight: 800;
-  color: #38bdf8;
-  background: rgba(56, 189, 248, 0.12);
-  border: 1px solid rgba(56, 189, 248, 0.3);
-  padding: 2px 8px;
-  border-radius: var(--radius-full);
-}
-
-.calc-metrics-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin-bottom: 12px;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.calc-metric-card {
-  background: rgba(255, 255, 255, 0.07);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: var(--radius-sm);
-  padding: 10px 12px;
-  min-width: 0;
-  box-sizing: border-box;
-}
-
-.calc-metric-card.subsidy {
-  background: rgba(245, 158, 11, 0.15);
-  border-color: rgba(245, 158, 11, 0.4);
-}
-
-.calc-metric-card.highlight {
-  background: rgba(16, 185, 129, 0.15);
-  border-color: rgba(16, 185, 129, 0.4);
-}
-
-.metric-label {
-  font-size: 0.7rem;
-  color: #cbd5e1;
-  font-weight: 600;
-  margin-bottom: 3px;
-  text-transform: uppercase;
+  color: #0284c7;
   letter-spacing: 0.3px;
 }
 
-.metric-value {
+.tariff-rate-badge {
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  color: #059669;
+  font-size: 0.74rem;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+}
+
+.tariff-data-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  padding: 3px 0;
+  color: #475569;
+}
+
+.tariff-data-row strong {
+  color: #0f172a;
+}
+
+.tariff-total-highlight-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1.5px solid #e2e8f0;
+  margin-top: 8px;
+  padding-top: 8px;
+}
+
+.total-label {
+  font-size: 0.86rem;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.total-amount-blue {
   font-size: 1.25rem;
   font-weight: 900;
+  color: #0284c7;
+}
+
+/* ==========================================================================
+   RIGHT COLUMN: DARK NAVY CARD
+   ========================================================================== */
+.calculator-dark-results-card {
+  background: #08162b;
+  border: 1px solid #1e3a5f;
+  border-radius: 20px;
+  padding: 24px 22px;
   color: #ffffff;
-  word-break: break-word;
-}
-
-.calc-metric-card.subsidy .metric-value {
-  color: var(--solar-glow, #fbbf24);
-}
-
-.calc-metric-card.highlight .metric-value {
-  color: #34d399;
-}
-
-/* Financial & Loan Specifications Box */
-.calc-finance-box {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: var(--radius-sm);
-  padding: 10px 14px;
-  margin-bottom: 12px;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: 8px 14px;
-  width: 100%;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
   box-sizing: border-box;
 }
 
-.finance-row {
+.dark-card-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 0.78rem;
-  padding-bottom: 3px;
-  border-bottom: 1px dashed rgba(255, 255, 255, 0.12);
+  margin-bottom: 16px;
+  flex-wrap: wrap;
   gap: 6px;
-  min-width: 0;
 }
 
-.finance-row.highlight {
-  border-bottom-color: rgba(245, 158, 11, 0.4);
+.dark-card-title {
+  font-size: 1.35rem;
+  font-weight: 900;
+  color: #ffffff;
+  margin: 0;
 }
 
-.fin-label {
-  color: #cbd5e1;
-  font-weight: 600;
+.dark-card-pill-tag {
+  background: #f59e0b;
+  color: #78350f;
+  font-size: 0.72rem;
+  font-weight: 900;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
 }
 
-.fin-val {
+/* 4 Metrics Grid (2x2) */
+.dark-metrics-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.dark-metric-box {
+  background: #0f223a;
+  border: 1px solid #1e3a5f;
+  border-radius: 12px;
+  padding: 12px 14px;
+  box-sizing: border-box;
+}
+
+.dark-metric-box.gold-border {
+  border-color: #d97706;
+  background: #152233;
+}
+
+.dark-metric-box.green-border {
+  border-color: #047857;
+  background: #0c262a;
+}
+
+.dark-metric-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  margin-bottom: 4px;
+}
+
+.dark-metric-val {
+  font-size: 1.55rem;
+  font-weight: 900;
+  color: #ffffff;
+  line-height: 1.1;
+}
+
+.dark-metric-val.text-gold {
+  color: #f59e0b;
+}
+
+.dark-metric-val.text-green {
+  color: #10b981;
+}
+
+/* Financial 2x2 Box */
+.dark-finance-specs-box {
+  background: #0f223a;
+  border: 1px solid #1e3a5f;
+  border-radius: 12px;
+  padding: 12px 16px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 16px;
+  margin-bottom: 14px;
+  box-sizing: border-box;
+}
+
+.finance-spec-cell {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8rem;
+  gap: 4px;
+}
+
+.fin-lbl {
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+.fin-amt {
   color: #ffffff;
   font-weight: 800;
-  white-space: nowrap;
 }
 
-.fin-val.emi {
+.fin-emi-tag {
   color: #fbbf24;
-  background: rgba(245, 158, 11, 0.2);
-  padding: 1px 5px;
+  background: rgba(245, 158, 11, 0.15);
+  padding: 2px 8px;
   border-radius: 4px;
+  font-weight: 800;
 }
 
-/* Solar Offset Bar Card */
-.solar-offset-bar-card {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: var(--radius-sm);
-  padding: 10px 12px;
-  margin-bottom: 12px;
-  width: 100%;
+/* Solar Offset Bar Section */
+.dark-offset-bar-section {
+  background: #0f223a;
+  border: 1px solid #1e3a5f;
+  border-radius: 12px;
+  padding: 10px 14px;
+  margin-bottom: 14px;
   box-sizing: border-box;
 }
 
-.offset-bar-labels {
+.offset-text-flex {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  font-size: 0.76rem;
+  font-size: 0.78rem;
   color: #e2e8f0;
   margin-bottom: 6px;
   flex-wrap: wrap;
   gap: 4px;
 }
 
-.offset-bar-labels strong {
-  color: #34d399;
+.offset-text-flex strong {
+  color: #fbbf24;
 }
 
-.offset-progress-bg {
+.offset-bar-bg-track {
   width: 100%;
-  height: 8px;
-  background: rgba(255, 255, 255, 0.15);
+  height: 7px;
+  background: rgba(255, 255, 255, 0.12);
   border-radius: var(--radius-full);
   overflow: hidden;
 }
 
-.offset-progress-fill {
+.offset-bar-cyan-fill {
   height: 100%;
-  background: linear-gradient(90deg, #10b981, #059669);
+  background: linear-gradient(90deg, #10b981 0%, #06b6d4 100%);
   border-radius: var(--radius-full);
   transition: width 0.3s ease;
 }
 
-/* Lifetime Savings Banner */
-.lifetime-savings-banner {
-  background: linear-gradient(135deg, rgba(16, 185, 129, 0.18) 0%, rgba(56, 189, 248, 0.12) 100%);
-  border: 1px solid rgba(16, 185, 129, 0.35);
-  border-radius: var(--radius-md);
-  padding: 12px 14px;
-  margin-bottom: 14px;
+/* 25-Year Lifetime Savings Banner */
+.dark-lifetime-banner {
+  background: #0f223a;
+  border: 1px solid #1e3a5f;
+  border-radius: 12px;
+  padding: 12px 16px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 16px;
   gap: 10px;
-  width: 100%;
   box-sizing: border-box;
 }
 
-.lifetime-text-wrap {
-  min-width: 0;
+.lifetime-info-col {
   flex: 1;
+  min-width: 0;
 }
 
-.lifetime-text-wrap h4 {
-  font-size: 0.82rem;
-  color: #34d399;
+.lifetime-heading {
+  font-size: 0.86rem;
   font-weight: 800;
+  color: #ffffff;
   margin-bottom: 2px;
 }
 
-.lifetime-text-wrap p {
+.lifetime-subtext {
   font-size: 0.72rem;
-  color: #cbd5e1;
+  color: #94a3b8;
+  margin: 0;
 }
 
-.lifetime-amount-box {
-  font-size: 1.45rem;
+.lifetime-val-blue {
+  font-size: 1.55rem;
   font-weight: 900;
-  color: #34d399;
+  color: #38bdf8;
   white-space: nowrap;
 }
 
-.calc-action-section {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+/* WhatsApp Quote Button */
+.dark-calc-whatsapp-btn {
   width: 100%;
-  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 13px 18px;
+  background: #22c55e;
+  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 800;
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(34, 197, 94, 0.35);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.dark-calc-whatsapp-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(34, 197, 94, 0.45);
 }
 
 .dealer-pick-row {
@@ -2173,93 +2365,112 @@ select.custom-input {
 }
 
 /* ==========================================================================
-   PROCESS TIMELINE
+   PROCESS TIMELINE (OPTIMIZED COMPACT LAYOUT)
    ========================================================================== */
-.process-timeline-grid {
+.process-timeline-grid-6 {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
-  gap: 18px;
-  margin-bottom: 24px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  width: 100%;
 }
 
-.process-step-card {
+.process-step-compact-card {
   position: relative;
-  padding: 20px;
+  padding: 18px 20px;
   cursor: pointer;
   background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 18px;
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.03);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.process-step-card.active-step {
-  border-color: var(--gold-500);
+.process-step-compact-card:hover {
+  transform: translateY(-2px);
+  border-color: #cbd5e1;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
 }
 
-.step-number-badge {
-  font-size: 1.25rem;
+.process-step-compact-card.active-step {
+  border-color: #f59e0b;
+  border-width: 2px;
+  box-shadow: 0 4px 16px rgba(245, 158, 11, 0.14);
+}
+
+.step-card-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.step-num-text {
+  font-size: 1.35rem;
   font-weight: 900;
-  color: #cbd5e1;
-  margin-bottom: 4px;
+  color: #94a3b8;
+  line-height: 1;
 }
 
-.process-step-card.active-step .step-number-badge {
-  color: var(--gold-700);
+.process-step-compact-card.active-step .step-num-text {
+  color: #d97706;
 }
 
-.step-icon-wrap {
-  margin-bottom: 8px;
+.step-icon-circle {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: #fffbeb;
+  border: 1px solid #fef3c7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }
 
-.step-title {
-  font-size: 0.94rem;
+.step-icon-gold {
+  color: #d97706;
+}
+
+.step-compact-title {
+  font-size: 0.98rem;
   font-weight: 800;
-  color: var(--text-main);
-  margin-bottom: 4px;
-  line-height: 1.35;
+  color: #0f172a;
+  margin: 0 0 6px 0;
+  line-height: 1.3;
 }
 
-.step-desc {
-  font-size: 0.8rem;
-  color: var(--text-muted);
+.step-compact-desc {
+  font-size: 0.82rem;
+  color: #64748b;
   line-height: 1.45;
-}
-
-.step-indicator-bar {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: var(--bg-muted);
-  border-bottom-left-radius: var(--radius-lg);
-  border-bottom-right-radius: var(--radius-lg);
-  overflow: hidden;
-}
-
-.process-step-card.active-step .indicator-fill {
-  width: 100%;
-  height: 100%;
-  background: var(--gold-500);
+  margin: 0;
 }
 
 .process-guarantee-card {
   display: flex;
   align-items: center;
   gap: 14px;
-  background: var(--emerald-50);
-  border-color: rgba(16, 185, 129, 0.4);
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  border-radius: 16px;
   padding: 16px 20px;
+  margin-top: 24px;
 }
 
 .guarantee-text h4 {
   font-size: 0.98rem;
-  color: var(--emerald-700);
+  color: #065f46;
   font-weight: 800;
-  margin-bottom: 2px;
+  margin: 0 0 2px 0;
 }
 
 .guarantee-text p {
-  font-size: 0.84rem;
-  color: var(--text-body);
+  font-size: 0.82rem;
+  color: #334155;
   line-height: 1.45;
+  margin: 0;
 }
 
 /* ==========================================================================
@@ -2608,14 +2819,17 @@ select.custom-input {
 }
 
 .contact-form-grid {
-  display: grid;
-  grid-template-columns: 1.12fr 0.88fr;
-  gap: 24px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 
-.inquiry-form-card, .office-info-card {
+.inquiry-form-card {
   background: #ffffff;
-  padding: 24px;
+  padding: 28px;
+  max-width: 760px;
+  width: 100%;
+  border-radius: var(--radius-lg);
 }
 
 .form-card-title {
@@ -3318,6 +3532,10 @@ select.custom-input {
     grid-template-columns: repeat(2, 1fr);
     gap: 16px;
   }
+  .process-timeline-grid-6 {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
   .pricing-card .ideal-for {
     min-height: auto;
   }
@@ -3552,20 +3770,37 @@ select.custom-input {
     font-size: 0.68rem;
   }
 
-  /* Brands Grid */
-  .brands-grid {
+  /* About Us & Brands Mobile */
+  .about-company-card {
+    padding: 20px 16px;
+    margin-bottom: 28px;
+  }
+
+  .about-company-title {
+    font-size: 1.4rem;
+  }
+
+  .about-company-desc {
+    font-size: 0.88rem;
+  }
+
+  .about-pillars-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .pillar-badge-item {
+    font-size: 0.8rem;
+    padding: 8px 12px;
+  }
+
+  .premium-brands-title {
+    font-size: 1.5rem;
+  }
+
+  .premium-brands-grid-5 {
     grid-template-columns: 1fr;
     gap: 12px;
-  }
-
-  .brand-hardware-card {
-    padding: 16px 14px;
-  }
-
-  .corporate-trust-strip {
-    grid-template-columns: 1fr;
-    gap: 10px;
-    padding: 14px;
   }
 
   /* Pricing Grid */
@@ -4073,15 +4308,27 @@ select.custom-input {
     max-width: 180px;
   }
 
-  .state-pills-group {
+  .state-pills-group, .state-pills-row {
     grid-template-columns: 1fr;
   }
 
-  .category-btn-group {
+  .category-btn-group, .cat-selector-grid-3 {
     grid-template-columns: 1fr;
   }
 
-  .calc-metrics-grid {
+  .panel-toggle-grid-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .calc-metrics-grid, .dark-metrics-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dark-finance-specs-box {
+    grid-template-columns: 1fr;
+  }
+
+  .pricing-grid-4, .process-timeline-grid-6 {
     grid-template-columns: 1fr;
   }
 

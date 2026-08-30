@@ -27,6 +27,21 @@ export const ContactSection = ({ lang, t }) => {
 
   const [formSubmitted, setFormSubmitted] = useState(false);
 
+  React.useEffect(() => {
+    const handlePrefill = (event) => {
+      if (event.detail) {
+        setFormState(prev => ({
+          ...prev,
+          ...(event.detail.town ? { town: event.detail.town } : {}),
+          ...(event.detail.capacity ? { capacity: event.detail.capacity } : {}),
+          ...(event.detail.dealer ? { dealer: event.detail.dealer } : {})
+        }));
+      }
+    };
+    window.addEventListener('prefillInquiryForm', handlePrefill);
+    return () => window.removeEventListener('prefillInquiryForm', handlePrefill);
+  }, []);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const dealerInfo = DEALERS[formState.dealer];
@@ -144,10 +159,10 @@ export const ContactSection = ({ lang, t }) => {
           <span className="divider-line"></span>
         </div>
 
-        {/* Quick Contact Form + Office Address Grid */}
+        {/* Quick Contact Form Grid */}
         <div className="contact-form-grid">
           {/* Quick Inquiry Form */}
-          <div className="inquiry-form-card glassmorphism-card">
+          <div className="inquiry-form-card glassmorphism-card" id="inquiry-form">
             <h3 className="form-card-title">
               <Sparkles size={20} className="text-gold" />
               <span>{lang === 'te' ? 'ఉచిత సైట్ సర్వే & కొటేషన్ ఫారం' : 'Book Free Site Survey & Quote'}</span>
@@ -238,51 +253,6 @@ export const ContactSection = ({ lang, t }) => {
                 <span>{lang === 'te' ? 'వాట్సాప్‌లో కొటేషన్ అభ్యర్థించండి' : 'Submit & Connect on WhatsApp'}</span>
               </button>
             </form>
-          </div>
-
-          {/* Office Address & Business Info */}
-          <div className="office-info-card glassmorphism-card">
-            <h3 className="form-card-title">
-              <Building2 size={20} className="text-gold" />
-              <span>{t.officeAddressLabel}</span>
-            </h3>
-
-            <div className="office-location-item">
-              <div className="loc-icon-wrap">
-                <MapPin size={20} className="text-gold" />
-              </div>
-              <div>
-                <strong>Hyderabad Office:</strong>
-                <p>Aqua Pzone Enterprises, Tukkuguda, Shamshabad Road, R.R. District, Telangana - 501359</p>
-                <span className="loc-contact">📞 +91 99666 31599</span>
-              </div>
-            </div>
-
-            <div className="office-location-item">
-              <div className="loc-icon-wrap">
-                <MapPin size={20} className="text-gold" />
-              </div>
-              <div>
-                <strong>Andhra Pradesh Operations:</strong>
-                <p>Prasudharka Solar, Nagulakatta Street, Jammalamadugu, YSR Kadapa District, AP - 516434</p>
-                <span className="loc-contact">📞 +91 83282 72376</span>
-              </div>
-            </div>
-
-            <div className="business-credentials-box">
-              <div className="cred-line">
-                <ShieldCheck size={16} className="text-emerald-400" />
-                <span><strong>GSTIN:</strong> 36ABHPU5110F1ZS</span>
-              </div>
-              <div className="cred-line">
-                <Zap size={16} className="text-cyan-400" />
-                <span><strong>Service Reach:</strong> AP, Telangana, Bangalore, Chennai</span>
-              </div>
-              <div className="cred-line">
-                <Clock size={16} className="text-amber-400" />
-                <span><strong>Working Hours:</strong> Mon - Sat: 8:30 AM - 8:00 PM</span>
-              </div>
-            </div>
           </div>
         </div>
       </div>

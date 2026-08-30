@@ -18,23 +18,33 @@ export const QuickQuoteCard = ({ lang, t }) => {
     panelType: 'dcr'
   });
 
-  const handleWhatsAppSend = (e) => {
+  const handleRedirectToInquiry = (e) => {
     e.preventDefault();
-    const dealerInfo = DEALERS[dealer];
-    const locText = location ? location : 'AP/Telangana';
-    const msg = `*PM Surya Ghar Solar Quotation Request*\n` +
-      `------------------------------------\n` +
-      `• *Location:* ${locText}\n` +
-      `• *Monthly Power Bill:* ₹${bill.toLocaleString('en-IN')}\n` +
-      `• *Property Type:* ${propType === 'residential' ? 'Residential (Cat-1)' : 'Commercial (Cat-2)'}\n` +
-      `• *Recommended Solar Size:* ${specs.recommendedKW} kW\n` +
-      `• *Govt Subsidy:* ₹${specs.subsidy.toLocaleString('en-IN')}\n` +
-      `• *Est. Net Cost:* ₹${specs.netInvestment.toLocaleString('en-IN')}\n` +
-      `• *Est. Monthly Savings:* ₹${specs.monthlySavings.toLocaleString('en-IN')}\n` +
-      `------------------------------------\n` +
-      `Hello ${dealerInfo.name}, please contact me with formal quotation and site survey details.`;
 
-    window.open(getWhatsAppUrl(dealer, msg), '_blank');
+    // Map recommended kW to category select options in contact form
+    const recKw = specs.recommendedKW || 3;
+    const mappedCap = recKw >= 5 ? '5kW' : recKw >= 3 ? '3kW' : recKw >= 2 ? '2kW' : '1kW';
+
+    // Dispatch event to pre-populate contact inquiry form
+    window.dispatchEvent(new CustomEvent('prefillInquiryForm', {
+      detail: {
+        town: location || '',
+        capacity: mappedCap,
+        dealer: dealer || 'sudhakar'
+      }
+    }));
+
+    // Smoothly scroll down to the last inquiry form
+    const targetElement = document.getElementById('inquiry-form') || document.getElementById('contact');
+    if (targetElement) {
+      targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      setTimeout(() => {
+        const nameInput = targetElement.querySelector('input[type="text"]');
+        if (nameInput) {
+          nameInput.focus();
+        }
+      }, 500);
+    }
   };
 
   return (
@@ -45,10 +55,10 @@ export const QuickQuoteCard = ({ lang, t }) => {
       </div>
       <p className="card-sub-desc">{t.quickCardSub}</p>
 
-      <form onSubmit={handleWhatsAppSend} className="quick-form">
+      <form onSubmit={handleRedirectToInquiry} className="quick-form">
         {/* Bill input */}
         <div className="form-group">
-          <label className="form-label">
+          <label className="form-label" htmlFor="quick-bill-input">
             <IndianRupee size={15} />
             <span>{t.lblMonthlyBill}</span>
           </label>
@@ -57,12 +67,40 @@ export const QuickQuoteCard = ({ lang, t }) => {
               type="range" 
               min="800" 
               max="25000" 
-              step="200" 
-              value={bill}
+              step="100" 
+              value={Math.min(25000, Math.max(800, Number(bill) || 800))}
               onChange={(e) => setBill(Number(e.target.value))}
               className="custom-range"
+              aria-label="Monthly Power Bill Slider"
             />
-            <div className="bill-badge">₹{bill.toLocaleString('en-IN')}</div>
+            <div className="bill-input-badge">
+              <span className="bill-currency-symbol">₹</span>
+              <input
+                id="quick-bill-input"
+                type="number"
+                min="500"
+                max="500000"
+                step="100"
+                value={bill === '' ? '' : bill}
+                onChange={(e) => {
+                  const val = e.target.value;
+                  if (val === '') {
+                    setBill('');
+                  } else {
+                    const num = parseInt(val, 10);
+                    setBill(isNaN(num) ? '' : num);
+                  }
+                }}
+                onBlur={() => {
+                  if (bill === '' || Number(bill) < 100) {
+                    setBill(3000);
+                  }
+                }}
+                className="bill-number-input"
+                placeholder="3000"
+                aria-label="Enter Monthly Power Bill in Rupees"
+              />
+            </div>
           </div>
         </div>
 

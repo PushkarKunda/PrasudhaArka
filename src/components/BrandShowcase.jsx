@@ -1,134 +1,135 @@
 import React from 'react';
-import { motion } from 'framer-motion';
-import { ShieldCheck, Award, Zap, Cpu, Wrench, CheckCircle2, Layers } from 'lucide-react';
+import { ShieldCheck, Award, Zap, Layers, FileText, MapPin, BadgePercent, CheckCircle2 } from 'lucide-react';
 
 export const BrandShowcase = ({ lang, t }) => {
-  const hardwareItems = [
+  const isTe = lang === 'te';
+
+  const brandItems = [
     {
-      brand: 'Panasonic',
-      titleEn: 'Solar Panels: Panasonic Mono PERC',
-      titleTe: 'సోలార్ ప్యానెల్స్: ప్యానసోనిక్ మోనో పెర్క్',
-      specEn: '35mm frame thickness, High PID-resistant cells, 30-year operational life.',
-      specTe: '35mm ఫ్రేమ్ మందం, అత్యధిక నాణ్యతా ప్రమాణాలు, 30 సంవత్సరాల జీవితకాలం.',
-      warrantyEn: '25 Years Linear Performance Warranty',
-      warrantyTe: '25 సంవత్సరాల పనితీరు వారంటీ',
-      icon: SunIcon
+      num: '01',
+      brandBadge: 'PANASONIC',
+      title: isTe ? 'సోలార్ ప్యానెల్స్: Panasonic' : 'Solar Panels: Panasonic',
+      desc: isTe ? '35mm మందం, 30-ఏళ్ల జీవితకాలం. 25 ఏళ్ల వారంటీ.' : '35mm thick, 30-year lifespan. 25 Years Warranty.',
+      warranty: isTe ? '25 ఏళ్ల వారంటీ' : '25 Years Warranty',
+      variant: 'green'
     },
     {
-      brand: 'Panasonic',
-      titleEn: 'Smart Inverters: Panasonic RF Series',
-      titleTe: 'స్మార్ట్ ఇన్వర్టర్: ప్యానసోనిక్ RF టెక్నాలజీ',
-      specEn: 'High conversion efficiency (>98.4%), Dual MPPT tracking, IP65 waterproof.',
-      specTe: '98.4% కంటే ఎక్కువ సామర్థ్యం, డ్యూయల్ MPPT ట్రాకింగ్, IP65 వాటర్‌ప్రూఫ్.',
-      warrantyEn: '10 Years Replacement Warranty',
-      warrantyTe: '10 సంవత్సరాల వారంటీ',
-      icon: Cpu
+      num: '02',
+      brandBadge: 'PANASONIC',
+      title: isTe ? 'ఇన్వర్టర్: Panasonic' : 'Inverter: Panasonic',
+      desc: isTe ? 'అత్యాధునిక RF టెక్నాలజీ. 10 ఏళ్ల వారంటీ.' : 'Advanced RF technology. 10 Years Warranty.',
+      warranty: isTe ? '10 ఏళ్ల వారంటీ' : '10 Years Warranty',
+      variant: 'green'
     },
     {
-      brand: 'Havells',
-      titleEn: 'ACDB & DCDB Boxes: Havells',
-      titleTe: 'ACDB & DCDB బాక్సులు: హావెల్స్',
-      specEn: 'Equipped with heavy-duty DC MCBs, Type-II SPDs (Surge Protection Devices).',
-      specTe: 'భారీ DC MCBలు మరియు పిడుగుపాటు నుండి రక్షించే టైప్-II SPD రక్షణ.',
-      warrantyEn: 'Heavy Duty Surge & Short-Circuit Protection',
-      warrantyTe: 'పూర్తి షార్ట్-సర్క్యూట్ & సర్జ్ రక్షణ',
-      icon: ShieldCheck
+      num: '03',
+      brandBadge: 'HAVELLS',
+      title: isTe ? 'ACDB & DCDB: Havells' : 'ACDB & DCDB: Havells',
+      desc: isTe ? 'నమ్మకమైన MCBలు మరియు సర్జ్ ప్రొటెక్షన్.' : 'Equipped with reliable MCBs.',
+      warranty: isTe ? 'Reliable MCB Protection' : 'Reliable MCB Protection',
+      variant: 'blue'
     },
     {
-      brand: 'Polycab',
-      titleEn: 'Solar DC Cables: Polycab',
-      titleTe: 'సోలార్ కేబుల్స్: పాలీక్యాబ్',
-      specEn: '4 sq mm multi-strand tin-plated copper cables with UV and flame retardant sheath.',
-      specTe: '4 sq mm కాపర్ కేబుల్స్, ఎండ మరియు వర్షాలకు తట్టుకునే అత్యాధునిక ఇన్సులేషన్.',
-      warrantyEn: 'UV & Flame Retardant Heavy-Duty Cables',
-      warrantyTe: 'UV & ఫ్లేమ్ రెసిస్టెంట్ కేబుల్స్',
-      icon: Zap
+      num: '04',
+      brandBadge: 'POLYCAB',
+      title: isTe ? 'కేబుల్స్: Polycab' : 'Cables: Polycab',
+      desc: isTe ? '4 sq mm హెవీ-డ్యూటీ కాపర్ కేబుల్స్.' : '4 sq mm high-quality cables.',
+      warranty: isTe ? '4 sq mm Heavy-Duty' : '4 sq mm Heavy-Duty',
+      variant: 'blue'
     },
     {
-      brand: 'JSW Steel',
-      titleEn: 'Mounting Structure: JSW Hot-Dipped GI',
-      titleTe: 'మౌంటింగ్ స్ట్రక్చర్: JSW గాల్వనైజ్డ్ స్టీల్',
-      specEn: 'Hot-dipped galvanized 80-micron coating, rated to withstand 160 km/h wind speeds.',
-      specTe: '80 మైక్రాన్ల హాట్ డిప్డ్ గాల్వనైజ్డ్ కోటింగ్, 160 km/h గాలులను సైతం తట్టుకుంటుంది.',
-      warrantyEn: '35-Year Rust-Free Structural Lifespan',
-      warrantyTe: '35 ఏళ్ల పాటు తుప్పు పట్టని లైఫ్‌స్పాన్',
-      icon: Layers
+      num: '05',
+      brandBadge: 'JSW',
+      title: isTe ? 'మౌంటింగ్ స్ట్రక్చర్: JSW' : 'Structure: JSW',
+      desc: isTe ? 'GI హాట్ డిప్డ్, 160 km/h గాలి వేగాన్ని తట్టుకుంటుంది. 35 ఏళ్ల జీవితకాలం.' : 'GI Hot Dipped, 160 km/h wind resistance. 35-year lifespan.',
+      warranty: isTe ? '35-Year Lifespan' : '35-Year Lifespan',
+      variant: 'green'
     }
   ];
 
-  function SunIcon(props) {
-    return <Zap {...props} />;
-  }
-
   return (
-    <section className="brands-section section-padding" id="about">
+    <section className="about-brand-section section-padding" id="about">
       <div className="container">
-        {/* Section Title */}
-        <div className="section-title-wrap text-center">
-          <div className="section-tag">
-            <Award size={15} />
-            <span>{t.brandsTag}</span>
+        {/* Top Feature Card: About aquaPzone enterprises */}
+        <div className="about-company-card">
+          <div className="about-card-header">
+            <div className="company-logo-container">
+              <img 
+                src="/assets/aquapzone_logo.jpg" 
+                alt="Aqua Pzone Logo" 
+                className="about-aquapzone-logo"
+                onError={(e) => {
+                  e.target.style.display = 'none';
+                  e.target.nextSibling.style.display = 'inline-flex';
+                }}
+              />
+              <span className="fallback-logo-text" style={{ display: 'none' }}>AQUA PZONE</span>
+            </div>
+            <span className="approved-vendor-badge">
+              {isTe ? 'APPROVED PM SURYA GHAR VENDOR' : 'APPROVED PM SURYA GHAR VENDOR'}
+            </span>
           </div>
-          <h2 className="section-title">{t.brandsTitle}</h2>
-          <p className="section-subtitle">{t.brandsDesc}</p>
+
+          <h2 className="about-company-title">
+            {isTe ? 'About aquaPzone enterprises (ఆక్వా పిజోన్ ఎంటర్‌ప్రైజెస్)' : 'About aquaPzone enterprises'}
+          </h2>
+
+          <p className="about-company-desc">
+            {isTe 
+              ? 'PM సూర్య ఘర్ పోర్టల్‌లో అధికారిక ఆమోదం పొందిన వెండర్‌గా, ఆంధ్రప్రదేశ్, తెలంగాణ, బెంగళూరు మరియు చెన్నై అంతటా మాకు 21+ సంవత్సరాల ఇంజనీరింగ్ అనుభవం ఉంది. మేము నాణ్యమైన పరికరాలు, జీరో లోపాలు మరియు ప్రొఫెషనల్ ఇన్‌స్టాలేషన్‌ను అందిస్తాము. రిజిస్ట్రేషన్ మరియు డాక్యుమెంటేషన్ నుండి నెట్ మీటరింగ్ మరియు PPA ఒప్పందాల వరకు మా సర్వీస్ బృందం పూర్తి బాధ్యత తీసుకుంటుంది.'
+              : 'Listed as an approved vendor in the PM Surya Ghar Portal, we have over 21 years of experience across AP, Telangana, Bangalore, & Chennai. We ensure high-quality materials, zero defects, and professional installation. Our service team handles everything from registration and documentation to net metering and PPA agreements.'}
+          </p>
+
+          {/* 4 Feature Badges in 1 Row */}
+          <div className="about-pillars-grid">
+            <div className="pillar-badge-item">
+              <span className="pillar-icon">🛡️</span>
+              <span>{isTe ? 'సున్నా అడ్వాన్స్ పేమెంట్' : 'Zero Advance Payment'}</span>
+            </div>
+            <div className="pillar-badge-item">
+              <span className="pillar-icon">💰</span>
+              <span>{isTe ? 'అత్యుత్తమ ధరలు' : 'Best Pricing'}</span>
+            </div>
+            <div className="pillar-badge-item">
+              <span className="pillar-icon">📍</span>
+              <span>{isTe ? 'విస్తృత డీలర్లు' : 'Widespread Dealers'}</span>
+            </div>
+            <div className="pillar-badge-item">
+              <span className="pillar-icon">📑</span>
+              <span>{isTe ? 'పూర్తి డాక్యుమెంటేషన్' : 'Complete Documentation'}</span>
+            </div>
+          </div>
         </div>
 
-        {/* Brand Hardware Cards Grid */}
-        <div className="brands-grid">
-          {hardwareItems.map((item, idx) => {
-            const IconComp = item.icon;
-            return (
-              <div
-                key={idx}
-                className="brand-hardware-card glassmorphism-card"
-              >
-                <div className="brand-header">
-                  <div className="brand-icon-box">
-                    <IconComp size={22} className="text-gold" />
-                  </div>
-                  <div className="brand-badge-label">{item.brand}</div>
-                </div>
+        {/* Bottom Section: Premium Brands & Warranty */}
+        <div className="premium-brands-header text-center">
+          <h2 className="premium-brands-title">
+            {isTe ? 'ప్రీమియం బ్రాండ్లు & వారంటీ' : 'Premium Brands & Warranty'}
+          </h2>
+          <p className="premium-brands-sub">
+            {isTe 
+              ? 'దశాబ్దాల పాటు నిలిచే అత్యున్నత శ్రేణి (Tier-1) సోలార్ ఇంజనీరింగ్ పరికరాలు.'
+              : 'Built with industry-leading Tier-1 solar engineering components guaranteed to last for decades.'}
+          </p>
+        </div>
 
-                <h4 className="hardware-title">
-                  {lang === 'te' ? item.titleTe : item.titleEn}
-                </h4>
-
-                <p className="hardware-spec">
-                  {lang === 'te' ? item.specTe : item.specEn}
-                </p>
-
-                <div className="hardware-warranty-pill">
-                  <ShieldCheck size={14} className="text-emerald-400" />
-                  <span>{lang === 'te' ? item.warrantyTe : item.warrantyEn}</span>
-                </div>
+        {/* 5 Hardware Brand Cards Grid */}
+        <div className="premium-brands-grid-5">
+          {brandItems.map((item, idx) => (
+            <div key={idx} className="brand-spec-card">
+              <div className="brand-card-top-row">
+                <span className="brand-card-num">{item.num}</span>
+                <span className="brand-chip-dark">{item.brandBadge}</span>
               </div>
-            );
-          })}
-        </div>
 
-        {/* Corporate Trust Banner */}
-        <div className="corporate-trust-strip glassmorphism-card">
-          <div className="trust-strip-item">
-            <Award size={22} className="text-amber-400" />
-            <div>
-              <strong>ISO 9001:2015 Certified</strong>
-              <span>International Quality Standards</span>
+              <h4 className="brand-card-title">{item.title}</h4>
+              <p className="brand-card-desc">{item.desc}</p>
+
+              <div className={`brand-card-warranty-pill ${item.variant === 'blue' ? 'blue-pill' : 'green-pill'}`}>
+                {item.warranty}
+              </div>
             </div>
-          </div>
-          <div className="trust-strip-item">
-            <ShieldCheck size={22} className="text-emerald-400" />
-            <div>
-              <strong>Approved PM Surya Ghar Vendor</strong>
-              <span>National MNRE Portal Listed</span>
-            </div>
-          </div>
-          <div className="trust-strip-item">
-            <Zap size={22} className="text-cyan-400" />
-            <div>
-              <strong>21+ Years Engineering Legacy</strong>
-              <span>Serving AP, TS, BLR & Chennai</span>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </section>

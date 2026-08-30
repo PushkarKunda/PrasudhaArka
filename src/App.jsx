@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { I18N } from './data/i18n';
-import { AnnouncementBar } from './components/AnnouncementBar';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { SolarCalculator } from './components/SolarCalculator';
@@ -30,10 +29,7 @@ export function App() {
 
   return (
     <div className={`app-root lang-${lang}`}>
-      {/* Top Govt announcement & dealer phones */}
-      <AnnouncementBar lang={lang} t={t} />
-
-      {/* Main Glassmorphic Sticky Header */}
+      {/* Main Sticky Header */}
       <Navbar lang={lang} setLang={setLang} t={t} />
 
       {/* Main Content Sections in Natural Logical Order */}

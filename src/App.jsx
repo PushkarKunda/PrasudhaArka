@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { I18N } from './data/i18n';
+import { initCleanUrlHandler } from './utils/navigation';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { SolarCalculator } from './components/SolarCalculator';
@@ -19,6 +20,10 @@ export function App() {
   const [lang, setLang] = useState(() => {
     return localStorage.getItem('prasudharka_lang') || 'te';
   });
+
+  useEffect(() => {
+    initCleanUrlHandler();
+  }, []);
 
   useEffect(() => {
     localStorage.setItem('prasudharka_lang', lang);

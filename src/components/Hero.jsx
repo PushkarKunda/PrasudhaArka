@@ -5,6 +5,7 @@ import { WhatsAppIcon } from './WhatsAppIcon';
 import { QuickQuoteCard } from './QuickQuoteCard';
 import { EnergyFlowVisualizer } from './EnergyFlowVisualizer';
 import { getWhatsAppUrl } from '../data/dealers';
+import { scrollToSection } from '../utils/navigation';
 
 export const Hero = ({ lang, t }) => {
   const [activeHeroTab, setActiveHeroTab] = useState('quote'); // 'quote' | 'simulator'
@@ -25,43 +26,32 @@ export const Hero = ({ lang, t }) => {
         <div className="hero-sun-sphere"></div>
       </div>
 
-      <div className="container hero-content-wrapper">
-        {/* Left Column: Hero Copy & Value Props */}
-        <div className="hero-text-content">
-          {/* Brand Intro & ISO Badge */}
-          <div className="hero-badges-wrapper">
-            <div className="hero-brand-intro">
-              <div className="hero-brand-logo-wrap">
-                <img 
-                  src="/assets/aquapzone_logo.jpg" 
-                  alt="AquaPzone Enterprises Logo" 
-                  className="hero-aquapzone-logo" 
-                  onError={(e) => { e.target.style.display = 'none'; }}
-                />
-              </div>
-              <div className="hero-brand-text">
-                <span className="hero-firm-title">{t.firmTitle}</span>
-                <span className="hero-firm-subtitle">{t.firmSubtitle}</span>
-              </div>
-            </div>
-
-            <div className="hero-badge-pill">
-              <Award size={16} className="text-gold" />
-              <span>{t.heroBadge}</span>
-            </div>
+      <div className="container hero-container">
+        {/* Left Column: Core Value Proposition */}
+        <div className="hero-content">
+          {/* Top Trust Badge */}
+          <div className="hero-badge">
+            <Award size={16} className="text-gold" />
+            <span>{t.badgeIso}</span>
           </div>
 
           {/* Main Headline */}
-          <h1 
-            className="hero-title"
-            dangerouslySetInnerHTML={{ __html: t.heroTitle }}
-          />
+          <h1 className="hero-title">
+            {lang === 'te' ? (
+              <>
+                సూర్యుని శక్తితో <span className="text-gradient">ఉచిత కరెంట్</span> పొందండి!
+              </>
+            ) : (
+              <>
+                Power Your Home With <span className="text-gradient">Free Solar Energy</span>
+              </>
+            )}
+          </h1>
 
-          <p className="hero-lead-text">
-            {t.heroLead}
-          </p>
+          {/* Subtitle */}
+          <p className="hero-subtitle">{t.heroSub}</p>
 
-          {/* Subsidy Highlight Card */}
+          {/* PM Surya Ghar Subsidy Callout Box */}
           <div className="hero-subsidy-highlight-card">
             <div className="subsidy-coin-icon">
               <Sun size={28} className="text-amber-400" />
@@ -74,7 +64,11 @@ export const Hero = ({ lang, t }) => {
 
           {/* Hero Action Buttons */}
           <div className="hero-cta-buttons">
-            <a href="#calculator" className="btn btn-primary btn-lg btn-glow">
+            <a 
+              href="#calculator" 
+              onClick={(e) => scrollToSection('calculator', e)} 
+              className="btn btn-primary btn-lg btn-glow"
+            >
               <TrendingUp size={20} />
               <span>{t.btnCalcSubsidy}</span>
             </a>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Globe, Calculator, Menu, X, Sparkles, ChevronRight } from 'lucide-react';
+import { scrollToSection } from '../utils/navigation';
 
 export const Navbar = ({ lang, setLang, t }) => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -49,44 +50,11 @@ export const Navbar = ({ lang, setLang, t }) => {
     const wasMobileMenuOpen = mobileMenuOpen;
     if (wasMobileMenuOpen) {
       setMobileMenuOpen(false);
-    }
-
-    const targetId = href ? href.replace('#', '') : '';
-    if (!targetId) return;
-
-    const performScroll = () => {
-      if (targetId === 'home') {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        if (window.history.pushState) {
-          window.history.pushState(null, null, '#home');
-        }
-        return;
-      }
-
-      const element = document.getElementById(targetId);
-      if (element) {
-        const isMobile = window.innerWidth <= 768;
-        const headerOffset = isMobile ? 74 : 88;
-        const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
-        const offsetPosition = Math.max(0, elementPosition - headerOffset);
-
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: 'smooth'
-        });
-
-        if (window.history.pushState) {
-          window.history.pushState(null, null, href);
-        }
-      }
-    };
-
-    // If mobile menu was open, wait a short moment for the drawer closing
-    // so layout recalculations don't cancel browser smooth scrolling
-    if (wasMobileMenuOpen) {
-      setTimeout(performScroll, 80);
+      setTimeout(() => {
+        scrollToSection(href);
+      }, 80);
     } else {
-      performScroll();
+      scrollToSection(href);
     }
   };
 

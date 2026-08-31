@@ -1,6 +1,7 @@
 import React from 'react';
 import { Headphones, MapPin, Mail, ExternalLink } from 'lucide-react';
 import { DEALERS } from '../data/dealers';
+import { scrollToSection } from '../utils/navigation';
 
 export const Footer = ({ lang, t }) => {
   return (
@@ -31,11 +32,11 @@ export const Footer = ({ lang, t }) => {
           <div className="footer-col">
             <h4 className="footer-col-title">Quick Navigation</h4>
             <ul className="footer-links-list">
-              <li><a href="#home">Home</a></li>
-              <li><a href="#pricing">System Pricing</a></li>
-              <li><a href="#calculator">Calculator</a></li>
-              <li><a href="#services">Services</a></li>
-              <li><a href="#contact">Contact Us</a></li>
+              <li><a href="#home" onClick={(e) => scrollToSection('home', e)}>Home</a></li>
+              <li><a href="#pricing" onClick={(e) => scrollToSection('pricing', e)}>System Pricing</a></li>
+              <li><a href="#calculator" onClick={(e) => scrollToSection('calculator', e)}>Calculator</a></li>
+              <li><a href="#services" onClick={(e) => scrollToSection('services', e)}>Services</a></li>
+              <li><a href="#contact" onClick={(e) => scrollToSection('contact', e)}>Contact Us</a></li>
             </ul>
           </div>
 
@@ -43,12 +44,12 @@ export const Footer = ({ lang, t }) => {
           <div className="footer-col">
             <h4 className="footer-col-title">Our Offerings</h4>
             <ul className="footer-links-list">
-              <li><a href="#about">Panasonic Rooftop Solar</a></li>
-              <li><a href="#about">Havells Solar Systems</a></li>
-              <li><a href="#about">Polycab Panels & Inverters</a></li>
-              <li><a href="#services">Lithium-Ion Battery Storage</a></li>
-              <li><a href="#services">Commercial RO Plants</a></li>
-              <li><a href="#services">CRI Agricultural Pumps</a></li>
+              <li><a href="#about" onClick={(e) => scrollToSection('about', e)}>Panasonic Rooftop Solar</a></li>
+              <li><a href="#about" onClick={(e) => scrollToSection('about', e)}>Havells Solar Systems</a></li>
+              <li><a href="#about" onClick={(e) => scrollToSection('about', e)}>Polycab Panels & Inverters</a></li>
+              <li><a href="#services" onClick={(e) => scrollToSection('services', e)}>Lithium-Ion Battery Storage</a></li>
+              <li><a href="#services" onClick={(e) => scrollToSection('services', e)}>Commercial RO Plants</a></li>
+              <li><a href="#services" onClick={(e) => scrollToSection('services', e)}>CRI Agricultural Pumps</a></li>
             </ul>
           </div>
 

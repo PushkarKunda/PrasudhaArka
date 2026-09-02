@@ -1685,7 +1685,7 @@ select.custom-input {
 }
 
 .carousel-track-animated {
-  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1) !important;
+  transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1) !important;
 }
 
 .carousel-track-instant {

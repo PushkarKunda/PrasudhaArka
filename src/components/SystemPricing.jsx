@@ -31,41 +31,69 @@ export const SystemPricing = ({ lang, t }) => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  const isAnimatingRef = useRef(false);
+  const timerRef = useRef(null);
+
   // Compute canonical real index for dots and counters (0 to N-1)
   const realIndex = isCarouselActive ? ((currentIndex % N) + N) % N : 0;
 
+  // Seamless jump without animation when reaching clone sets
+  const handleTransitionEnd = () => {
+    if (timerRef.current) clearTimeout(timerRef.current);
+    setIsAnimating(false);
+    isAnimatingRef.current = false;
+    setCurrentIndex(prev => {
+      if (prev >= 2 * N) {
+        return prev - N;
+      } else if (prev < N) {
+        return prev + N;
+      }
+      return prev;
+    });
+  };
+
   const nextSlide = () => {
+    if (isAnimatingRef.current) return;
+    isAnimatingRef.current = true;
     setIsAnimating(true);
-    setCurrentIndex(prev => prev + 1);
+    setCurrentIndex(prev => {
+      let base = prev;
+      if (base >= 2 * N) {
+        base = base - N;
+      }
+      return base + 1;
+    });
   };
 
   const prevSlide = () => {
+    if (isAnimatingRef.current) return;
+    isAnimatingRef.current = true;
     setIsAnimating(true);
-    setCurrentIndex(prev => prev - 1);
+    setCurrentIndex(prev => {
+      let base = prev;
+      if (base <= N - 1) {
+        base = base + N;
+      }
+      return base - 1;
+    });
   };
 
   const goToSlide = (dotIdx) => {
+    if (isAnimatingRef.current) return;
+    isAnimatingRef.current = true;
     setIsAnimating(true);
     setCurrentIndex(N + dotIdx);
-  };
-
-  // Seamless jump without animation when reaching clone sets
-  const handleTransitionEnd = () => {
-    setIsAnimating(false);
-    if (currentIndex >= 2 * N) {
-      setCurrentIndex(prev => prev - N);
-    } else if (currentIndex < N) {
-      setCurrentIndex(prev => prev + N);
-    }
   };
 
   // Fallback timer to ensure animation resets if transitionend event is missed
   useEffect(() => {
     if (!isAnimating) return;
-    const timer = setTimeout(() => {
+    timerRef.current = setTimeout(() => {
       handleTransitionEnd();
-    }, 480);
-    return () => clearTimeout(timer);
+    }, 380);
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
   }, [isAnimating, currentIndex]);
 
   // Automatic gentle carousel slide when on mobile/tablet

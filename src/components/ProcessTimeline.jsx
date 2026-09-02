@@ -34,6 +34,9 @@ export const ProcessTimeline = ({ lang, t }) => {
     CheckCircle
   };
 
+  const isAnimatingRef = useRef(false);
+  const timerRef = useRef(null);
+
   // Determine responsive items per view
   useEffect(() => {
     const handleResize = () => {
@@ -53,36 +56,66 @@ export const ProcessTimeline = ({ lang, t }) => {
 
   const realIndex = isCarouselActive ? ((currentIndex % N) + N) % N : 0;
 
+  // Keep active step highlight in sync with carousel
+  useEffect(() => {
+    setActiveStep(realIndex);
+  }, [realIndex]);
+
+  const handleTransitionEnd = () => {
+    if (timerRef.current) clearTimeout(timerRef.current);
+    setIsAnimating(false);
+    isAnimatingRef.current = false;
+    setCurrentIndex(prev => {
+      if (prev >= 2 * N) {
+        return prev - N;
+      } else if (prev < N) {
+        return prev + N;
+      }
+      return prev;
+    });
+  };
+
   const nextSlide = () => {
+    if (isAnimatingRef.current) return;
+    isAnimatingRef.current = true;
     setIsAnimating(true);
-    setCurrentIndex(prev => prev + 1);
+    setCurrentIndex(prev => {
+      let base = prev;
+      if (base >= 2 * N) {
+        base = base - N;
+      }
+      return base + 1;
+    });
   };
 
   const prevSlide = () => {
+    if (isAnimatingRef.current) return;
+    isAnimatingRef.current = true;
     setIsAnimating(true);
-    setCurrentIndex(prev => prev - 1);
+    setCurrentIndex(prev => {
+      let base = prev;
+      if (base <= N - 1) {
+        base = base + N;
+      }
+      return base - 1;
+    });
   };
 
   const goToSlide = (dotIdx) => {
+    if (isAnimatingRef.current) return;
+    isAnimatingRef.current = true;
     setIsAnimating(true);
     setCurrentIndex(N + dotIdx);
   };
 
-  const handleTransitionEnd = () => {
-    setIsAnimating(false);
-    if (currentIndex >= 2 * N) {
-      setCurrentIndex(prev => prev - N);
-    } else if (currentIndex < N) {
-      setCurrentIndex(prev => prev + N);
-    }
-  };
-
   useEffect(() => {
     if (!isAnimating) return;
-    const timer = setTimeout(() => {
+    timerRef.current = setTimeout(() => {
       handleTransitionEnd();
-    }, 480);
-    return () => clearTimeout(timer);
+    }, 380);
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
   }, [isAnimating, currentIndex]);
 
   // Automatic gentle carousel slide
@@ -145,8 +178,8 @@ export const ProcessTimeline = ({ lang, t }) => {
               <Sparkles size={14} className="text-gold" />
               <span>
                 {lang === 'te' 
-                  ? `దశ ${realIndex + 1} - ${Math.min(realIndex + itemsPerView, PROCESS_STEPS.length)} / మొత్తం ${PROCESS_STEPS.length} దశలు`
-                  : `Steps ${realIndex + 1} - ${Math.min(realIndex + itemsPerView, PROCESS_STEPS.length)} of ${PROCESS_STEPS.length}`}
+                  ? `దశ ${realIndex + 1} / ${N}: ${PROCESS_STEPS[realIndex].titleTe}`
+                  : `Step ${realIndex + 1} of ${N}: ${PROCESS_STEPS[realIndex].titleEn}`}
               </span>
             </div>
 
@@ -193,7 +226,7 @@ export const ProcessTimeline = ({ lang, t }) => {
                   >
                     <div
                       className={`process-step-compact-card ${isSelected ? 'active-step' : ''}`}
-                      onClick={() => setActiveStep(idx)}
+                      onClick={() => goToSlide(idx % N)}
                     >
                       {/* Header row: Number on left, Golden Icon on right */}
                       <div className="step-card-top-row">

@@ -68,7 +68,7 @@ html {
 }
 
 section[id], div[id] {
-  scroll-margin-top: 84px;
+  scroll-margin-top: 96px;
 }
 
 @media (max-width: 768px) {
@@ -513,7 +513,7 @@ button, input, select, textarea {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 84px;
+  height: 92px;
   gap: 16px;
 }
 
@@ -530,13 +530,23 @@ button, input, select, textarea {
 }
 
 .brand-logo-img {
-  height: 70px;
-  max-width: 260px;
+  height: 80px;
+  max-width: 320px;
   width: auto;
   border-radius: 6px;
   object-fit: contain;
   display: block;
   transition: transform 0.2s ease;
+}
+
+@media (min-width: 1280px) {
+  .navbar {
+    height: 96px;
+  }
+  .brand-logo-img {
+    height: 86px;
+    max-width: 360px;
+  }
 }
 
 .brand-identity:hover .brand-logo-img {

@@ -19,7 +19,7 @@ export const scrollToSection = (target, e) => {
   const element = document.getElementById(targetId);
   if (element) {
     const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
-    const headerOffset = isMobile ? 74 : 88;
+    const headerOffset = isMobile ? 74 : 96;
     const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
     const offsetPosition = Math.max(0, elementPosition - headerOffset);
 

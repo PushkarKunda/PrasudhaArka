@@ -228,7 +228,7 @@ export const SolarCalculator = ({ lang, t }) => {
                   className={`mode-track-tab ${calcMode === 'units' ? 'active' : ''}`}
                   onClick={() => setCalcMode('units')}
                 >
-                  Units (kWh)
+                  Units
                 </button>
                 <button
                   type="button"
@@ -268,7 +268,7 @@ export const SolarCalculator = ({ lang, t }) => {
                         className="calc-inline-input"
                         aria-label="Monthly Units"
                       />
-                      <span className="unit-label-tag">kWh</span>
+                      <span className="unit-label-tag">units</span>
                     </div>
                   </div>
                   <input
@@ -327,7 +327,7 @@ export const SolarCalculator = ({ lang, t }) => {
                   </div>
                   <div className="meter-diff-badge">
                     <span>Calculated Monthly Units:</span>
-                    <strong className="text-gold">{effectiveUnits} Units (kWh)</strong>
+                    <strong className="text-gold">{effectiveUnits} units</strong>
                   </div>
                 </div>
               )}

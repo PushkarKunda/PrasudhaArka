@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { I18N } from './data/i18n';
 import { initCleanUrlHandler } from './utils/navigation';
+import { AnnouncementBar } from './components/AnnouncementBar';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { SolarCalculator } from './components/SolarCalculator';
@@ -34,6 +35,9 @@ export function App() {
 
   return (
     <div className={`app-root lang-${lang}`}>
+      {/* Top Announcement Bar (Govt Scheme badges & Direct Dealer lines) */}
+      <AnnouncementBar lang={lang} t={t} />
+
       {/* Main Sticky Header */}
       <Navbar lang={lang} setLang={setLang} t={t} />
 

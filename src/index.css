@@ -311,11 +311,11 @@ button, input, select, textarea {
   box-shadow: 0 2px 8px rgba(139, 92, 246, 0.2);
 }
 
-/* 8. Customer Testimonials (#testimonials) */
+/* 8. Customer Testimonials (#testimonials) - Warm Golden Trust */
 .testimonials-section {
-  background: linear-gradient(160deg, #fffbeb 0%, #fff8e1 30%, #fffdf5 70%, #f0fdf4 100%);
-  border-top: 2px solid rgba(253, 230, 138, 0.7);
-  border-bottom: 2px solid rgba(167, 243, 208, 0.4);
+  background: linear-gradient(180deg, #fffdf7 0%, #fff9ec 50%, #fffdf7 100%);
+  border-top: 1px solid rgba(245, 158, 11, 0.25);
+  border-bottom: 1px solid rgba(226, 232, 240, 0.8);
   position: relative;
 }
 
@@ -323,7 +323,7 @@ button, input, select, textarea {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at 50% 0%, rgba(245, 158, 11, 0.07) 0%, transparent 60%);
+  background: radial-gradient(ellipse at 50% 20%, rgba(245, 158, 11, 0.05) 0%, transparent 65%);
   pointer-events: none;
 }
 
@@ -332,12 +332,36 @@ button, input, select, textarea {
   border-color: #f59e0b;
   color: #92400e;
   font-weight: 800;
-  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.2);
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.15);
 }
 
-/* 9. FAQs Section (#faqs) */
+/* 9. Contact & Free Survey (#contact) - Crisp Executive Light Contrast */
+.contact-section {
+  background: linear-gradient(180deg, #f1f5f9 0%, #f8fafc 40%, #eef2f6 100%);
+  border-top: 1px solid #cbd5e1;
+  border-bottom: 1px solid #cbd5e1;
+  position: relative;
+}
+
+.contact-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(3, 105, 161, 0.04) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.contact-section .section-tag {
+  background: linear-gradient(135deg, #e0f2fe, #bae6fd);
+  border-color: #38bdf8;
+  color: #0369a1;
+  font-weight: 800;
+  box-shadow: 0 2px 8px rgba(3, 105, 161, 0.15);
+}
+
+/* 10. FAQs Section (#faqs) - Pure Crisp Card Canvas */
 .faq-section {
-  background: linear-gradient(160deg, #f8fafc 0%, #f1f5f9 60%, #f8fafc 100%);
+  background: linear-gradient(180deg, #ffffff 0%, #fafcff 50%, #f8fafc 100%);
   border-top: 1px solid #e2e8f0;
   border-bottom: 1px solid #e2e8f0;
   position: relative;
@@ -347,39 +371,16 @@ button, input, select, textarea {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at 80% 50%, rgba(100, 116, 139, 0.03) 0%, transparent 60%);
+  background: radial-gradient(ellipse at 50% 0%, rgba(245, 158, 11, 0.03) 0%, transparent 60%);
   pointer-events: none;
 }
 
 .faq-section .section-tag {
-  background: linear-gradient(135deg, #e2e8f0, #cbd5e1);
-  border-color: #94a3b8;
-  color: #1e293b;
-  font-weight: 800;
-  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.08);
-}
-
-/* 10. Contact & Free Survey (#contact) - Crisp Light Section */
-.contact-section {
-  background: linear-gradient(160deg, #fffbeb 0%, #ffffff 50%, #f0fdf4 100%);
-  border-top: 2px solid rgba(245, 158, 11, 0.15);
-  position: relative;
-}
-
-.contact-section::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse at 30% 0%, rgba(245, 158, 11, 0.05) 0%, transparent 60%);
-  pointer-events: none;
-}
-
-.contact-section .section-tag {
   background: linear-gradient(135deg, #fef3c7, #fde68a);
   border-color: #f59e0b;
   color: #92400e;
   font-weight: 800;
-  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.2);
+  box-shadow: 0 2px 6px rgba(245, 158, 11, 0.12);
 }
 
 .contact-section .dealer-profile-card {

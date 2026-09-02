@@ -43,8 +43,8 @@ export function App() {
         <ProcessTimeline lang={lang} t={t} />
         <DocumentsSection lang={lang} t={t} />
         <Testimonials lang={lang} t={t} />
-        <FaqSection lang={lang} t={t} />
         <ContactSection lang={lang} t={t} />
+        <FaqSection lang={lang} t={t} />
       </main>
       <FloatingActions lang={lang} />
       <Footer lang={lang} t={t} />

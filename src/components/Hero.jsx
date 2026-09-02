@@ -31,8 +31,8 @@ export const Hero = ({ lang, t }) => {
         <div className="hero-text-content">
           {/* Brand Intro & ISO Badge */}
           <div className="hero-badges-wrapper">
-            <div className="hero-brand-intro">
-              <div className="hero-brand-logo-wrap">
+            <div className="hero-badge-card hero-brand-intro">
+              <div className="hero-badge-icon-wrap hero-brand-logo-wrap">
                 <img 
                   src="/assets/aquapzone_logo.jpg" 
                   alt="AquaPzone Enterprises Logo" 
@@ -40,15 +40,20 @@ export const Hero = ({ lang, t }) => {
                   onError={(e) => { e.target.style.display = 'none'; }}
                 />
               </div>
-              <div className="hero-brand-text">
+              <div className="hero-badge-text hero-brand-text">
                 <span className="hero-firm-title">{t.firmTitle}</span>
                 <span className="hero-firm-subtitle">{t.firmSubtitle}</span>
               </div>
             </div>
 
-            <div className="hero-badge-pill">
-              <Award size={16} className="text-gold" />
-              <span>{t.heroBadge}</span>
+            <div className="hero-badge-card hero-badge-pill">
+              <div className="hero-badge-icon-wrap hero-award-icon-wrap">
+                <Award size={18} className="text-gold" />
+              </div>
+              <div className="hero-badge-text">
+                <span className="hero-badge-title">{t.heroBadgeTitle || 'ISO 9001:2015 Certified'}</span>
+                <span className="hero-badge-subtitle">{t.heroBadgeSub || '21+ Years Experience'}</span>
+              </div>
             </div>
           </div>
 

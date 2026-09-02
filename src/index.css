@@ -897,56 +897,109 @@ button, input, select, textarea {
 .hero-badges-wrapper {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   flex-wrap: wrap;
-  margin-bottom: 14px;
+  margin-bottom: 16px;
+}
+
+/* Equal Twin Badge Cards */
+.hero-badge-card {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #ffffff;
+  border-radius: var(--radius-full);
+  padding: 6px 16px;
+  height: 50px;
+  box-sizing: border-box;
+  flex: 0 0 260px;
+  width: 260px;
+  max-width: 260px;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
 .hero-brand-intro {
+  border: 1.5px solid #e2e8f0;
+}
+
+.hero-brand-intro:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.09);
+  transform: translateY(-2px);
+}
+
+.hero-badge-pill {
+  border: 1.5px solid rgba(245, 158, 11, 0.45);
+}
+
+.hero-badge-pill:hover {
+  border-color: rgba(245, 158, 11, 0.7);
+  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.14);
+  transform: translateY(-2px);
+}
+
+.hero-badge-icon-wrap {
   display: flex;
   align-items: center;
-  gap: 8px;
-  background: #ffffff;
-  padding: 4px 12px;
-  border-radius: var(--radius-full);
-  border: 1px solid var(--border-light);
-  box-shadow: var(--shadow-sm);
+  justify-content: center;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+}
+
+.hero-award-icon-wrap {
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  border-radius: 50%;
 }
 
 .hero-aquapzone-logo {
   height: 24px;
   width: auto;
+  max-width: 32px;
+  object-fit: contain;
   border-radius: 4px;
 }
 
-.hero-brand-text {
+.hero-badge-text {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  flex: 1;
+  overflow: hidden;
 }
 
-.hero-firm-title {
-  font-size: 0.8rem;
-  font-weight: 700;
+.hero-firm-title,
+.hero-badge-title {
+  font-size: 0.82rem;
+  font-weight: 800;
   color: var(--text-main);
+  line-height: 1.25;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .hero-firm-subtitle {
-  font-size: 0.62rem;
+  font-size: 0.65rem;
+  font-weight: 600;
   color: var(--emerald-600);
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.hero-badge-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: #ffffff;
-  border: 1px solid rgba(245, 158, 11, 0.4);
-  color: var(--gold-700);
-  padding: 5px 12px;
-  border-radius: var(--radius-full);
-  font-size: 0.78rem;
+.hero-badge-subtitle {
+  font-size: 0.65rem;
   font-weight: 700;
-  box-shadow: var(--shadow-sm);
+  color: var(--gold-700);
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .hero-title {
@@ -3528,8 +3581,8 @@ select.custom-input {
 }
 
 .floating-whatsapp-btn {
-  width: 50px;
-  height: 50px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   background: #25d366;
   color: #ffffff;
@@ -3539,20 +3592,31 @@ select.custom-input {
   cursor: pointer;
   box-shadow: 0 4px 14px rgba(37, 211, 102, 0.4);
   transform: translateZ(0);
+  border: none;
 }
 
 .floating-scroll-top-btn {
-  width: 38px;
-  height: 38px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   background: #ffffff;
-  border: 1px solid var(--border-light);
-  color: var(--gold-700);
+  border: 1.5px solid var(--border-light);
+  color: var(--text-main);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.12);
+  transform: translateZ(0);
+  transition: all 0.2s ease;
+}
+
+.floating-scroll-top-btn:hover {
+  background: var(--gold-50);
+  border-color: var(--gold-500);
+  color: var(--gold-600);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(245, 158, 11, 0.25);
 }
 
 .floating-dealer-modal {
@@ -4292,25 +4356,33 @@ select.custom-input {
   }
 
   .hero-badges-wrapper {
-    gap: 6px;
+    gap: 8px;
     margin-bottom: 12px;
+    width: 100%;
   }
 
-  .hero-brand-intro {
-    padding: 3px 10px;
+  .hero-badge-card {
+    flex: 1 1 calc(50% - 4px);
+    width: calc(50% - 4px);
+    max-width: calc(50% - 4px);
+    height: 48px;
+    padding: 5px 10px;
+    gap: 8px;
   }
 
-  .hero-firm-title {
-    font-size: 0.75rem;
+  .hero-badge-icon-wrap {
+    width: 28px;
+    height: 28px;
   }
 
-  .hero-firm-subtitle {
+  .hero-firm-title,
+  .hero-badge-title {
+    font-size: 0.74rem;
+  }
+
+  .hero-firm-subtitle,
+  .hero-badge-subtitle {
     font-size: 0.58rem;
-  }
-
-  .hero-badge-pill {
-    font-size: 0.72rem;
-    padding: 4px 10px;
   }
 
   .hero-subsidy-highlight-card {
@@ -4837,13 +4909,13 @@ select.custom-input {
   }
 
   .floating-whatsapp-btn {
-    width: 48px;
-    height: 48px;
+    width: 46px;
+    height: 46px;
   }
 
   .floating-scroll-top-btn {
-    width: 36px;
-    height: 36px;
+    width: 46px;
+    height: 46px;
   }
 
   .floating-dealer-modal {

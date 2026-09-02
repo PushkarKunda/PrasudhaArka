@@ -21,7 +21,9 @@ export const I18N = {
     // Hero Section
     firmTitle: "ఆక్వా పిజోన్ ఎంటర్‌ప్రైజెస్",
     firmSubtitle: "సోలార్ & రెన్యూవబుల్స్",
-    heroBadge: "ISO 9001:2015 సర్టిఫైడ్ సంస్థ • 21+ ఏళ్ల అనుభవం",
+    heroBadgeTitle: "ISO 9001:2015 సర్టిఫైడ్",
+    heroBadgeSub: "21+ ఏళ్ల అనుభవం",
+    heroBadge: "ISO 9001:2015 సర్టిఫైడ్ • 21+ ఏళ్ల అనుభవం",
     heroTitle: "మీ ఇంటికి ఉచిత సోలార్ విద్యుత్, <span class='highlight-gold'>రూ. 78,000*</span> <span class='highlight-green'>ప్రభుత్వ సబ్సిడీతో</span> పొందండి",
     heroLead: "కరెంట్ బిల్లుల భారాన్ని 90% వరకు తగ్గించుకోండి. AP, తెలంగాణ, బెంగళూరు & చెన్నై వ్యాప్తంగా నివాస గృహాలు, వాణిజ్య సంస్థలు మరియు పరిశ్రమలకు ప్రీమియం సోలార్ రూఫ్‌టాప్ మరియు సులభమైన బ్యాంక్ లోన్ సదుపాయం.",
     subsidyCardTitle: "పి.ఎం సూర్య ఘర్ ముఫ్త్ బిజిలీ యోజన",
@@ -185,6 +187,8 @@ export const I18N = {
     // Hero Section
     firmTitle: "AquaPzone Enterprises",
     firmSubtitle: "Solar & Renewables",
+    heroBadgeTitle: "ISO 9001:2015 Certified",
+    heroBadgeSub: "21+ Years Experience",
     heroBadge: "ISO 9001:2015 Certified • 21+ Years Experience",
     heroTitle: "Power Your Home With Free Solar Energy & Get Up to <span class='highlight-gold'>₹78,000*</span> <span class='highlight-green'>Govt Subsidy</span>",
     heroLead: "Slash your electricity bills up to 90% forever. Turnkey solar rooftop solutions, hassle-free net metering, and zero down-payment bank loans across AP, Telangana, Bangalore, & Chennai.",

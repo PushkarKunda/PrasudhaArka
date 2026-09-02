@@ -139,10 +139,12 @@ export const FloatingActions = ({ lang }) => {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 15 }}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
             onClick={scrollToTop}
             aria-label="Scroll to top"
           >
-            <ArrowUp size={20} />
+            <ArrowUp size={22} />
           </motion.button>
         )}
       </AnimatePresence>

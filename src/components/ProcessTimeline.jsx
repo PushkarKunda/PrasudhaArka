@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   GitCommit, 
   MapPin, 
@@ -7,12 +7,20 @@ import {
   Wrench, 
   Zap, 
   CheckCircle,
-  ShieldCheck
+  ShieldCheck,
+  ChevronLeft,
+  ChevronRight,
+  Sparkles
 } from 'lucide-react';
 import { PROCESS_STEPS } from '../data/services';
 
 export const ProcessTimeline = ({ lang, t }) => {
   const [activeStep, setActiveStep] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [itemsPerView, setItemsPerView] = useState(3);
+  const [isPaused, setIsPaused] = useState(false);
+  const touchStartX = useRef(0);
+  const touchEndX = useRef(0);
 
   const iconMap = {
     MapPin,
@@ -22,6 +30,72 @@ export const ProcessTimeline = ({ lang, t }) => {
     Zap,
     CheckCircle
   };
+
+  // Determine responsive items per view
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 640) {
+        setItemsPerView(1);
+      } else if (window.innerWidth < 1024) {
+        setItemsPerView(2);
+      } else {
+        setItemsPerView(3);
+      }
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const maxIndex = Math.max(0, PROCESS_STEPS.length - itemsPerView);
+
+  // Keep index within bounds
+  useEffect(() => {
+    if (currentIndex > maxIndex) {
+      setCurrentIndex(maxIndex);
+    }
+  }, [maxIndex, currentIndex]);
+
+  // Automatic gentle carousel slide
+  useEffect(() => {
+    if (isPaused) return;
+    const interval = setInterval(() => {
+      setCurrentIndex(prev => (prev >= maxIndex ? 0 : prev + 1));
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [isPaused, maxIndex]);
+
+  const nextSlide = () => {
+    setCurrentIndex(prev => (prev >= maxIndex ? 0 : prev + 1));
+  };
+
+  const prevSlide = () => {
+    setCurrentIndex(prev => (prev <= 0 ? maxIndex : prev - 1));
+  };
+
+  const handleTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchMove = (e) => {
+    touchEndX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStartX.current || !touchEndX.current) return;
+    const diff = touchStartX.current - touchEndX.current;
+    if (diff > 45) {
+      nextSlide();
+    } else if (diff < -45) {
+      prevSlide();
+    }
+    touchStartX.current = 0;
+    touchEndX.current = 0;
+  };
+
+  // Gap between cards in pixels
+  const gapPx = 20;
 
   return (
     <section className="process-section section-padding" id="process">
@@ -36,36 +110,103 @@ export const ProcessTimeline = ({ lang, t }) => {
           <p className="section-subtitle">{t.processDesc}</p>
         </div>
 
-        {/* 6-Step Turnkey Timeline Grid */}
-        <div className="process-timeline-grid-6">
-          {PROCESS_STEPS.map((step, idx) => {
-            const IconComp = iconMap[step.icon] || Zap;
-            const isSelected = activeStep === idx;
+        {/* Carousel Container */}
+        <div 
+          className="process-carousel-container"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
+          {/* Top Controls Bar */}
+          <div className="carousel-top-bar">
+            <div className="carousel-status-badge">
+              <Sparkles size={14} className="text-gold" />
+              <span>
+                {lang === 'te' 
+                  ? `దశ ${currentIndex + 1} - ${Math.min(currentIndex + itemsPerView, PROCESS_STEPS.length)} / మొత్తం ${PROCESS_STEPS.length} దశలు`
+                  : `Steps ${currentIndex + 1} - ${Math.min(currentIndex + itemsPerView, PROCESS_STEPS.length)} of ${PROCESS_STEPS.length}`}
+              </span>
+            </div>
 
-            return (
-              <div
-                key={idx}
-                className={`process-step-compact-card ${isSelected ? 'active-step' : ''}`}
-                onClick={() => setActiveStep(idx)}
+            <div className="carousel-nav-arrows">
+              <button 
+                onClick={prevSlide}
+                className="carousel-arrow-btn"
+                aria-label="Previous step"
+                title="Previous"
               >
-                {/* Header row: Number on left, Golden Icon on right */}
-                <div className="step-card-top-row">
-                  <span className="step-num-text">{step.step}</span>
-                  <div className="step-icon-circle">
-                    <IconComp size={20} className="step-icon-gold" />
+                <ChevronLeft size={20} />
+              </button>
+              <button 
+                onClick={nextSlide}
+                className="carousel-arrow-btn"
+                aria-label="Next step"
+                title="Next"
+              >
+                <ChevronRight size={20} />
+              </button>
+            </div>
+          </div>
+
+          {/* Carousel Viewport / Track */}
+          <div className="process-carousel-viewport">
+            <div 
+              className="process-carousel-track"
+              style={{
+                transform: `translateX(calc(-${currentIndex} * ((100% + ${gapPx}px) / ${itemsPerView})))`
+              }}
+            >
+              {PROCESS_STEPS.map((step, idx) => {
+                const IconComp = iconMap[step.icon] || Zap;
+                const isSelected = activeStep === idx;
+
+                return (
+                  <div
+                    key={idx}
+                    className="process-carousel-slide"
+                    style={{
+                      flex: `0 0 calc((100% - ${(itemsPerView - 1) * gapPx}px) / ${itemsPerView})`
+                    }}
+                  >
+                    <div
+                      className={`process-step-compact-card ${isSelected ? 'active-step' : ''}`}
+                      onClick={() => setActiveStep(idx)}
+                    >
+                      {/* Header row: Number on left, Golden Icon on right */}
+                      <div className="step-card-top-row">
+                        <span className="step-num-text">{step.step}</span>
+                        <div className="step-icon-circle">
+                          <IconComp size={20} className="step-icon-gold" />
+                        </div>
+                      </div>
+
+                      <h3 className="step-compact-title">
+                        {lang === 'te' ? step.titleTe : step.titleEn}
+                      </h3>
+
+                      <p className="step-compact-desc">
+                        {lang === 'te' ? step.descTe : step.descEn}
+                      </p>
+                    </div>
                   </div>
-                </div>
+                );
+              })}
+            </div>
+          </div>
 
-                <h3 className="step-compact-title">
-                  {lang === 'te' ? step.titleTe : step.titleEn}
-                </h3>
-
-                <p className="step-compact-desc">
-                  {lang === 'te' ? step.descTe : step.descEn}
-                </p>
-              </div>
-            );
-          })}
+          {/* Bottom Pagination Dots */}
+          <div className="carousel-dots-wrap">
+            {Array.from({ length: maxIndex + 1 }).map((_, dotIdx) => (
+              <button
+                key={dotIdx}
+                className={`carousel-dot ${currentIndex === dotIdx ? 'active' : ''}`}
+                onClick={() => setCurrentIndex(dotIdx)}
+                aria-label={`Go to step slide ${dotIdx + 1}`}
+              />
+            ))}
+          </div>
         </div>
 
         {/* Process Guarantee Callout */}

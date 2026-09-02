@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Award, Sun, ArrowDownCircle, ShieldCheck, Zap, TrendingUp } from 'lucide-react';
+import { Award, Sun, IndianRupee, ArrowDownCircle, ShieldCheck, Zap, TrendingUp } from 'lucide-react';
 import { WhatsAppIcon } from './WhatsAppIcon';
 import { QuickQuoteCard } from './QuickQuoteCard';
 import { EnergyFlowVisualizer } from './EnergyFlowVisualizer';
@@ -65,8 +65,12 @@ export const Hero = ({ lang, t }) => {
 
           {/* PM Surya Ghar Subsidy Callout Box */}
           <div className="hero-subsidy-highlight-card">
-            <div className="subsidy-coin-icon">
-              <Sun size={28} className="text-amber-400" />
+            <div className="subsidy-coin-icon pm-modi-avatar-wrap">
+              <img 
+                src="/assets/pm_modi.jpg" 
+                alt="PM Narendra Modi" 
+                className="pm-modi-avatar-img"
+              />
             </div>
             <div className="subsidy-card-text">
               <h4>{t.subsidyCardTitle}</h4>
@@ -108,7 +112,7 @@ export const Hero = ({ lang, t }) => {
             </div>
             <div className="metric-item">
               <div className="metric-icon-wrap">
-                <Sun size={20} className="text-amber-400" />
+                <IndianRupee size={20} className="text-amber-400" />
               </div>
               <div>
                 <h3>{t.statMetric2}</h3>

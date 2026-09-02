@@ -1,8 +1,13 @@
-import React from 'react';
-import { ShieldCheck, Award, Zap, Layers, FileText, MapPin, BadgePercent, CheckCircle2 } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { ShieldCheck, Award, Zap, Layers, FileText, MapPin, BadgePercent, CheckCircle2, ChevronLeft, ChevronRight, Sparkles } from 'lucide-react';
 
 export const BrandShowcase = ({ lang, t }) => {
   const isTe = lang === 'te';
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [itemsPerView, setItemsPerView] = useState(5);
+  const [isPaused, setIsPaused] = useState(false);
+  const touchStartX = useRef(0);
+  const touchEndX = useRef(0);
 
   const brandItems = [
     {
@@ -46,6 +51,72 @@ export const BrandShowcase = ({ lang, t }) => {
       variant: 'green'
     }
   ];
+
+  // Determine responsive items per view
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 640) {
+        setItemsPerView(1);
+      } else if (window.innerWidth < 1024) {
+        setItemsPerView(2);
+      } else {
+        setItemsPerView(5);
+      }
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const maxIndex = Math.max(0, brandItems.length - itemsPerView);
+
+  // Keep index within bounds on resize
+  useEffect(() => {
+    if (currentIndex > maxIndex) {
+      setCurrentIndex(maxIndex);
+    }
+  }, [maxIndex, currentIndex]);
+
+  // Gentle auto-slide when on mobile/tablet (maxIndex > 0)
+  useEffect(() => {
+    if (isPaused || maxIndex === 0) return;
+    const interval = setInterval(() => {
+      setCurrentIndex(prev => (prev >= maxIndex ? 0 : prev + 1));
+    }, 5500);
+    return () => clearInterval(interval);
+  }, [isPaused, maxIndex]);
+
+  const nextSlide = () => {
+    setCurrentIndex(prev => (prev >= maxIndex ? 0 : prev + 1));
+  };
+
+  const prevSlide = () => {
+    setCurrentIndex(prev => (prev <= 0 ? maxIndex : prev - 1));
+  };
+
+  const handleTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchEndX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchMove = (e) => {
+    touchEndX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStartX.current || !touchEndX.current) return;
+    const diff = touchStartX.current - touchEndX.current;
+    if (diff > 45) {
+      nextSlide();
+    } else if (diff < -45) {
+      prevSlide();
+    }
+    touchStartX.current = 0;
+    touchEndX.current = 0;
+  };
+
+  const gapPx = 16;
 
   return (
     <section className="about-brand-section section-padding" id="about">
@@ -113,23 +184,98 @@ export const BrandShowcase = ({ lang, t }) => {
           </p>
         </div>
 
-        {/* 5 Hardware Brand Cards Grid */}
-        <div className="premium-brands-grid-5">
-          {brandItems.map((item, idx) => (
-            <div key={idx} className="brand-spec-card">
-              <div className="brand-card-top-row">
-                <span className="brand-card-num">{item.num}</span>
-                <span className="brand-chip-dark">{item.brandBadge}</span>
+        {/* Responsive Carousel for Premium Brands */}
+        <div
+          className="brands-carousel-container"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+          onTouchStart={(e) => { setIsPaused(true); handleTouchStart(e); }}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={() => { setIsPaused(false); handleTouchEnd(); }}
+        >
+          {/* Top Bar for Mobile/Tablet */}
+          {maxIndex > 0 && (
+            <div className="carousel-top-bar brands-carousel-top-bar">
+              <div className="carousel-status-badge">
+                <Sparkles size={14} className="text-gold" />
+                <span>
+                  {itemsPerView === 1
+                    ? `${brandItems[currentIndex].num} / 05: ${brandItems[currentIndex].brandBadge}`
+                    : (isTe
+                        ? `${currentIndex + 1} - ${Math.min(currentIndex + itemsPerView, brandItems.length)} / 5 బ్రాండ్లు`
+                        : `Showing ${currentIndex + 1} - ${Math.min(currentIndex + itemsPerView, brandItems.length)} of 5 Brands`)}
+                </span>
               </div>
 
-              <h4 className="brand-card-title">{item.title}</h4>
-              <p className="brand-card-desc">{item.desc}</p>
-
-              <div className={`brand-card-warranty-pill ${item.variant === 'blue' ? 'blue-pill' : 'green-pill'}`}>
-                {item.warranty}
+              <div className="carousel-nav-arrows">
+                <button 
+                  onClick={prevSlide}
+                  className="carousel-arrow-btn"
+                  aria-label="Previous brand"
+                  title="Previous"
+                >
+                  <ChevronLeft size={20} />
+                </button>
+                <button 
+                  onClick={nextSlide}
+                  className="carousel-arrow-btn"
+                  aria-label="Next brand"
+                  title="Next"
+                >
+                  <ChevronRight size={20} />
+                </button>
               </div>
             </div>
-          ))}
+          )}
+
+          {/* Carousel Viewport / Track */}
+          <div className="brands-carousel-viewport">
+            <div 
+              className="brands-carousel-track"
+              style={{
+                transform: `translateX(calc(-${currentIndex} * ((100% + ${gapPx}px) / ${itemsPerView})))`
+              }}
+            >
+              {brandItems.map((item, idx) => (
+                <div
+                  key={idx}
+                  className="brands-carousel-slide"
+                  style={{
+                    flex: `0 0 calc((100% - ${(itemsPerView - 1) * gapPx}px) / ${itemsPerView})`
+                  }}
+                >
+                  <div className="brand-spec-card">
+                    <div className="brand-card-top-row">
+                      <span className="brand-card-num">{item.num}</span>
+                      <span className="brand-chip-dark">{item.brandBadge}</span>
+                    </div>
+
+                    <h4 className="brand-card-title">{item.title}</h4>
+                    <p className="brand-card-desc">{item.desc}</p>
+
+                    <div className={`brand-card-warranty-pill ${item.variant === 'blue' ? 'blue-pill' : 'green-pill'}`}>
+                      {item.warranty}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Bottom Pagination Dots */}
+          {maxIndex > 0 && (
+            <div className="carousel-dots-wrap">
+              {Array.from({ length: maxIndex + 1 }).map((_, dotIdx) => (
+                <button
+                  key={dotIdx}
+                  className={`carousel-dot ${currentIndex === dotIdx ? 'active' : ''}`}
+                  onClick={() => setCurrentIndex(dotIdx)}
+                  aria-label={`Go to brand ${dotIdx + 1}`}
+                  title={`Brand ${dotIdx + 1}`}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </section>

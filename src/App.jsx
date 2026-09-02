@@ -16,7 +16,6 @@ import { FloatingActions } from './components/FloatingActions';
 import { Footer } from './components/Footer';
 
 export function App() {
-  // Default to Telugu for local AP/TS base, switchable to English
   const [lang, setLang] = useState(() => {
     return localStorage.getItem('prasudharka_lang') || 'te';
   });
@@ -34,10 +33,7 @@ export function App() {
 
   return (
     <div className={`app-root lang-${lang}`}>
-      {/* Main Sticky Header */}
       <Navbar lang={lang} setLang={setLang} t={t} />
-
-      {/* Main Content Sections in Natural Logical Order */}
       <main>
         <Hero lang={lang} t={t} />
         <BrandShowcase lang={lang} t={t} />
@@ -50,11 +46,7 @@ export function App() {
         <FaqSection lang={lang} t={t} />
         <ContactSection lang={lang} t={t} />
       </main>
-
-      {/* Global Floating Actions (WhatsApp Dealer modal & Scroll top) */}
       <FloatingActions lang={lang} />
-
-      {/* Footer */}
       <Footer lang={lang} t={t} />
     </div>
   );

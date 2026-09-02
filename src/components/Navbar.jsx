@@ -112,7 +112,9 @@ export const Navbar = ({ lang, setLang, t }) => {
             title="Switch Language / భాషను మార్చుకోండి"
           >
             <Globe size={16} className="lang-icon" />
-            <span className="lang-btn-text">{t.langBtnText}</span>
+            <span className={`lang-btn-text ${lang === 'te' ? 'font-en' : 'font-te'}`}>
+              {t.langBtnText}
+            </span>
           </motion.button>
 
           <a 

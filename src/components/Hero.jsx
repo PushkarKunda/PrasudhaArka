@@ -50,10 +50,7 @@ export const Hero = ({ lang, t }) => {
               <div className="hero-badge-icon-wrap hero-award-icon-wrap">
                 <Award size={18} className="text-gold" />
               </div>
-              <div className="hero-badge-text">
-                <span className="hero-badge-title">{t.heroBadgeTitle || 'ISO 9001:2015 Certified'}</span>
-                <span className="hero-badge-subtitle">{t.heroBadgeSub || '21+ Years Experience'}</span>
-              </div>
+              <span className="hero-badge-single-line">{t.heroBadge}</span>
             </div>
           </div>
 

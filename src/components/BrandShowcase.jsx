@@ -3,11 +3,6 @@ import { ShieldCheck, Award, Zap, Layers, FileText, MapPin, BadgePercent, CheckC
 
 export const BrandShowcase = ({ lang, t }) => {
   const isTe = lang === 'te';
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [itemsPerView, setItemsPerView] = useState(5);
-  const [isPaused, setIsPaused] = useState(false);
-  const touchStartX = useRef(0);
-  const touchEndX = useRef(0);
 
   const brandItems = [
     {
@@ -52,6 +47,15 @@ export const BrandShowcase = ({ lang, t }) => {
     }
   ];
 
+  const [itemsPerView, setItemsPerView] = useState(5);
+  const N = brandItems.length;
+  const isCarouselActive = itemsPerView < N;
+  const [currentIndex, setCurrentIndex] = useState(N);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
+  const touchStartX = useRef(0);
+  const touchEndX = useRef(0);
+
   // Determine responsive items per view
   useEffect(() => {
     const handleResize = () => {
@@ -69,31 +73,48 @@ export const BrandShowcase = ({ lang, t }) => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const maxIndex = Math.max(0, brandItems.length - itemsPerView);
-
-  // Keep index within bounds on resize
-  useEffect(() => {
-    if (currentIndex > maxIndex) {
-      setCurrentIndex(maxIndex);
-    }
-  }, [maxIndex, currentIndex]);
-
-  // Gentle auto-slide when on mobile/tablet (maxIndex > 0)
-  useEffect(() => {
-    if (isPaused || maxIndex === 0) return;
-    const interval = setInterval(() => {
-      setCurrentIndex(prev => (prev >= maxIndex ? 0 : prev + 1));
-    }, 5500);
-    return () => clearInterval(interval);
-  }, [isPaused, maxIndex]);
+  const realIndex = isCarouselActive ? ((currentIndex % N) + N) % N : 0;
 
   const nextSlide = () => {
-    setCurrentIndex(prev => (prev >= maxIndex ? 0 : prev + 1));
+    setIsAnimating(true);
+    setCurrentIndex(prev => prev + 1);
   };
 
   const prevSlide = () => {
-    setCurrentIndex(prev => (prev <= 0 ? maxIndex : prev - 1));
+    setIsAnimating(true);
+    setCurrentIndex(prev => prev - 1);
   };
+
+  const goToSlide = (dotIdx) => {
+    setIsAnimating(true);
+    setCurrentIndex(N + dotIdx);
+  };
+
+  const handleTransitionEnd = () => {
+    setIsAnimating(false);
+    if (currentIndex >= 2 * N) {
+      setCurrentIndex(prev => prev - N);
+    } else if (currentIndex < N) {
+      setCurrentIndex(prev => prev + N);
+    }
+  };
+
+  useEffect(() => {
+    if (!isAnimating) return;
+    const timer = setTimeout(() => {
+      handleTransitionEnd();
+    }, 480);
+    return () => clearTimeout(timer);
+  }, [isAnimating, currentIndex]);
+
+  // Gentle auto-slide when on mobile/tablet
+  useEffect(() => {
+    if (isPaused || !isCarouselActive) return;
+    const interval = setInterval(() => {
+      nextSlide();
+    }, 5500);
+    return () => clearInterval(interval);
+  }, [isPaused, isCarouselActive, currentIndex]);
 
   const handleTouchStart = (e) => {
     touchStartX.current = e.touches[0].clientX;
@@ -194,16 +215,16 @@ export const BrandShowcase = ({ lang, t }) => {
           onTouchEnd={() => { setIsPaused(false); handleTouchEnd(); }}
         >
           {/* Top Bar for Mobile/Tablet */}
-          {maxIndex > 0 && (
+          {isCarouselActive && (
             <div className="carousel-top-bar brands-carousel-top-bar">
               <div className="carousel-status-badge">
                 <Sparkles size={14} className="text-gold" />
                 <span>
                   {itemsPerView === 1
-                    ? `${brandItems[currentIndex].num} / 05: ${brandItems[currentIndex].brandBadge}`
+                    ? `${brandItems[realIndex].num} / 05: ${brandItems[realIndex].brandBadge}`
                     : (isTe
-                        ? `${currentIndex + 1} - ${Math.min(currentIndex + itemsPerView, brandItems.length)} / 5 బ్రాండ్లు`
-                        : `Showing ${currentIndex + 1} - ${Math.min(currentIndex + itemsPerView, brandItems.length)} of 5 Brands`)}
+                        ? `${realIndex + 1} - ${Math.min(realIndex + itemsPerView, brandItems.length)} / 5 బ్రాండ్లు`
+                        : `Showing ${realIndex + 1} - ${Math.min(realIndex + itemsPerView, brandItems.length)} of 5 Brands`)}
                 </span>
               </div>
 
@@ -231,14 +252,17 @@ export const BrandShowcase = ({ lang, t }) => {
           {/* Carousel Viewport / Track */}
           <div className="brands-carousel-viewport">
             <div 
-              className="brands-carousel-track"
+              className={`brands-carousel-track ${isAnimating ? 'carousel-track-animated' : 'carousel-track-instant'}`}
               style={{
-                transform: `translateX(calc(-${currentIndex} * ((100% + ${gapPx}px) / ${itemsPerView})))`
+                transform: isCarouselActive
+                  ? `translateX(calc(-${currentIndex} * ((100% + ${gapPx}px) / ${itemsPerView})))`
+                  : 'none'
               }}
+              onTransitionEnd={handleTransitionEnd}
             >
-              {brandItems.map((item, idx) => (
+              {(isCarouselActive ? [...brandItems, ...brandItems, ...brandItems] : brandItems).map((item, idx) => (
                 <div
-                  key={idx}
+                  key={`${item.num}-${idx}`}
                   className="brands-carousel-slide"
                   style={{
                     flex: `0 0 calc((100% - ${(itemsPerView - 1) * gapPx}px) / ${itemsPerView})`
@@ -263,13 +287,13 @@ export const BrandShowcase = ({ lang, t }) => {
           </div>
 
           {/* Bottom Pagination Dots */}
-          {maxIndex > 0 && (
+          {isCarouselActive && (
             <div className="carousel-dots-wrap">
-              {Array.from({ length: maxIndex + 1 }).map((_, dotIdx) => (
+              {brandItems.map((_, dotIdx) => (
                 <button
                   key={dotIdx}
-                  className={`carousel-dot ${currentIndex === dotIdx ? 'active' : ''}`}
-                  onClick={() => setCurrentIndex(dotIdx)}
+                  className={`carousel-dot ${realIndex === dotIdx ? 'active' : ''}`}
+                  onClick={() => goToSlide(dotIdx)}
                   aria-label={`Go to brand ${dotIdx + 1}`}
                   title={`Brand ${dotIdx + 1}`}
                 />

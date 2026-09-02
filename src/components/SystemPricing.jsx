@@ -5,8 +5,11 @@ import { DEALERS, getWhatsAppUrl } from '../data/dealers';
 
 export const SystemPricing = ({ lang, t }) => {
   const [selectedDealer, setSelectedDealer] = useState('sudhakar');
-  const [currentIndex, setCurrentIndex] = useState(0);
   const [itemsPerView, setItemsPerView] = useState(4);
+  const N = PRODUCTS.length;
+  const isCarouselActive = itemsPerView < N;
+  const [currentIndex, setCurrentIndex] = useState(N);
+  const [isAnimating, setIsAnimating] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
@@ -28,31 +31,51 @@ export const SystemPricing = ({ lang, t }) => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const maxIndex = Math.max(0, PRODUCTS.length - itemsPerView);
-
-  // Keep index within bounds on resize
-  useEffect(() => {
-    if (currentIndex > maxIndex) {
-      setCurrentIndex(maxIndex);
-    }
-  }, [maxIndex, currentIndex]);
-
-  // Automatic gentle carousel slide when on mobile/tablet (maxIndex > 0)
-  useEffect(() => {
-    if (isPaused || maxIndex === 0) return;
-    const interval = setInterval(() => {
-      setCurrentIndex(prev => (prev >= maxIndex ? 0 : prev + 1));
-    }, 6000);
-    return () => clearInterval(interval);
-  }, [isPaused, maxIndex]);
+  // Compute canonical real index for dots and counters (0 to N-1)
+  const realIndex = isCarouselActive ? ((currentIndex % N) + N) % N : 0;
 
   const nextSlide = () => {
-    setCurrentIndex(prev => (prev >= maxIndex ? 0 : prev + 1));
+    setIsAnimating(true);
+    setCurrentIndex(prev => prev + 1);
   };
 
   const prevSlide = () => {
-    setCurrentIndex(prev => (prev <= 0 ? maxIndex : prev - 1));
+    setIsAnimating(true);
+    setCurrentIndex(prev => prev - 1);
   };
+
+  const goToSlide = (dotIdx) => {
+    setIsAnimating(true);
+    setCurrentIndex(N + dotIdx);
+  };
+
+  // Seamless jump without animation when reaching clone sets
+  const handleTransitionEnd = () => {
+    setIsAnimating(false);
+    if (currentIndex >= 2 * N) {
+      setCurrentIndex(prev => prev - N);
+    } else if (currentIndex < N) {
+      setCurrentIndex(prev => prev + N);
+    }
+  };
+
+  // Fallback timer to ensure animation resets if transitionend event is missed
+  useEffect(() => {
+    if (!isAnimating) return;
+    const timer = setTimeout(() => {
+      handleTransitionEnd();
+    }, 480);
+    return () => clearTimeout(timer);
+  }, [isAnimating, currentIndex]);
+
+  // Automatic gentle carousel slide when on mobile/tablet
+  useEffect(() => {
+    if (isPaused || !isCarouselActive) return;
+    const interval = setInterval(() => {
+      nextSlide();
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [isPaused, isCarouselActive, currentIndex]);
 
   const handleTouchStart = (e) => {
     touchStartX.current = e.touches[0].clientX;
@@ -155,19 +178,19 @@ export const SystemPricing = ({ lang, t }) => {
           onTouchMove={handleTouchMove}
           onTouchEnd={() => { setIsPaused(false); handleTouchEnd(); }}
         >
-          {/* Top Navigation & Status Bar (Visible on mobile & tablet when maxIndex > 0) */}
-          {maxIndex > 0 && (
+          {/* Top Navigation & Status Bar (Visible on mobile & tablet when isCarouselActive) */}
+          {isCarouselActive && (
             <div className="carousel-top-bar pricing-carousel-top-bar">
               <div className="carousel-status-badge">
                 <Sparkles size={14} className="text-gold" />
                 <span>
                   {itemsPerView === 1
                     ? (lang === 'te'
-                        ? `${currentIndex + 1} / ${PRODUCTS.length}: ${PRODUCTS[currentIndex].capacity}`
-                        : `${currentIndex + 1} of ${PRODUCTS.length}: ${PRODUCTS[currentIndex].capacity}`)
+                        ? `${realIndex + 1} / ${PRODUCTS.length}: ${PRODUCTS[realIndex].capacityTe || PRODUCTS[realIndex].capacity}`
+                        : `${realIndex + 1} of ${PRODUCTS.length}: ${PRODUCTS[realIndex].capacity}`)
                     : (lang === 'te'
-                        ? `${currentIndex + 1} - ${Math.min(currentIndex + itemsPerView, PRODUCTS.length)} / ${PRODUCTS.length} ప్యాకేజీలు`
-                        : `Showing ${currentIndex + 1} - ${Math.min(currentIndex + itemsPerView, PRODUCTS.length)} of ${PRODUCTS.length} Packages`)}
+                        ? `${realIndex + 1} - ${Math.min(realIndex + itemsPerView, PRODUCTS.length)} / ${PRODUCTS.length} ప్యాకేజీలు`
+                        : `Showing ${realIndex + 1} - ${Math.min(realIndex + itemsPerView, PRODUCTS.length)} of ${PRODUCTS.length} Packages`)}
                 </span>
               </div>
 
@@ -195,12 +218,15 @@ export const SystemPricing = ({ lang, t }) => {
           {/* Carousel Viewport / Track */}
           <div className="pricing-carousel-viewport">
             <div 
-              className="pricing-carousel-track"
+              className={`pricing-carousel-track ${isAnimating ? 'carousel-track-animated' : 'carousel-track-instant'}`}
               style={{
-                transform: `translateX(calc(-${currentIndex} * ((100% + ${gapPx}px) / ${itemsPerView})))`
+                transform: isCarouselActive
+                  ? `translateX(calc(-${currentIndex} * ((100% + ${gapPx}px) / ${itemsPerView})))`
+                  : 'none'
               }}
+              onTransitionEnd={handleTransitionEnd}
             >
-              {PRODUCTS.map((prod) => {
+              {(isCarouselActive ? [...PRODUCTS, ...PRODUCTS, ...PRODUCTS] : PRODUCTS).map((prod, idx) => {
                 const isTe = lang === 'te';
                 const capacityTitle = isTe ? (prod.capacityTe || prod.capacity) : prod.capacity;
                 const popularText = isTe ? (prod.popularBadgeTe || prod.popularBadge) : prod.popularBadge;
@@ -211,7 +237,7 @@ export const SystemPricing = ({ lang, t }) => {
 
                 return (
                   <div
-                    key={prod.id}
+                    key={`${prod.id}-${idx}`}
                     className="pricing-carousel-slide"
                     style={{
                       flex: `0 0 calc((100% - ${(itemsPerView - 1) * gapPx}px) / ${itemsPerView})`
@@ -285,14 +311,14 @@ export const SystemPricing = ({ lang, t }) => {
             </div>
           </div>
 
-          {/* Bottom Pagination Dots (Visible when maxIndex > 0) */}
-          {maxIndex > 0 && (
+          {/* Bottom Pagination Dots (Visible when isCarouselActive) */}
+          {isCarouselActive && (
             <div className="carousel-dots-wrap">
-              {Array.from({ length: maxIndex + 1 }).map((_, dotIdx) => (
+              {PRODUCTS.map((_, dotIdx) => (
                 <button
                   key={dotIdx}
-                  className={`carousel-dot ${currentIndex === dotIdx ? 'active' : ''}`}
-                  onClick={() => setCurrentIndex(dotIdx)}
+                  className={`carousel-dot ${realIndex === dotIdx ? 'active' : ''}`}
+                  onClick={() => goToSlide(dotIdx)}
                   aria-label={`Go to slide ${dotIdx + 1}`}
                   title={`Slide ${dotIdx + 1}`}
                 />

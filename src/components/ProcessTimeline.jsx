@@ -16,8 +16,11 @@ import { PROCESS_STEPS } from '../data/services';
 
 export const ProcessTimeline = ({ lang, t }) => {
   const [activeStep, setActiveStep] = useState(0);
-  const [currentIndex, setCurrentIndex] = useState(0);
   const [itemsPerView, setItemsPerView] = useState(3);
+  const N = PROCESS_STEPS.length;
+  const isCarouselActive = itemsPerView < N;
+  const [currentIndex, setCurrentIndex] = useState(N);
+  const [isAnimating, setIsAnimating] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
@@ -48,31 +51,48 @@ export const ProcessTimeline = ({ lang, t }) => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const maxIndex = Math.max(0, PROCESS_STEPS.length - itemsPerView);
-
-  // Keep index within bounds
-  useEffect(() => {
-    if (currentIndex > maxIndex) {
-      setCurrentIndex(maxIndex);
-    }
-  }, [maxIndex, currentIndex]);
-
-  // Automatic gentle carousel slide
-  useEffect(() => {
-    if (isPaused) return;
-    const interval = setInterval(() => {
-      setCurrentIndex(prev => (prev >= maxIndex ? 0 : prev + 1));
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [isPaused, maxIndex]);
+  const realIndex = isCarouselActive ? ((currentIndex % N) + N) % N : 0;
 
   const nextSlide = () => {
-    setCurrentIndex(prev => (prev >= maxIndex ? 0 : prev + 1));
+    setIsAnimating(true);
+    setCurrentIndex(prev => prev + 1);
   };
 
   const prevSlide = () => {
-    setCurrentIndex(prev => (prev <= 0 ? maxIndex : prev - 1));
+    setIsAnimating(true);
+    setCurrentIndex(prev => prev - 1);
   };
+
+  const goToSlide = (dotIdx) => {
+    setIsAnimating(true);
+    setCurrentIndex(N + dotIdx);
+  };
+
+  const handleTransitionEnd = () => {
+    setIsAnimating(false);
+    if (currentIndex >= 2 * N) {
+      setCurrentIndex(prev => prev - N);
+    } else if (currentIndex < N) {
+      setCurrentIndex(prev => prev + N);
+    }
+  };
+
+  useEffect(() => {
+    if (!isAnimating) return;
+    const timer = setTimeout(() => {
+      handleTransitionEnd();
+    }, 480);
+    return () => clearTimeout(timer);
+  }, [isAnimating, currentIndex]);
+
+  // Automatic gentle carousel slide
+  useEffect(() => {
+    if (isPaused || !isCarouselActive) return;
+    const interval = setInterval(() => {
+      nextSlide();
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [isPaused, isCarouselActive, currentIndex]);
 
   const handleTouchStart = (e) => {
     touchStartX.current = e.touches[0].clientX;
@@ -125,8 +145,8 @@ export const ProcessTimeline = ({ lang, t }) => {
               <Sparkles size={14} className="text-gold" />
               <span>
                 {lang === 'te' 
-                  ? `దశ ${currentIndex + 1} - ${Math.min(currentIndex + itemsPerView, PROCESS_STEPS.length)} / మొత్తం ${PROCESS_STEPS.length} దశలు`
-                  : `Steps ${currentIndex + 1} - ${Math.min(currentIndex + itemsPerView, PROCESS_STEPS.length)} of ${PROCESS_STEPS.length}`}
+                  ? `దశ ${realIndex + 1} - ${Math.min(realIndex + itemsPerView, PROCESS_STEPS.length)} / మొత్తం ${PROCESS_STEPS.length} దశలు`
+                  : `Steps ${realIndex + 1} - ${Math.min(realIndex + itemsPerView, PROCESS_STEPS.length)} of ${PROCESS_STEPS.length}`}
               </span>
             </div>
 
@@ -153,18 +173,19 @@ export const ProcessTimeline = ({ lang, t }) => {
           {/* Carousel Viewport / Track */}
           <div className="process-carousel-viewport">
             <div 
-              className="process-carousel-track"
+              className={`process-carousel-track ${isAnimating ? 'carousel-track-animated' : 'carousel-track-instant'}`}
               style={{
                 transform: `translateX(calc(-${currentIndex} * ((100% + ${gapPx}px) / ${itemsPerView})))`
               }}
+              onTransitionEnd={handleTransitionEnd}
             >
-              {PROCESS_STEPS.map((step, idx) => {
+              {[...PROCESS_STEPS, ...PROCESS_STEPS, ...PROCESS_STEPS].map((step, idx) => {
                 const IconComp = iconMap[step.icon] || Zap;
-                const isSelected = activeStep === idx;
+                const isSelected = activeStep === (idx % N);
 
                 return (
                   <div
-                    key={idx}
+                    key={`${step.step}-${idx}`}
                     className="process-carousel-slide"
                     style={{
                       flex: `0 0 calc((100% - ${(itemsPerView - 1) * gapPx}px) / ${itemsPerView})`
@@ -198,11 +219,11 @@ export const ProcessTimeline = ({ lang, t }) => {
 
           {/* Bottom Pagination Dots */}
           <div className="carousel-dots-wrap">
-            {Array.from({ length: maxIndex + 1 }).map((_, dotIdx) => (
+            {PROCESS_STEPS.map((_, dotIdx) => (
               <button
                 key={dotIdx}
-                className={`carousel-dot ${currentIndex === dotIdx ? 'active' : ''}`}
-                onClick={() => setCurrentIndex(dotIdx)}
+                className={`carousel-dot ${realIndex === dotIdx ? 'active' : ''}`}
+                onClick={() => goToSlide(dotIdx)}
                 aria-label={`Go to step slide ${dotIdx + 1}`}
               />
             ))}

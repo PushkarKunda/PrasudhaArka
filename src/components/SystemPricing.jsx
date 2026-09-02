@@ -117,12 +117,12 @@ export const SystemPricing = ({ lang, t }) => {
         {/* Section Header */}
         <div className="section-title-wrap text-center">
           <div className="config-tag-pill">
-            <span>{lang === 'te' ? 'సిస్టమ్ కాన్ఫిగరేషన్లు' : 'SYSTEM CONFIGURATIONS'}</span>
+            <span>{lang === 'te' ? 'సోలార్ కాన్ఫిగరేషన్లు' : 'SOLAR CONFIGURATIONS'}</span>
           </div>
-          <h2 className="section-title">{lang === 'te' ? 'సిస్టమ్ కాన్ఫిగరేషన్లు & ధరలు' : 'System Configurations'}</h2>
+          <h2 className="section-title">{lang === 'te' ? 'సోలార్ కాన్ఫిగరేషన్లు & ధరలు' : 'Solar Configurations'}</h2>
           <p className="section-subtitle">
             {lang === 'te' 
-              ? 'ప్రభుత్వ సబ్సిడీ, సిస్టమ్ ఖర్చు, లోన్ మరియు విద్యుత్ ఉత్పత్తి వివరాలు.' 
+              ? 'ప్రభుత్వ సబ్సిడీ, సోలార్ ఖర్చు, లోన్ మరియు విద్యుత్ ఉత్పత్తి వివరాలు.' 
               : 'Comprehensive pricing, subsidies, and power generation details by capacity.'}
           </p>
 

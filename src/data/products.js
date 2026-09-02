@@ -1,8 +1,8 @@
 export const PRODUCTS = [
   {
     id: '1kw',
-    capacity: '1 kW System',
-    capacityTe: '1 kW సిస్టమ్',
+    capacity: '1 kW Solar',
+    capacityTe: '1 kW సోలార్',
     capacityShort: '1 kW',
     subsidy: '₹30,000',
     unitCost: '₹85,000',
@@ -18,8 +18,8 @@ export const PRODUCTS = [
   },
   {
     id: '2kw',
-    capacity: '2 kW System',
-    capacityTe: '2 kW సిస్టమ్',
+    capacity: '2 kW Solar',
+    capacityTe: '2 kW సోలార్',
     capacityShort: '2 kW',
     subsidy: '₹60,000',
     unitCost: '₹1,60,000',
@@ -35,8 +35,8 @@ export const PRODUCTS = [
   },
   {
     id: '3kw',
-    capacity: '3 kW System',
-    capacityTe: '3 kW సిస్టమ్',
+    capacity: '3 kW Solar',
+    capacityTe: '3 kW సోలార్',
     capacityShort: '3 kW',
     subsidy: '₹78,000',
     unitCost: '₹2,20,000',
@@ -54,8 +54,8 @@ export const PRODUCTS = [
   },
   {
     id: '5kw',
-    capacity: '5 kW System',
-    capacityTe: '5 kW సిస్టమ్',
+    capacity: '5 kW Solar',
+    capacityTe: '5 kW సోలార్',
     capacityShort: '5 kW',
     subsidy: '₹78,000',
     unitCost: '₹3,35,000',

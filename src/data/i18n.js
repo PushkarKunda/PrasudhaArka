@@ -3,7 +3,7 @@ export const I18N = {
     // Navigation
     navHome: "హోమ్",
     navAbout: "మా గురించి",
-    navSubsidy: "సిస్టమ్ ధరలు & సబ్సిడీ",
+    navSubsidy: "సోలార్ ధరలు & సబ్సిడీ",
     navCalc: "కాలిక్యులేటర్",
     navServices: "సేవలు",
     navProcess: "ప్రక్రియ",
@@ -169,7 +169,7 @@ export const I18N = {
     // Navigation
     navHome: "Home",
     navAbout: "About Us",
-    navSubsidy: "System Pricing & Subsidy",
+    navSubsidy: "Solar Pricing & Subsidy",
     navCalc: "Calculator",
     navServices: "Services",
     navProcess: "Process",

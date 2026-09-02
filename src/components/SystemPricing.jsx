@@ -200,78 +200,88 @@ export const SystemPricing = ({ lang, t }) => {
                 transform: `translateX(calc(-${currentIndex} * ((100% + ${gapPx}px) / ${itemsPerView})))`
               }}
             >
-              {PRODUCTS.map((prod) => (
-                <div
-                  key={prod.id}
-                  className="pricing-carousel-slide"
-                  style={{
-                    flex: `0 0 calc((100% - ${(itemsPerView - 1) * gapPx}px) / ${itemsPerView})`
-                  }}
-                >
+              {PRODUCTS.map((prod) => {
+                const isTe = lang === 'te';
+                const capacityTitle = isTe ? (prod.capacityTe || prod.capacity) : prod.capacity;
+                const popularText = isTe ? (prod.popularBadgeTe || prod.popularBadge) : prod.popularBadge;
+                const emiText = isTe ? (prod.estEmiTe || prod.estEmi) : prod.estEmi;
+                const genText = isTe ? (prod.dailyGenTe || prod.dailyGen) : prod.dailyGen;
+                const spaceText = isTe ? (prod.spaceReqTe || prod.spaceReq) : prod.spaceReq;
+                const btnLabel = isTe ? `${prod.capacityShort} కొటేషన్ పొందండి` : `Get ${prod.capacityShort} Quote`;
+
+                return (
                   <div
-                    className={`system-config-card ${prod.isPopular ? 'popular-config-card' : ''}`}
+                    key={prod.id}
+                    className="pricing-carousel-slide"
+                    style={{
+                      flex: `0 0 calc((100% - ${(itemsPerView - 1) * gapPx}px) / ${itemsPerView})`
+                    }}
                   >
-                    {prod.isPopular && (
-                      <div className="popular-top-badge">
-                        <span>{prod.popularBadge || '⭐ MOST POPULAR (MAX SUBSIDY)'}</span>
-                      </div>
-                    )}
-
-                    <div className="config-card-content">
-                      {/* Title */}
-                      <h3 className="config-card-title">{prod.capacity}</h3>
-
-                      {/* Govt Subsidy Box */}
-                      <div className={`subsidy-highlight-box ${prod.badgeVariant === 'gold' ? 'gold-box' : 'green-box'}`}>
-                        <span className="subsidy-box-label">GOVT SUBSIDY</span>
-                        <span className="subsidy-box-amount">{prod.subsidy}</span>
-                      </div>
-
-                      {/* Specs Rows */}
-                      <div className="config-specs-rows">
-                        {prod.unitCost && (
-                          <div className="spec-row highlight-blue-box">
-                            <span className="spec-label">Unit Cost (DCR)</span>
-                            <span className="spec-value">{prod.unitCost}</span>
-                          </div>
-                        )}
-
-                        {prod.maxLoan && (
-                          <div className="spec-row">
-                            <span className="spec-label">Max Loan</span>
-                            <span className="spec-value">{prod.maxLoan}</span>
-                          </div>
-                        )}
-
-                        {prod.estEmi && (
-                          <div className="spec-row highlight-green-box">
-                            <span className="spec-label">Est. EMI</span>
-                            <span className="spec-value emi-val">{prod.estEmi}</span>
-                          </div>
-                        )}
-
-                        <div className="spec-row">
-                          <span className="spec-label">Power Gen.</span>
-                          <span className="spec-value">{prod.dailyGen}</span>
-                        </div>
-
-                        <div className="spec-row">
-                          <span className="spec-label">Space Req.</span>
-                          <span className="spec-value">{prod.spaceReq}</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Action Button */}
-                    <button
-                      onClick={() => handleQuoteClick(prod)}
-                      className="config-quote-btn"
+                    <div
+                      className={`system-config-card ${prod.isPopular ? 'popular-config-card' : ''}`}
                     >
-                      Get {prod.capacityShort} Quote
-                    </button>
+                      {prod.isPopular && (
+                        <div className="popular-top-badge">
+                          <span>{popularText || '⭐ MOST POPULAR (MAX SUBSIDY)'}</span>
+                        </div>
+                      )}
+
+                      <div className="config-card-content">
+                        {/* Title */}
+                        <h3 className="config-card-title">{capacityTitle}</h3>
+
+                        {/* Govt Subsidy Box */}
+                        <div className={`subsidy-highlight-box ${prod.badgeVariant === 'gold' ? 'gold-box' : 'green-box'}`}>
+                          <span className="subsidy-box-label">{isTe ? 'ప్రభుత్వ సబ్సిడీ' : 'GOVT SUBSIDY'}</span>
+                          <span className="subsidy-box-amount">{prod.subsidy}</span>
+                        </div>
+
+                        {/* Specs Rows */}
+                        <div className="config-specs-rows">
+                          {prod.unitCost && (
+                            <div className="spec-row highlight-blue-box">
+                              <span className="spec-label">{isTe ? 'సిస్టమ్ ఖర్చు (DCR)' : 'Unit Cost (DCR)'}</span>
+                              <span className="spec-value">{prod.unitCost}</span>
+                            </div>
+                          )}
+
+                          {prod.maxLoan && (
+                            <div className="spec-row">
+                              <span className="spec-label">{isTe ? 'గరిష్ట బ్యాంక్ లోన్' : 'Max Loan'}</span>
+                              <span className="spec-value">{prod.maxLoan}</span>
+                            </div>
+                          )}
+
+                          {prod.estEmi && (
+                            <div className="spec-row highlight-green-box">
+                              <span className="spec-label">{isTe ? 'అంచనా EMI' : 'Est. EMI'}</span>
+                              <span className="spec-value emi-val">{emiText}</span>
+                            </div>
+                          )}
+
+                          <div className="spec-row">
+                            <span className="spec-label">{isTe ? 'రోజువారీ ఉత్పత్తి' : 'Power Gen.'}</span>
+                            <span className="spec-value">{genText}</span>
+                          </div>
+
+                          <div className="spec-row">
+                            <span className="spec-label">{isTe ? 'అవసరమైన స్థలం' : 'Space Req.'}</span>
+                            <span className="spec-value">{spaceText}</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Action Button */}
+                      <button
+                        onClick={() => handleQuoteClick(prod)}
+                        className="config-quote-btn"
+                      >
+                        {btnLabel}
+                      </button>
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
 

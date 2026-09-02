@@ -906,13 +906,13 @@ button, input, select, textarea {
 .hero-badge-card {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   background: #ffffff;
   border-radius: var(--radius-full);
-  padding: 6px 16px;
-  height: 48px;
+  padding: 8px 20px;
+  height: 54px;
   box-sizing: border-box;
-  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05);
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.06);
   transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
@@ -941,8 +941,13 @@ button, input, select, textarea {
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  width: 30px;
-  height: 30px;
+  width: 32px;
+  height: 32px;
+}
+
+.hero-badge-icon-wrap.hero-brand-logo-wrap {
+  width: auto;
+  height: auto;
 }
 
 .hero-award-icon-wrap {
@@ -952,11 +957,12 @@ button, input, select, textarea {
 }
 
 .hero-aquapzone-logo {
-  height: 24px;
+  height: 36px;
   width: auto;
-  max-width: 32px;
+  max-width: 125px;
   object-fit: contain;
   border-radius: 4px;
+  display: block;
 }
 
 .hero-badge-text {
@@ -968,7 +974,7 @@ button, input, select, textarea {
 }
 
 .hero-firm-title {
-  font-size: 0.82rem;
+  font-size: 0.98rem;
   font-weight: 800;
   color: var(--text-main);
   line-height: 1.25;
@@ -978,8 +984,8 @@ button, input, select, textarea {
 }
 
 .hero-firm-subtitle {
-  font-size: 0.65rem;
-  font-weight: 600;
+  font-size: 0.74rem;
+  font-weight: 700;
   color: var(--emerald-600);
   line-height: 1.2;
   white-space: nowrap;
@@ -988,7 +994,7 @@ button, input, select, textarea {
 }
 
 .hero-badge-single-line {
-  font-size: 0.8rem;
+  font-size: 0.86rem;
   font-weight: 700;
   color: #92400e;
   line-height: 1.25;
@@ -4367,27 +4373,38 @@ select.custom-input {
     flex: 0 0 auto;
     width: auto;
     max-width: 95%;
-    height: 44px;
-    padding: 6px 14px;
-    gap: 10px;
+    height: 50px;
+    padding: 6px 16px;
+    gap: 12px;
     margin: 0 auto;
   }
 
   .hero-badge-icon-wrap {
-    width: 28px;
-    height: 28px;
+    width: 30px;
+    height: 30px;
+  }
+
+  .hero-badge-icon-wrap.hero-brand-logo-wrap {
+    width: auto;
+    height: auto;
+  }
+
+  .hero-aquapzone-logo {
+    height: 34px;
+    width: auto;
+    max-width: 115px;
   }
 
   .hero-firm-title {
-    font-size: 0.8rem;
+    font-size: 0.92rem;
   }
 
   .hero-firm-subtitle {
-    font-size: 0.62rem;
+    font-size: 0.7rem;
   }
 
   .hero-badge-single-line {
-    font-size: 0.74rem;
+    font-size: 0.8rem;
   }
 
   .hero-subsidy-highlight-card {

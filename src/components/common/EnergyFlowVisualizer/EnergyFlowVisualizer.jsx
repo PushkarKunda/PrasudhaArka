@@ -96,7 +96,16 @@ export const EnergyFlowVisualizer = ({ lang, t }) => {
   };
 
   const curr = states[timeOfDay];
-  const unitText = t.unitsLabel || (lang === 'te' ? 'యూనిట్లు' : 'Units');
+  
+  // Singular / Plural logic: 1 Unit / 1 యూనిట్ vs multiple Units / యూనిట్లు
+  const getUnit = (val) => {
+    const num = Math.abs(Number(val));
+    const isSingular = num === 1;
+    if (lang === 'te') {
+      return isSingular ? 'యూనిట్' : 'యూనిట్లు';
+    }
+    return isSingular ? 'Unit' : 'Units';
+  };
 
   return (
     <div className="energy-flow-card glassmorphism-card">
@@ -232,7 +241,7 @@ export const EnergyFlowVisualizer = ({ lang, t }) => {
               <Zap size={22} className="text-emerald-500" />
             </div>
             <span className="node-label">{t.panelNode}</span>
-            <span className="node-stat text-emerald-600">{curr.solarKW} {unitText}</span>
+            <span className="node-stat text-emerald-600">{curr.solarKW} {getUnit(curr.solarKW)}</span>
           </div>
 
           {/* Connector: Panels to DCDB */}
@@ -300,7 +309,7 @@ export const EnergyFlowVisualizer = ({ lang, t }) => {
               <Home size={22} className="text-blue-500" />
             </div>
             <span className="node-label">{t.homeNode}</span>
-            <span className="node-stat text-blue-600">{curr.homeKW} {unitText}</span>
+            <span className="node-stat text-blue-600">{curr.homeKW} {getUnit(curr.homeKW)}</span>
           </div>
 
           {/* Connector: Home to Grid */}
@@ -318,7 +327,7 @@ export const EnergyFlowVisualizer = ({ lang, t }) => {
             </div>
             <span className="node-label">{t.gridNode}</span>
             <span className={`node-stat ${curr.gridKW >= 0 ? 'text-green-600' : 'text-amber-600'}`}>
-              {curr.gridKW >= 0 ? `+${curr.gridKW} ${unitText}` : `${curr.gridKW} ${unitText}`}
+              {curr.gridKW >= 0 ? `+${curr.gridKW} ${getUnit(curr.gridKW)}` : `${curr.gridKW} ${getUnit(curr.gridKW)}`}
             </span>
           </div>
         </div>
@@ -328,18 +337,18 @@ export const EnergyFlowVisualizer = ({ lang, t }) => {
       <div className="flow-telemetry-bar">
         <div className="telemetry-item">
           <span className="telemetry-label">{lang === 'te' ? 'సోలార్ ఉత్పత్తి' : 'Solar Generation'}</span>
-          <span className="telemetry-value text-emerald-400">{curr.solarKW} {unitText}</span>
+          <span className="telemetry-value text-emerald-400">{curr.solarKW} {getUnit(curr.solarKW)}</span>
         </div>
         <div className="telemetry-item">
           <span className="telemetry-label">{lang === 'te' ? 'గృహ వినియోగం' : 'Home Appliances'}</span>
-          <span className="telemetry-value text-cyan-400">{curr.homeKW} {unitText}</span>
+          <span className="telemetry-value text-cyan-400">{curr.homeKW} {getUnit(curr.homeKW)}</span>
         </div>
         <div className="telemetry-item">
           <span className="telemetry-label">{lang === 'te' ? 'డిస్కామ్ నెట్ మీటర్' : 'Net Meter Status'}</span>
           <span className={`telemetry-value ${curr.gridKW >= 0 ? 'text-green-400' : 'text-amber-400'}`}>
             {curr.gridKW >= 0 
-              ? `+ ${curr.gridKW} ${unitText} (${lang === 'te' ? 'క్రెడిట్' : 'Export'})` 
-              : `${Math.abs(curr.gridKW)} ${unitText} (${lang === 'te' ? 'గ్రిడ్ వాడకం' : 'Import'})`}
+              ? `+ ${curr.gridKW} ${getUnit(curr.gridKW)} (${lang === 'te' ? 'క్రెడిట్' : 'Export'})` 
+              : `${Math.abs(curr.gridKW)} ${getUnit(curr.gridKW)} (${lang === 'te' ? 'గ్రిడ్ వాడకం' : 'Import'})`}
           </span>
         </div>
       </div>

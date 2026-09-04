@@ -149,7 +149,7 @@ export const QuickQuoteCard = ({ lang, t }) => {
         {/* Dealer Selection */}
         <div className="form-group">
           <label className="form-label">
-            <span>{lang === 'te' ? 'డీలర్ ఎంపిక (Dealer):' : 'Select Nearest Dealer:'}</span>
+            <span>{lang === 'te' ? 'సంప్రదించాల్సిన డీలర్:' : 'Select Nearest Dealer:'}</span>
           </label>
           <div className="dealer-radio-group">
             <label className={`dealer-chip ${dealer === 'sudhakar' ? 'active' : ''}`}>
@@ -159,7 +159,7 @@ export const QuickQuoteCard = ({ lang, t }) => {
                 checked={dealer === 'sudhakar'} 
                 onChange={() => setDealer('sudhakar')}
               />
-              <span><strong>K. Sudhakar</strong> (HYD)</span>
+              <span><strong>{lang === 'te' ? 'కె. సుధాకర్' : 'K. Sudhakar'}</strong> ({lang === 'te' ? 'హైదరాబాద్' : 'HYD'})</span>
             </label>
             <label className={`dealer-chip ${dealer === 'bhaskar' ? 'active' : ''}`}>
               <input 
@@ -168,7 +168,7 @@ export const QuickQuoteCard = ({ lang, t }) => {
                 checked={dealer === 'bhaskar'} 
                 onChange={() => setDealer('bhaskar')}
               />
-              <span><strong>K. Bhaskar</strong> (JMD / AP)</span>
+              <span><strong>{lang === 'te' ? 'కె. భాస్కర్' : 'K. Bhaskar'}</strong> ({lang === 'te' ? 'జమ్మలమడుగు / ఏపీ' : 'JMD / AP'})</span>
             </label>
           </div>
         </div>

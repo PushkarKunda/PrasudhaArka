@@ -46,15 +46,30 @@ export const ContactSection = ({ lang, t }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const dealerInfo = DEALERS[formState.dealer];
-    const msg = `*New Solar Inquiry via Website Form*\n` +
-      `------------------------------------\n` +
-      `• *Customer Name:* ${formState.name}\n` +
-      `• *Mobile:* ${formState.phone}\n` +
-      `• *Town / Village:* ${formState.town}\n` +
-      `• *Required Capacity:* ${formState.capacity}\n` +
-      `• *Additional Notes:* ${formState.notes || 'None'}\n` +
-      `------------------------------------\n` +
-      `Hello ${dealerInfo.name}, please contact me regarding this rooftop solar installation.`;
+    const isTe = lang === 'te';
+    const dealerTitle = isTe
+      ? (formState.dealer === 'sudhakar' ? 'సుధాకర్ గారు' : 'భాస్కర్ గారు')
+      : dealerInfo.name;
+
+    const msg = isTe
+      ? `*వెబ్‌సైట్ ద్వారా సోలార్ ఎంక్వైరీ*\n` +
+        `------------------------------------\n` +
+        `• *కస్టమర్ పేరు:* ${formState.name}\n` +
+        `• *ఫోన్ నంబర్:* ${formState.phone}\n` +
+        `• *ఊరు / ప్రాంతం:* ${formState.town}\n` +
+        `• *కావలసిన కెపాసిటీ:* ${formState.capacity}\n` +
+        `• *అదనపు వివరాలు:* ${formState.notes || 'ఏమీ లేవు'}\n` +
+        `------------------------------------\n` +
+        `నమస్కారం ${dealerTitle}, మా ప్రాపర్టీకి రూఫ్‌టాప్ సోలార్ ప్లాంట్ కొటేషన్ మరియు ఉచిత సైట్ సర్వే వివరాలు కావాలి.`
+      : `*New Solar Inquiry via Website Form*\n` +
+        `------------------------------------\n` +
+        `• *Customer Name:* ${formState.name}\n` +
+        `• *Mobile:* ${formState.phone}\n` +
+        `• *Town / Village:* ${formState.town}\n` +
+        `• *Required Capacity:* ${formState.capacity}\n` +
+        `• *Additional Notes:* ${formState.notes || 'None'}\n` +
+        `------------------------------------\n` +
+        `Hello ${dealerInfo.name}, please contact me regarding this rooftop solar installation.`;
 
     window.open(getWhatsAppUrl(formState.dealer, msg), '_blank');
     setFormSubmitted(true);
@@ -78,13 +93,17 @@ export const ContactSection = ({ lang, t }) => {
           {/* Dealer 1: Sudhakar */}
           <div className="dealer-profile-card glassmorphism-card-glow">
             <div className="dealer-badge-header">
-              <span className="dealer-role-pill">Hyderabad & Telangana Lead</span>
+              <span className="dealer-role-pill">
+                {lang === 'te' ? 'హైదరాబాద్ & తెలంగాణ ఇన్‌ఛార్జ్' : 'Hyderabad & Telangana Lead'}
+              </span>
             </div>
 
             <div className="dealer-meta">
               <div className="dealer-avatar">KS</div>
               <div>
-                <h3 className="dealer-name">{DEALERS.sudhakar.name}</h3>
+                <h3 className="dealer-name">
+                  {lang === 'te' ? 'కె. సుధాకర్' : DEALERS.sudhakar.name}
+                </h3>
                 <p className="dealer-sub-title">
                   {lang === 'te' ? DEALERS.sudhakar.titleTe : DEALERS.sudhakar.titleEn}
                 </p>
@@ -101,7 +120,7 @@ export const ContactSection = ({ lang, t }) => {
                 <span>{DEALERS.sudhakar.phoneDisplay}</span>
               </a>
               <a 
-                href={getWhatsAppUrl('sudhakar', 'Hello Sudhakar garu, I need solar quotation and site survey details for my property.')} 
+                href={getWhatsAppUrl('sudhakar', lang === 'te' ? 'నమస్కారం సుధాకర్ గారు, నా ఇంటికి సోలార్ కొటేషన్ మరియు సైట్ సర్వే వివరాలు కావాలి.' : 'Hello Sudhakar garu, I need solar quotation and site survey details for my property.')} 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="btn btn-whatsapp btn-block"
@@ -115,13 +134,17 @@ export const ContactSection = ({ lang, t }) => {
           {/* Dealer 2: Bhaskar */}
           <div className="dealer-profile-card glassmorphism-card-glow">
             <div className="dealer-badge-header">
-              <span className="dealer-role-pill">Rayalaseema & AP Lead</span>
+              <span className="dealer-role-pill">
+                {lang === 'te' ? 'రాయలసీమ & ఏపీ ఇన్‌ఛార్జ్' : 'Rayalaseema & AP Lead'}
+              </span>
             </div>
 
             <div className="dealer-meta">
               <div className="dealer-avatar">KB</div>
               <div>
-                <h3 className="dealer-name">{DEALERS.bhaskar.name}</h3>
+                <h3 className="dealer-name">
+                  {lang === 'te' ? 'కె. భాస్కర్' : DEALERS.bhaskar.name}
+                </h3>
                 <p className="dealer-sub-title">
                   {lang === 'te' ? DEALERS.bhaskar.titleTe : DEALERS.bhaskar.titleEn}
                 </p>
@@ -138,7 +161,7 @@ export const ContactSection = ({ lang, t }) => {
                 <span>{DEALERS.bhaskar.phoneDisplay}</span>
               </a>
               <a 
-                href={getWhatsAppUrl('bhaskar', 'Hello Bhaskar garu, I need solar quotation and site survey details for my property.')} 
+                href={getWhatsAppUrl('bhaskar', lang === 'te' ? 'నమస్కారం భాస్కర్ గారు, నా ఇంటికి సోలార్ కొటేషన్ మరియు సైట్ సర్వే వివరాలు కావాలి.' : 'Hello Bhaskar garu, I need solar quotation and site survey details for my property.')} 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="btn btn-whatsapp btn-block"
@@ -214,19 +237,35 @@ export const ContactSection = ({ lang, t }) => {
                     onChange={(e) => setFormState({ ...formState, capacity: e.target.value })}
                     className="custom-input"
                   >
-                    <option value="1kW">1 kW System (Small Home)</option>
-                    <option value="2kW">2 kW System (Medium Home)</option>
-                    <option value="3kW">3 kW System (Max Subsidy ₹78,000)</option>
-                    <option value="5kW">5 kW System (Large Villa)</option>
-                    <option value="10kW+">10 kW+ Commercial Plant</option>
-                    <option value="RO Plant">Commercial RO Water Plant</option>
-                    <option value="Agri Pump">Solar Agriculture Pump</option>
+                    <option value="1kW">
+                      {lang === 'te' ? '1 kW సిస్టమ్ (చిన్న గృహం)' : '1 kW System (Small Home)'}
+                    </option>
+                    <option value="2kW">
+                      {lang === 'te' ? '2 kW సిస్టమ్ (మధ్యతరగతి గృహం)' : '2 kW System (Medium Home)'}
+                    </option>
+                    <option value="3kW">
+                      {lang === 'te' ? '3 kW సిస్టమ్ (గరిష్ట సబ్సిడీ ₹78,000)' : '3 kW System (Max Subsidy ₹78,000)'}
+                    </option>
+                    <option value="5kW">
+                      {lang === 'te' ? '5 kW సిస్టమ్ (పెద్ద ఇల్లు / విల్లా)' : '5 kW System (Large Villa)'}
+                    </option>
+                    <option value="10kW+">
+                      {lang === 'te' ? '10 kW+ వాణిజ్య ప్లాంట్' : '10 kW+ Commercial Plant'}
+                    </option>
+                    <option value="RO Plant">
+                      {lang === 'te' ? 'కమర్షియల్ RO వాటర్ ప్లాంట్' : 'Commercial RO Water Plant'}
+                    </option>
+                    <option value="Agri Pump">
+                      {lang === 'te' ? 'సోలార్ అగ్రికల్చర్ పంప్' : 'Solar Agriculture Pump'}
+                    </option>
                   </select>
                 </div>
               </div>
 
               <div className="form-group">
-                <label className="form-label">{lang === 'te' ? 'డీలర్ ఎంపిక:' : 'Send Inquiry To:'}</label>
+                <label className="form-label">
+                  {lang === 'te' ? 'సంప్రదించాల్సిన డీలర్:' : 'Send Inquiry To:'}
+                </label>
                 <div className="dealer-radio-group">
                   <label className={`dealer-chip ${formState.dealer === 'sudhakar' ? 'active' : ''}`}>
                     <input 
@@ -235,7 +274,9 @@ export const ContactSection = ({ lang, t }) => {
                       checked={formState.dealer === 'sudhakar'} 
                       onChange={() => setFormState({ ...formState, dealer: 'sudhakar' })}
                     />
-                    <span>K. Sudhakar (Hyderabad & Telangana)</span>
+                    <span>
+                      {lang === 'te' ? 'కె. సుధాకర్ (హైదరాబాద్ & తెలంగాణ)' : 'K. Sudhakar (Hyderabad & Telangana)'}
+                    </span>
                   </label>
                   <label className={`dealer-chip ${formState.dealer === 'bhaskar' ? 'active' : ''}`}>
                     <input 
@@ -244,7 +285,9 @@ export const ContactSection = ({ lang, t }) => {
                       checked={formState.dealer === 'bhaskar'} 
                       onChange={() => setFormState({ ...formState, dealer: 'bhaskar' })}
                     />
-                    <span>K. Bhaskar (Jammalamadugu & AP)</span>
+                    <span>
+                      {lang === 'te' ? 'కె. భాస్కర్ (జమ్మలమడుగు & ఆంధ్రప్రదేశ్)' : 'K. Bhaskar (Jammalamadugu & AP)'}
+                    </span>
                   </label>
                 </div>
               </div>

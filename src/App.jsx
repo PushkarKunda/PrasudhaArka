@@ -1,19 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { I18N } from './data/i18n';
 import { initCleanUrlHandler } from './utils/navigation';
-import { Navbar } from './components/Navbar';
-import { Hero } from './components/Hero';
-import { SolarCalculator } from './components/SolarCalculator';
-import { SystemPricing } from './components/SystemPricing';
-import { BrandShowcase } from './components/BrandShowcase';
-import { ServicesSection } from './components/ServicesSection';
-import { ProcessTimeline } from './components/ProcessTimeline';
-import { DocumentsSection } from './components/DocumentsSection';
-import { Testimonials } from './components/Testimonials';
-import { FaqSection } from './components/FaqSection';
-import { ContactSection } from './components/ContactSection';
-import { FloatingActions } from './components/FloatingActions';
-import { Footer } from './components/Footer';
+import {
+  Navbar,
+  Hero,
+  BrandShowcase,
+  SystemPricing,
+  SolarCalculator,
+  ServicesSection,
+  ProcessTimeline,
+  DocumentsSection,
+  Testimonials,
+  ContactSection,
+  FaqSection,
+  FloatingActions,
+  Footer,
+} from './components';
 
 export function App() {
   const [lang, setLang] = useState(() => {

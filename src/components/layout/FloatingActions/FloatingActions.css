@@ -1,0 +1,261 @@
+/* ==========================================================================
+   FLOATING ACTIONS COMPONENT STYLES
+   ========================================================================== */
+
+/* ==========================================================================
+   FLOATING ACTIONS (WHATSAPP & BACK TO TOP)
+   ========================================================================== */
+.floating-actions-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.floating-whatsapp-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #25d366;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.4);
+  transform: translateZ(0);
+  border: none;
+}
+
+.floating-scroll-top-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 1.5px solid var(--border-light);
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.12);
+  transform: translateZ(0);
+  transition: all 0.2s ease;
+}
+
+.floating-scroll-top-btn:hover {
+  background: var(--gold-50);
+  border-color: var(--gold-500);
+  color: var(--gold-600);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(245, 158, 11, 0.25);
+}
+
+.floating-dealer-modal {
+  width: 320px;
+  padding: 16px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 12px 36px -4px rgba(15, 23, 42, 0.22), 0 0 0 1px rgba(0, 0, 0, 0.06);
+  border: 1px solid var(--border-light);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.modal-header-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.modal-header h4 {
+  font-size: 0.88rem;
+  color: var(--navy-900);
+  font-weight: 800;
+  margin: 0;
+}
+
+.close-popup-btn {
+  background: #f1f5f9;
+  border: none;
+  color: #64748b;
+  cursor: pointer;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+}
+
+.close-popup-btn:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+.dealer-popup-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.popup-dealer-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #f8fafc;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  transition: all 0.2s ease;
+}
+
+.popup-dealer-item:hover {
+  background: #ffffff;
+  border-color: #cbd5e1;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
+}
+
+.p-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(245, 158, 11, 0.3);
+}
+
+.popup-dealer-item:nth-child(2) .p-avatar {
+  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+  box-shadow: 0 2px 6px rgba(2, 132, 199, 0.3);
+}
+
+.p-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.p-info strong {
+  font-size: 0.86rem;
+  color: var(--navy-900);
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.p-info span {
+  font-size: 0.72rem;
+  color: #64748b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.popup-action-btns {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.popup-icon-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.popup-icon-btn.phone-btn {
+  background: #eff6ff;
+  color: #0284c7;
+  border: 1px solid #bfdbfe;
+}
+
+.popup-icon-btn.phone-btn:hover {
+  background: #0284c7;
+  color: #ffffff;
+  border-color: #0284c7;
+  transform: translateY(-2px) scale(1.08);
+  box-shadow: 0 4px 10px rgba(2, 132, 199, 0.35);
+}
+
+.popup-icon-btn.whatsapp-btn {
+  background: #25d366;
+  color: #ffffff;
+  border: 1px solid #20bd5a;
+  box-shadow: 0 2px 8px rgba(37, 211, 102, 0.35);
+}
+
+.popup-icon-btn.whatsapp-btn:hover {
+  background: #20bd5a;
+  color: #ffffff;
+  transform: translateY(-2px) scale(1.08);
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.5);
+}
+
+
+/* Responsive */
+@media (max-width: 768px) {
+  /* Floating Dealer Modal & Actions */
+  .floating-actions-container {
+    bottom: max(14px, env(safe-area-inset-bottom, 14px));
+    right: 14px;
+    gap: 8px;
+  }
+
+  .floating-whatsapp-btn {
+    width: 46px;
+    height: 46px;
+  }
+
+  .floating-scroll-top-btn {
+    width: 46px;
+    height: 46px;
+  }
+
+  .floating-dealer-modal {
+    width: calc(100vw - 28px);
+    max-width: 320px;
+    padding: 14px;
+    border-radius: 14px;
+  }
+}
+
+/* Dark Mode Overrides */
+/* --- Floating Actions --- */
+[data-theme="dark"] .scroll-top-btn {
+  background: #21262d;
+  border-color: #484f58;
+  color: #94a3b8;
+}
+[data-theme="dark"] .scroll-top-btn:hover {
+  background: #f59e0b;
+  color: #ffffff;
+}

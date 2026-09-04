@@ -1,0 +1,264 @@
+/* ==========================================================================
+   SERVICES SECTION COMPONENT STYLES
+   ========================================================================== */
+
+/* 5. Specialized Engineering Services (#services) */
+.services-section {
+  background: linear-gradient(160deg, #f0fdf4 0%, #ffffff 50%, #ecfdf5 100%);
+  border-bottom: 1px solid rgba(167, 243, 208, 0.5);
+  position: relative;
+}
+
+.services-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.05) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.services-section .section-tag {
+  background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+  border-color: #10b981;
+  color: #065f46;
+  font-weight: 800;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2);
+}
+
+/* ==========================================================================
+   SERVICES & SOLUTIONS (INTERACTIVE CAROUSEL)
+   ========================================================================== */
+.services-carousel-container {
+  position: relative;
+  width: 100%;
+}
+
+.carousel-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.carousel-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--gold-700);
+  background: var(--gold-50);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  padding: 5px 14px;
+  border-radius: var(--radius-full);
+}
+
+.carousel-nav-arrows {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.carousel-arrow-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 1.5px solid var(--border-light);
+  color: var(--text-main);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+  box-shadow: var(--shadow-sm);
+}
+
+.carousel-arrow-btn:hover {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  border-color: #f59e0b;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.35);
+}
+
+.carousel-arrow-btn:active {
+  transform: scale(0.95);
+}
+
+.services-carousel-viewport {
+  overflow: hidden;
+  width: 100%;
+  border-radius: var(--radius-lg);
+  padding: 6px 2px;
+}
+
+.services-carousel-track {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  will-change: transform;
+}
+
+.services-carousel-slide {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.service-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: #ffffff;
+  padding: 24px;
+  border: 1.5px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  height: 100%;
+  min-height: 380px;
+  box-shadow: var(--shadow-card);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: rgba(245, 158, 11, 0.45);
+}
+
+.service-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  gap: 8px;
+}
+
+.service-icon-wrap {
+  width: 46px;
+  height: 46px;
+  border-radius: var(--radius-md);
+  background: var(--gold-100);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.service-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--emerald-700);
+  background: var(--emerald-50);
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+}
+
+.service-card-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 8px;
+  line-height: 1.35;
+}
+
+.service-card-desc {
+  font-size: 0.85rem;
+  color: var(--text-body);
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+
+.service-features-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.service-features-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 0.82rem;
+  color: var(--text-body);
+  line-height: 1.35;
+}
+
+.carousel-dots-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+.carousel-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: var(--radius-full);
+  background: #cbd5e1;
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  padding: 0;
+}
+
+.carousel-dot.active {
+  width: 28px;
+  background: linear-gradient(90deg, #f59e0b, #d97706);
+}
+
+.carousel-dot:hover:not(.active) {
+  background: #94a3b8;
+}
+
+
+/* Responsive */
+@media (max-width: 768px) {
+  /* Services Carousel Mobile */
+  .carousel-top-bar {
+    margin-bottom: 14px;
+  }
+
+  .service-card {
+    padding: 18px 16px;
+    min-height: 350px;
+  }
+
+  .service-card .btn {
+    min-height: 42px;
+    font-size: 0.84rem;
+  }
+
+}
+
+/* Dark Mode Overrides */
+/* --- Services Carousel --- */
+[data-theme="dark"] .services-section {
+  background: #0d1117;
+  border-color: #30363d;
+}
+[data-theme="dark"] .service-card {
+  background: #1c2128;
+  border-color: #30363d;
+}
+[data-theme="dark"] .service-card:hover {
+  background: #21262d;
+  border-color: rgba(245, 158, 11, 0.4);
+}
+[data-theme="dark"] .service-icon-wrap { background: #2d1f00; }
+[data-theme="dark"] .carousel-arrow-btn {
+  background: #21262d;
+  border-color: #484f58;
+  color: #94a3b8;
+}
+[data-theme="dark"] .carousel-dot { background: #484f58; }

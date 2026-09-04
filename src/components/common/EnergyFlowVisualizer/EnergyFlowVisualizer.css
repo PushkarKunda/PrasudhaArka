@@ -1,0 +1,381 @@
+/* ==========================================================================
+   ENERGY FLOW VISUALIZER COMPONENT STYLES
+   ========================================================================== */
+.energy-flow-card {
+  background: #ffffff;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  padding: 18px 14px;
+}
+
+.energy-flow-header {
+  margin-bottom: 12px;
+}
+
+.flow-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--gold-700);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 2px;
+}
+
+.flow-title {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 2px;
+}
+
+.flow-subtitle {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.flow-time-tabs {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+.flow-time-tab {
+  padding: 4px 10px;
+  font-size: 0.74rem;
+  font-weight: 600;
+  border-radius: var(--radius-full);
+  background: var(--bg-muted);
+  color: var(--text-body);
+  cursor: pointer;
+}
+
+.flow-time-tab.active {
+  background: var(--gold-100);
+  border: 1px solid var(--gold-500);
+  color: var(--gold-700);
+}
+
+/* ==========================================================================
+   S-SHAPE SOLAR CIRCUIT LAYOUT (Row 1: Top, Row 2: Inverter, Row 3: Bottom)
+   ========================================================================== */
+.s-circuit-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+  width: 100%;
+  padding: 10px 18px 6px;
+  box-sizing: border-box;
+}
+
+.s-circuit-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+.flow-col-spacer {
+  flex: 1;
+  min-width: 0;
+}
+
+.flow-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  flex: 1;
+  min-width: 0;
+  max-width: 96px;
+}
+
+.node-icon-wrap {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 4px;
+  box-shadow: var(--shadow-sm);
+  flex-shrink: 0;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+  z-index: 3;
+}
+
+.flow-node:hover .node-icon-wrap {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.sun-glow { background: #fef3c7; border: 1.5px solid #f59e0b; }
+.panel-glow { background: #d1fae5; border: 1.5px solid #10b981; }
+.dcdb-glow { background: #ecfdf5; border: 1.5px solid #059669; }
+.inverter-glow { background: #cffafe; border: 1.5px solid #06b6d4; }
+.acdb-glow { background: #e0f2fe; border: 1.5px solid #0284c7; }
+.home-glow { background: #dbeafe; border: 1.5px solid #60a5fa; }
+.grid-glow { background: #f3e8ff; border: 1.5px solid #a855f7; }
+
+.node-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-main);
+  line-height: 1.2;
+  margin-bottom: 2px;
+  text-align: center;
+  min-height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.node-stat {
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+/* Horizontal connectors inside row */
+.flow-pulse-connector {
+  position: relative;
+  flex: 1;
+  min-width: 10px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flow-line-svg {
+  width: 100%;
+  height: 14px;
+}
+
+.flow-line-svg line {
+  animation: lineDash 1.2s linear infinite;
+}
+
+@keyframes lineDash {
+  from { stroke-dashoffset: 20; }
+  to { stroke-dashoffset: 0; }
+}
+
+.animate-flow {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  top: 50%;
+  margin-top: -3px;
+  animation: particleFlow 1.2s infinite linear;
+  will-change: transform, opacity;
+}
+
+.photon-particle {
+  background: #f59e0b;
+}
+
+.electric-particle {
+  background: #10b981;
+}
+
+.dcdb-particle {
+  background: #10b981;
+}
+
+.inverter-particle {
+  background: #06b6d4;
+}
+
+.acdb-particle {
+  background: #0284c7;
+}
+
+.grid-particle {
+  background: #8b5cf6;
+}
+
+@keyframes particleFlow {
+  0% { transform: translate3d(-15px, 0, 0); opacity: 0; }
+  25% { opacity: 1; }
+  75% { opacity: 1; }
+  100% { transform: translate3d(25px, 0, 0); opacity: 0; }
+}
+
+/* ==========================================================================
+   PRECISION CONDUIT S-CURVE OVERLAY
+   ========================================================================== */
+.s-circuit-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  overflow: visible;
+}
+
+.conduit-track {
+  opacity: 0.55;
+}
+
+[data-theme="dark"] .conduit-track {
+  stroke: #334155;
+  opacity: 0.7;
+}
+
+.flow-cable-dcdb {
+  animation: lineDash 1.2s linear infinite;
+}
+
+.flow-cable-acdb {
+  animation: lineDash 1.2s linear infinite;
+}
+
+.flow-energy-particle {
+  filter: drop-shadow(0 0 4px rgba(16, 185, 129, 0.7));
+}
+
+/* Telemetry Bar */
+.flow-telemetry-bar {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  background: var(--bg-muted);
+  border-radius: var(--radius-sm);
+  padding: 8px 10px;
+  border: 1px solid var(--border-light);
+  margin-top: 10px;
+}
+
+.telemetry-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.telemetry-label {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.telemetry-value {
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+/* ==========================================================================
+   Responsive: Mobile View
+   ========================================================================== */
+@media (max-width: 680px) {
+  .energy-flow-card {
+    padding: 12px 8px;
+  }
+
+  .flow-time-tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+    margin-bottom: 8px;
+  }
+
+  .flow-time-tab {
+    padding: 5px 3px;
+    font-size: 0.7rem;
+    text-align: center;
+    justify-content: center;
+  }
+
+  .node-icon-wrap {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 3px;
+  }
+
+  .node-icon-wrap svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .flow-pulse-connector {
+    height: 40px;
+    min-width: 8px;
+  }
+
+  .node-label {
+    font-size: 0.68rem;
+    min-height: 20px;
+  }
+
+  .node-stat {
+    font-size: 0.64rem;
+  }
+
+  .s-circuit-container {
+    gap: 12px;
+    padding: 8px 12px 4px;
+  }
+
+  .flow-telemetry-bar {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 8px 10px;
+    margin-top: 8px;
+  }
+
+  .telemetry-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2px 0;
+    gap: 8px;
+  }
+
+  .telemetry-label {
+    font-size: 0.74rem;
+    white-space: nowrap;
+  }
+
+  .telemetry-value {
+    font-size: 0.78rem;
+    white-space: nowrap;
+  }
+}
+
+/* Dark Mode Overrides */
+[data-theme="dark"] .energy-flow-card {
+  background: #161b22;
+  border-color: #30363d;
+}
+[data-theme="dark"] .dcdb-glow {
+  background: rgba(16, 185, 129, 0.15);
+  border-color: rgba(16, 185, 129, 0.4);
+}
+[data-theme="dark"] .acdb-glow {
+  background: rgba(2, 132, 199, 0.15);
+  border-color: rgba(2, 132, 199, 0.4);
+}
+[data-theme="dark"] .quick-quote-card {
+  background: #161b22;
+  border-color: #30363d;
+}
+[data-theme="dark"] .quick-quote-card .form-input,
+[data-theme="dark"] .quick-quote-card select {
+  background: #21262d;
+  border-color: #484f58;
+  color: #e2e8f0;
+}

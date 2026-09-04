@@ -1,0 +1,912 @@
+/* ==========================================================================
+   SOLAR CALCULATOR COMPONENT STYLES
+   ========================================================================== */
+
+/* 4. Solar Calculator (#calculator) */
+.calculator-section {
+  background: linear-gradient(160deg, #e0f2fe 0%, #f0f9ff 50%, #dbeafe 100%);
+  border-top: 2px solid rgba(147, 197, 253, 0.6);
+  border-bottom: 2px solid rgba(147, 197, 253, 0.4);
+  position: relative;
+}
+
+.calculator-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 20% 50%, rgba(37, 99, 235, 0.04) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.calculator-section .section-tag {
+  background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+  border-color: #3b82f6;
+  color: #1d4ed8;
+  font-weight: 800;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
+}
+
+/* ==========================================================================
+   CALCULATOR SECTION (MATCHING SCREENSHOT DESIGN)
+   ========================================================================== */
+.calculator-section {
+  overflow-x: clip;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.calculator-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Left Column: Light Card */
+.calculator-controls-card {
+  background: #ffffff;
+  border-radius: 20px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+  padding: 24px 22px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.form-group-block {
+  margin-bottom: 18px;
+}
+
+.calc-field-label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 6px;
+}
+
+/* 1. State Selector */
+.state-pills-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.state-select-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 12px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #0f172a;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.state-select-btn:hover {
+  border-color: #0284c7;
+}
+
+.state-select-btn.active {
+  background: #e0f7fa;
+  border-color: #0284c7;
+  border-width: 2px;
+  color: #0f172a;
+  box-shadow: 0 2px 8px rgba(2, 132, 199, 0.15);
+}
+
+.lightning-icon {
+  color: #f59e0b;
+  font-size: 1rem;
+}
+
+/* 2. Connection Category */
+.cat-selector-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.cat-card-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 8px 10px;
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 12px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s ease;
+  min-height: 58px;
+}
+
+.cat-card-btn:hover {
+  border-color: #0284c7;
+}
+
+.cat-card-btn.active {
+  background: #e0f7fa;
+  border-color: #0284c7;
+  box-shadow: 0 2px 8px rgba(2, 132, 199, 0.15);
+}
+
+.cat-pill-tag {
+  font-size: 0.58rem;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-bottom: 4px;
+  white-space: nowrap;
+  letter-spacing: 0.2px;
+}
+
+.cat-pill-tag.green-tag {
+  background: #a7f3d0;
+  color: #065f46;
+}
+
+.cat-pill-tag.grey-tag {
+  background: #f1f5f9;
+  color: #64748b;
+}
+
+.cat-card-text {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1.2;
+}
+
+/* 3. Solar Panel Type */
+.field-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.field-header-row .calc-field-label {
+  margin-bottom: 0;
+}
+
+.panel-status-pill {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+}
+
+.panel-status-pill.active {
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  color: #059669;
+}
+
+.panel-status-pill.inactive {
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  color: #64748b;
+}
+
+.panel-toggle-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.panel-choice-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 14px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s ease;
+}
+
+.panel-choice-card:hover {
+  border-color: #0284c7;
+}
+
+.panel-choice-card.active {
+  background: #e0f7fa;
+  border-color: #0284c7;
+  border-width: 2px;
+  box-shadow: 0 2px 8px rgba(2, 132, 199, 0.15);
+}
+
+.panel-choice-card.disabled {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+  opacity: 0.75;
+}
+
+.flag-icon-wrap {
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+
+.globe-icon {
+  font-size: 1.2rem;
+  opacity: 0.7;
+}
+
+.panel-choice-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.panel-title {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 2px;
+}
+
+.panel-desc {
+  display: block;
+  font-size: 0.68rem;
+  color: #0369a1;
+  line-height: 1.2;
+}
+
+.panel-choice-card.disabled .panel-desc {
+  color: #94a3b8;
+}
+
+/* 4. Input Mode Switcher */
+.input-mode-track {
+  display: flex;
+  background: #f1f5f9;
+  padding: 4px;
+  border-radius: 12px;
+  margin-bottom: 12px;
+}
+
+.mode-track-tab {
+  flex: 1;
+  padding: 8px 10px;
+  background: transparent;
+  border: none;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #475569;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.15s ease;
+}
+
+.mode-track-tab.active {
+  background: #ffffff;
+  color: #0284c7;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.calc-slider-box {
+  margin-top: 8px;
+}
+
+.slider-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.slider-left-label {
+  font-size: 0.84rem;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.slider-val-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #e0f2fe;
+  border: 1.5px solid #bae6fd;
+  padding: 3px 10px;
+  border-radius: 8px;
+}
+
+.calc-inline-input {
+  width: 55px;
+  border: none;
+  background: transparent;
+  font-size: 0.95rem;
+  font-weight: 900;
+  color: #0284c7;
+  outline: none;
+  text-align: right;
+  -moz-appearance: textfield;
+}
+
+.calc-inline-input::-webkit-outer-spin-button,
+.calc-inline-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.unit-label-tag, .rupee-sym-blue {
+  font-size: 0.84rem;
+  font-weight: 800;
+  color: #0284c7;
+}
+
+.calc-blue-range {
+  width: 100%;
+  height: 6px;
+  border-radius: 4px;
+  background: #e2e8f0;
+  accent-color: #0284c7;
+  cursor: pointer;
+}
+
+.slider-tick-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.72rem;
+  color: #94a3b8;
+  margin-top: 4px;
+}
+
+/* 5. DISCOM Tariff Summary */
+.discom-tariff-box {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 14px 18px;
+  margin-top: 14px;
+}
+
+.tariff-box-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.tariff-header-title {
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: #0284c7;
+  letter-spacing: 0.3px;
+}
+
+.tariff-rate-badge {
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  color: #059669;
+  font-size: 0.74rem;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+}
+
+.tariff-data-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  padding: 3px 0;
+  color: #475569;
+}
+
+.tariff-data-row strong {
+  color: #0f172a;
+}
+
+.tariff-total-highlight-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1.5px solid #e2e8f0;
+  margin-top: 8px;
+  padding-top: 8px;
+}
+
+.total-label {
+  font-size: 0.86rem;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.total-amount-blue {
+  font-size: 1.25rem;
+  font-weight: 900;
+  color: #0284c7;
+}
+
+/* ==========================================================================
+   RIGHT COLUMN: DARK NAVY CARD
+   ========================================================================== */
+.calculator-dark-results-card {
+  background: #08162b;
+  border: 1px solid #1e3a5f;
+  border-radius: 20px;
+  padding: 24px 22px;
+  color: #ffffff;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  box-sizing: border-box;
+}
+
+.dark-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.dark-card-title {
+  font-size: 1.35rem;
+  font-weight: 900;
+  color: #ffffff;
+  margin: 0;
+}
+
+.dark-card-pill-tag {
+  background: #f59e0b;
+  color: #78350f;
+  font-size: 0.72rem;
+  font-weight: 900;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+/* 4 Metrics Grid (2x2) */
+.dark-metrics-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.dark-metric-box {
+  background: #0f223a;
+  border: 1px solid #1e3a5f;
+  border-radius: 12px;
+  padding: 12px 14px;
+  box-sizing: border-box;
+}
+
+.dark-metric-box.gold-border {
+  border-color: #d97706;
+  background: #152233;
+}
+
+.dark-metric-box.green-border {
+  border-color: #047857;
+  background: #0c262a;
+}
+
+.dark-metric-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  margin-bottom: 4px;
+}
+
+.dark-metric-val {
+  font-size: 1.55rem;
+  font-weight: 900;
+  color: #ffffff;
+  line-height: 1.1;
+}
+
+.dark-metric-val.text-gold {
+  color: #f59e0b;
+}
+
+.dark-metric-val.text-green {
+  color: #10b981;
+}
+
+/* Financial 2x2 Box */
+.dark-finance-specs-box {
+  background: #0f223a;
+  border: 1px solid #1e3a5f;
+  border-radius: 12px;
+  padding: 12px 16px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 16px;
+  margin-bottom: 14px;
+  box-sizing: border-box;
+}
+
+.finance-spec-cell {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8rem;
+  gap: 4px;
+}
+
+.fin-lbl {
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+.fin-amt {
+  color: #ffffff;
+  font-weight: 800;
+}
+
+.fin-emi-tag {
+  color: #fbbf24;
+  background: rgba(245, 158, 11, 0.15);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: 800;
+}
+
+/* Solar Offset Bar Section */
+.dark-offset-bar-section {
+  background: #0f223a;
+  border: 1px solid #1e3a5f;
+  border-radius: 12px;
+  padding: 10px 14px;
+  margin-bottom: 14px;
+  box-sizing: border-box;
+}
+
+.offset-text-flex {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  color: #e2e8f0;
+  margin-bottom: 6px;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.offset-text-flex strong {
+  color: #fbbf24;
+}
+
+.offset-bar-bg-track {
+  width: 100%;
+  height: 7px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.offset-bar-cyan-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #10b981 0%, #06b6d4 100%);
+  border-radius: var(--radius-full);
+  transition: width 0.3s ease;
+}
+
+/* 25-Year Lifetime Savings Banner */
+.dark-lifetime-banner {
+  background: #0f223a;
+  border: 1px solid #1e3a5f;
+  border-radius: 12px;
+  padding: 12px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  gap: 10px;
+  box-sizing: border-box;
+}
+
+.lifetime-info-col {
+  flex: 1;
+  min-width: 0;
+}
+
+.lifetime-heading {
+  font-size: 0.86rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 2px;
+}
+
+.lifetime-subtext {
+  font-size: 0.72rem;
+  color: #94a3b8;
+  margin: 0;
+}
+
+.lifetime-val-blue {
+  font-size: 1.55rem;
+  font-weight: 900;
+  color: #38bdf8;
+  white-space: nowrap;
+}
+
+/* WhatsApp Quote Button */
+.dark-calc-whatsapp-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 13px 18px;
+  background: #22c55e;
+  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 800;
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(34, 197, 94, 0.35);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.dark-calc-whatsapp-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(34, 197, 94, 0.45);
+}
+
+.dealer-pick-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.dealer-pick-label {
+  font-size: 0.8rem;
+  color: #cbd5e1;
+  font-weight: 700;
+}
+
+.dealer-radios {
+  display: flex;
+  gap: 6px;
+}
+
+.dealer-mini-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 5px 10px;
+  border-radius: var(--radius-full);
+  font-size: 0.74rem;
+  color: #e2e8f0;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.dealer-mini-pill.active {
+  background: var(--gold-500);
+  border-color: var(--gold-500);
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.dealer-mini-pill input {
+  margin: 0;
+}
+
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .calculator-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Solar Calculator Mobile */
+  .calculator-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .calculator-controls-card,
+  .calculator-results-card {
+    padding: 16px 14px;
+  }
+
+  .calc-card-title {
+    font-size: 1rem;
+    margin-bottom: 12px;
+    padding-bottom: 6px;
+  }
+
+  .state-pills-group {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .state-pill {
+    padding: 9px 10px;
+    font-size: 0.78rem;
+    gap: 8px;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .category-btn-group {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .cat-btn {
+    padding: 9px 10px;
+    font-size: 0.78rem;
+  }
+
+  .panel-type-selector {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .calc-mode-tabs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4px;
+  }
+
+  .mode-tab {
+    padding: 8px 3px;
+    font-size: 0.72rem;
+    text-align: center;
+    line-height: 1.25;
+  }
+
+  .calc-metrics-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+
+  .calc-metric-card {
+    padding: 10px 8px;
+  }
+
+  .metric-label {
+    font-size: 0.66rem;
+  }
+
+  .metric-value {
+    font-size: 1.15rem;
+  }
+
+  .calc-finance-box {
+    grid-template-columns: 1fr;
+    gap: 6px;
+    padding: 10px 12px;
+  }
+
+  .lifetime-savings-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 12px 14px;
+    gap: 6px;
+    margin-bottom: 12px;
+  }
+
+  .lifetime-amount-box {
+    font-size: 1.4rem;
+  }
+
+  .dealer-pick-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .dealer-radios {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+  }
+
+  .dealer-mini-pill {
+    justify-content: center;
+    padding: 7px 8px;
+    font-size: 0.74rem;
+    min-height: 38px;
+  }
+
+  .calc-action-section .btn {
+    width: 100%;
+    min-height: 48px;
+    font-size: 0.88rem;
+    justify-content: center;
+  }
+
+}
+
+@media (max-width: 480px) {
+  .state-pills-group, .state-pills-row {
+    grid-template-columns: 1fr;
+  }
+
+  .category-btn-group, .cat-selector-grid-3 {
+    grid-template-columns: 1fr;
+  }
+
+  .panel-toggle-grid-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .calc-metrics-grid, .dark-metrics-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dark-finance-specs-box {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+/* Dark Mode Overrides */
+/* --- Calculator --- */
+[data-theme="dark"] .calculator-section {
+  background: linear-gradient(180deg, #0d1420 0%, #0a1a2e 100%);
+  border-color: #1d4a6e;
+}
+[data-theme="dark"] .calculator-section .section-tag {
+  background: #0a1f35;
+  border-color: #1d4a6e;
+  color: #60a5fa;
+}
+[data-theme="dark"] .calc-card,
+[data-theme="dark"] .calc-results-panel {
+  background: #161b22;
+  border-color: #30363d;
+}
+[data-theme="dark"] .calc-field-group input,
+[data-theme="dark"] .calc-field-group select {
+  background: #21262d;
+  border-color: #484f58;
+  color: #e2e8f0;
+}
+[data-theme="dark"] .calc-field-group input:focus,
+[data-theme="dark"] .calc-field-group select:focus {
+  border-color: #f59e0b;
+  background: #2d1f00;
+}
+[data-theme="dark"] .calc-field-group label { color: #94a3b8; }
+[data-theme="dark"] .calc-result-item {
+  background: #21262d;
+  border-color: #30363d;
+}
+[data-theme="dark"] .calc-result-item .result-label { color: #64748b; }
+[data-theme="dark"] .calc-result-highlight {
+  background: linear-gradient(135deg, #2d1f00, #3d2800);
+  border-color: rgba(245, 158, 11, 0.35);
+}
+[data-theme="dark"] .calc-action-section {
+  background: #161b22;
+  border-top-color: #30363d;
+}
+[data-theme="dark"] input[type="range"] { accent-color: #f59e0b; }

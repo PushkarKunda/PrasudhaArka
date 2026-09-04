@@ -1,0 +1,211 @@
+/* ==========================================================================
+   QUICK QUOTE CARD COMPONENT STYLES
+   ========================================================================== */
+
+/* ==========================================================================
+   QUICK QUOTE CARD
+   ========================================================================== */
+.card-header-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--gold-700);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.card-sub-desc {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+.form-group {
+  margin-bottom: 12px;
+}
+
+.form-label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 4px;
+}
+
+.range-with-input {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.custom-range {
+  flex: 1;
+  height: 6px;
+  border-radius: 4px;
+  background: #e2e8f0;
+  accent-color: var(--gold-500);
+  cursor: pointer;
+}
+
+.bill-badge {
+  background: var(--gold-50);
+  border: 1px solid var(--gold-500);
+  color: var(--gold-700);
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  font-size: 0.82rem;
+  white-space: nowrap;
+}
+
+.bill-input-badge {
+  display: inline-flex;
+  align-items: center;
+  background: var(--gold-50);
+  border: 1.5px solid var(--gold-500);
+  border-radius: var(--radius-sm);
+  padding: 3px 8px;
+  box-shadow: 0 1px 4px rgba(245, 158, 11, 0.12);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  flex-shrink: 0;
+}
+
+.bill-input-badge:focus-within {
+  border-color: var(--gold-600);
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.25);
+}
+
+.bill-currency-symbol {
+  font-weight: 800;
+  font-size: 0.95rem;
+  color: var(--gold-700);
+  margin-right: 2px;
+  user-select: none;
+}
+
+.bill-number-input {
+  width: 68px;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-family: inherit;
+  font-weight: 800;
+  font-size: 0.95rem;
+  color: var(--gold-700);
+  padding: 0;
+  text-align: right;
+  -moz-appearance: textfield;
+}
+
+.bill-number-input::-webkit-outer-spin-button,
+.bill-number-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.custom-input {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 9px 12px;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: var(--radius-sm);
+  color: var(--text-main);
+  font-size: 0.86rem;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.custom-input:focus {
+  border-color: var(--gold-500);
+}
+
+select.custom-input {
+  appearance: auto;
+  cursor: pointer;
+}
+
+.prop-toggle-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+
+.prop-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 7px 8px;
+  background: var(--bg-muted);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  color: var(--text-body);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.prop-btn.active {
+  background: var(--gold-50);
+  border-color: var(--gold-500);
+  color: var(--gold-700);
+  font-weight: 700;
+}
+
+.dealer-radio-group {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.dealer-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--bg-muted);
+  border: 1px solid var(--border-light);
+  padding: 5px 10px;
+  border-radius: var(--radius-full);
+  font-size: 0.76rem;
+  cursor: pointer;
+  color: var(--text-body);
+}
+
+.dealer-chip.active {
+  background: var(--emerald-50);
+  border-color: var(--emerald-500);
+  color: var(--emerald-700);
+  font-weight: 700;
+}
+
+.quick-result-box {
+  background: var(--bg-muted);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  border-radius: var(--radius-sm);
+  padding: 10px;
+  margin-bottom: 12px;
+}
+
+.result-stat-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  padding: 2px 0;
+}
+
+.result-stat-row .stat-name {
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.result-stat-row .stat-val {
+  font-weight: 800;
+  color: var(--text-main);
+}

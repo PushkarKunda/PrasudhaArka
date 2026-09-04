@@ -1,0 +1,467 @@
+/* ==========================================================================
+   FOOTER COMPONENT STYLES
+   ========================================================================== */
+
+/* ==========================================================================
+   FOOTER (RICH HIGH-CONVERTING DESIGN MATCHING REFERENCE)
+   ========================================================================== */
+.site-footer {
+  background: #060b14;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 50px 0 24px 0;
+  color: #cbd5e1;
+}
+
+.footer-top-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 0.8fr 1.05fr 1.1fr;
+  gap: 36px;
+  margin-bottom: 32px;
+}
+
+/* Col 1: Brand Info */
+.footer-logo-badge {
+  display: inline-block;
+  background: #ffffff;
+  padding: 6px 12px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+.footer-logo-img {
+  height: 38px;
+  max-width: 140px;
+  object-fit: contain;
+  display: block;
+}
+
+.footer-brand-heading {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #f59e0b;
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.footer-brand-desc {
+  font-size: 0.8rem;
+  color: #94a3b8;
+  line-height: 1.55;
+  margin-bottom: 14px;
+}
+
+.footer-gstin-badge {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.72rem;
+  color: #cbd5e1;
+  font-family: 'Outfit', sans-serif;
+  letter-spacing: 0.5px;
+}
+
+/* Col 2 & 3: Lists */
+.footer-col-title {
+  font-size: 0.92rem;
+  color: #ffffff;
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+
+.footer-links-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links-list a {
+  font-size: 0.82rem;
+  color: #94a3b8;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.footer-links-list a:hover {
+  color: #f59e0b;
+}
+
+/* Col 4: Contacts */
+.footer-contact-item {
+  margin-bottom: 12px;
+}
+
+.contact-person {
+  font-size: 0.84rem;
+  color: #f8fafc;
+  margin-bottom: 2px;
+}
+
+.contact-person strong {
+  color: #ffffff;
+}
+
+.contact-person a {
+  color: #38bdf8;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.contact-person a:hover {
+  text-decoration: underline;
+}
+
+.contact-addr {
+  font-size: 0.76rem;
+  color: #94a3b8;
+  line-height: 1.4;
+}
+
+.footer-hours-note {
+  margin-top: 10px;
+  font-size: 0.78rem;
+  color: #fbbf24;
+  font-weight: 600;
+}
+
+/* Section 2: Customer Care Box */
+.footer-care-box {
+  background: #0d1527;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 20px 24px;
+  margin: 28px 0 20px;
+}
+
+.care-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.care-title-wrap {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.care-title {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.care-timing {
+  font-size: 0.76rem;
+  color: #f59e0b;
+  font-weight: 600;
+}
+
+.care-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.care-region-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.care-region-card.highlight-card {
+  border-color: #f59e0b;
+  background: rgba(245, 158, 11, 0.04);
+}
+
+.region-name {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  color: #94a3b8;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.region-numbers {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.region-numbers a {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.region-numbers a:hover {
+  color: #f59e0b;
+}
+
+.region-numbers .slash {
+  color: #64748b;
+}
+
+/* Section 3: For More Information Banner */
+.footer-ext-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 22px 0;
+  flex-wrap: wrap;
+}
+
+.ext-label {
+  font-size: 0.84rem;
+  color: #cbd5e1;
+}
+
+.ext-link-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid #f59e0b;
+  background: rgba(245, 158, 11, 0.06);
+  color: #fbbf24;
+  padding: 5px 14px;
+  border-radius: var(--radius-full);
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.ext-link-pill:hover {
+  background: #f59e0b;
+  color: #0f172a;
+}
+
+/* Section 4: AquaPzone Enterprises Secondary Brand Container */
+.footer-aquapzone-card {
+  background: #0d1527;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 22px 24px;
+  display: grid;
+  grid-template-columns: 1.35fr 1.25fr 0.9fr;
+  gap: 24px;
+  align-items: start;
+  margin-bottom: 28px;
+}
+
+.aqua-brand-col {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.aqua-logo-box {
+  background: #ffffff;
+  padding: 6px 10px;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.aqua-logo-img {
+  height: 36px;
+  max-width: 120px;
+  object-fit: contain;
+  display: block;
+}
+
+.aqua-text-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.aqua-title {
+  font-size: 0.94rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 2px;
+}
+
+.aqua-sub {
+  font-size: 0.68rem;
+  color: #f59e0b;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.aqua-desc {
+  font-size: 0.76rem;
+  color: #94a3b8;
+  line-height: 1.45;
+}
+
+.aqua-col-heading {
+  font-size: 0.72rem;
+  color: #94a3b8;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.loc-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.loc-head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #ffffff;
+  font-size: 0.84rem;
+}
+
+.loc-pin-icon {
+  color: #ec4899;
+}
+
+.loc-address {
+  font-size: 0.76rem;
+  color: #94a3b8;
+  line-height: 1.45;
+}
+
+.aqua-touch-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.aqua-email-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 8px 12px;
+  border-radius: 6px;
+  color: #f59e0b;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  word-break: break-all;
+}
+
+.aqua-email-pill:hover {
+  background: rgba(245, 158, 11, 0.15);
+  color: #fbbf24;
+}
+
+/* Section 5: Bottom Copyright & Publication Bar */
+.footer-bottom-bar {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 0.78rem;
+  color: #64748b;
+}
+
+.copyright-text {
+  color: #94a3b8;
+}
+
+.growth-text {
+  color: #64748b;
+  font-size: 0.74rem;
+}
+
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .footer-top-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+  }
+  .footer-aquapzone-card {
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .site-footer {
+    padding: 36px 0 max(24px, env(safe-area-inset-bottom, 24px));
+  }
+
+  .footer-top-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .footer-care-box {
+    padding: 16px 14px;
+    margin: 20px 0 16px;
+  }
+
+  .care-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .footer-aquapzone-card {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    padding: 16px 14px;
+  }
+
+  .aqua-brand-col {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .footer-bottom-bar {
+    flex-direction: column;
+    text-align: center;
+    gap: 6px;
+    font-size: 0.74rem;
+  }
+}
+
+/* Dark Mode Overrides */
+/* --- Footer --- */
+[data-theme="dark"] .site-footer {
+  background: #0d1117;
+  border-top-color: #30363d;
+}
+[data-theme="dark"] .footer-nav-col h4,
+[data-theme="dark"] .footer-nav-col h5 { color: #e2e8f0; }
+[data-theme="dark"] .footer-nav-col a,
+[data-theme="dark"] .footer-bottom-link { color: #64748b; }
+[data-theme="dark"] .footer-nav-col a:hover,
+[data-theme="dark"] .footer-bottom-link:hover { color: #f59e0b; }
+[data-theme="dark"] .footer-aquapzone-card {
+  background: #161b22;
+  border-color: #30363d;
+}
+[data-theme="dark"] .footer-bottom-bar {
+  background: #0d1117;
+  border-top-color: #21262d;
+}
+[data-theme="dark"] .footer-bottom-bar p { color: #475569; }
+[data-theme="dark"] .footer-contact-item { color: #64748b; }
+[data-theme="dark"] .footer-contact-item:hover { color: #f59e0b; }

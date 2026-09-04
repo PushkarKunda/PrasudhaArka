@@ -50,11 +50,14 @@ export const I18N = {
     // Energy Visualizer
     energyFlowTitle: "లైవ్ సోలార్ ఎనర్జీ ఫ్లో సిమ్యులేటర్",
     energyFlowSub: "సూర్యరశ్మి నుండి మీ ఇంటికి ఉచిత కరెంట్ ప్రవహించే అద్భుత ప్రక్రియ",
-    sunNode: "సూర్య శక్తి (Solar Radiation)",
-    panelNode: "ప్యానసోనిక్ సోలార్ ప్యానెల్స్",
-    inverterNode: "స్మార్ట్ హైబ్రిడ్ ఇన్వర్టర్",
-    homeNode: "మీ ఇంటి విద్యుత్ వినియోగం",
-    gridNode: "డిస్కామ్ నెట్ మీటర్ గ్రిడ్",
+    sunNode: "సూర్య శక్తి",
+    panelNode: "సోలార్ ప్యానెల్స్",
+    dcdbNode: "DCDB బాక్స్",
+    inverterNode: "హైబ్రిడ్ ఇన్వర్టర్",
+    acdbNode: "ACDB బాక్స్",
+    homeNode: "గృహ వినియోగం",
+    gridNode: "నెట్ మీటర్ గ్రిడ్",
+    unitsLabel: "యూనిట్లు",
 
     // System Pricing
     pricingTag: "సిస్టమ్ కాన్ఫిగరేషన్లు & సబ్సిడీ",
@@ -216,11 +219,14 @@ export const I18N = {
     // Energy Visualizer
     energyFlowTitle: "Live Solar Energy Flow Simulator",
     energyFlowSub: "Visualizing the intelligent clean energy transfer from Sun to your home & DISCOM grid",
-    sunNode: "Solar Irradiance (Sun)",
-    panelNode: "Panasonic Mono PERC Panels",
-    inverterNode: "Smart Hybrid Inverter",
-    homeNode: "Your Home Consumption",
-    gridNode: "DISCOM Net Meter Grid",
+    sunNode: "Solar Irradiance",
+    panelNode: "Solar Panels",
+    dcdbNode: "DCDB Box",
+    inverterNode: "Smart Inverter",
+    acdbNode: "ACDB Box",
+    homeNode: "Home Loads",
+    gridNode: "Net Meter Grid",
+    unitsLabel: "Units",
 
     // System Pricing
     pricingTag: "System Configurations & Subsidies",

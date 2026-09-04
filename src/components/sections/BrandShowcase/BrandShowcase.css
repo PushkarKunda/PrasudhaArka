@@ -1,0 +1,357 @@
+/* ==========================================================================
+   BRAND SHOWCASE & ABOUT COMPONENT STYLES
+   ========================================================================== */
+
+/* 2. Brand & Company Showcase (#about) */
+.about-brand-section, .brand-section {
+  background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 50%, #e8f4fd 100%);
+  border-top: 2px solid rgba(125, 211, 252, 0.4);
+  border-bottom: 2px solid rgba(125, 211, 252, 0.2);
+  position: relative;
+}
+
+.about-brand-section::before, .brand-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 80% 0%, rgba(6, 182, 212, 0.05) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.about-brand-section .section-tag,
+.brand-section .section-tag {
+  background: linear-gradient(135deg, #e0f2fe, #bae6fd);
+  border-color: #7dd3fc;
+  color: #0369a1;
+  font-weight: 800;
+  box-shadow: 0 2px 8px rgba(3, 105, 161, 0.15);
+}
+
+/* ==========================================================================
+   ABOUT US & PREMIUM BRANDS SECTION
+   ========================================================================== */
+.about-company-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 24px;
+  padding: 32px 36px;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+  margin-bottom: 45px;
+}
+
+.about-card-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.company-logo-container {
+  display: inline-flex;
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 4px 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.about-aquapzone-logo {
+  height: 28px;
+  width: auto;
+  object-fit: contain;
+}
+
+.fallback-logo-text {
+  font-weight: 900;
+  font-size: 0.9rem;
+  color: #0f172a;
+  letter-spacing: 0.5px;
+}
+
+.approved-vendor-badge {
+  display: inline-flex;
+  align-items: center;
+  background: #e0f2fe;
+  color: #0284c7;
+  font-size: 0.76rem;
+  font-weight: 800;
+  padding: 5px 14px;
+  border-radius: var(--radius-full);
+  letter-spacing: 0.4px;
+}
+
+.about-company-title {
+  font-size: 2rem;
+  font-weight: 900;
+  color: #0f172a;
+  margin-bottom: 12px;
+  line-height: 1.3;
+}
+
+.about-company-desc {
+  font-size: 0.96rem;
+  color: #334155;
+  line-height: 1.65;
+  margin-bottom: 24px;
+  max-width: 100%;
+}
+
+.about-pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+.pillar-badge-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #e0f2fe;
+  border: 1px solid #bae6fd;
+  padding: 10px 16px;
+  border-radius: 12px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #0f172a;
+  text-align: center;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.pillar-badge-item:hover {
+  transform: translateY(-2px);
+  background: #bae6fd;
+}
+
+.pillar-icon {
+  font-size: 1.1rem;
+}
+
+/* Premium Brands & Warranty */
+.premium-brands-header {
+  margin-bottom: 28px;
+}
+
+.premium-brands-title {
+  font-size: 2.1rem;
+  font-weight: 900;
+  color: #0f172a;
+  margin-bottom: 6px;
+}
+
+.premium-brands-sub {
+  font-size: 0.95rem;
+  color: #64748b;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* Brands Section Carousel & Responsive Layout */
+.brands-carousel-container {
+  position: relative;
+  width: 100%;
+}
+
+.brands-carousel-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.brands-carousel-viewport {
+  overflow: hidden;
+  width: 100%;
+  padding: 8px 4px 12px 4px;
+}
+
+.brands-carousel-track {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+  will-change: transform;
+  align-items: stretch;
+}
+
+.carousel-track-animated {
+  transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1) !important;
+}
+
+.carousel-track-instant {
+  transition: none !important;
+}
+
+.brands-carousel-slide {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.brands-carousel-slide .brand-spec-card {
+  height: 100%;
+  width: 100%;
+}
+
+@media (max-width: 640px) {
+  .brands-carousel-viewport {
+    padding: 8px 2px 10px 2px;
+  }
+  .brands-carousel-top-bar {
+    margin-bottom: 12px;
+  }
+}
+
+.premium-brands-grid-5 {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 16px;
+  width: 100%;
+}
+
+.brand-spec-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 20px 16px;
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.03);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.brand-spec-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+}
+
+.brand-card-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.brand-card-num {
+  font-size: 1.25rem;
+  font-weight: 900;
+  color: #0284c7;
+}
+
+.brand-chip-dark {
+  background: #0f172a;
+  color: #ffffff;
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  letter-spacing: 0.5px;
+}
+
+.brand-card-title {
+  font-size: 0.92rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 6px;
+  line-height: 1.35;
+}
+
+.brand-card-desc {
+  font-size: 0.78rem;
+  color: #475569;
+  line-height: 1.45;
+  margin-bottom: 16px;
+  flex: 1;
+}
+
+.brand-card-warranty-pill {
+  width: 100%;
+  text-align: center;
+  padding: 5px 8px;
+  border-radius: var(--radius-full);
+  font-size: 0.74rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.brand-card-warranty-pill.green-pill {
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  color: #059669;
+}
+
+.brand-card-warranty-pill.blue-pill {
+  background: #e0f2fe;
+  border: 1px solid #bae6fd;
+  color: #0284c7;
+}
+
+
+/* Responsive */
+@media (max-width: 768px) {
+  /* About Us & Brands Mobile */
+  .about-company-card {
+    padding: 20px 16px;
+    margin-bottom: 28px;
+  }
+
+  .about-company-title {
+    font-size: 1.4rem;
+  }
+
+  .about-company-desc {
+    font-size: 0.88rem;
+  }
+
+  .about-pillars-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .pillar-badge-item {
+    font-size: 0.8rem;
+    padding: 8px 12px;
+  }
+
+  .premium-brands-title {
+    font-size: 1.5rem;
+  }
+
+  .premium-brands-grid-5 {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+}
+
+@media (max-width: 480px) {
+  .brand-logo-img {
+    height: 52px;
+    max-width: 180px;
+  }
+
+}
+
+/* Dark Mode Overrides */
+/* --- Brand Showcase / About --- */
+[data-theme="dark"] .about-brand-section,
+[data-theme="dark"] .brand-section {
+  background: #161b22;
+  border-color: #30363d;
+}
+[data-theme="dark"] .about-brand-section .section-tag,
+[data-theme="dark"] .brand-section .section-tag {
+  background: #0a1f2e;
+  border-color: #1d4a6e;
+  color: #38bdf8;
+}
+[data-theme="dark"] .brand-trust-metric-card,
+[data-theme="dark"] .aquapzone-card,
+[data-theme="dark"] .brand-partner-logo-card {
+  background: #1c2128;
+  border-color: #30363d;
+}

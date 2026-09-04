@@ -1,0 +1,363 @@
+import React, { useState, useEffect, useRef } from 'react';
+import { ChevronLeft, ChevronRight, Sparkles } from 'lucide-react';
+import { PRODUCTS } from '../../../data/products';
+import { DEALERS, getWhatsAppUrl } from '../../../data/dealers';
+import './SystemPricing.css';
+
+export const SystemPricing = ({ lang, t }) => {
+  const [selectedDealer, setSelectedDealer] = useState('sudhakar');
+  const [itemsPerView, setItemsPerView] = useState(4);
+  const N = PRODUCTS.length;
+  const isCarouselActive = itemsPerView < N;
+  const [currentIndex, setCurrentIndex] = useState(N);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
+  const touchStartX = useRef(0);
+  const touchEndX = useRef(0);
+
+  // Determine responsive items per view
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 640) {
+        setItemsPerView(1);
+      } else if (window.innerWidth < 1024) {
+        setItemsPerView(2);
+      } else {
+        setItemsPerView(4);
+      }
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const isAnimatingRef = useRef(false);
+  const timerRef = useRef(null);
+
+  // Compute canonical real index for dots and counters (0 to N-1)
+  const realIndex = isCarouselActive ? ((currentIndex % N) + N) % N : 0;
+
+  // Seamless jump without animation when reaching clone sets
+  const handleTransitionEnd = () => {
+    if (timerRef.current) clearTimeout(timerRef.current);
+    setIsAnimating(false);
+    isAnimatingRef.current = false;
+    setCurrentIndex(prev => {
+      if (prev >= 2 * N) {
+        return prev - N;
+      } else if (prev < N) {
+        return prev + N;
+      }
+      return prev;
+    });
+  };
+
+  const nextSlide = () => {
+    if (isAnimatingRef.current) return;
+    isAnimatingRef.current = true;
+    setIsAnimating(true);
+    setCurrentIndex(prev => {
+      let base = prev;
+      if (base >= 2 * N) {
+        base = base - N;
+      }
+      return base + 1;
+    });
+  };
+
+  const prevSlide = () => {
+    if (isAnimatingRef.current) return;
+    isAnimatingRef.current = true;
+    setIsAnimating(true);
+    setCurrentIndex(prev => {
+      let base = prev;
+      if (base <= N - 1) {
+        base = base + N;
+      }
+      return base - 1;
+    });
+  };
+
+  const goToSlide = (dotIdx) => {
+    if (isAnimatingRef.current) return;
+    isAnimatingRef.current = true;
+    setIsAnimating(true);
+    setCurrentIndex(N + dotIdx);
+  };
+
+  // Fallback timer to ensure animation resets if transitionend event is missed
+  useEffect(() => {
+    if (!isAnimating) return;
+    timerRef.current = setTimeout(() => {
+      handleTransitionEnd();
+    }, 380);
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
+  }, [isAnimating, currentIndex]);
+
+  // Automatic gentle carousel slide when on mobile/tablet
+  useEffect(() => {
+    if (isPaused || !isCarouselActive) return;
+    const interval = setInterval(() => {
+      nextSlide();
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [isPaused, isCarouselActive, currentIndex]);
+
+  const handleTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchEndX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchMove = (e) => {
+    touchEndX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStartX.current || !touchEndX.current) return;
+    const diff = touchStartX.current - touchEndX.current;
+    if (diff > 45) {
+      nextSlide();
+    } else if (diff < -45) {
+      prevSlide();
+    }
+    touchStartX.current = 0;
+    touchEndX.current = 0;
+  };
+
+  const handleQuoteClick = (product) => {
+    const dealerInfo = DEALERS[selectedDealer] || DEALERS.sudhakar;
+    const isTe = lang === 'te';
+
+    let msg = '';
+    if (isTe) {
+      msg = `*నమస్కారం! ప్రసుధార్క సోలార్ - ${product.capacity} కొటేషన్ విచారణ*\n` +
+        `------------------------------------\n` +
+        `• *సామర్థ్యం:* ${product.capacity}\n` +
+        `• *ప్రభుత్వ సబ్సిడీ:* ${product.subsidy}\n` +
+        (product.unitCost ? `• *సిస్టమ్ ఖర్చు (DCR):* ${product.unitCost}\n` : '') +
+        (product.maxLoan ? `• *బ్యాంక్ లోన్:* ${product.maxLoan}\n` : '') +
+        (product.estEmi ? `• *అంచనా EMI:* ${product.estEmi}\n` : '') +
+        `• *రోజువారీ విద్యుత్:* ${product.dailyGen}\n` +
+        `• *అవసరమైన స్థలం:* ${product.spaceReq}\n` +
+        `------------------------------------\n` +
+        `నమస్తే ${dealerInfo.name} గారు, దయచేసి ${product.capacity} కొటేషన్ మరియు సైట్ సర్వే వివరాలు పంపగలరు.`;
+    } else {
+      msg = `*Hello! Prasudharka Solar Rooftop Inquiry: ${product.capacity}*\n` +
+        `------------------------------------\n` +
+        `• *Capacity:* ${product.capacity}\n` +
+        `• *Govt Subsidy:* ${product.subsidy}\n` +
+        (product.unitCost ? `• *Unit Cost (DCR):* ${product.unitCost}\n` : '') +
+        (product.maxLoan ? `• *Max Loan:* ${product.maxLoan}\n` : '') +
+        (product.estEmi ? `• *Est. EMI:* ${product.estEmi}\n` : '') +
+        `• *Power Gen.:* ${product.dailyGen}\n` +
+        `• *Space Req.:* ${product.spaceReq}\n` +
+        `------------------------------------\n` +
+        `Hello ${dealerInfo.name}, please share formal quotation and schedule a rooftop survey for the ${product.capacity}.`;
+    }
+
+    window.open(getWhatsAppUrl(selectedDealer, msg), '_blank');
+  };
+
+  const gapPx = 18;
+
+  return (
+    <section className="pricing-section section-padding" id="pricing">
+      <div className="container">
+        {/* Section Header */}
+        <div className="section-title-wrap text-center">
+          <div className="config-tag-pill">
+            <span>{lang === 'te' ? 'సోలార్ కాన్ఫిగరేషన్లు' : 'SOLAR CONFIGURATIONS'}</span>
+          </div>
+          <h2 className="section-title">{lang === 'te' ? 'సోలార్ కాన్ఫిగరేషన్లు & ధరలు' : 'Solar Configurations'}</h2>
+          <p className="section-subtitle">
+            {lang === 'te' 
+              ? 'ప్రభుత్వ సబ్సిడీ, సోలార్ ఖర్చు, లోన్ మరియు విద్యుత్ ఉత్పత్తి వివరాలు.' 
+              : 'Comprehensive pricing, subsidies, and power generation details by capacity.'}
+          </p>
+
+          {/* Quick Dealer Picker */}
+          <div className="pricing-dealer-select">
+            <span className="dealer-label">{lang === 'te' ? 'కొటేషన్ పంపాల్సిన డీలర్:' : 'Direct Quotes To:'}</span>
+            <div className="pill-toggle-wrap">
+              <button 
+                className={`pill-toggle-btn ${selectedDealer === 'sudhakar' ? 'active' : ''}`}
+                onClick={() => setSelectedDealer('sudhakar')}
+              >
+                K. Sudhakar (HYD)
+              </button>
+              <button 
+                className={`pill-toggle-btn ${selectedDealer === 'bhaskar' ? 'active' : ''}`}
+                onClick={() => setSelectedDealer('bhaskar')}
+              >
+                K. Bhaskar (JMD/AP)
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Responsive Pricing Carousel Container */}
+        <div
+          className="pricing-carousel-container"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+          onTouchStart={(e) => { setIsPaused(true); handleTouchStart(e); }}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={() => { setIsPaused(false); handleTouchEnd(); }}
+        >
+          {/* Top Navigation & Status Bar (Visible on mobile & tablet when isCarouselActive) */}
+          {isCarouselActive && (
+            <div className="carousel-top-bar pricing-carousel-top-bar">
+              <div className="carousel-status-badge">
+                <Sparkles size={14} className="text-gold" />
+                <span>
+                  {itemsPerView === 1
+                    ? (lang === 'te'
+                        ? `${realIndex + 1} / ${PRODUCTS.length}: ${PRODUCTS[realIndex].capacityTe || PRODUCTS[realIndex].capacity}`
+                        : `${realIndex + 1} of ${PRODUCTS.length}: ${PRODUCTS[realIndex].capacity}`)
+                    : (lang === 'te'
+                        ? `${realIndex + 1} - ${Math.min(realIndex + itemsPerView, PRODUCTS.length)} / ${PRODUCTS.length} ప్యాకేజీలు`
+                        : `Showing ${realIndex + 1} - ${Math.min(realIndex + itemsPerView, PRODUCTS.length)} of ${PRODUCTS.length} Packages`)}
+                </span>
+              </div>
+
+              <div className="carousel-nav-arrows">
+                <button 
+                  onClick={prevSlide}
+                  className="carousel-arrow-btn"
+                  aria-label="Previous configuration"
+                  title="Previous"
+                >
+                  <ChevronLeft size={20} />
+                </button>
+                <button 
+                  onClick={nextSlide}
+                  className="carousel-arrow-btn"
+                  aria-label="Next configuration"
+                  title="Next"
+                >
+                  <ChevronRight size={20} />
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* Carousel Viewport / Track */}
+          <div className="pricing-carousel-viewport">
+            <div 
+              className={`pricing-carousel-track ${isAnimating ? 'carousel-track-animated' : 'carousel-track-instant'}`}
+              style={{
+                transform: isCarouselActive
+                  ? `translateX(calc(-${currentIndex} * ((100% + ${gapPx}px) / ${itemsPerView})))`
+                  : 'none'
+              }}
+              onTransitionEnd={handleTransitionEnd}
+            >
+              {(isCarouselActive ? [...PRODUCTS, ...PRODUCTS, ...PRODUCTS] : PRODUCTS).map((prod, idx) => {
+                const isTe = lang === 'te';
+                const capacityTitle = isTe ? (prod.capacityTe || prod.capacity) : prod.capacity;
+                const popularText = isTe ? (prod.popularBadgeTe || prod.popularBadge) : prod.popularBadge;
+                const emiText = isTe ? (prod.estEmiTe || prod.estEmi) : prod.estEmi;
+                const genText = isTe ? (prod.dailyGenTe || prod.dailyGen) : prod.dailyGen;
+                const spaceText = isTe ? (prod.spaceReqTe || prod.spaceReq) : prod.spaceReq;
+                const btnLabel = isTe ? `${prod.capacityShort} కొటేషన్ పొందండి` : `Get ${prod.capacityShort} Quote`;
+
+                return (
+                  <div
+                    key={`${prod.id}-${idx}`}
+                    className="pricing-carousel-slide"
+                    style={{
+                      flex: `0 0 calc((100% - ${(itemsPerView - 1) * gapPx}px) / ${itemsPerView})`
+                    }}
+                  >
+                    <div
+                      className={`system-config-card ${prod.isPopular ? 'popular-config-card' : ''}`}
+                    >
+                      {prod.isPopular && (
+                        <div className="popular-top-badge">
+                          <span>{popularText || '⭐ MOST POPULAR (MAX SUBSIDY)'}</span>
+                        </div>
+                      )}
+
+                      <div className="config-card-content">
+                        {/* Title */}
+                        <h3 className="config-card-title">{capacityTitle}</h3>
+
+                        {/* Govt Subsidy Box */}
+                        <div className={`subsidy-highlight-box ${prod.badgeVariant === 'gold' ? 'gold-box' : 'green-box'}`}>
+                          <span className="subsidy-box-label">{isTe ? 'ప్రభుత్వ సబ్సిడీ' : 'GOVT SUBSIDY'}</span>
+                          <span className="subsidy-box-amount">{prod.subsidy}</span>
+                        </div>
+
+                        {/* Specs Rows */}
+                        <div className="config-specs-rows">
+                          {prod.unitCost && (
+                            <div className="spec-row highlight-blue-box">
+                              <span className="spec-label">{isTe ? 'సిస్టమ్ ఖర్చు (DCR)' : 'Unit Cost (DCR)'}</span>
+                              <span className="spec-value">{prod.unitCost}</span>
+                            </div>
+                          )}
+
+                          {prod.maxLoan && (
+                            <div className="spec-row">
+                              <span className="spec-label">{isTe ? 'గరిష్ట బ్యాంక్ లోన్' : 'Max Loan'}</span>
+                              <span className="spec-value">{prod.maxLoan}</span>
+                            </div>
+                          )}
+
+                          {prod.estEmi && (
+                            <div className="spec-row highlight-green-box">
+                              <span className="spec-label">{isTe ? 'అంచనా EMI' : 'Est. EMI'}</span>
+                              <span className="spec-value emi-val">{emiText}</span>
+                            </div>
+                          )}
+
+                          <div className="spec-row">
+                            <span className="spec-label">{isTe ? 'రోజువారీ ఉత్పత్తి' : 'Power Gen.'}</span>
+                            <span className="spec-value">{genText}</span>
+                          </div>
+
+                          <div className="spec-row">
+                            <span className="spec-label">{isTe ? 'అవసరమైన స్థలం' : 'Space Req.'}</span>
+                            <span className="spec-value">{spaceText}</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Action Button */}
+                      <button
+                        onClick={() => handleQuoteClick(prod)}
+                        className="config-quote-btn"
+                      >
+                        {btnLabel}
+                      </button>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Bottom Pagination Dots (Visible when isCarouselActive) */}
+          {isCarouselActive && (
+            <div className="carousel-dots-wrap">
+              {PRODUCTS.map((_, dotIdx) => (
+                <button
+                  key={dotIdx}
+                  className={`carousel-dot ${realIndex === dotIdx ? 'active' : ''}`}
+                  onClick={() => goToSlide(dotIdx)}
+                  aria-label={`Go to slide ${dotIdx + 1}`}
+                  title={`Slide ${dotIdx + 1}`}
+                />
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default SystemPricing;

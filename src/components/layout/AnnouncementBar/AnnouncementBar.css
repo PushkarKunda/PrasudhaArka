@@ -1,0 +1,89 @@
+/* ==========================================================================
+   ANNOUNCEMENT BAR COMPONENT STYLES
+   ========================================================================== */
+
+/* ==========================================================================
+   TOP ANNOUNCEMENT BAR
+   ========================================================================== */
+.top-announcement-bar {
+  background: #0f172a;
+  border-bottom: 1px solid rgba(245, 158, 11, 0.3);
+  padding: 6px 0;
+  font-size: 0.8rem;
+  color: #e2e8f0;
+}
+
+.top-bar-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.top-badge-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.top-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: 600;
+}
+
+.top-badge.gov { color: var(--gold-400); }
+.top-badge.subsidy { color: var(--emerald-400); }
+
+.gst-badge {
+  background: rgba(255, 255, 255, 0.12);
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-size: 0.72rem;
+  color: #f1f5f9;
+}
+
+.top-contacts {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.top-contact-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: #f8fafc;
+  transition: color 0.15s;
+}
+
+.top-contact-link:hover {
+  color: var(--gold-400);
+}
+
+.top-contacts .divider {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+
+/* Responsive */
+@media (max-width: 768px) {
+  .top-announcement-bar {
+    padding: 5px 0;
+    font-size: 0.72rem;
+  }
+
+  .top-bar-inner {
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .top-badge.subsidy,
+  .top-contacts .divider {
+    display: none;
+  }
+
+}

@@ -1,0 +1,476 @@
+/* ==========================================================================
+   SYSTEM PRICING & TIERS COMPONENT STYLES
+   ========================================================================== */
+
+/* 3. System Configurations (#pricing) */
+.pricing-section {
+  background: linear-gradient(160deg, #fffbeb 0%, #ffffff 40%, #f0fdf4 100%);
+  border-bottom: 1px solid rgba(245, 158, 11, 0.15);
+  position: relative;
+}
+
+.pricing-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 800px;
+  height: 200px;
+  background: radial-gradient(ellipse, rgba(245, 158, 11, 0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.pricing-section .section-tag {
+  background: linear-gradient(135deg, #fef3c7, #fde68a);
+  border-color: #f59e0b;
+  color: #92400e;
+  font-weight: 800;
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.2);
+}
+
+/* ==========================================================================
+   SYSTEM PRICING & TIERS (4 HORIZONTAL CARDS)
+   ========================================================================== */
+.pricing-dealer-select {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #ffffff;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-light);
+  font-size: 0.8rem;
+  box-shadow: var(--shadow-sm);
+  margin-top: 8px;
+}
+
+.pricing-dealer-select .dealer-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.pill-toggle-wrap {
+  display: flex;
+  gap: 4px;
+}
+
+.pill-toggle-btn {
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  background: var(--bg-muted);
+  color: var(--text-body);
+  font-size: 0.76rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.pill-toggle-btn.active {
+  background: var(--gold-500);
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.config-tag-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #e0f2fe;
+  color: #0284c7;
+  padding: 5px 16px;
+  border-radius: var(--radius-full);
+  font-size: 0.76rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
+}
+
+/* Pricing Section Carousel & Responsive Layout */
+.pricing-carousel-container {
+  position: relative;
+  width: 100%;
+}
+
+.pricing-carousel-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.pricing-carousel-viewport {
+  overflow: hidden;
+  width: 100%;
+  padding: 18px 6px 14px 6px;
+}
+
+.pricing-carousel-track {
+  display: flex;
+  gap: 18px;
+  width: 100%;
+  will-change: transform;
+  align-items: stretch;
+}
+
+.pricing-carousel-slide {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.pricing-carousel-slide .system-config-card {
+  height: 100%;
+  width: 100%;
+}
+
+@media (max-width: 640px) {
+  .pricing-carousel-viewport {
+    padding: 18px 4px 14px 4px;
+  }
+  .pricing-carousel-top-bar {
+    margin-bottom: 14px;
+  }
+}
+
+.pricing-grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+  margin-bottom: 20px;
+  width: 100%;
+  align-items: stretch;
+}
+
+.system-config-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: linear-gradient(145deg, #ffffff 0%, #fafbff 100%);
+  border: 1.5px solid #e8edf5;
+  border-radius: 20px;
+  padding: 26px 20px 20px 20px;
+  box-shadow: 0 4px 18px rgba(15, 23, 42, 0.07);
+  transition: transform 0.2s ease, box-shadow 0.25s ease, border-color 0.2s ease;
+}
+
+.system-config-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 36px rgba(15, 23, 42, 0.12);
+  border-color: rgba(245, 158, 11, 0.35);
+}
+
+.system-config-card.popular-config-card {
+  border: 2px solid #f59e0b;
+  box-shadow: 0 4px 20px rgba(245, 158, 11, 0.15);
+}
+
+.popular-top-badge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #f97316;
+  background: linear-gradient(135deg, #f97316, #ea580c);
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 0.68rem;
+  padding: 3px 14px;
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+  box-shadow: 0 2px 6px rgba(234, 88, 12, 0.3);
+  z-index: 2;
+  letter-spacing: 0.3px;
+}
+
+.config-card-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.config-card-title {
+  font-size: 1.28rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 12px;
+}
+
+.subsidy-highlight-box {
+  display: flex;
+  flex-direction: column;
+  border-radius: 12px;
+  padding: 10px 14px;
+  margin-bottom: 18px;
+}
+
+.subsidy-highlight-box.green-box {
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+}
+
+.subsidy-highlight-box.green-box .subsidy-box-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #065f46;
+  letter-spacing: 0.5px;
+  margin-bottom: 2px;
+}
+
+.subsidy-highlight-box.green-box .subsidy-box-amount {
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: #059669;
+  line-height: 1.1;
+}
+
+.subsidy-highlight-box.gold-box {
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+}
+
+.subsidy-highlight-box.gold-box .subsidy-box-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #92400e;
+  letter-spacing: 0.5px;
+  margin-bottom: 2px;
+}
+
+.subsidy-highlight-box.gold-box .subsidy-box-amount {
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: #d97706;
+  line-height: 1.1;
+}
+
+.config-specs-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 22px;
+  flex: 1;
+}
+
+.spec-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.84rem;
+  padding: 9px 12px;
+  border-radius: 10px;
+  background: #f8fafc;
+  border: 1px solid #edf2f7;
+  transition: all 0.15s ease;
+}
+
+.spec-row.highlight-blue-box {
+  background: #f0f9ff;
+  border-color: #bae6fd;
+}
+
+.spec-row.highlight-green-box {
+  background: #ecfdf5;
+  border-color: #a7f3d0;
+}
+
+.spec-row .spec-label {
+  color: #475569;
+  font-weight: 600;
+  font-size: 0.82rem;
+  text-align: left;
+  flex: 1;
+}
+
+.spec-row .spec-value {
+  color: #0f172a;
+  font-weight: 800;
+  font-size: 0.86rem;
+  text-align: right;
+  white-space: nowrap;
+  margin-left: 8px;
+}
+
+.spec-row .spec-value.emi-val {
+  color: #059669;
+}
+
+.config-quote-btn {
+  width: 100%;
+  padding: 12px 16px;
+  background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+  color: #ffffff;
+  font-size: 0.92rem;
+  font-weight: 700;
+  border: none;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  text-align: center;
+  box-shadow: 0 4px 14px rgba(234, 88, 12, 0.25);
+  transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+  margin-top: auto;
+}
+
+.config-quote-btn:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, #fb923c 0%, #f97316 100%);
+  box-shadow: 0 6px 18px rgba(234, 88, 12, 0.35);
+}
+
+.bank-loan-infobox {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--gold-50);
+  border-color: rgba(245, 158, 11, 0.4);
+  padding: 16px 20px;
+  margin-top: 8px;
+}
+
+.infobox-text h4 {
+  font-size: 0.94rem;
+  color: var(--gold-700);
+  font-weight: 800;
+  margin-bottom: 2px;
+}
+
+.infobox-text p {
+  font-size: 0.82rem;
+  color: var(--text-body);
+  line-height: 1.45;
+}
+
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .pricing-grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  .pricing-card .ideal-for {
+    min-height: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Pricing Grid */
+  .pricing-grid-4 {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    max-width: 440px;
+    margin: 0 auto 18px;
+  }
+
+  .pricing-card {
+    padding: 18px 14px;
+  }
+
+  .pricing-card .btn {
+    width: 100%;
+    min-height: 44px;
+    font-size: 0.86rem;
+  }
+
+  .bank-loan-infobox {
+    padding: 14px;
+    gap: 10px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .pricing-dealer-select {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+    padding: 8px 12px;
+  }
+
+  .pill-toggle-wrap {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+  }
+
+  .pill-toggle-btn {
+    text-align: center;
+    padding: 6px 8px;
+    font-size: 0.74rem;
+  }
+
+}
+
+@media (max-width: 480px) {
+  .pricing-grid-4 {
+    grid-template-columns: 1fr;
+  }
+
+  .dealer-radios {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Dark Mode Overrides */
+/* --- Pricing / System Configs --- */
+[data-theme="dark"] .pricing-section {
+  background: #0d1117;
+  border-color: #30363d;
+}
+[data-theme="dark"] .pricing-card {
+  background: #1c2128;
+  border-color: #30363d;
+}
+[data-theme="dark"] .pricing-card:hover {
+  background: #21262d;
+  border-color: rgba(245, 158, 11, 0.4);
+}
+[data-theme="dark"] .pricing-card.featured-card {
+  background: linear-gradient(145deg, #1c2128, #21262d);
+  border-color: #f59e0b;
+}
+[data-theme="dark"] .price-tag-main { color: #e2e8f0; }
+[data-theme="dark"] .subsidy-tag {
+  background: rgba(16, 185, 129, 0.15);
+  color: #6ee7b7;
+}
+[data-theme="dark"] .ideal-for {
+  background: #21262d;
+  border-color: #30363d;
+  color: #64748b;
+}
+
+/* --- Pricing Cards (System Configurations) --- */
+[data-theme="dark"] .system-config-card {
+  background: #1c2128;
+  border-color: #30363d;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+[data-theme="dark"] .system-config-card:hover {
+  background: #21262d;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.45);
+}
+[data-theme="dark"] .system-config-card.popular-config-card {
+  border-color: #f59e0b;
+}
+[data-theme="dark"] .subsidy-highlight-box.green-box {
+  background: #0a1f17;
+  border-color: #14532d;
+}
+[data-theme="dark"] .subsidy-highlight-box.gold-box {
+  background: #2d1f00;
+  border-color: #3d2800;
+}
+[data-theme="dark"] .spec-row.highlight-blue-box {
+  background: #0a1f2e;
+}
+[data-theme="dark"] .spec-row.highlight-green-box {
+  background: #0a1f17;
+}
+[data-theme="dark"] .spec-row .spec-label { color: #64748b; }
+[data-theme="dark"] .spec-row .spec-value { color: #e2e8f0; }

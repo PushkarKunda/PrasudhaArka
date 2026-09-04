@@ -1,0 +1,123 @@
+/* ==========================================================================
+   FAQS COMPONENT STYLES
+   ========================================================================== */
+
+/* 10. FAQs Section (#faqs) - Pure Crisp Card Canvas */
+.faq-section {
+  background: linear-gradient(180deg, #ffffff 0%, #fafcff 50%, #f8fafc 100%);
+  border-top: 1px solid #e2e8f0;
+  border-bottom: 1px solid #e2e8f0;
+  position: relative;
+}
+
+.faq-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(245, 158, 11, 0.03) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.faq-section .section-tag {
+  background: linear-gradient(135deg, #fef3c7, #fde68a);
+  border-color: #f59e0b;
+  color: #92400e;
+  font-weight: 800;
+  box-shadow: 0 2px 6px rgba(245, 158, 11, 0.12);
+}
+
+/* ==========================================================================
+   FAQS
+   ========================================================================== */
+.faq-accordion-list {
+  max-width: 840px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.faq-item {
+  padding: 0;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+.faq-question-btn {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 20px;
+  background: transparent;
+  color: var(--text-main);
+  font-size: 0.94rem;
+  font-weight: 800;
+  text-align: left;
+  cursor: pointer;
+  gap: 10px;
+}
+
+.faq-icon-pill {
+  background: var(--bg-muted);
+  padding: 5px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold-700);
+  flex-shrink: 0;
+}
+
+.faq-answer-wrap {
+  padding: 0 20px 16px 20px;
+}
+
+.faq-answer-text {
+  font-size: 0.86rem;
+  color: var(--text-body);
+  line-height: 1.55;
+}
+
+
+/* Responsive */
+@media (max-width: 768px) {
+  /* FAQ */
+  .faq-question-btn {
+    padding: 12px 14px;
+    font-size: 0.86rem;
+    min-height: 46px;
+  }
+
+  .faq-answer-wrap {
+    padding: 0 14px 12px;
+  }
+
+  .faq-answer-text {
+    font-size: 0.8rem;
+  }
+
+}
+
+/* Dark Mode Overrides */
+/* --- FAQ --- */
+[data-theme="dark"] .faq-section {
+  background: #161b22;
+  border-color: #30363d;
+}
+[data-theme="dark"] .faq-section .section-tag {
+  background: #21262d;
+  border-color: #484f58;
+  color: #94a3b8;
+}
+[data-theme="dark"] .faq-item {
+  background: #1c2128;
+  border-color: #30363d;
+}
+[data-theme="dark"] .faq-item:hover,
+[data-theme="dark"] .faq-item.open {
+  background: #21262d;
+  border-color: rgba(245, 158, 11, 0.3);
+}
+[data-theme="dark"] .faq-question { color: #e2e8f0; }
+[data-theme="dark"] .faq-answer { color: #64748b; border-top-color: #30363d; }

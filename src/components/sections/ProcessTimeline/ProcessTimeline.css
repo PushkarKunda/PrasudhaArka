@@ -1,0 +1,202 @@
+/* ==========================================================================
+   PROCESS TIMELINE COMPONENT STYLES
+   ========================================================================== */
+
+/* 6. 6-Step Turnkey Process (#process) */
+.process-section {
+  background: linear-gradient(160deg, #fffbeb 0%, #f8fafc 40%, #fffdf5 100%);
+  border-top: 2px solid rgba(253, 230, 138, 0.6);
+  border-bottom: 2px solid rgba(253, 230, 138, 0.3);
+  position: relative;
+}
+
+.process-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 100%, rgba(245, 158, 11, 0.05) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.process-section .section-tag {
+  background: linear-gradient(135deg, #fef3c7, #fde68a);
+  border-color: #f59e0b;
+  color: #92400e;
+  font-weight: 800;
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.2);
+}
+
+/* ==========================================================================
+   PROCESS TIMELINE (INTERACTIVE CAROUSEL)
+   ========================================================================== */
+.process-carousel-container {
+  position: relative;
+  width: 100%;
+}
+
+.process-carousel-viewport {
+  overflow: hidden;
+  width: 100%;
+  border-radius: var(--radius-lg);
+  padding: 6px 2px;
+}
+
+.process-carousel-track {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  will-change: transform;
+}
+
+.process-carousel-slide {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.process-step-compact-card {
+  position: relative;
+  padding: 22px;
+  cursor: pointer;
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 18px;
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.03);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 200px;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.process-step-compact-card:hover {
+  transform: translateY(-3px);
+  border-color: #cbd5e1;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
+}
+
+.process-step-compact-card.active-step {
+  border-color: #f59e0b;
+  border-width: 2px;
+  box-shadow: 0 4px 16px rgba(245, 158, 11, 0.16);
+}
+
+.step-card-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.step-num-text {
+  font-size: 1.45rem;
+  font-weight: 900;
+  color: #94a3b8;
+  line-height: 1;
+}
+
+.process-step-compact-card.active-step .step-num-text {
+  color: #d97706;
+}
+
+.step-icon-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: #fffbeb;
+  border: 1px solid #fef3c7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.step-icon-gold {
+  color: #d97706;
+}
+
+.step-compact-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 8px 0;
+  line-height: 1.35;
+}
+
+.step-compact-desc {
+  font-size: 0.84rem;
+  color: #64748b;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.process-guarantee-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  border-radius: 16px;
+  padding: 16px 20px;
+  margin-top: 24px;
+}
+
+.guarantee-text h4 {
+  font-size: 0.98rem;
+  color: #065f46;
+  font-weight: 800;
+  margin: 0 0 2px 0;
+}
+
+.guarantee-text p {
+  font-size: 0.82rem;
+  color: #334155;
+  line-height: 1.45;
+  margin: 0;
+}
+
+
+/* Responsive */
+@media (max-width: 768px) {
+  /* Process Timeline */
+  .process-timeline-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .process-step-card {
+    padding: 16px 14px;
+  }
+
+  .process-guarantee-card {
+    padding: 14px;
+    gap: 10px;
+  }
+
+}
+
+/* Dark Mode Overrides */
+/* --- Process Timeline Carousel --- */
+[data-theme="dark"] .process-section {
+  background: #161b22;
+  border-color: #30363d;
+}
+[data-theme="dark"] .process-step-compact-card {
+  background: #1c2128;
+  border-color: #30363d;
+}
+[data-theme="dark"] .process-step-compact-card:hover { background: #21262d; border-color: #484f58; }
+[data-theme="dark"] .process-step-compact-card.active-step {
+  background: #21262d;
+  border-color: #f59e0b;
+}
+[data-theme="dark"] .step-num-text { color: #475569; }
+[data-theme="dark"] .step-icon-circle { background: #2d1f00; border-color: #3d2800; }
+[data-theme="dark"] .step-compact-title { color: #e2e8f0; }
+[data-theme="dark"] .step-compact-desc { color: #64748b; }
+[data-theme="dark"] .process-guarantee-card {
+  background: #0a1f17;
+  border-color: #14532d;
+}
+[data-theme="dark"] .guarantee-text h4 { color: #6ee7b7; }
+[data-theme="dark"] .guarantee-text p { color: #64748b; }

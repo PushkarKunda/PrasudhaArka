@@ -217,7 +217,21 @@
 
 
 /* Responsive */
-@media (max-width: 768px) {
+@media (min-width: 1025px) and (max-width: 1200px) {
+  .nav-link {
+    font-size: 0.8rem;
+    padding: 6px 2px;
+  }
+  .desktop-nav .nav-links {
+    gap: 8px;
+  }
+  .brand-logo-img {
+    height: 70px;
+    max-width: 240px;
+  }
+}
+
+@media (max-width: 1024px) {
   .desktop-nav {
     display: none;
   }
@@ -233,6 +247,12 @@
     color: var(--text-main);
     border: 1px solid var(--border-light);
     cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  /* Completely hide calculate button in mobile/tablet navbar to prevent overflow */
+  .nav-calc-btn {
+    display: none !important;
   }
 
   .navbar {
@@ -241,26 +261,18 @@
   }
 
   .brand-logo-img {
-    height: 58px;
-    max-width: 200px;
+    height: 56px;
+    max-width: 190px;
   }
 
   .nav-actions {
-    gap: 6px;
+    gap: 8px;
   }
 
   .lang-toggle-btn {
-    padding: 6px 10px;
-    font-size: 0.76rem;
-  }
-
-  .nav-calc-btn-text {
-    display: none;
-  }
-
-  .nav-calc-btn {
-    padding: 6px 10px;
-    font-size: 0.76rem;
+    padding: 6px 11px;
+    font-size: 0.78rem;
+    flex-shrink: 0;
   }
 
   .mobile-menu-overlay {
@@ -275,14 +287,23 @@
     padding: 10px 14px;
     font-size: 0.9rem;
   }
-
 }
 
 @media (max-width: 480px) {
-  .nav-calc-btn {
-    display: none;
+  .navbar {
+    height: 64px;
+    gap: 8px;
   }
 
+  .brand-logo-img {
+    height: 46px;
+    max-width: 155px;
+  }
+
+  .lang-toggle-btn {
+    padding: 5px 9px;
+    font-size: 0.74rem;
+  }
 }
 
 /* Dark Mode Overrides */

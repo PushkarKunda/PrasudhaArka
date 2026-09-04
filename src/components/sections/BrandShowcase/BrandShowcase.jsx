@@ -130,18 +130,18 @@ export const BrandShowcase = ({ lang, t }) => {
     if (!isAnimating) return;
     timerRef.current = setTimeout(() => {
       handleTransitionEnd();
-    }, 380);
+    }, 650);
     return () => {
       if (timerRef.current) clearTimeout(timerRef.current);
     };
   }, [isAnimating, currentIndex]);
 
-  // Gentle auto-slide when on mobile/tablet
+  // Gentle auto-slide when on mobile/tablet (reduced speed: 8s interval)
   useEffect(() => {
     if (isPaused || !isCarouselActive) return;
     const interval = setInterval(() => {
       nextSlide();
-    }, 5500);
+    }, 8000);
     return () => clearInterval(interval);
   }, [isPaused, isCarouselActive, currentIndex]);
 

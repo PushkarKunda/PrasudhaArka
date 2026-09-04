@@ -111,18 +111,18 @@ export const ServicesSection = ({ lang, t }) => {
     if (!isAnimating) return;
     timerRef.current = setTimeout(() => {
       handleTransitionEnd();
-    }, 380);
+    }, 650);
     return () => {
       if (timerRef.current) clearTimeout(timerRef.current);
     };
   }, [isAnimating, currentIndex]);
 
-  // Automatic gentle carousel slide
+  // Automatic gentle carousel slide (reduced speed: 8s interval)
   useEffect(() => {
     if (isPaused || !isCarouselActive) return;
     const interval = setInterval(() => {
       nextSlide();
-    }, 5000);
+    }, 8000);
     return () => clearInterval(interval);
   }, [isPaused, isCarouselActive, currentIndex]);
 

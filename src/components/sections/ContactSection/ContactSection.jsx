@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { 
-  PhoneCall, 
-  MapPin, 
-  Mail, 
-  Clock, 
-  Send, 
-  ShieldCheck, 
-  UserCheck, 
-  Building2, 
+import {
+  PhoneCall,
+  MapPin,
+  Mail,
+  Clock,
+  Send,
+  ShieldCheck,
+  UserCheck,
+  Building2,
   Sparkles,
   Zap
 } from 'lucide-react';

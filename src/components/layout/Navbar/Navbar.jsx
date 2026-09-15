@@ -7,30 +7,7 @@ import './Navbar.css';
 export const Navbar = ({ lang, setLang, t }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  useEffect(() => {
-    let ticking = false;
-    let lastScrolled = false;
-    const handleScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          const scrolled = window.scrollY > 30;
-          if (scrolled !== lastScrolled) {
-            lastScrolled = scrolled;
-            setIsScrolled(scrolled);
-          }
-          ticking = false;
-        });
-        ticking = true;
-      }
-    };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const toggleLanguage = () => {
-    setLang(prev => (prev === 'te' ? 'en' : 'te'));
-  };
+  const [activeSection, setActiveSection] = useState('home');
 
   const navItems = [
     { label: t.navHome, href: '#home' },
@@ -42,6 +19,70 @@ export const Navbar = ({ lang, setLang, t }) => {
     { label: t.navDocuments, href: '#documents' },
     { label: t.navContact, href: '#contact' },
   ];
+
+  // Scroll behavior: header elevation + section scroll-spy
+  useEffect(() => {
+    let ticking = false;
+    let lastScrolled = false;
+    let lastActive = '';
+
+    const updateActiveSection = () => {
+      const probe = window.scrollY + 120;
+      let active = 'home';
+      for (const item of navItems) {
+        const el = document.querySelector(item.href);
+        if (!el) continue;
+        if (el.getBoundingClientRect().top + window.scrollY <= probe) {
+          active = item.href.slice(1);
+        }
+      }
+      // At (or near) the bottom of the page, keep the last section active
+      if (window.innerHeight + window.scrollY >= document.body.scrollHeight - 40) {
+        active = navItems[navItems.length - 1].href.slice(1);
+      }
+      if (active !== lastActive) {
+        lastActive = active;
+        setActiveSection(active);
+      }
+    };
+
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const scrolled = window.scrollY > 30;
+          if (scrolled !== lastScrolled) {
+            lastScrolled = scrolled;
+            setIsScrolled(scrolled);
+          }
+          updateActiveSection();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    updateActiveSection();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Mobile draw: lock body scroll + close on Escape
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    const onKey = (e) => {
+      if (e.key === 'Escape') setMobileMenuOpen(false);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      window.removeEventListener('keydown', onKey);
+    };
+  }, [mobileMenuOpen]);
+
+  const toggleLanguage = () => {
+    setLang(prev => (prev === 'te' ? 'en' : 'te'));
+  };
 
   const handleNavScroll = (e, href) => {
     if (e && e.preventDefault) {
@@ -91,10 +132,11 @@ export const Navbar = ({ lang, setLang, t }) => {
           <ul className="nav-links">
             {navItems.map((item, idx) => (
               <li key={idx}>
-                <a 
-                  href={item.href} 
+                <a
+                  href={item.href}
                   onClick={(e) => handleNavScroll(e, item.href)}
-                  className="nav-link"
+                  className={`nav-link ${activeSection === item.href.slice(1) ? 'active' : ''}`}
+                  aria-current={activeSection === item.href.slice(1) ? 'page' : undefined}
                 >
                   {item.label}
                 </a>
@@ -127,10 +169,12 @@ export const Navbar = ({ lang, setLang, t }) => {
             <span className="nav-calc-btn-text">{t.btnCalcSubsidy}</span>
           </a>
 
-          <button 
+          <button
             className="mobile-menu-toggle"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle navigation menu"
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-menu"
           >
             {mobileMenuOpen ? <X size={26} /> : <Menu size={26} />}
           </button>
@@ -140,7 +184,8 @@ export const Navbar = ({ lang, setLang, t }) => {
       {/* Mobile Drawer Menu */}
       <AnimatePresence>
         {mobileMenuOpen && (
-          <motion.div 
+          <motion.div
+            id="mobile-menu"
             className="mobile-menu-overlay"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}

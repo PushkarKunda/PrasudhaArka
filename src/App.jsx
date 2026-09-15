@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { I18N } from './data/i18n';
 import { initCleanUrlHandler } from './utils/navigation';
 import {
+  AnnouncementBar,
   Navbar,
   Hero,
   BrandShowcase,
@@ -35,6 +36,7 @@ export function App() {
 
   return (
     <div className={`app-root lang-${lang}`}>
+      <AnnouncementBar lang={lang} t={t} />
       <Navbar lang={lang} setLang={setLang} t={t} />
       <main>
         <Hero lang={lang} t={t} />

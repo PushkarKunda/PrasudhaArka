@@ -1,10 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { ChevronLeft, ChevronRight, Sparkles } from 'lucide-react';
+import { useCarouselAutoplay } from '../../../utils/useCarouselAutoplay';
 import { PRODUCTS } from '../../../data/products';
 import { DEALERS, getWhatsAppUrl } from '../../../data/dealers';
 import './SystemPricing.css';
 
-export const SystemPricing = ({ lang, t }) => {
+export const SystemPricing = ({ lang }) => {
   const [selectedDealer, setSelectedDealer] = useState('sudhakar');
   const [itemsPerView, setItemsPerView] = useState(4);
   const N = PRODUCTS.length;
@@ -14,6 +15,7 @@ export const SystemPricing = ({ lang, t }) => {
   const [isPaused, setIsPaused] = useState(false);
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
+  const { ref: carouselRef, ready: carouselReady } = useCarouselAutoplay();
 
   // Determine responsive items per view
   useEffect(() => {
@@ -98,13 +100,14 @@ export const SystemPricing = ({ lang, t }) => {
   }, [isAnimating, currentIndex]);
 
   // Automatic gentle carousel slide when on mobile/tablet (reduced speed: 8s interval)
+  // Only while the carousel is on-screen and the user allows motion.
   useEffect(() => {
-    if (isPaused || !isCarouselActive) return;
+    if (isPaused || !isCarouselActive || !carouselReady) return;
     const interval = setInterval(() => {
       nextSlide();
     }, 8000);
     return () => clearInterval(interval);
-  }, [isPaused, isCarouselActive, currentIndex]);
+  }, [isPaused, isCarouselActive, carouselReady, currentIndex]);
 
   const handleTouchStart = (e) => {
     touchStartX.current = e.touches[0].clientX;
@@ -200,6 +203,7 @@ export const SystemPricing = ({ lang, t }) => {
 
         {/* Responsive Pricing Carousel Container */}
         <div
+          ref={carouselRef}
           className="pricing-carousel-container"
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}

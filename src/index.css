@@ -112,6 +112,17 @@ button, input, select, textarea {
   outline: none;
 }
 
+/* Visible keyboard focus (replaces the removed default outline) */
+:focus-visible {
+  outline: 2px solid var(--gold-500, #f59e0b);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+[data-theme="dark"] :focus-visible {
+  outline-color: #fbbf24;
+}
+
 /* Layout Containers & Sections */
 .container {
   width: 100%;
@@ -165,6 +176,7 @@ button, input, select, textarea {
   color: var(--text-main);
   margin-bottom: 10px;
   line-height: 1.3;
+  text-wrap: balance;
 }
 
 .section-subtitle {
@@ -392,4 +404,22 @@ button, input, select, textarea {
 
 .carousel-track-instant {
   transition: none !important;
+}
+
+/* ==========================================================================
+   REDUCED MOTION (users who prefer minimal motion)
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

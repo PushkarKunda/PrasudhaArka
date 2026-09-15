@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import { useState } from 'react';
 import { FileCheck, CheckSquare, Sparkles, Download, HelpCircle } from 'lucide-react';
 import { WhatsAppIcon } from '../../common/WhatsAppIcon';
 import { DOCUMENTS_DATA } from '../../../data/services';

@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Award, Sun, IndianRupee, ArrowDownCircle, ShieldCheck, Zap, TrendingUp } from 'lucide-react';
+import { useState } from 'react';
+import { Award, IndianRupee, ShieldCheck, Zap, TrendingUp } from 'lucide-react';
 import { WhatsAppIcon } from '../../common/WhatsAppIcon';
 import { QuickQuoteCard } from '../../common/QuickQuoteCard';
 import { EnergyFlowVisualizer } from '../../common/EnergyFlowVisualizer';
@@ -53,16 +52,30 @@ export const Hero = ({ lang, t }) => {
             </div>
           </div>
 
-          {/* Main Headline */}
-          <h1 
+          {/* Welcome Tag */}
+          {t.heroWelcomeTag && (
+            <p className="hero-welcome-tag">{t.heroWelcomeTag}</p>
+          )}
+
+          <h1
             className="hero-title"
             dangerouslySetInnerHTML={{ __html: t.heroTitle }}
           />
 
           {/* Lead Text */}
-          <p className="hero-lead-text">
-            {t.heroLead}
-          </p>
+          <p
+            className="hero-lead-text"
+            dangerouslySetInnerHTML={{ __html: t.heroLead }}
+          />
+
+          {/* Hero Value Pills */}
+          {t.heroPill1 && (
+            <div className="hero-pills">
+              <span className="hero-pill">{t.heroPill1}</span>
+              <span className="hero-pill">{t.heroPill2}</span>
+              <span className="hero-pill">{t.heroPill3}</span>
+            </div>
+          )}
 
           {/* PM Surya Ghar Subsidy Callout Box */}
           <div className="hero-subsidy-highlight-card">

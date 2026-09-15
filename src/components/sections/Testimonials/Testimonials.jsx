@@ -1,5 +1,3 @@
-import React from 'react';
-import { motion } from 'framer-motion';
 import { Star, MessageSquare, Quote, MapPin, Zap, CheckCircle2 } from 'lucide-react';
 import { TESTIMONIALS } from '../../../data/services';
 import './Testimonials.css';

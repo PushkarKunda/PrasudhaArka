@@ -3,31 +3,38 @@
  * Smoothly scrolls to target sections without appending '#' to the browser URL.
  */
 
+/**
+ * Computes the absolute scroll position (pageYOffset target) for a section id,
+ * accounting for the sticky header height. Returns null when the target is
+ * missing, so callers can safely fall back to nothing rather than a wild scroll.
+ */
+export const getSectionTop = (target) => {
+  const targetId = (typeof target === 'string' ? target : '').replace(/^#/, '');
+  if (!targetId) return null;
+
+  if (targetId === 'home') return 0;
+
+  const element = document.getElementById(targetId);
+  if (!element) return null;
+
+  const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
+  const headerOffset = isMobile ? 74 : 96;
+  const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+  return Math.max(0, elementPosition - headerOffset);
+};
+
 export const scrollToSection = (target, e) => {
   if (e && e.preventDefault) {
     e.preventDefault();
   }
 
-  const targetId = typeof target === 'string' ? target.replace(/^#/, '') : '';
-  if (!targetId) return;
+  const offsetPosition = getSectionTop(target);
+  if (offsetPosition === null) return;
 
-  if (targetId === 'home') {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    return;
-  }
-
-  const element = document.getElementById(targetId);
-  if (element) {
-    const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
-    const headerOffset = isMobile ? 74 : 96;
-    const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
-    const offsetPosition = Math.max(0, elementPosition - headerOffset);
-
-    window.scrollTo({
-      top: offsetPosition,
-      behavior: 'smooth'
-    });
-  }
+  window.scrollTo({
+    top: offsetPosition,
+    behavior: 'smooth'
+  });
 };
 
 /**

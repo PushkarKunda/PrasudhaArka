@@ -85,5 +85,13 @@
   .top-contacts .divider {
     display: none;
   }
+}
 
+@media (max-width: 480px) {
+  .top-contacts {
+    gap: 8px;
+  }
+  .top-contact-link span.phone-label {
+    display: none;
+  }
 }

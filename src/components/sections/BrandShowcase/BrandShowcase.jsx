@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { ShieldCheck, Award, Zap, Layers, FileText, MapPin, BadgePercent, CheckCircle2, ChevronLeft, ChevronRight, Sparkles } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+import { ChevronLeft, ChevronRight, Sparkles } from 'lucide-react';
+import { useCarouselAutoplay } from '../../../utils/useCarouselAutoplay';
 import './BrandShowcase.css';
 
-export const BrandShowcase = ({ lang, t }) => {
+export const BrandShowcase = ({ lang }) => {
   const isTe = lang === 'te';
 
   const brandItems = [
@@ -56,6 +57,7 @@ export const BrandShowcase = ({ lang, t }) => {
   const [isPaused, setIsPaused] = useState(false);
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
+  const { ref: carouselRef, ready: carouselReady } = useCarouselAutoplay();
 
   // Determine responsive items per view
   useEffect(() => {
@@ -137,13 +139,14 @@ export const BrandShowcase = ({ lang, t }) => {
   }, [isAnimating, currentIndex]);
 
   // Gentle auto-slide when on mobile/tablet (reduced speed: 8s interval)
+  // Only while the carousel is on-screen and the user allows motion.
   useEffect(() => {
-    if (isPaused || !isCarouselActive) return;
+    if (isPaused || !isCarouselActive || !carouselReady) return;
     const interval = setInterval(() => {
       nextSlide();
     }, 8000);
     return () => clearInterval(interval);
-  }, [isPaused, isCarouselActive, currentIndex]);
+  }, [isPaused, isCarouselActive, carouselReady, currentIndex]);
 
   const handleTouchStart = (e) => {
     touchStartX.current = e.touches[0].clientX;
@@ -236,6 +239,7 @@ export const BrandShowcase = ({ lang, t }) => {
 
         {/* Responsive Carousel for Premium Brands */}
         <div
+          ref={carouselRef}
           className="brands-carousel-container"
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}

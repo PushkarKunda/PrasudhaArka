@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { 
   GitCommit, 
   MapPin, 
@@ -13,6 +13,7 @@ import {
   Sparkles
 } from 'lucide-react';
 import { PROCESS_STEPS } from '../../../data/services';
+import { useCarouselAutoplay } from '../../../utils/useCarouselAutoplay';
 import './ProcessTimeline.css';
 
 export const ProcessTimeline = ({ lang, t }) => {
@@ -25,6 +26,7 @@ export const ProcessTimeline = ({ lang, t }) => {
   const [isPaused, setIsPaused] = useState(false);
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
+  const { ref: carouselRef, ready: carouselReady } = useCarouselAutoplay();
 
   const iconMap = {
     MapPin,
@@ -120,13 +122,14 @@ export const ProcessTimeline = ({ lang, t }) => {
   }, [isAnimating, currentIndex]);
 
   // Automatic gentle carousel slide (reduced speed: 8s interval)
+  // Only while the carousel is on-screen and the user allows motion.
   useEffect(() => {
-    if (isPaused || !isCarouselActive) return;
+    if (isPaused || !isCarouselActive || !carouselReady) return;
     const interval = setInterval(() => {
       nextSlide();
     }, 8000);
     return () => clearInterval(interval);
-  }, [isPaused, isCarouselActive, currentIndex]);
+  }, [isPaused, isCarouselActive, carouselReady, currentIndex]);
 
   const handleTouchStart = (e) => {
     touchStartX.current = e.touches[0].clientX;
@@ -165,7 +168,8 @@ export const ProcessTimeline = ({ lang, t }) => {
         </div>
 
         {/* Carousel Container */}
-        <div 
+        <div
+          ref={carouselRef}
           className="process-carousel-container"
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}

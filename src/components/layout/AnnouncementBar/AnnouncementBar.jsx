@@ -25,12 +25,12 @@ export const AnnouncementBar = ({ lang, t }) => {
         <div className="top-contacts">
           <a href={`tel:${DEALERS.sudhakar.phone}`} className="top-contact-link">
             <PhoneCall size={13} />
-            <span><strong>{DEALERS.sudhakar.name}:</strong> {DEALERS.sudhakar.phoneDisplay}</span>
+            <span className="phone-label"><strong>{DEALERS.sudhakar.name}:</strong> {DEALERS.sudhakar.phoneDisplay}</span>
           </a>
           <span className="divider">|</span>
           <a href={`tel:${DEALERS.bhaskar.phone}`} className="top-contact-link">
             <PhoneCall size={13} />
-            <span><strong>{DEALERS.bhaskar.name}:</strong> {DEALERS.bhaskar.phoneDisplay}</span>
+            <span className="phone-label"><strong>{DEALERS.bhaskar.name}:</strong> {DEALERS.bhaskar.phoneDisplay}</span>
           </a>
         </div>
       </div>

@@ -1,25 +1,25 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
-import { 
-  Briefcase, 
-  Home, 
-  Building2, 
-  BatteryCharging, 
-  Droplets, 
-  Sun, 
-  FileCheck2, 
-  CheckCircle2, 
-  ChevronLeft, 
+import { useState, useEffect, useRef } from 'react';
+import {
+  Briefcase,
+  Home,
+  Building2,
+  BatteryCharging,
+  Droplets,
+  Sun,
+  FileCheck2,
+  CheckCircle2,
+  ChevronLeft,
   ChevronRight,
   Sparkles
 } from 'lucide-react';
 import { WhatsAppIcon } from '../../common/WhatsAppIcon';
+import { useCarouselAutoplay } from '../../../utils/useCarouselAutoplay';
 import { SERVICES } from '../../../data/services';
 import { DEALERS, getWhatsAppUrl } from '../../../data/dealers';
 import './ServicesSection.css';
 
 export const ServicesSection = ({ lang, t }) => {
-  const [selectedDealer, setSelectedDealer] = useState('sudhakar');
+  const selectedDealer = 'sudhakar';
   const [itemsPerView, setItemsPerView] = useState(3);
   const N = SERVICES.length;
   const isCarouselActive = itemsPerView < N;
@@ -28,6 +28,7 @@ export const ServicesSection = ({ lang, t }) => {
   const [isPaused, setIsPaused] = useState(false);
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
+  const { ref: carouselRef, ready: carouselReady } = useCarouselAutoplay();
 
   const iconMap = {
     Home,
@@ -118,13 +119,14 @@ export const ServicesSection = ({ lang, t }) => {
   }, [isAnimating, currentIndex]);
 
   // Automatic gentle carousel slide (reduced speed: 8s interval)
+  // Only while the carousel is on-screen and the user allows motion.
   useEffect(() => {
-    if (isPaused || !isCarouselActive) return;
+    if (isPaused || !isCarouselActive || !carouselReady) return;
     const interval = setInterval(() => {
       nextSlide();
     }, 8000);
     return () => clearInterval(interval);
-  }, [isPaused, isCarouselActive, currentIndex]);
+  }, [isPaused, isCarouselActive, carouselReady, currentIndex]);
 
   const handleTouchStart = (e) => {
     touchStartX.current = e.touches[0].clientX;
@@ -172,7 +174,8 @@ export const ServicesSection = ({ lang, t }) => {
         </div>
 
         {/* Carousel Container */}
-        <div 
+        <div
+          ref={carouselRef}
           className="services-carousel-container"
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}

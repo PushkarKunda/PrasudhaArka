@@ -179,21 +179,6 @@ export const Footer = ({ lang, t }) => {
           </div>
         </div>
 
-        {/* Section 3: For more information Look Into */}
-        <div className="footer-ext-banner">
-          <span className="ext-label">
-            {isTe ? 'మరిన్ని వివరాల కోసం సందర్శించండి:' : 'For more information, Look into:'}
-          </span>
-          <a 
-            href="https://www.aquapzone.in" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="ext-link-pill"
-          >
-            <span>https://www.aquapzone.in</span>
-            <ExternalLink size={14} />
-          </a>
-        </div>
 
         {/* Section 4: AquaPzone Enterprises Secondary Brand Container */}
         <div className="footer-aquapzone-card">
@@ -240,6 +225,22 @@ export const Footer = ({ lang, t }) => {
               <span>aquapzonehyd@gmail.com</span>
             </a>
           </div>
+        </div>
+
+        {/* Section 3: For more information Look Into */}
+        <div className="footer-ext-banner">
+          <span className="ext-label">
+            {isTe ? 'మరిన్ని వివరాల కోసం సందర్శించండి:' : 'For more information, Look into:'}
+          </span>
+          <a 
+            href="https://www.aquapzone.in" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="ext-link-pill"
+          >
+            <span>https://www.aquapzone.in</span>
+            <ExternalLink size={14} />
+          </a>
         </div>
 
         {/* Section 5: Bottom Copyright & publication bar */}

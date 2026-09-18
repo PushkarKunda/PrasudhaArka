@@ -16,6 +16,10 @@
   gap: 8px;
 }
 
+.floating-actions-container .magnet-wrapper {
+  display: inline-flex;
+}
+
 .floating-whatsapp-btn {
   width: 48px;
   height: 48px;

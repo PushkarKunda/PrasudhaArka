@@ -198,7 +198,7 @@ export const I18N = {
     heroBadgeSub: "21+ Years Experience",
     heroBadge: "ISO 9001:2015 Certified • 21+ Years Experience",
     heroWelcomeTag: "Welcome • Smart Clean Energy Living",
-    heroTitle: "Power Your Home With <span class='title-energy-gradient'>Free Solar Energy</span><span class='title-line-break'><br /></span>& Get&nbsp;Up&nbsp;to <span class='title-subsidy-badge'><span class='highlight-gold'>₹78,000*</span> <span class='highlight-green'>Govt Subsidy</span></span>",
+    heroTitle: "Power Your Home With <span class='title-energy-gradient'>Free Solar Energy</span><br class='title-line-break' />& Get&nbsp;Up&nbsp;to <span class='title-subsidy-badge'><span class='highlight-gold'>₹78,000*</span> <span class='highlight-green'>Govt Subsidy</span></span>",
     heroLead: "Slash your electricity bills up to <span class='lead-highlight lead-highlight-emerald'>90% forever</span> with turnkey <span class='lead-highlight lead-highlight-gold'>solar rooftop solutions,</span> hassle-free net metering, and <span class='lead-highlight lead-highlight-blue'>zero down-payment bank loans</span> across AP, Telangana, Bangalore, & Chennai.",
     heroPill1: "Up to 90% Bill Savings",
     heroPill2: "0% Down-Payment Loans",

@@ -1,0 +1,19 @@
+.blur-text-container {
+  display: inline;
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+.blur-text-element {
+  display: inline-block;
+  will-change: transform, filter, opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .blur-text-element {
+    filter: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}

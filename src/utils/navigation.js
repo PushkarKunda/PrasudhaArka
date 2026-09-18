@@ -17,8 +17,13 @@ export const getSectionTop = (target) => {
   const element = document.getElementById(targetId);
   if (!element) return null;
 
-  const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
-  const headerOffset = isMobile ? 74 : 96;
+  // Measure the real sticky-header height instead of hardcoding breakpoints,
+  // so the offset never drifts from the CSS (64px phone / 72px tablet / 92-96px desktop).
+  // The header's height comes from the .navbar inside it, so offsetHeight reflects the
+  // actually laid-out height at the caller's current viewport width.
+  const header = document.querySelector('.site-header');
+  const headerOffset = (header ? header.offsetHeight : 96) + 8;
+
   const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
   return Math.max(0, elementPosition - headerOffset);
 };

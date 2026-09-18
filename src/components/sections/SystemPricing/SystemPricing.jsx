@@ -3,6 +3,7 @@ import { ChevronLeft, ChevronRight, Sparkles } from 'lucide-react';
 import { useCarouselAutoplay } from '../../../utils/useCarouselAutoplay';
 import { PRODUCTS } from '../../../data/products';
 import { DEALERS, getWhatsAppUrl } from '../../../data/dealers';
+import { SpotlightCard, ShinyText, Magnet } from '../../reactbits';
 import './SystemPricing.css';
 
 export const SystemPricing = ({ lang }) => {
@@ -276,12 +277,18 @@ export const SystemPricing = ({ lang }) => {
                       flex: `0 0 calc((100% - ${(itemsPerView - 1) * gapPx}px) / ${itemsPerView})`
                     }}
                   >
-                    <div
+                    <SpotlightCard
                       className={`system-config-card ${prod.isPopular ? 'popular-config-card' : ''}`}
+                      spotlightColor={prod.isPopular ? 'rgba(245, 158, 11, 0.22)' : 'rgba(6, 182, 212, 0.16)'}
+                      size={320}
                     >
                       {prod.isPopular && (
                         <div className="popular-top-badge">
-                          <span>{popularText || '⭐ MOST POPULAR (MAX SUBSIDY)'}</span>
+                          <ShinyText 
+                            text={popularText || '⭐ MOST POPULAR (MAX SUBSIDY)'} 
+                            variant="gold" 
+                            speed={3} 
+                          />
                         </div>
                       )}
 
@@ -330,14 +337,16 @@ export const SystemPricing = ({ lang }) => {
                         </div>
                       </div>
 
-                      {/* Action Button */}
-                      <button
-                        onClick={() => handleQuoteClick(prod)}
-                        className="config-quote-btn"
-                      >
-                        {btnLabel}
-                      </button>
-                    </div>
+                      {/* Action Button with Magnet micro-interaction */}
+                      <Magnet magnetStrength={0.2} padding={12}>
+                        <button
+                          onClick={() => handleQuoteClick(prod)}
+                          className="config-quote-btn"
+                        >
+                          {btnLabel}
+                        </button>
+                      </Magnet>
+                    </SpotlightCard>
                   </div>
                 );
               })}

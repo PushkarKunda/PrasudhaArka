@@ -3,6 +3,7 @@ import { Award, IndianRupee, ShieldCheck, Zap, TrendingUp } from 'lucide-react';
 import { WhatsAppIcon } from '../../common/WhatsAppIcon';
 import { QuickQuoteCard } from '../../common/QuickQuoteCard';
 import { EnergyFlowVisualizer } from '../../common/EnergyFlowVisualizer';
+import { SpotlightCard, ShinyText, CountUp, Magnet, Squares } from '../../reactbits';
 import { getWhatsAppUrl } from '../../../data/dealers';
 import { scrollToSection } from '../../../utils/navigation';
 import './Hero.css';
@@ -12,8 +13,15 @@ export const Hero = ({ lang, t }) => {
 
   return (
     <section className="hero-section" id="home">
-      {/* Background Image & Radiant Ambient Glow */}
+      {/* Background Image & Radiant Ambient Glow & React Bits Squares Grid */}
       <div className="hero-background-wrapper">
+        <Squares 
+          direction="diagonal" 
+          speed={0.3} 
+          squareSize={48} 
+          borderColor="rgba(245, 158, 11, 0.07)" 
+          hoverFillColor="rgba(245, 158, 11, 0.16)" 
+        />
         <img 
           src="/assets/hero_solar.jpg" 
           alt="Modern Rooftop Solar Installation" 
@@ -48,7 +56,7 @@ export const Hero = ({ lang, t }) => {
 
             <div className="hero-iso-plain-text">
               <Award size={16} className="iso-icon" />
-              <span>{t.heroBadge}</span>
+              <ShinyText text={t.heroBadge} speed={3.5} variant="gold" />
             </div>
           </div>
 
@@ -77,8 +85,12 @@ export const Hero = ({ lang, t }) => {
             </div>
           )}
 
-          {/* PM Surya Ghar Subsidy Callout Box */}
-          <div className="hero-subsidy-highlight-card">
+          {/* PM Surya Ghar Subsidy Callout Box with SpotlightCard */}
+          <SpotlightCard 
+            className="hero-subsidy-highlight-card"
+            spotlightColor="rgba(245, 158, 11, 0.2)"
+            size={280}
+          >
             <div className="subsidy-coin-icon pm-modi-avatar-wrap">
               <img 
                 src="/assets/pm_modi.jpg" 
@@ -90,37 +102,41 @@ export const Hero = ({ lang, t }) => {
               <h4>{t.subsidyCardTitle}</h4>
               <p>{t.subsidyCardDesc}</p>
             </div>
-          </div>
+          </SpotlightCard>
 
-          {/* Hero Action Buttons */}
+          {/* Hero Action Buttons with Magnet Micro-interaction */}
           <div className="hero-cta-buttons">
-            <a 
-              href="#calculator" 
-              onClick={(e) => scrollToSection('calculator', e)} 
-              className="btn btn-primary btn-lg btn-glow"
-            >
-              <TrendingUp size={20} />
-              <span>{t.btnCalcSubsidy}</span>
-            </a>
-            <a 
-              href={getWhatsAppUrl('sudhakar', 'Hello Prasudharka Solar team, I want to inquire about rooftop solar subsidy and installation.')} 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="btn btn-whatsapp btn-lg"
-            >
-              <WhatsAppIcon size={20} />
-              <span>{t.btnWhatsAppNow}</span>
-            </a>
+            <Magnet magnetStrength={0.25} padding={15}>
+              <a 
+                href="#calculator" 
+                onClick={(e) => scrollToSection('calculator', e)} 
+                className="btn btn-primary btn-lg btn-glow"
+              >
+                <TrendingUp size={20} />
+                <span>{t.btnCalcSubsidy}</span>
+              </a>
+            </Magnet>
+            <Magnet magnetStrength={0.25} padding={15}>
+              <a 
+                href={getWhatsAppUrl('sudhakar', 'Hello Prasudharka Solar team, I want to inquire about rooftop solar subsidy and installation.')} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="btn btn-whatsapp btn-lg"
+              >
+                <WhatsAppIcon size={20} />
+                <span>{t.btnWhatsAppNow}</span>
+              </a>
+            </Magnet>
           </div>
 
-          {/* Trust Metrics */}
+          {/* Trust Metrics with CountUp */}
           <div className="hero-trust-metrics">
             <div className="metric-item">
               <div className="metric-icon-wrap">
                 <ShieldCheck size={20} className="text-emerald-400" />
               </div>
               <div>
-                <h3>{t.statMetric1}</h3>
+                <h3><CountUp value={t.statMetric1} /></h3>
                 <p>{t.statLabel1}</p>
               </div>
             </div>
@@ -129,7 +145,7 @@ export const Hero = ({ lang, t }) => {
                 <IndianRupee size={20} className="text-amber-400" />
               </div>
               <div>
-                <h3>{t.statMetric2}</h3>
+                <h3><CountUp value={t.statMetric2} /></h3>
                 <p>{t.statLabel2}</p>
               </div>
             </div>
@@ -138,7 +154,7 @@ export const Hero = ({ lang, t }) => {
                 <Zap size={20} className="text-cyan-400" />
               </div>
               <div>
-                <h3>{t.statMetric3}</h3>
+                <h3><CountUp value={t.statMetric3} /></h3>
                 <p>{t.statLabel3}</p>
               </div>
             </div>

@@ -1,13 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Globe, Calculator, Menu, X, Sparkles, ChevronRight } from 'lucide-react';
 import { scrollToSection } from '../../../utils/navigation';
+import { Magnet } from '../../reactbits';
 import './Navbar.css';
 
 export const Navbar = ({ lang, setLang, t }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
+
+  // Refs: drawer + toggle for outside-click detection, and a deferred scroll
+  // target so navigation waits until the drawer finishes closing.
+  const menuRef = useRef(null);
+  const toggleRef = useRef(null);
+  const pendingScrollRef = useRef(null);
 
   const navItems = [
     { label: t.navHome, href: '#home' },
@@ -65,17 +73,26 @@ export const Navbar = ({ lang, setLang, t }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Mobile draw: lock body scroll + close on Escape
+  // Mobile popup modal: lock html/body scroll & handle Escape key
   useEffect(() => {
     if (!mobileMenuOpen) return;
-    const prevOverflow = document.body.style.overflow;
+    const prevHtmlOverflow = document.documentElement.style.overflow;
+    const prevBodyOverflow = document.body.style.overflow;
+    const prevTouchAction = document.body.style.touchAction;
+
+    document.documentElement.style.overflow = 'hidden';
     document.body.style.overflow = 'hidden';
+    document.body.style.touchAction = 'none';
+
     const onKey = (e) => {
       if (e.key === 'Escape') setMobileMenuOpen(false);
     };
+
     window.addEventListener('keydown', onKey);
     return () => {
-      document.body.style.overflow = prevOverflow;
+      document.documentElement.style.overflow = prevHtmlOverflow;
+      document.body.style.overflow = prevBodyOverflow;
+      document.body.style.touchAction = prevTouchAction;
       window.removeEventListener('keydown', onKey);
     };
   }, [mobileMenuOpen]);
@@ -89,12 +106,11 @@ export const Navbar = ({ lang, setLang, t }) => {
       e.preventDefault();
     }
 
-    const wasMobileMenuOpen = mobileMenuOpen;
-    if (wasMobileMenuOpen) {
+    if (mobileMenuOpen) {
+      // Defer the scroll until the drawer finishes closing (handled in the
+      // AnimatePresence onExitComplete) instead of scrolling underneath it.
+      pendingScrollRef.current = href;
       setMobileMenuOpen(false);
-      setTimeout(() => {
-        scrollToSection(href);
-      }, 80);
     } else {
       scrollToSection(href);
     }
@@ -160,18 +176,24 @@ export const Navbar = ({ lang, setLang, t }) => {
             </span>
           </motion.button>
 
-          <a 
-            href="#calculator" 
-            onClick={(e) => handleNavScroll(e, '#calculator')}
-            className="btn btn-primary btn-sm btn-glow nav-calc-btn"
-          >
-            <Calculator size={16} />
-            <span className="nav-calc-btn-text">{t.btnCalcSubsidy}</span>
-          </a>
+          <Magnet magnetStrength={0.25} padding={15} className="nav-calc-magnet">
+            <a 
+              href="#calculator" 
+              onClick={(e) => handleNavScroll(e, '#calculator')}
+              className="btn btn-primary btn-sm btn-glow nav-calc-btn"
+            >
+              <Calculator size={16} />
+              <span className="nav-calc-btn-text">{t.btnCalcSubsidy}</span>
+            </a>
+          </Magnet>
 
           <button
+            ref={toggleRef}
             className="mobile-menu-toggle"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            onClick={() => {
+              pendingScrollRef.current = null; // drop any stale deferred scroll
+              setMobileMenuOpen(!mobileMenuOpen);
+            }}
             aria-label="Toggle navigation menu"
             aria-expanded={mobileMenuOpen}
             aria-controls="mobile-menu"
@@ -181,56 +203,105 @@ export const Navbar = ({ lang, setLang, t }) => {
         </div>
       </div>
 
-      {/* Mobile Drawer Menu */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.div
-            id="mobile-menu"
-            className="mobile-menu-overlay"
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3, ease: 'easeInOut' }}
-          >
-            <div className="container mobile-menu-content">
-              <ul className="mobile-nav-links">
-                {navItems.map((item, idx) => (
-                  <motion.li 
-                    key={idx}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: idx * 0.05 }}
-                  >
-                    <a 
-                      href={item.href} 
-                      onClick={(e) => handleNavScroll(e, item.href)} 
-                      className="mobile-nav-link"
-                    >
-                      <span>{item.label}</span>
-                      <ChevronRight size={18} />
-                    </a>
-                  </motion.li>
-                ))}
-              </ul>
+      {/* Mobile Popup Modal (Rendered via Portal so it never scrolls with header or page) */}
+      {typeof document !== 'undefined' && createPortal(
+        <AnimatePresence
+          onExitComplete={() => {
+            const target = pendingScrollRef.current;
+            pendingScrollRef.current = null;
+            if (target) scrollToSection(target);
+          }}
+        >
+          {mobileMenuOpen && (
+            <div 
+              className="mobile-popup-wrapper" 
+              role="dialog" 
+              aria-modal="true" 
+              aria-label="Navigation Menu"
+            >
+              {/* Dimmed Backdrop */}
+              <motion.div
+                className="mobile-popup-backdrop"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.2 }}
+                onClick={() => setMobileMenuOpen(false)}
+              />
 
-              <div className="mobile-menu-actions">
-                <button onClick={toggleLanguage} className="btn btn-outline btn-block">
-                  <Globe size={18} />
-                  <span>{t.langBtnText} ({lang === 'te' ? 'English' : 'తెలుగు'})</span>
-                </button>
-                <a 
-                  href="#calculator" 
-                  onClick={(e) => handleNavScroll(e, '#calculator')} 
-                  className="btn btn-primary btn-block"
-                >
-                  <Calculator size={18} />
-                  <span>{t.btnCalcSubsidy}</span>
-                </a>
-              </div>
+              {/* Popup Modal Card */}
+              <motion.div
+                ref={menuRef}
+                className="mobile-popup-card"
+                initial={{ opacity: 0, y: -20, scale: 0.96 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -16, scale: 0.96 }}
+                transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+              >
+                {/* Popup Header */}
+                <div className="mobile-popup-header">
+                  <div className="mobile-popup-brand">
+                    <img 
+                      src={lang === 'te' ? '/assets/logo_te.jpg' : '/assets/logo_en.jpg'} 
+                      alt="Prasudharka Solar" 
+                      className="mobile-popup-logo"
+                    />
+                  </div>
+                  <div className="mobile-popup-header-actions">
+                    <button 
+                      onClick={toggleLanguage} 
+                      className="mobile-popup-lang-btn"
+                      title="Switch Language / భాషను మార్చుకోండి"
+                    >
+                      <Globe size={15} />
+                      <span className={lang === 'te' ? 'font-en' : 'font-te'}>
+                        {t.langBtnText}
+                      </span>
+                    </button>
+                    <button 
+                      onClick={() => setMobileMenuOpen(false)} 
+                      className="mobile-popup-close-btn"
+                      aria-label="Close navigation menu"
+                    >
+                      <X size={20} />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Popup Navigation Links */}
+                <div className="mobile-popup-body">
+                  <ul className="mobile-popup-nav-links">
+                    {navItems.map((item, idx) => (
+                      <li key={idx}>
+                        <a 
+                          href={item.href} 
+                          onClick={(e) => handleNavScroll(e, item.href)} 
+                          className={`mobile-popup-link ${activeSection === item.href.slice(1) ? 'active' : ''}`}
+                        >
+                          <span>{item.label}</span>
+                          <ChevronRight size={18} className="link-arrow" />
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div className="mobile-popup-actions">
+                    <a 
+                      href="#calculator" 
+                      onClick={(e) => handleNavScroll(e, '#calculator')} 
+                      className="btn btn-primary btn-block mobile-popup-cta-btn"
+                    >
+                      <Calculator size={18} />
+                      <span>{t.btnCalcSubsidy}</span>
+                    </a>
+                  </div>
+                </div>
+              </motion.div>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
     </header>
   );
 };

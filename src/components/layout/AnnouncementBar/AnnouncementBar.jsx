@@ -1,6 +1,7 @@
 import React from 'react';
 import { ShieldCheck, Sun, PhoneCall, Building } from 'lucide-react';
 import { DEALERS } from '../../../data/dealers';
+import { ShinyText } from '../../reactbits';
 import './AnnouncementBar.css';
 
 export const AnnouncementBar = ({ lang, t }) => {
@@ -14,7 +15,7 @@ export const AnnouncementBar = ({ lang, t }) => {
           </span>
           <span className="top-badge subsidy">
             <Sun size={14} className="icon-spin-slow" />
-            {t.topSubsidyBadge}
+            <ShinyText text={t.topSubsidyBadge} variant="white" speed={4} />
           </span>
           <span className="gst-badge">
             <Building size={13} />

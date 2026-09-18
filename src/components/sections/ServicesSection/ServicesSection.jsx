@@ -16,6 +16,7 @@ import { WhatsAppIcon } from '../../common/WhatsAppIcon';
 import { useCarouselAutoplay } from '../../../utils/useCarouselAutoplay';
 import { SERVICES } from '../../../data/services';
 import { DEALERS, getWhatsAppUrl } from '../../../data/dealers';
+import { SpotlightCard, ShinyText } from '../../reactbits';
 import './ServicesSection.css';
 
 export const ServicesSection = ({ lang, t }) => {
@@ -167,7 +168,7 @@ export const ServicesSection = ({ lang, t }) => {
         <div className="section-title-wrap text-center">
           <div className="section-tag">
             <Briefcase size={15} />
-            <span>{t.servicesTag}</span>
+            <ShinyText text={t.servicesTag} variant="gold" speed={3.5} />
           </div>
           <h2 className="section-title">{t.servicesTitle}</h2>
           <p className="section-subtitle">{t.servicesDesc}</p>
@@ -233,7 +234,11 @@ export const ServicesSection = ({ lang, t }) => {
                       flex: `0 0 calc((100% - ${(itemsPerView - 1) * gapPx}px) / ${itemsPerView})`
                     }}
                   >
-                    <div className="service-card glassmorphism-card">
+                    <SpotlightCard 
+                      className="service-card glassmorphism-card"
+                      spotlightColor="rgba(245, 158, 11, 0.16)"
+                      size={320}
+                    >
                       <div>
                         <div className="service-header">
                           <div className="service-icon-wrap">
@@ -273,7 +278,7 @@ export const ServicesSection = ({ lang, t }) => {
                           <span>{lang === 'te' ? 'వివరాలు & కొటేషన్' : 'Inquire on WhatsApp'}</span>
                         </button>
                       </div>
-                    </div>
+                    </SpotlightCard>
                   </div>
                 );
               })}

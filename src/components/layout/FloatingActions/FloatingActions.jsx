@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowUp, Phone, X, User } from 'lucide-react';
 import { WhatsAppIcon } from '../../common/WhatsAppIcon';
 import { DEALERS, getWhatsAppUrl } from '../../../data/dealers';
+import { Magnet } from '../../reactbits';
 import './FloatingActions.css';
 
 export const FloatingActions = ({ lang }) => {
@@ -120,33 +121,37 @@ export const FloatingActions = ({ lang }) => {
         )}
       </AnimatePresence>
 
-      {/* Floating Main WhatsApp Trigger */}
-      <motion.button
-        className="floating-whatsapp-btn"
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.95 }}
-        onClick={() => setShowDealerPopup(!showDealerPopup)}
-        aria-label="WhatsApp Dealers"
-      >
-        <WhatsAppIcon size={26} />
-        <span className="btn-badge-pulse"></span>
-      </motion.button>
+      {/* Floating Main WhatsApp Trigger with Magnet */}
+      <Magnet magnetStrength={0.28} padding={20}>
+        <motion.button
+          className="floating-whatsapp-btn"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={() => setShowDealerPopup(!showDealerPopup)}
+          aria-label="WhatsApp Dealers"
+        >
+          <WhatsAppIcon size={26} />
+          <span className="btn-badge-pulse"></span>
+        </motion.button>
+      </Magnet>
 
-      {/* Back to top button */}
+      {/* Back to top button with Magnet */}
       <AnimatePresence>
         {showScrollTop && (
-          <motion.button
-            className="floating-scroll-top-btn"
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 15 }}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={scrollToTop}
-            aria-label="Scroll to top"
-          >
-            <ArrowUp size={22} />
-          </motion.button>
+          <Magnet magnetStrength={0.28} padding={20}>
+            <motion.button
+              className="floating-scroll-top-btn"
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 15 }}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={scrollToTop}
+              aria-label="Scroll to top"
+            >
+              <ArrowUp size={22} />
+            </motion.button>
+          </Magnet>
         )}
       </AnimatePresence>
     </div>

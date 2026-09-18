@@ -25,3 +25,6 @@ export * from './sections/DocumentsSection';
 export * from './sections/Testimonials';
 export * from './sections/FaqSection';
 export * from './sections/ContactSection';
+
+// React Bits Animations & Designs (reactbits.dev)
+export * from './reactbits';

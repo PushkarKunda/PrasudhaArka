@@ -17,6 +17,7 @@ import {
   Globe
 } from 'lucide-react';
 import { WhatsAppIcon } from '../../common/WhatsAppIcon';
+import { SpotlightCard, ShinyText, CountUp, Magnet } from '../../reactbits';
 import { computeDiscomTariff, calculateSolarPlan, billToUnits } from '../../../data/tariffs';
 import { DEALERS, getWhatsAppUrl } from '../../../data/dealers';
 import './SolarCalculator.css';
@@ -118,15 +119,19 @@ export const SolarCalculator = ({ lang, t }) => {
         <div className="section-title-wrap text-center">
           <div className="section-tag">
             <Calculator size={15} />
-            <span>{t.calcTag}</span>
+            <ShinyText text={t.calcTag} variant="gold" speed={3.5} />
           </div>
           <h2 className="section-title">{t.calcTitle}</h2>
           <p className="section-subtitle">{t.calcDesc}</p>
         </div>
 
         <div className="calculator-grid">
-          {/* Left Column: Interactive Inputs */}
-          <div className="calculator-controls-card">
+          {/* Left Column: Interactive Inputs with SpotlightCard */}
+          <SpotlightCard 
+            className="calculator-controls-card"
+            spotlightColor="rgba(245, 158, 11, 0.12)"
+            size={360}
+          >
             {/* 1. State Selector */}
             <div className="form-group-block">
               <label className="calc-field-label">Select State:</label>
@@ -404,10 +409,14 @@ export const SolarCalculator = ({ lang, t }) => {
                 <span className="total-amount-blue">₹{tariffResult.totalBill.toLocaleString('en-IN')}</span>
               </div>
             </div>
-          </div>
+          </SpotlightCard>
 
-          {/* Right Column: Dark Navy Card */}
-          <div className="calculator-dark-results-card">
+          {/* Right Column: Dark Navy Card with SpotlightCard */}
+          <SpotlightCard 
+            className="calculator-dark-results-card"
+            spotlightColor="rgba(6, 182, 212, 0.18)"
+            size={400}
+          >
             <div className="dark-card-header">
               <h3 className="dark-card-title">Your Solar Estimate & Returns</h3>
               <span className="dark-card-pill-tag">
@@ -425,7 +434,7 @@ export const SolarCalculator = ({ lang, t }) => {
               <div className="dark-metric-box gold-border">
                 <div className="dark-metric-label">CENTRAL GOVT SUBSIDY</div>
                 <div className="dark-metric-val text-gold">
-                  {solarPlan.subsidy > 0 ? `₹${solarPlan.subsidy.toLocaleString('en-IN')}` : '₹0'}
+                  <CountUp to={solarPlan.subsidy} prefix="₹" duration={1} separator="," />
                 </div>
               </div>
 
@@ -436,7 +445,9 @@ export const SolarCalculator = ({ lang, t }) => {
 
               <div className="dark-metric-box green-border">
                 <div className="dark-metric-label">MONTHLY POWER SAVINGS</div>
-                <div className="dark-metric-val text-green">₹{solarPlan.monthlySavings.toLocaleString('en-IN')}/mo</div>
+                <div className="dark-metric-val text-green">
+                  <CountUp to={solarPlan.monthlySavings} prefix="₹" suffix="/mo" duration={1} separator="," />
+                </div>
               </div>
             </div>
 
@@ -471,26 +482,28 @@ export const SolarCalculator = ({ lang, t }) => {
               </div>
             </div>
 
-            {/* 25-Year Lifetime Savings Banner */}
+            {/* 25-Year Lifetime Savings Banner with CountUp */}
             <div className="dark-lifetime-banner">
               <div className="lifetime-info-col">
                 <h4 className="lifetime-heading">Estimated 25-Year Lifetime Electricity Savings:</h4>
                 <p className="lifetime-subtext">ROI Timeline: 3 to 4 Years • Zero Electricity Bill Thereafter</p>
               </div>
               <div className="lifetime-val-blue">
-                ₹{solarPlan.lifetimeSavings.toLocaleString('en-IN')}
+                <CountUp to={solarPlan.lifetimeSavings} prefix="₹" duration={1} separator="," />
               </div>
             </div>
 
-            {/* WhatsApp Quote Button */}
-            <button
-              onClick={handleSendWhatsAppPlan}
-              className="dark-calc-whatsapp-btn"
-            >
-              <WhatsAppIcon size={20} />
-              <span>Send This Plan to WhatsApp for Quotation</span>
-            </button>
-          </div>
+            {/* WhatsApp Quote Button with Magnet */}
+            <Magnet magnetStrength={0.2} padding={15}>
+              <button
+                onClick={handleSendWhatsAppPlan}
+                className="dark-calc-whatsapp-btn"
+              >
+                <WhatsAppIcon size={20} />
+                <span>Send This Plan to WhatsApp for Quotation</span>
+              </button>
+            </Magnet>
+          </SpotlightCard>
         </div>
       </div>
     </section>

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { I18N } from './data/i18n';
 import { initCleanUrlHandler } from './utils/navigation';
 import {
-  AnnouncementBar,
   Navbar,
   Hero,
   BrandShowcase,
@@ -16,6 +15,7 @@ import {
   FaqSection,
   FloatingActions,
   Footer,
+  ClickSpark,
 } from './components';
 
 export function App() {
@@ -35,8 +35,8 @@ export function App() {
   const t = I18N[lang] || I18N.te;
 
   return (
-    <div className={`app-root lang-${lang}`}>
-      <AnnouncementBar lang={lang} t={t} />
+    <ClickSpark sparkColor="#f59e0b" sparkSize={8} sparkCount={8} duration={450}>
+      <div className={`app-root lang-${lang}`}>
       <Navbar lang={lang} setLang={setLang} t={t} />
       <main>
         <Hero lang={lang} t={t} />
@@ -52,7 +52,8 @@ export function App() {
       </main>
       <FloatingActions lang={lang} />
       <Footer lang={lang} t={t} />
-    </div>
+      </div>
+    </ClickSpark>
   );
 }
 

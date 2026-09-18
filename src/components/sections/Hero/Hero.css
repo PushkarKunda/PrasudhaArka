@@ -176,7 +176,6 @@
 /* Line-break wrapper used in localized titles */
 .title-line-break {
   display: block;
-  margin-top: 4px;
 }
 
 /* Pulsating Clean Energy Gradient for "Free Solar Energy" / "ఉచిత సోలార్ విద్యుత్" */
@@ -522,8 +521,7 @@
   }
 
   .title-line-break {
-    display: inline;
-    margin-top: 0;
+    display: none;
   }
 
 

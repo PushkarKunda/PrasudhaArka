@@ -168,7 +168,7 @@ export const Footer = ({ lang, t }) => {
               </div>
             </div>
 
-            <div className="care-region-card highlight-card">
+            <div className="care-region-card">
               <span className="region-name">
                 {isTe ? 'కర్ణాటక & తమిళనాడు' : 'KARNATAKA & TAMILNADU'}
               </span>

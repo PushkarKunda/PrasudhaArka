@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { ChevronLeft, ChevronRight, Sparkles } from 'lucide-react';
 import { useCarouselAutoplay } from '../../../utils/useCarouselAutoplay';
+import { SpotlightCard } from '../../reactbits';
 import './BrandShowcase.css';
 
 export const BrandShowcase = ({ lang }) => {
@@ -301,7 +302,11 @@ export const BrandShowcase = ({ lang }) => {
                     flex: `0 0 calc((100% - ${(itemsPerView - 1) * gapPx}px) / ${itemsPerView})`
                   }}
                 >
-                  <div className="brand-spec-card">
+                  <SpotlightCard 
+                    className="brand-spec-card"
+                    spotlightColor="rgba(245, 158, 11, 0.16)"
+                    size={280}
+                  >
                     <div className="brand-card-top-row">
                       <span className="brand-card-num">{item.num}</span>
                       <span className="brand-chip-dark">{item.brandBadge}</span>
@@ -313,7 +318,7 @@ export const BrandShowcase = ({ lang }) => {
                     <div className={`brand-card-warranty-pill ${item.variant === 'blue' ? 'blue-pill' : 'green-pill'}`}>
                       {item.warranty}
                     </div>
-                  </div>
+                  </SpotlightCard>
                 </div>
               ))}
             </div>

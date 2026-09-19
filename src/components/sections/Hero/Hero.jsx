@@ -70,7 +70,7 @@ export const Hero = ({ lang, t }) => {
               {lang === 'te' ? '' : 'With '}
               <span style={{ whiteSpace: 'nowrap' }}>
                 <img 
-                  src={lang === 'te' ? '/assets/pra_te_v3.png' : '/assets/pra_en_v3.png'} 
+                  src={lang === 'te' ? '/assets/pra_te_v5.png' : '/assets/pra_en_v5.png'} 
                   alt="PraSudhaArka" 
                   className={`hero-inline-logo ${lang === 'te' ? 'logo-te' : 'logo-en'}`}
                 />

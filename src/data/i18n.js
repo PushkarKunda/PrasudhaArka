@@ -25,7 +25,7 @@ export const I18N = {
     heroBadgeSub: "21+ ఏళ్ల అనుభవం",
     heroBadge: "ISO 9001:2015 సర్టిఫైడ్ • 21+ ఏళ్ల అనుభవం",
     heroWelcomeTag: "శుభారంభం • స్వచ్ఛమైన సౌర విద్యుత్ ప్రయాణం",
-    heroTitle: "మీ ఇంటికి <span class='title-energy-gradient'>ఉచిత సోలార్ విద్యుత్</span>, <span class='title-subsidy-badge'><span class='highlight-gold'>రూ. 78,000*</span> <span class='highlight-green'>ప్రభుత్వ సబ్సిడీతో</span></span> పొందండి",
+    heroTitle: "మీ ఇంటికి <span class='title-energy-gradient'>ఉచిత సోలార్ విద్యుత్</span>, రూ. 78,000* ప్రభుత్వ సబ్సిడీతో పొందండి",
     heroLead: "కరెంట్ బిల్లుల భారాన్ని <span class='lead-highlight lead-highlight-emerald'>90% వరకు తగ్గించుకోండి.</span> AP, తెలంగాణ, బెంగళూరు & చెన్నై వ్యాప్తంగా నివాస గృహాలు, వాణిజ్య సంస్థలు మరియు పరిశ్రమలకు <span class='lead-highlight lead-highlight-gold'>ప్రీమియం సోలార్ రూఫ్‌టాప్</span> మరియు <span class='lead-highlight lead-highlight-blue'>సులభమైన బ్యాంక్ లోన్</span> సదుపాయం.",
     heroPill1: "90% వరకు కరెంట్ ఆదా",
     heroPill2: "0% డౌన్ పేమెంట్ లోన్",
@@ -198,7 +198,7 @@ export const I18N = {
     heroBadgeSub: "21+ Years Experience",
     heroBadge: "ISO 9001:2015 Certified • 21+ Years Experience",
     heroWelcomeTag: "Welcome • Smart Clean Energy Living",
-    heroTitle: "Power Your Home With <span class='title-energy-gradient'>Free Solar Energy</span><br class='title-line-break' />& Get&nbsp;Up&nbsp;to <span class='title-subsidy-badge'><span class='highlight-gold'>₹78,000*</span> <span class='highlight-green'>Govt Subsidy</span></span>",
+    heroTitle: "Power Your Home With <span class='title-energy-gradient'>Free Solar Energy</span><br class='title-line-break' />& Get Up to ₹78,000* Govt Subsidy",
     heroLead: "Slash your electricity bills up to <span class='lead-highlight lead-highlight-emerald'>90% forever</span> with turnkey <span class='lead-highlight lead-highlight-gold'>solar rooftop solutions,</span> hassle-free net metering, and <span class='lead-highlight lead-highlight-blue'>zero down-payment bank loans</span> across AP, Telangana, Bangalore, & Chennai.",
     heroPill1: "Up to 90% Bill Savings",
     heroPill2: "0% Down-Payment Loans",
@@ -332,7 +332,7 @@ export const I18N = {
 
     // Dealers & Contact
     dealersTag: "Authorized Dealers",
-    dealersTitle: "Contact Our Authorized Regional Leads",
+    dealersTitle: "Contact Our Authorized Dealers",
     dealersDesc: "Get instant consultation, site visit bookings, or direct quotes on WhatsApp or phone.",
     btnCallNow: "Call Dealer",
     btnChatWhatsApp: "WhatsApp Us",

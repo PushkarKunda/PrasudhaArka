@@ -65,10 +65,20 @@ export const Hero = ({ lang, t }) => {
             <p className="hero-welcome-tag">{t.heroWelcomeTag}</p>
           )}
 
-          <h1
-            className="hero-title"
-            dangerouslySetInnerHTML={{ __html: t.heroTitle }}
-          />
+          <h1 className="hero-title">
+            <span className="hero-title-prefix">
+              {lang === 'te' ? '' : 'With '}
+              <span style={{ whiteSpace: 'nowrap' }}>
+                <img 
+                  src={lang === 'te' ? '/assets/pra_te_v3.png' : '/assets/pra_en_v3.png'} 
+                  alt="PraSudhaArka" 
+                  className={`hero-inline-logo ${lang === 'te' ? 'logo-te' : 'logo-en'}`}
+                />
+                {lang === 'te' ? ' తో, ' : ', '}
+              </span>
+            </span>
+            <span dangerouslySetInnerHTML={{ __html: t.heroTitle }} />
+          </h1>
 
           {/* Lead Text */}
           <p

@@ -93,7 +93,7 @@ export const ContactSection = ({ lang, t }) => {
           <div className="dealer-profile-card glassmorphism-card-glow">
             <div className="dealer-badge-header">
               <span className="dealer-role-pill">
-                {lang === 'te' ? 'హైదరాబాద్ & తెలంగాణ ఇన్‌ఛార్జ్' : 'Hyderabad & Telangana Lead'}
+                {lang === 'te' ? 'హైదరాబాద్ & తెలంగాణ' : 'Hyderabad & Telangana'}
               </span>
             </div>
 
@@ -134,7 +134,7 @@ export const ContactSection = ({ lang, t }) => {
           <div className="dealer-profile-card glassmorphism-card-glow">
             <div className="dealer-badge-header">
               <span className="dealer-role-pill">
-                {lang === 'te' ? 'రాయలసీమ & ఏపీ ఇన్‌ఛార్జ్' : 'Rayalaseema & AP Lead'}
+                {lang === 'te' ? 'రాయలసీమ & ఏపీ' : 'Rayalaseema & AP'}
               </span>
             </div>
 

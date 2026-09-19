@@ -163,6 +163,30 @@
   flex-shrink: 0;
 }
 
+.hero-title-prefix {
+  display: inline;
+}
+
+.hero-inline-logo {
+  width: auto;
+  vertical-align: middle;
+  margin-left: 6px;
+  margin-right: 0px;
+  position: relative;
+}
+
+.hero-inline-logo.logo-te {
+  height: 1.15em;
+  top: -0.1em;
+  margin-right: 4px;
+}
+
+.hero-inline-logo.logo-en {
+  height: 0.95em;
+  vertical-align: baseline;
+  top: 0.08em;
+}
+
 .hero-title {
   font-size: clamp(2.1rem, 4vw, 2.85rem);
   font-weight: 900;

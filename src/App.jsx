@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Routes, Route } from 'react-router-dom';
 import { I18N } from './data/i18n';
 import { initCleanUrlHandler } from './utils/navigation';
 import {
@@ -17,6 +18,31 @@ import {
   Footer,
   ClickSpark,
 } from './components';
+import { AdminPanel } from './components/Admin/AdminPanel';
+import { GallerySection } from './components/sections/GallerySection/GallerySection';
+
+function MainPage({ lang, setLang, t }) {
+  return (
+    <>
+      <Navbar lang={lang} setLang={setLang} t={t} />
+      <main>
+        <Hero lang={lang} t={t} />
+        <BrandShowcase lang={lang} t={t} />
+        <SystemPricing lang={lang} t={t} />
+        <SolarCalculator lang={lang} t={t} />
+        <ServicesSection lang={lang} t={t} />
+        <ProcessTimeline lang={lang} t={t} />
+        <GallerySection lang={lang} t={t} />
+        <DocumentsSection lang={lang} t={t} />
+        <Testimonials lang={lang} t={t} />
+        <ContactSection lang={lang} t={t} />
+        <FaqSection lang={lang} t={t} />
+      </main>
+      <FloatingActions lang={lang} />
+      <Footer lang={lang} t={t} />
+    </>
+  );
+}
 
 export function App() {
   const [lang, setLang] = useState(() => {
@@ -37,21 +63,10 @@ export function App() {
   return (
     <ClickSpark sparkColor="#f59e0b" sparkSize={8} sparkCount={8} duration={450}>
       <div className={`app-root lang-${lang}`}>
-      <Navbar lang={lang} setLang={setLang} t={t} />
-      <main>
-        <Hero lang={lang} t={t} />
-        <BrandShowcase lang={lang} t={t} />
-        <SystemPricing lang={lang} t={t} />
-        <SolarCalculator lang={lang} t={t} />
-        <ServicesSection lang={lang} t={t} />
-        <ProcessTimeline lang={lang} t={t} />
-        <DocumentsSection lang={lang} t={t} />
-        <Testimonials lang={lang} t={t} />
-        <ContactSection lang={lang} t={t} />
-        <FaqSection lang={lang} t={t} />
-      </main>
-      <FloatingActions lang={lang} />
-      <Footer lang={lang} t={t} />
+        <Routes>
+          <Route path="/" element={<MainPage lang={lang} setLang={setLang} t={t} />} />
+          <Route path="/admin/*" element={<AdminPanel />} />
+        </Routes>
       </div>
     </ClickSpark>
   );

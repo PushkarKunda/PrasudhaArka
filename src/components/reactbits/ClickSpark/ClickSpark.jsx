@@ -16,17 +16,25 @@ export const ClickSpark = ({
     const canvas = canvasRef.current;
     if (!canvas) return;
     const parent = canvas.parentElement;
+    if (!parent) return;
+
+    let resizeObserver;
 
     const resizeCanvas = () => {
-      if (parent) {
-        canvas.width = parent.clientWidth;
-        canvas.height = parent.clientHeight;
-      }
+      canvas.width = parent.clientWidth;
+      canvas.height = parent.clientHeight;
     };
 
+    resizeObserver = new ResizeObserver(() => {
+      resizeCanvas();
+    });
+
+    resizeObserver.observe(parent);
     resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
-    return () => window.removeEventListener('resize', resizeCanvas);
+
+    return () => {
+      if (resizeObserver) resizeObserver.disconnect();
+    };
   }, []);
 
   const createSparks = useCallback((x, y) => {

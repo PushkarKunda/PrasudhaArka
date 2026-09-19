@@ -67,14 +67,14 @@ export const Hero = ({ lang, t }) => {
 
           <h1 className="hero-title">
             <span className="hero-title-prefix">
-              {lang === 'te' ? '' : 'With '}
+              {lang === 'te' ? '' : 'By '}
               <span style={{ whiteSpace: 'nowrap' }}>
                 <img 
                   src={lang === 'te' ? '/assets/pra_te_v5.png' : '/assets/pra_en_v5.png'} 
                   alt="PraSudhaArka" 
                   className={`hero-inline-logo ${lang === 'te' ? 'logo-te' : 'logo-en'}`}
                 />
-                {lang === 'te' ? ' తో, ' : ', '}
+                {lang === 'te' ? ' ద్వారా, ' : ', '}
               </span>
             </span>
             <span dangerouslySetInnerHTML={{ __html: t.heroTitle }} />

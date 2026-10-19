@@ -7,6 +7,7 @@ import { LoginForm } from './LoginForm';
 export function AdminPanel() {
   const [user, setUser] = useState(null);
   const [loadingAuth, setLoadingAuth] = useState(true);
+  const [accessDenied, setAccessDenied] = useState(false);
   
   const [file, setFile] = useState(null);
   const [uploadProgress, setUploadProgress] = useState(0);
@@ -14,7 +15,21 @@ export function AdminPanel() {
   const fileInputRef = useRef(null);
   
   const [mediaList, setMediaList] = useState([]);
-  
+
+  // Optional allowlist: when VITE_ADMIN_EMAILS (comma-separated emails
+  // and/or UIDs) is configured, only those Firebase accounts get in.
+  // When unset, any signed-in account works (legacy behavior).
+  const isAuthorizedAdmin = (user) => {
+    const raw = import.meta.env.VITE_ADMIN_EMAILS;
+    if (!raw || !raw.trim()) {
+      console.warn('[admin] VITE_ADMIN_EMAILS is not set — any signed-in Firebase account can access the admin panel.');
+      return true;
+    }
+    const allowed = raw.split(',').map((entry) => entry.trim().toLowerCase()).filter(Boolean);
+    const email = (user.email || '').toLowerCase();
+    return allowed.includes(email) || allowed.includes((user.uid || '').toLowerCase());
+  };
+
   useEffect(() => {
     if (!auth) {
       setLoadingAuth(false);
@@ -22,6 +37,11 @@ export function AdminPanel() {
     }
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
+      if (currentUser && !isAuthorizedAdmin(currentUser)) {
+        console.warn('[admin] Signed-in account is not in VITE_ADMIN_EMAILS — access denied.');
+        setUser(null);
+        setAccessDenied(true);
+      }
       setLoadingAuth(false);
     });
     return () => unsubscribe();
@@ -66,12 +86,14 @@ export function AdminPanel() {
       return;
     }
 
-    // Security Hardening: File type & size validation
-    const isImage = file.type.startsWith('image/');
-    const isVideo = file.type.startsWith('video/');
+    // Security Hardening: explicit file type & size allowlist
+    const ALLOWED_IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/avif', 'image/gif'];
+    const ALLOWED_VIDEO_TYPES = ['video/mp4', 'video/webm', 'video/quicktime'];
+    const isImage = ALLOWED_IMAGE_TYPES.includes(file.type);
+    const isVideo = ALLOWED_VIDEO_TYPES.includes(file.type);
 
     if (!isImage && !isVideo) {
-      alert("Invalid file type. Only images and videos are allowed.");
+      alert("Unsupported file type. Allowed: JPG, PNG, WebP, AVIF, GIF, MP4, WebM, MOV.");
       return;
     }
 
@@ -151,6 +173,16 @@ export function AdminPanel() {
 
   if (loadingAuth) {
     return <div style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#0f172a', color: 'white' }}>Loading...</div>;
+  }
+
+  if (accessDenied) {
+    return (
+      <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', gap: '12px', alignItems: 'center', justifyContent: 'center', background: '#0f172a', color: 'white', fontFamily: 'var(--font-en)', textAlign: 'center', padding: '20px' }}>
+        <span style={{ color: '#f59e0b', fontWeight: 700 }}>This account does not have admin access.</span>
+        <span style={{ color: '#94a3b8', fontSize: '0.9rem' }}>Ask the site owner to add your email to VITE_ADMIN_EMAILS.</span>
+        <a href="/" style={{ color: '#f59e0b' }}>Back to home</a>
+      </div>
+    );
   }
 
   if (!user) {

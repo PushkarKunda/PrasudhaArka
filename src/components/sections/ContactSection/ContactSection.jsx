@@ -30,11 +30,12 @@ export const ContactSection = ({ lang, t }) => {
   React.useEffect(() => {
     const handlePrefill = (event) => {
       if (event.detail) {
+        const knownDealer = event.detail.dealer && DEALERS[event.detail.dealer];
         setFormState(prev => ({
           ...prev,
           ...(event.detail.town ? { town: event.detail.town } : {}),
           ...(event.detail.capacity ? { capacity: event.detail.capacity } : {}),
-          ...(event.detail.dealer ? { dealer: event.detail.dealer } : {})
+          ...(knownDealer ? { dealer: event.detail.dealer } : {})
         }));
       }
     };
@@ -44,10 +45,11 @@ export const ContactSection = ({ lang, t }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const dealerInfo = DEALERS[formState.dealer];
+    const dealerId = DEALERS[formState.dealer] ? formState.dealer : 'sudhakar';
+    const dealerInfo = DEALERS[dealerId];
     const isTe = lang === 'te';
     const dealerTitle = isTe
-      ? (formState.dealer === 'sudhakar' ? 'సుధాకర్ గారు' : 'భాస్కర్ గారు')
+      ? (dealerId === 'sudhakar' ? 'సుధాకర్ గారు' : 'భాస్కర్ గారు')
       : dealerInfo.name;
 
     const msg = isTe
@@ -70,7 +72,7 @@ export const ContactSection = ({ lang, t }) => {
         `------------------------------------\n` +
         `Hello ${dealerInfo.name}, please contact me regarding this rooftop solar installation.`;
 
-    window.open(getWhatsAppUrl(formState.dealer, msg), '_blank', 'noopener,noreferrer');
+    window.open(getWhatsAppUrl(dealerId, msg), '_blank', 'noopener,noreferrer');
     setFormSubmitted(true);
   };
 

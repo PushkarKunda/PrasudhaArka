@@ -183,6 +183,9 @@ export const BrandShowcase = ({ lang }) => {
                 src="/assets/aquapzone_logo.jpg" 
                 alt="Aqua Pzone Logo" 
                 className="about-aquapzone-logo"
+                width="1600"
+                height="621"
+                loading="lazy"
                 onError={(e) => {
                   e.target.style.display = 'none';
                   e.target.nextSibling.style.display = 'inline-flex';

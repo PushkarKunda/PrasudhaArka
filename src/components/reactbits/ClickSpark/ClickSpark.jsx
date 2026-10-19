@@ -11,25 +11,26 @@ export const ClickSpark = ({
 }) => {
   const canvasRef = useRef(null);
   const sparksRef = useRef([]);
+  const startAnimRef = useRef(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const parent = canvas.parentElement;
-    if (!parent) return;
 
     let resizeObserver;
 
+    // Canvas is position:fixed (viewport-sized) — no need to track the
+    // document-sized parent, which used to cost tens of MB of GPU memory.
     const resizeCanvas = () => {
-      canvas.width = parent.clientWidth;
-      canvas.height = parent.clientHeight;
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
     };
 
     resizeObserver = new ResizeObserver(() => {
       resizeCanvas();
     });
 
-    resizeObserver.observe(parent);
+    resizeObserver.observe(document.documentElement);
     resizeCanvas();
 
     return () => {
@@ -56,10 +57,13 @@ export const ClickSpark = ({
   }, [sparkCount, sparkSize]);
 
   useEffect(() => {
-    let animId;
+    let animId = null;
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
+
+    // Respect reduced-motion: never start the loop; clicks won't spawn sparks.
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     const animate = (now) => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -87,20 +91,37 @@ export const ClickSpark = ({
         return true;
       });
 
+      // Stop the loop when no sparks remain (idle cost: 0).
+      if (sparksRef.current.length === 0) {
+        animId = null;
+        return;
+      }
+
       animId = requestAnimationFrame(animate);
     };
 
-    animId = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(animId);
+    // Called on click to (re)start the loop only when it isn't already running.
+    startAnimRef.current = () => {
+      if (animId === null) {
+        animId = requestAnimationFrame(animate);
+      }
+    };
+
+    return () => {
+      if (animId !== null) cancelAnimationFrame(animId);
+      startAnimRef.current = null;
+    };
   }, [duration, sparkColor]);
 
   const handleClick = (e) => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const canvas = canvasRef.current;
     if (!canvas) return;
     const rect = canvas.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
     createSparks(x, y);
+    startAnimRef.current?.();
   };
 
   return (

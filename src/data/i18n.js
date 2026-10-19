@@ -15,7 +15,6 @@ export const I18N = {
     // Top Bar
     topGovBadge: "పి.ఎం సూర్య ఘర్ ముఫ్త్ బిజిలీ యోజన",
     topSubsidyBadge: "☀️ రూ. 78,000* వరకు ప్రభుత్వ సబ్సిడీ",
-    topGstin: "GSTIN: 36ABHPU5110F1ZS",
     callSudhakar: "సుధాకర్ గారితో మాట్లాడండి",
     callBhaskar: "భాస్కర్ గారితో మాట్లాడండి",
 
@@ -207,7 +206,6 @@ export const I18N = {
     // Top Bar
     topGovBadge: "PM Surya Ghar Muft Bijli Yojana",
     topSubsidyBadge: "☀️ Govt. Subsidy Up to ₹78,000*",
-    topGstin: "GSTIN: 36ABHPU5110F1ZS",
     callSudhakar: "Call K. Sudhakar",
     callBhaskar: "Call K. Bhaskar",
 

@@ -9,7 +9,6 @@ export * from './common/QuickQuoteCard';
 export * from './common/EnergyFlowVisualizer';
 
 // Layout Components
-export * from './layout/AnnouncementBar';
 export * from './layout/Navbar';
 export * from './layout/Footer';
 export * from './layout/FloatingActions';

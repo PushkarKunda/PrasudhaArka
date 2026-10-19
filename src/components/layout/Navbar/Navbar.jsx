@@ -131,6 +131,8 @@ export const Navbar = ({ lang, setLang, t }) => {
               src={lang === 'te' ? '/assets/logo_te.jpg' : '/assets/logo_en.jpg'} 
               alt="Prasudharka Solar Logo" 
               className="brand-logo-img"
+              width="1024"
+              height="768"
               onError={(e) => {
                 e.currentTarget.style.display = 'none';
                 const fallback = e.currentTarget.nextElementSibling;

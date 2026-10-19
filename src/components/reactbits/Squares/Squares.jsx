@@ -37,7 +37,7 @@ export const Squares = ({
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
-    let animationId;
+    let animationId = null;
 
     const resize = () => {
       const parent = canvas.parentElement;
@@ -49,12 +49,9 @@ export const Squares = ({
     resize();
     window.addEventListener('resize', resize);
 
-    const updateAnimation = () => {
+    const draw = () => {
       const { width, height } = canvas;
-      if (!width || !height) {
-        animationId = requestAnimationFrame(updateAnimation);
-        return;
-      }
+      if (!width || !height) return;
 
       // Drift calculation
       switch (direction) {
@@ -106,14 +103,47 @@ export const Squares = ({
           ctx.strokeRect(x, y, squareSize, squareSize);
         }
       }
-
-      animationId = requestAnimationFrame(updateAnimation);
     };
 
-    animationId = requestAnimationFrame(updateAnimation);
+    // Static first frame (also the only frame under reduced-motion).
+    draw();
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return () => window.removeEventListener('resize', resize);
+    }
+
+    const tick = () => {
+      draw();
+      animationId = requestAnimationFrame(tick);
+    };
+
+    const stop = () => {
+      if (animationId !== null) {
+        cancelAnimationFrame(animationId);
+        animationId = null;
+      }
+    };
+
+    const start = () => {
+      if (animationId === null) {
+        animationId = requestAnimationFrame(tick);
+      }
+    };
+
+    // Only animate while on-screen: display:none canvases (mobile) and
+    // scrolled-past canvases are not intersecting, so the loop pauses.
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        start();
+      } else {
+        stop();
+      }
+    }, { threshold: 0 });
+    observer.observe(canvas);
 
     return () => {
-      cancelAnimationFrame(animationId);
+      stop();
+      observer.disconnect();
       window.removeEventListener('resize', resize);
     };
   }, [direction, speed, borderColor, squareSize, hoverFillColor]);

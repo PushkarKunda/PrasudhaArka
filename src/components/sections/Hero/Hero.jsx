@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Award, IndianRupee, ShieldCheck, Zap, TrendingUp } from 'lucide-react';
 import { WhatsAppIcon } from '../../common/WhatsAppIcon';
 import { QuickQuoteCard } from '../../common/QuickQuoteCard';
@@ -11,25 +11,44 @@ import './Hero.css';
 export const Hero = ({ lang, t }) => {
   const [activeHeroTab, setActiveHeroTab] = useState('quote'); // 'quote' | 'simulator'
 
+  // Desktop-only decorative background: hidden ≤768px by Hero.css, so never
+  // render (or download) the 1.1 MB hero image / Squares canvas on phones.
+  const [isDesktop, setIsDesktop] = useState(
+    () => typeof window !== 'undefined' && window.matchMedia('(min-width: 769px)').matches
+  );
+
+  useEffect(() => {
+    const mq = window.matchMedia('(min-width: 769px)');
+    const onChange = (e) => setIsDesktop(e.matches);
+    mq.addEventListener('change', onChange);
+    return () => mq.removeEventListener('change', onChange);
+  }, []);
+
   return (
     <section className="hero-section" id="home">
       {/* Background Image & Radiant Ambient Glow & React Bits Squares Grid */}
       <div className="hero-background-wrapper">
-        <Squares 
-          direction="diagonal" 
-          speed={0.3} 
-          squareSize={48} 
-          borderColor="rgba(245, 158, 11, 0.07)" 
-          hoverFillColor="rgba(245, 158, 11, 0.16)" 
-        />
-        <img 
-          src="/assets/hero_solar.jpg" 
-          alt="Modern Rooftop Solar Installation" 
-          className="hero-background-img"
-          loading="eager"
-          fetchPriority="high"
-          decoding="async"
-        />
+        {isDesktop && (
+          <>
+            <Squares 
+              direction="diagonal" 
+              speed={0.3} 
+              squareSize={48} 
+              borderColor="rgba(245, 158, 11, 0.07)" 
+              hoverFillColor="rgba(245, 158, 11, 0.16)" 
+            />
+            <img 
+              src="/assets/hero_solar.jpg" 
+              alt="Modern Rooftop Solar Installation" 
+              className="hero-background-img"
+              width="1376"
+              height="768"
+              loading="eager"
+              fetchPriority="high"
+              decoding="async"
+            />
+          </>
+        )}
         <div className="hero-overlay"></div>
         <div className="hero-ambient-glow"></div>
         <div className="hero-sun-sphere"></div>
@@ -46,6 +65,8 @@ export const Hero = ({ lang, t }) => {
                   src="/assets/aquapzone_logo.jpg" 
                   alt="AquaPzone Enterprises Logo" 
                   className="hero-aquapzone-logo" 
+                  width="1600"
+                  height="621"
                   onError={(e) => { e.target.style.display = 'none'; }}
                 />
               </div>
@@ -73,6 +94,8 @@ export const Hero = ({ lang, t }) => {
                 <img 
                   src={lang === 'te' ? '/assets/pra_te_v5.png' : '/assets/pra_en_v5.png'} 
                   alt="PraSudhaArka" 
+                  width={lang === 'te' ? 1390 : 2000}
+                  height={320}
                   className={`hero-inline-logo ${lang === 'te' ? 'logo-te' : 'logo-en'}`}
                 />
                 {lang === 'te' ? ' ద్వారా, ' : ', '}
@@ -107,6 +130,8 @@ export const Hero = ({ lang, t }) => {
                 src="/assets/pm_modi.jpg" 
                 alt="PM Narendra Modi" 
                 className="pm-modi-avatar-img"
+                width="250"
+                height="312"
               />
             </div>
             <div className="subsidy-card-text">

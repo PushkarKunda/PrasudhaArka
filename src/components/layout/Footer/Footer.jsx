@@ -20,6 +20,8 @@ export const Footer = ({ lang, t }) => {
                 src={isTe ? '/assets/logo_te.jpg' : '/assets/logo_en.jpg'} 
                 alt={isTe ? "ప్రసుధార్క సోలార్" : "Prasudharka Solar"} 
                 className="footer-logo-img"
+                width="1024"
+                height="768"
               />
             </div>
             <h3 className="footer-brand-heading">

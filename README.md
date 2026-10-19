@@ -112,12 +112,31 @@ Open your browser and navigate to: **`http://localhost:5173`**
 
 ### Production Build
 ```bash
-# Build optimized production bundle
+# Build optimized production bundle (also refreshes sitemap lastmod via prebuild)
 npm run build
 
 # Preview production build locally
 npm run preview
 ```
+
+### All Scripts
+
+| Command | Description |
+| --- | --- |
+| `npm run dev` | Vite dev server → `http://localhost:5173` |
+| `npm run build` | Refresh `<lastmod>` in `sitemap.xml`, then build `dist/` |
+| `npm run preview` | Serve the production build locally |
+| `npm run lint` / `npm run lint:fix` | ESLint (flat config) across `src/` |
+| `npm run format` | Prettier write |
+| `node scripts/optimize-images.mjs` | Regenerate AVIF/WebP variants (needs `npm i --no-save sharp`) |
+
+### Environment Variables
+
+Copy `.env.example` → `.env`:
+
+**Client (`VITE_*` — required):** `VITE_FIREBASE_*` (Firestore gallery + admin auth), `VITE_CLOUDINARY_CLOUD_NAME` + `VITE_CLOUDINARY_UPLOAD_PRESET` (unsigned admin uploads — set the preset to *Restricted* in Cloudinary), and `VITE_ADMIN_EMAILS` (comma-separated emails/UIDs allowed into `/admin`; unset = open with a console warning).
+
+**Server-only (optional — set on Vercel *and* Netlify, never `VITE_`):** `FIREBASE_WEB_API_KEY`, `ADMIN_EMAILS`, `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET`. These power `/api/gallery-delete`, which destroys the Cloudinary asset when the admin deletes a gallery item. Without them the site works fine — deletes just leave the Cloudinary file behind.
 
 ---
 
@@ -125,43 +144,42 @@ npm run preview
 
 ```text
 PrasudhaArka/
-├── index.html                  # Main HTML entry point & SEO meta tags
-├── package.json                # Project dependencies & scripts
-├── vite.config.js              # Vite configuration
-├── public/                     # Static public assets
+├── index.html                  # HTML entry: meta, canonical, JSON-LD (LocalBusiness + FAQPage)
+├── vite.config.js              # Vite config (React plugin, manual chunking)
+├── package.json                # Dependencies & scripts
+├── eslint.config.js            # ESLint flat config (CI-blocking)
+├── firestore.rules             # Firestore security rules for gallery_media
+├── vercel.json                 # Vercel headers/rewrites (CSP, Permissions-Policy, /admin noindex)
+├── netlify.toml                # Netlify headers/redirects (incl. /api → serverless)
+├── public/
+│   ├── sitemap.xml             # <lastmod> auto-refreshed by npm prebuild
 │   └── assets/                 # Brand logos, hero visuals + generated AVIF/WebP variants
-│       ├── logo_te.jpg         # Official Telugu PraSudhaArka logo
-│       ├── logo_en.jpg         # Official English PraSudhaArka logo
-│       ├── aquapzone_logo.jpg  # Aqua Pzone corporate brand logo
-│       ├── hero_solar.jpg      # Rooftop solar installation hero visual
-│       └── *-{400,768,1376}.{avif,webp}  # Responsive variants (scripts/optimize-images.mjs)
+│       ├── logo_te.jpg / logo_en.jpg / aquapzone_logo.jpg / hero_solar.jpg
+│       └── *-{400,768,1376}.{avif,webp}   # Responsive variants (scripts/optimize-images.mjs)
+├── scripts/
+│   ├── optimize-images.mjs     # sharp-based AVIF/WebP variant generator
+│   └── update-sitemap.mjs      # Refreshes sitemap lastmod on every build
+├── api/gallery-delete.js       # Vercel function: Cloudinary destroy-on-delete
+├── netlify/functions/          # Netlify function (same endpoint via netlify.toml redirect)
+├── functions-shared/           # Shared serverless core (Firebase token verify + signed destroy)
+├── .github/workflows/ci.yml    # CI: install → lint → build → audit (informational)
 └── src/
     ├── main.jsx                # Application root mount
-    ├── App.jsx                 # Main layout & language state coordinator
-    ├── index.css               # Design system, CSS variables & responsive layout
-    ├── components/             # Reusable UI Components
-    │   ├── Navbar.jsx          # Sticky navbar with mobile drawer & smooth scroll
-    │   ├── Hero.jsx            # Hero section with interactive simulator switch
-    │   ├── QuickQuoteCard.jsx  # Instant bill estimate input card
-    │   ├── EnergyFlowVisualizer.jsx # Interactive live energy flow diagram
-    │   ├── BrandShowcase.jsx   # Authorized brand partners & trust badges
-    │   ├── SystemPricing.jsx   # System size pricing matrix (1kW - 5kW)
-    │   ├── SolarCalculator.jsx # Comprehensive DISCOM tariff & ROI calculator
-    │   ├── ServicesSection.jsx # Solar, RO, battery, & agri pump services
-    │   ├── ProcessTimeline.jsx # 5-step PM Surya Ghar installation roadmap
-    │   ├── DocumentsSection.jsx# Required documentation checklist
-    │   ├── Testimonials.jsx    # Verified customer reviews
-    │   ├── FaqSection.jsx      # Frequently asked questions accordion
-    │   ├── ContactSection.jsx  # Inquiry form & regional dealer details
-    │   ├── FloatingActions.jsx # Floating WhatsApp dealer modal & scroll top
-    │   ├── Footer.jsx          # Multi-state contacts & corporate footer
-    │   └── WhatsAppIcon.jsx    # Crisp vector WhatsApp badge
-    └── data/                   # Data Stores & Business Logic
-        ├── i18n.js             # Bilingual dictionary (English & Telugu)
-        ├── tariffs.js          # AP & TS DISCOM tariff engines & slabs
-        ├── dealers.js          # Authorized dealer contact info & WhatsApp links
-        ├── products.js         # Solar panel & system specifications
-        └── services.js         # Service catalog details
+    ├── App.jsx                 # Routes, language state, skip link, error boundary
+    ├── index.css               # Design system, CSS variables, a11y helpers
+    ├── components/
+    │   ├── Gallery.jsx         # Public Firestore-backed gallery (filters + lightbox)
+    │   ├── Admin/              # /admin: allowlisted upload & media management
+    │   ├── layout/             # Navbar, Footer, FloatingActions
+    │   ├── sections/           # Hero, BrandShowcase, SystemPricing, SolarCalculator,
+    │   │                       # Services, ProcessTimeline, Documents, Testimonials,
+    │   │                       # Contact, Faq
+    │   ├── common/             # QuickQuoteCard, EnergyFlowVisualizer, WhatsAppIcon,
+    │   │                       # ResponsivePicture
+    │   └── reactbits/          # Magnet, SpotlightCard, CountUp, ShinyText
+    ├── data/                   # i18n.js (bilingual TE/EN), tariffs.js, dealers.js,
+    │                           # services.js, products.js
+    └── utils/                  # navigation, galleryMedia (lazy Firebase), hooks
 ```
 
 ---
@@ -170,6 +188,7 @@ PrasudhaArka/
 
 This web application can be deployed instantly to modern edge hosting platforms:
 - **Vercel / Netlify:** Connected directly to the GitHub repository `PushkarKunda/PrasudhaArka` with build command `npm run build` and output directory `dist`.
+- **GitHub Actions CI:** every push/PR runs `npm ci` → lint → build, so a broken build is caught before it reaches the deploy targets (audit step is informational).
 - **GitHub Pages / Cloudflare Pages:** Fast global edge distribution.
 
 ---

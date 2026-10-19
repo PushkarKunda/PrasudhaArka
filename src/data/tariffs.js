@@ -316,7 +316,7 @@ export function calculateSolarPlan(units = 300, stateKey = 'AP', propTypeKey = '
   const tariff = computeDiscomTariff(safeUnits, stateKey, propTypeKey);
   
   // Sizing aligned with System Configurations (1 kW = 5 units/day = 150 units/mo)
-  let recKw = 3;
+  let recKw;
   if (safeUnits <= 180) {
     recKw = 1;
   } else if (safeUnits <= 360) {

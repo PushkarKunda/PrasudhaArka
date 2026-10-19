@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowUp, Phone, X, User } from 'lucide-react';
+import { ArrowUp, Phone, X } from 'lucide-react';
 import { WhatsAppIcon } from '../../common/WhatsAppIcon';
 import { DEALERS, getWhatsAppUrl } from '../../../data/dealers';
 import { Magnet } from '../../reactbits';

@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Globe, Calculator, Menu, X, Sparkles, ChevronRight } from 'lucide-react';
+import { Globe, Calculator, Menu, X, ChevronRight } from 'lucide-react';
 import { scrollToSection } from '../../../utils/navigation';
 import { Magnet } from '../../reactbits';
 import { ResponsivePicture } from '../../common/ResponsivePicture';

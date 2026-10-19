@@ -135,7 +135,7 @@ export const SystemPricing = ({ lang }) => {
     const dealerInfo = DEALERS[selectedDealer] || DEALERS.sudhakar;
     const isTe = lang === 'te';
 
-    let msg = '';
+    let msg;
     if (isTe) {
       msg = `*నమస్కారం! ప్రసుధార్క సోలార్ - ${product.capacity} కొటేషన్ విచారణ*\n` +
         `------------------------------------\n` +

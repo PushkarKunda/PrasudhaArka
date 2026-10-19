@@ -3,7 +3,7 @@ import { motion, useSpring } from 'framer-motion';
 
 export const Magnet = ({
   children,
-  padding = 30,
+  padding: _padding = 30,
   disabled = false,
   magnetStrength = 0.35,
   springConfig = { damping: 18, stiffness: 180, mass: 0.2 },
@@ -11,7 +11,7 @@ export const Magnet = ({
   ...props
 }) => {
   const ref = useRef(null);
-  const [isHovered, setIsHovered] = useState(false);
+  const [, setIsHovered] = useState(false);
 
   const x = useSpring(0, springConfig);
   const y = useSpring(0, springConfig);

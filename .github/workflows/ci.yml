@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint (ESLint)
+        run: npm run lint
+
+      - name: Build (incl. sitemap lastmod prebuild)
+        run: npm run build
+
+      # Informational only: the firebase transitive @grpc/grpc-js advisories
+      # are Node-side and don't affect the shipped bundle, so a red audit
+      # must not block deploys. Shows the report in the job log.
+      - name: Dependency audit (informational)
+        run: npm audit --audit-level=high || echo "::warning::npm audit reported high/critical advisories (see log)"

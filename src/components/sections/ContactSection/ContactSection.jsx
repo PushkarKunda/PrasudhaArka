@@ -2,14 +2,9 @@ import React, { useState } from 'react';
 import {
   PhoneCall,
   MapPin,
-  Mail,
-  Clock,
   Send,
-  ShieldCheck,
   UserCheck,
-  Building2,
   Sparkles,
-  Zap,
   CheckCircle2
 } from 'lucide-react';
 import { WhatsAppIcon } from '../../common/WhatsAppIcon';

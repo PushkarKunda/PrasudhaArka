@@ -1,0 +1,9 @@
+dist
+node_modules
+public/assets
+api
+netlify
+functions-shared
+AUDIT.md
+AUDIT-2026-10-19.md
+package-lock.json

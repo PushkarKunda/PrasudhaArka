@@ -1,21 +1,5 @@
-import React, { useState, useMemo } from 'react';
-import { 
-  Calculator, 
-  Zap, 
-  IndianRupee, 
-  TrendingUp, 
-  Maximize2, 
-  ShieldCheck, 
-  Clock, 
-  Share2, 
-  Home, 
-  Building, 
-  Tractor,
-  Sparkles,
-  Sun,
-  Layers,
-  Globe
-} from 'lucide-react';
+import { useState, useMemo } from 'react';
+import { Calculator } from 'lucide-react';
 import { WhatsAppIcon } from '../../common/WhatsAppIcon';
 import { SpotlightCard, ShinyText, CountUp, Magnet } from '../../reactbits';
 import { computeDiscomTariff, calculateSolarPlan, billToUnits } from '../../../data/tariffs';
@@ -32,7 +16,7 @@ export const SolarCalculator = ({ lang, t }) => {
   const [billAmount, setBillAmount] = useState(3000);
   const [currentReading, setCurrentReading] = useState(4520);
   const [prevReading, setPrevReading] = useState(4220);
-  const [selectedDealer, setSelectedDealer] = useState('sudhakar');
+  const [selectedDealer] = useState('sudhakar');
 
   // Compute effective units from active input mode
   const effectiveUnits = useMemo(() => {
@@ -71,7 +55,7 @@ export const SolarCalculator = ({ lang, t }) => {
     const dealerInfo = DEALERS[selectedDealer] || DEALERS.sudhakar;
     const isTe = lang === 'te';
 
-    let msg = '';
+    let msg;
     if (isTe) {
       msg = `*నమస్కారం! ప్రసుధార్క సోలార్ కాలిక్యులేటర్ కొటేషన్ విచారణ*\n` +
             `------------------------------------\n` +

@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { HelpCircle, ChevronDown, ChevronUp } from 'lucide-react';
 import { FAQS } from '../../../data/services';
 import './FaqSection.css';
 
-export const FaqSection = ({ lang, t }) => {
+export const FaqSection = ({ lang }) => {
   const [openIdx, setOpenIdx] = useState(0);
 
   const toggleFaq = (idx) => {

@@ -1,7 +1,6 @@
 import { useState } from 'react';
-import { Sparkles, MapPin, IndianRupee, Home, Building2, CheckCircle2 } from 'lucide-react';
+import { Sparkles, MapPin, IndianRupee, Home, Building2 } from 'lucide-react';
 import { WhatsAppIcon } from '../WhatsAppIcon';
-import { DEALERS, getWhatsAppUrl } from '../../../data/dealers';
 import { calculateSolarSpecs } from '../../../data/tariffs';
 import './QuickQuoteCard.css';
 

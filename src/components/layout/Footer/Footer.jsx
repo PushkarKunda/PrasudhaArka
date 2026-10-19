@@ -1,4 +1,3 @@
-import React from 'react';
 import { Headphones, MapPin, Mail, ExternalLink } from 'lucide-react';
 import { DEALERS } from '../../../data/dealers';
 import { scrollToSection } from '../../../utils/navigation';

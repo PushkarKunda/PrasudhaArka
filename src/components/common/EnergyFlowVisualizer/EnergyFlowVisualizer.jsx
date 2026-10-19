@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { Sun, Zap, Cpu, Home, RefreshCw, Activity, Shield, ShieldCheck } from 'lucide-react';
 import './EnergyFlowVisualizer.css';
 

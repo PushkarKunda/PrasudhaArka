@@ -1,8 +1,8 @@
-import { Star, MessageSquare, Quote, MapPin, Zap, CheckCircle2 } from 'lucide-react';
+import { Star, MessageSquare, Quote, MapPin, Zap } from 'lucide-react';
 import { TESTIMONIALS } from '../../../data/services';
 import './Testimonials.css';
 
-export const Testimonials = ({ lang, t }) => {
+export const Testimonials = ({ lang }) => {
   return (
     <section className="testimonials-section section-padding" id="testimonials">
       <div className="container">

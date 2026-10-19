@@ -1,5 +1,3 @@
-import React from 'react';
-
 export const WhatsAppIcon = ({ size = 20, className = '', color = 'currentColor', style = {} }) => {
   return (
     <svg

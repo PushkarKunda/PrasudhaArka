@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { FileCheck, CheckSquare, Sparkles, Download, HelpCircle } from 'lucide-react';
+import { FileCheck, CheckSquare, HelpCircle } from 'lucide-react';
 import { WhatsAppIcon } from '../../common/WhatsAppIcon';
 import { DOCUMENTS_DATA } from '../../../data/services';
-import { DEALERS, getWhatsAppUrl } from '../../../data/dealers';
+import { getWhatsAppUrl } from '../../../data/dealers';
 import './DocumentsSection.css';
 
 export const DocumentsSection = ({ lang, t }) => {

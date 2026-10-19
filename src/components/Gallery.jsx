@@ -1,14 +1,51 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
-import { ChevronLeft, ChevronRight, Images, X } from 'lucide-react';
-import { GALLERY_CATEGORIES, GALLERY_ITEMS } from '../data/gallery';
+import { ChevronLeft, ChevronRight, Images, Play, X } from 'lucide-react';
 
 const IMAGE_WIDTH = 1200;
 const IMAGE_HEIGHT = 800;
 
+const GALLERY_CATEGORIES = ['photos', 'videos'];
+
+// Insert a fetch-time transformation into a Cloudinary delivery URL, e.g.
+// .../upload/v123/x.jpg -> .../upload/w_800,q_auto/v123/x.jpg (free, cached).
+const withCloudinaryTransform = (url, transformation) => {
+  if (typeof url !== 'string') return url;
+  const marker = '/upload/';
+  const index = url.indexOf(marker);
+  if (index === -1) return url;
+  return `${url.slice(0, index + marker.length)}${transformation}/${url.slice(index + marker.length)}`;
+};
+
+const toGalleryItem = (id, data, lang, t) => {
+  const isVideo = data.type === 'video';
+  const mediaWord = isVideo ? t.galleryMediaVideo : t.galleryMediaPhoto;
+
+  let dateLabel = '';
+  const createdAt = data.createdAt;
+  const date = createdAt && typeof createdAt.toDate === 'function' ? createdAt.toDate() : null;
+  if (date && !Number.isNaN(date.getTime())) {
+    dateLabel = ` • ${date.toLocaleDateString(lang === 'te' ? 'te-IN' : 'en-GB')}`;
+  }
+
+  return {
+    id: `media-${id}`,
+    mediaType: isVideo ? 'video' : 'image',
+    src: withCloudinaryTransform(data.url, isVideo ? 'w_800,q_auto' : 'w_800,q_auto'),
+    fullSrc: withCloudinaryTransform(data.url, 'w_1600,q_auto'),
+    poster: isVideo ? withCloudinaryTransform(data.url, 'so_0,f_jpg,q_auto,w_800') : null,
+    rawSrc: data.url,
+    title: { en: t.galleryItemTitle, te: t.galleryItemTitle },
+    caption: { en: `${mediaWord}${dateLabel}`, te: `${mediaWord}${dateLabel}` },
+  };
+};
+
 export const Gallery = ({ lang, t }) => {
   const [activeCategory, setActiveCategory] = useState('All');
+  const [items, setItems] = useState([]);
+  const [loadState, setLoadState] = useState('idle'); // idle | loading | ready | error | unconfigured
   const [selectedItemId, setSelectedItemId] = useState(null);
+  const sectionRef = useRef(null);
   const filterRefs = useRef([]);
   const dialogRef = useRef(null);
   const closeButtonRef = useRef(null);
@@ -18,17 +55,89 @@ export const Gallery = ({ lang, t }) => {
 
   const categoryLabels = {
     All: t.galleryFilterAll,
-    'Residential Rooftop': t.galleryFilterResidential,
-    'Commercial & Industrial': t.galleryFilterCommercial,
-    'Battery Storage': t.galleryFilterBattery,
-    'Agricultural Solar Pumps': t.galleryFilterAgricultural,
-    'RO Water Plants': t.galleryFilterWater,
+    photos: t.galleryFilterPhotos,
+    videos: t.galleryFilterVideos,
   };
 
+  // Subscribe to admin-uploaded media (Firestore `gallery_media`), loading the
+  // Firebase SDK only when the gallery approaches the viewport so it stays out
+  // of the initial page bundle.
+  useEffect(() => {
+    const node = sectionRef.current;
+    if (!node) return undefined;
+
+    let cancelled = false;
+    let unsubscribe = null;
+
+    const loadMedia = async () => {
+      if (!cancelled) setLoadState('loading');
+      try {
+        const [{ subscribeToGalleryMedia }] = await Promise.all([
+          import('../utils/galleryMedia'),
+        ]);
+        if (cancelled) return;
+        if (!subscribeToGalleryMedia) {
+          setLoadState('unconfigured');
+          return;
+        }
+        unsubscribe = subscribeToGalleryMedia(
+          (media) => {
+            if (cancelled) return;
+            setItems(media.map((data) => toGalleryItem(data.id, data, lang, t)));
+            setLoadState('ready');
+          },
+          (err) => {
+            console.error('Gallery media load failed:', err);
+            if (!cancelled) setLoadState('error');
+          },
+        );
+        if (!unsubscribe && !cancelled) setLoadState('unconfigured');
+      } catch (err) {
+        console.error('Gallery media load failed:', err);
+        if (!cancelled) setLoadState('error');
+      }
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          observer.disconnect();
+          loadMedia();
+        }
+      },
+      { rootMargin: '200px' },
+    );
+    observer.observe(node);
+
+    return () => {
+      cancelled = true;
+      observer.disconnect();
+      if (unsubscribe) unsubscribe();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Rebuild bilingual captions when the language changes while items exist.
+  useEffect(() => {
+    setItems((current) => current.map((item) => {
+      const mediaWord = item.mediaType === 'video' ? t.galleryMediaVideo : t.galleryMediaPhoto;
+      const datePart = item.caption.en.split(' • ')[1];
+      return {
+        ...item,
+        title: { en: t.galleryItemTitle, te: t.galleryItemTitle },
+        caption: {
+          en: datePart ? `${mediaWord} • ${datePart}` : mediaWord,
+          te: datePart ? `${mediaWord} • ${datePart}` : mediaWord,
+        },
+      };
+    }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lang]);
+
   const filteredItems = useMemo(() => {
-    if (activeCategory === 'All') return GALLERY_ITEMS;
-    return GALLERY_ITEMS.filter((item) => item.category === activeCategory);
-  }, [activeCategory]);
+    if (activeCategory === 'All') return items;
+    return items.filter((item) => (activeCategory === 'videos' ? item.mediaType === 'video' : item.mediaType === 'image'));
+  }, [activeCategory, items]);
 
   const selectedIndex = filteredItems.findIndex((item) => item.id === selectedItemId);
   const selectedItem = selectedIndex >= 0 ? filteredItems[selectedIndex] : null;
@@ -160,12 +269,24 @@ export const Gallery = ({ lang, t }) => {
     touchStartXRef.current = null;
   };
 
+  // If a Cloudinary transformation fails, fall back to the original upload.
+  const handleMediaError = (event) => {
+    const element = event.currentTarget;
+    const fallback = element.dataset.fallbackSrc;
+    if (fallback && element.src !== fallback) {
+      element.dataset.fallbackSrc = '';
+      element.src = fallback;
+    }
+  };
+
   const getCounterLabel = () => t.galleryImageCounter
     .replace('{current}', String(selectedIndex + 1))
     .replace('{total}', String(filteredItems.length));
 
+  const showEmptyState = (loadState === 'ready' || loadState === 'unconfigured') && items.length === 0;
+
   return (
-    <section className="gallery-section section-padding" id="gallery" aria-labelledby="gallery-title">
+    <section className="gallery-section section-padding" id="gallery" aria-labelledby="gallery-title" ref={sectionRef}>
       <div className="container">
         <div className="section-title-wrap text-center">
           <div className="section-tag">
@@ -201,6 +322,21 @@ export const Gallery = ({ lang, t }) => {
           </div>
         </div>
 
+        {(loadState === 'idle' || loadState === 'loading') && (
+          <p className="gallery-status-message" role="status">{t.galleryLoading}</p>
+        )}
+
+        {loadState === 'error' && (
+          <p className="gallery-status-message" role="alert">{t.galleryErrorTitle}</p>
+        )}
+
+        {showEmptyState && (
+          <div className="gallery-empty-state">
+            <h3>{t.galleryEmptyTitle}</h3>
+            <p>{t.galleryEmptyDesc}</p>
+          </div>
+        )}
+
         <motion.div
           className="gallery-grid"
           id="gallery-grid"
@@ -213,6 +349,7 @@ export const Gallery = ({ lang, t }) => {
             {filteredItems.map((item) => {
               const title = item.title[lang] || item.title.en;
               const caption = item.caption[lang] || item.caption.en;
+              const isVideo = item.mediaType === 'video';
 
               return (
                 <motion.article
@@ -232,12 +369,20 @@ export const Gallery = ({ lang, t }) => {
                   >
                     <img
                       className="gallery-card-image"
-                      src={item.src}
+                      src={isVideo ? item.poster : item.src}
+                      data-fallback-src={item.rawSrc}
+                      onError={handleMediaError}
                       alt={caption}
                       loading="lazy"
                       width={IMAGE_WIDTH}
                       height={IMAGE_HEIGHT}
                     />
+                    {isVideo && (
+                      <span className="gallery-card-video-badge" aria-hidden="true">
+                        <Play size={14} fill="currentColor" />
+                        {t.galleryBadgeVideo}
+                      </span>
+                    )}
                     <span className="gallery-card-overlay">
                       <strong className="gallery-card-title">{title}</strong>
                       <span className="gallery-card-caption">{caption}</span>
@@ -289,14 +434,32 @@ export const Gallery = ({ lang, t }) => {
                 onTouchStart={handleTouchStart}
                 onTouchEnd={handleTouchEnd}
               >
-                <img
-                  className="gallery-lightbox-image"
-                  src={selectedItem.src}
-                  alt={selectedItem.caption[lang] || selectedItem.caption.en}
-                  loading="lazy"
-                  width={IMAGE_WIDTH}
-                  height={IMAGE_HEIGHT}
-                />
+                {selectedItem.mediaType === 'video' ? (
+                  <video
+                    className="gallery-lightbox-image"
+                    src={selectedItem.fullSrc}
+                    data-fallback-src={selectedItem.rawSrc}
+                    onError={handleMediaError}
+                    poster={selectedItem.poster}
+                    controls
+                    autoPlay
+                    playsInline
+                    preload="metadata"
+                    width={IMAGE_WIDTH}
+                    height={IMAGE_HEIGHT}
+                  />
+                ) : (
+                  <img
+                    className="gallery-lightbox-image"
+                    src={selectedItem.fullSrc}
+                    data-fallback-src={selectedItem.rawSrc}
+                    onError={handleMediaError}
+                    alt={selectedItem.caption[lang] || selectedItem.caption.en}
+                    loading="lazy"
+                    width={IMAGE_WIDTH}
+                    height={IMAGE_HEIGHT}
+                  />
+                )}
                 <button
                   type="button"
                   className="gallery-lightbox-control gallery-lightbox-previous"
@@ -324,7 +487,7 @@ export const Gallery = ({ lang, t }) => {
                   {selectedItem.caption[lang] || selectedItem.caption.en}
                 </p>
                 <span className="gallery-lightbox-category">
-                  {categoryLabels[selectedItem.category]}
+                  {selectedItem.mediaType === 'video' ? t.galleryFilterVideos : t.galleryFilterPhotos}
                 </span>
               </div>
             </motion.div>

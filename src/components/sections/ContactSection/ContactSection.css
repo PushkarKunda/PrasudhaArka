@@ -369,3 +369,25 @@
   background: #2d1f00;
 }
 [data-theme="dark"] .inquiry-field label { color: #94a3b8; }
+
+/* ==========================================================================
+   Accessibility
+   ========================================================================== */
+.form-success-notice {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 14px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: #047857;
+  color: #ffffff;
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+/* Focus ring belongs on the whole chip, not the tiny radio inside it */
+.dealer-chip:focus-within {
+  outline: 2px solid var(--gold-500, #f59e0b);
+  outline-offset: 2px;
+}

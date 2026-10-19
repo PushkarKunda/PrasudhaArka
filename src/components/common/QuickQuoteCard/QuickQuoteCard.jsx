@@ -106,11 +106,12 @@ export const QuickQuoteCard = ({ lang, t }) => {
 
         {/* Location input */}
         <div className="form-group">
-          <label className="form-label">
+          <label htmlFor="qq-location" className="form-label">
             <MapPin size={15} />
             <span>{t.lblLocation}</span>
           </label>
           <input 
+            id="qq-location"
             type="text" 
             placeholder={lang === 'te' ? 'ఉదా: జమ్మలమడుగు, కడప, హైదరాబాద్, తుక్కుగూడ...' : 'e.g. Jammalamadugu, Kadapa, Hyderabad...'}
             value={location}
@@ -122,14 +123,15 @@ export const QuickQuoteCard = ({ lang, t }) => {
 
         {/* Property Type Toggle */}
         <div className="form-group">
-          <label className="form-label">
+          <span className="form-label" id="qq-prop-label">
             <span>{t.lblPropType}</span>
-          </label>
-          <div className="prop-toggle-group">
+          </span>
+          <div className="prop-toggle-group" role="group" aria-labelledby="qq-prop-label">
             <button
               type="button"
               className={`prop-btn ${propType === 'residential' ? 'active' : ''}`}
               onClick={() => setPropType('residential')}
+              aria-pressed={propType === 'residential'}
             >
               <Home size={15} />
               <span>{t.optRes}</span>
@@ -138,6 +140,7 @@ export const QuickQuoteCard = ({ lang, t }) => {
               type="button"
               className={`prop-btn ${propType === 'commercial' ? 'active' : ''}`}
               onClick={() => setPropType('commercial')}
+              aria-pressed={propType === 'commercial'}
             >
               <Building2 size={15} />
               <span>{t.optComm}</span>
@@ -146,10 +149,10 @@ export const QuickQuoteCard = ({ lang, t }) => {
         </div>
 
         {/* Dealer Selection */}
-        <div className="form-group">
-          <label className="form-label">
+        <fieldset className="form-group form-fieldset">
+          <legend className="form-label">
             <span>{lang === 'te' ? 'సంప్రదించాల్సిన డీలర్:' : 'Select Nearest Dealer:'}</span>
-          </label>
+          </legend>
           <div className="dealer-radio-group">
             <label className={`dealer-chip ${dealer === 'sudhakar' ? 'active' : ''}`}>
               <input 
@@ -170,7 +173,7 @@ export const QuickQuoteCard = ({ lang, t }) => {
               <span><strong>{lang === 'te' ? 'కె. భాస్కర్' : 'K. Bhaskar'}</strong> ({lang === 'te' ? 'జమ్మలమడుగు / ఏపీ' : 'JMD / AP'})</span>
             </label>
           </div>
-        </div>
+        </fieldset>
 
         {/* Quick Result Preview Box */}
         <div className="quick-result-box">

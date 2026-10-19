@@ -35,6 +35,7 @@ export const DocumentsSection = ({ lang, t }) => {
               key={idx}
               className={`doc-tab-btn ${activeCategory === idx ? 'active' : ''}`}
               onClick={() => setActiveCategory(idx)}
+              aria-pressed={activeCategory === idx}
             >
               <span>{lang === 'te' ? cat.categoryTe : cat.categoryEn}</span>
             </button>

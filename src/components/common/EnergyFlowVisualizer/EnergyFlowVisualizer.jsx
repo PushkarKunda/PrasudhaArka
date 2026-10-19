@@ -129,6 +129,7 @@ export const EnergyFlowVisualizer = ({ lang, t }) => {
               key={tab.id}
               className={`flow-time-tab ${timeOfDay === tab.id ? 'active' : ''}`}
               onClick={() => setTimeOfDay(tab.id)}
+              aria-pressed={timeOfDay === tab.id}
             >
               {tab.label}
             </button>

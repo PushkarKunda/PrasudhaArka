@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowUp, Phone, X, User } from 'lucide-react';
 import { WhatsAppIcon } from '../../common/WhatsAppIcon';
@@ -9,6 +9,59 @@ import './FloatingActions.css';
 export const FloatingActions = ({ lang }) => {
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [showDealerPopup, setShowDealerPopup] = useState(false);
+  const dealerModalRef = useRef(null);
+  const dealerTriggerRef = useRef(null);
+
+  // Dealer popup dialog: scroll lock, focus move/trap/return, Escape to close
+  useEffect(() => {
+    if (!showDealerPopup) return undefined;
+    const prevHtmlOverflow = document.documentElement.style.overflow;
+    const prevBodyOverflow = document.body.style.overflow;
+    const previouslyFocused = document.activeElement;
+
+    document.documentElement.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden';
+
+    const focusRaf = window.requestAnimationFrame(() => {
+      const modal = dealerModalRef.current;
+      if (!modal) return;
+      const target =
+        modal.querySelector('.close-popup-btn') ||
+        modal.querySelector('button:not([disabled]), a[href]');
+      target?.focus();
+    });
+
+    const onKey = (event) => {
+      if (event.key === 'Escape') {
+        setShowDealerPopup(false);
+        return;
+      }
+      if (event.key === 'Tab') {
+        const focusable = dealerModalRef.current?.querySelectorAll(
+          'button:not([disabled]), a[href], [tabindex]:not([tabindex="-1"])'
+        );
+        if (!focusable?.length) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
+      }
+    };
+
+    document.addEventListener('keydown', onKey);
+    return () => {
+      window.cancelAnimationFrame(focusRaf);
+      document.documentElement.style.overflow = prevHtmlOverflow;
+      document.body.style.overflow = prevBodyOverflow;
+      document.removeEventListener('keydown', onKey);
+      previouslyFocused?.focus?.();
+    };
+  }, [showDealerPopup]);
 
   useEffect(() => {
     let ticking = false;
@@ -40,12 +93,27 @@ export const FloatingActions = ({ lang }) => {
       <AnimatePresence>
         {showDealerPopup && (
           <motion.div
-            className="floating-dealer-modal"
-            initial={{ opacity: 0, scale: 0.85, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.85, y: 20 }}
+            className="floating-dealer-backdrop"
+            role="presentation"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
+            onMouseDown={(event) => {
+              if (event.target === event.currentTarget) setShowDealerPopup(false);
+            }}
           >
+            <motion.div
+              ref={dealerModalRef}
+              className="floating-dealer-modal"
+              role="dialog"
+              aria-modal="true"
+              aria-label={lang === 'te' ? 'డీలర్‌తో వాట్సాప్‌లో మాట్లాడండి' : 'Chat on WhatsApp with Dealer'}
+              initial={{ opacity: 0, scale: 0.85, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.85, y: 20 }}
+              transition={{ duration: 0.2 }}
+            >
             <div className="modal-header">
               <div className="modal-header-title">
                 <WhatsAppIcon size={18} color="#25d366" />
@@ -117,6 +185,7 @@ export const FloatingActions = ({ lang }) => {
                 </div>
               </div>
             </div>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -124,11 +193,14 @@ export const FloatingActions = ({ lang }) => {
       {/* Floating Main WhatsApp Trigger with Magnet */}
       <Magnet magnetStrength={0.28} padding={20}>
         <motion.button
+          ref={dealerTriggerRef}
           className="floating-whatsapp-btn"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
           onClick={() => setShowDealerPopup(!showDealerPopup)}
           aria-label="WhatsApp Dealers"
+          aria-haspopup="dialog"
+          aria-expanded={showDealerPopup}
         >
           <WhatsAppIcon size={26} />
           <span className="btn-badge-pulse"></span>

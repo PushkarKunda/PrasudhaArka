@@ -31,9 +31,13 @@ export const Testimonials = ({ lang, t }) => {
             >
               <Quote size={28} className="quote-icon text-gold" />
               
-              <div className="star-rating">
+              <div
+                className="star-rating"
+                role="img"
+                aria-label={`${item.rating} out of 5 stars`}
+              >
                 {[...Array(item.rating)].map((_, sIdx) => (
-                  <Star key={sIdx} size={16} className="star-filled" />
+                  <Star key={sIdx} size={16} className="star-filled" aria-hidden="true" />
                 ))}
               </div>
 

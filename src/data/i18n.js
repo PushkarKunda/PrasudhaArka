@@ -11,6 +11,7 @@ export const I18N = {
     navDocuments: "పత్రాలు",
     navContact: "సంప్రదించండి",
     langBtnText: "English",
+    skipToContent: "కంటెంట్‌కు దాటవేయండి",
 
     // Top Bar
     topGovBadge: "పి.ఎం సూర్య ఘర్ ముఫ్త్ బిజిలీ యోజన",
@@ -212,6 +213,7 @@ export const I18N = {
     navDocuments: "Documents",
     navContact: "Contact Us",
     langBtnText: "తెలుగు",
+    skipToContent: "Skip to content",
 
     // Top Bar
     topGovBadge: "PM Surya Ghar Muft Bijli Yojana",

@@ -139,18 +139,20 @@ export const SolarCalculator = ({ lang, t }) => {
                 <button
                   type="button"
                   className={`state-select-btn ${state === 'AP' ? 'active' : ''}`}
+                  aria-pressed={state === 'AP'}
                   onClick={() => setState('AP')}
                 >
                   <span className="lightning-icon">⚡</span>
-                  <span>ఆంధ్రప్రదేశ్ (AP)</span>
+                  <span lang="te">ఆంధ్రప్రదేశ్ (AP)</span>
                 </button>
                 <button
                   type="button"
                   className={`state-select-btn ${state === 'TS' ? 'active' : ''}`}
+                  aria-pressed={state === 'TS'}
                   onClick={() => setState('TS')}
                 >
                   <span className="lightning-icon">⚡</span>
-                  <span>తెలంగాణ (TG)</span>
+                  <span lang="te">తెలంగాణ (TG)</span>
                 </button>
               </div>
             </div>
@@ -162,6 +164,7 @@ export const SolarCalculator = ({ lang, t }) => {
                 <button
                   type="button"
                   className={`cat-card-btn ${propType === 'residential' ? 'active' : ''}`}
+                  aria-pressed={propType === 'residential'}
                   onClick={() => handlePropTypeChange('residential')}
                 >
                   <span className="cat-pill-tag green-tag">CAT-1 (SUBSIDY ELIGIBLE)</span>
@@ -171,6 +174,7 @@ export const SolarCalculator = ({ lang, t }) => {
                 <button
                   type="button"
                   className={`cat-card-btn ${propType === 'commercial' ? 'active' : ''}`}
+                  aria-pressed={propType === 'commercial'}
                   onClick={() => handlePropTypeChange('commercial')}
                 >
                   <span className="cat-pill-tag grey-tag">CAT-2 (NO SUBSIDY)</span>
@@ -180,6 +184,7 @@ export const SolarCalculator = ({ lang, t }) => {
                 <button
                   type="button"
                   className={`cat-card-btn ${propType === 'farm' ? 'active' : ''}`}
+                  aria-pressed={propType === 'farm'}
                   onClick={() => handlePropTypeChange('farm')}
                 >
                   <span className="cat-pill-tag grey-tag">CAT-3 (NO SUBSIDY)</span>
@@ -203,6 +208,7 @@ export const SolarCalculator = ({ lang, t }) => {
                 <button
                   type="button"
                   className={`panel-choice-card ${panelType === 'dcr' ? 'active' : 'disabled'}`}
+                  aria-pressed={panelType === 'dcr'}
                   onClick={() => propType === 'residential' && setPanelType('dcr')}
                   disabled={propType !== 'residential'}
                   title={propType !== 'residential' ? 'DCR panels apply to residential (Cat-1) subsidy systems only' : undefined}
@@ -217,6 +223,7 @@ export const SolarCalculator = ({ lang, t }) => {
                 <button
                   type="button"
                   className={`panel-choice-card ${panelType === 'nondcr' ? 'active' : 'disabled'}`}
+                  aria-pressed={panelType === 'nondcr'}
                   onClick={() => setPanelType('nondcr')}
                 >
                   <span className="flag-icon-wrap globe-icon">🌐</span>
@@ -234,6 +241,7 @@ export const SolarCalculator = ({ lang, t }) => {
                 <button
                   type="button"
                   className={`mode-track-tab ${calcMode === 'units' ? 'active' : ''}`}
+                  aria-pressed={calcMode === 'units'}
                   onClick={() => setCalcMode('units')}
                 >
                   Units
@@ -241,6 +249,7 @@ export const SolarCalculator = ({ lang, t }) => {
                 <button
                   type="button"
                   className={`mode-track-tab ${calcMode === 'meter' ? 'active' : ''}`}
+                  aria-pressed={calcMode === 'meter'}
                   onClick={() => setCalcMode('meter')}
                 >
                   Meter Reading
@@ -248,6 +257,7 @@ export const SolarCalculator = ({ lang, t }) => {
                 <button
                   type="button"
                   className={`mode-track-tab ${calcMode === 'bill' ? 'active' : ''}`}
+                  aria-pressed={calcMode === 'bill'}
                   onClick={() => setCalcMode('bill')}
                 >
                   Bill Amount (₹)
@@ -303,8 +313,9 @@ export const SolarCalculator = ({ lang, t }) => {
                 <div className="calc-slider-box">
                   <div className="meter-reading-grid">
                     <div className="meter-input-cell">
-                      <label>Current Reading:</label>
+                      <label htmlFor="calc-current-reading">Current Reading:</label>
                       <input
+                        id="calc-current-reading"
                         type="number"
                         value={currentReading === '' ? '' : currentReading}
                         onChange={(e) => {
@@ -318,8 +329,9 @@ export const SolarCalculator = ({ lang, t }) => {
                       />
                     </div>
                     <div className="meter-input-cell">
-                      <label>Previous Reading:</label>
+                      <label htmlFor="calc-prev-reading">Previous Reading:</label>
                       <input
+                        id="calc-prev-reading"
                         type="number"
                         value={prevReading === '' ? '' : prevReading}
                         onChange={(e) => {

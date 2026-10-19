@@ -208,12 +208,14 @@ export const Hero = ({ lang, t }) => {
             <button 
               className={`widget-tab-btn ${activeHeroTab === 'quote' ? 'active' : ''}`}
               onClick={() => setActiveHeroTab('quote')}
+              aria-pressed={activeHeroTab === 'quote'}
             >
               <span>{t.quickCardTitle}</span>
             </button>
             <button 
               className={`widget-tab-btn ${activeHeroTab === 'simulator' ? 'active' : ''}`}
               onClick={() => setActiveHeroTab('simulator')}
+              aria-pressed={activeHeroTab === 'simulator'}
             >
               <Zap size={15} />
               <span>{lang === 'te' ? 'లైవ్ ఎనర్జీ సిమ్యులేటర్' : 'Energy Simulator'}</span>

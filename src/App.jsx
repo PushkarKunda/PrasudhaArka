@@ -54,8 +54,9 @@ class RouteErrorBoundary extends React.Component {
 function MainPage({ lang, setLang, t }) {
   return (
     <>
+      <a className="skip-link" href="#main-content">{t.skipToContent}</a>
       <Navbar lang={lang} setLang={setLang} t={t} />
-      <main>
+      <main id="main-content" tabIndex={-1}>
         <Hero lang={lang} t={t} />
         <BrandShowcase lang={lang} t={t} />
         <SystemPricing lang={lang} t={t} />

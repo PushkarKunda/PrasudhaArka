@@ -9,7 +9,8 @@ import {
   UserCheck,
   Building2,
   Sparkles,
-  Zap
+  Zap,
+  CheckCircle2
 } from 'lucide-react';
 import { WhatsAppIcon } from '../../common/WhatsAppIcon';
 import { DEALERS, getWhatsAppUrl } from '../../../data/dealers';
@@ -193,13 +194,26 @@ export const ContactSection = ({ lang, t }) => {
               <span>{lang === 'te' ? 'ఉచిత సైట్ సర్వే & కొటేషన్ ఫారం' : 'Book Free Site Survey & Quote'}</span>
             </h3>
 
+            {formSubmitted && (
+              <p role="status" className="form-success-notice">
+                <CheckCircle2 size={16} aria-hidden="true" />
+                <span>
+                  {lang === 'te'
+                    ? 'మీ విజ్ఞప్తి పంపబడింది — మేము త్వరలో మిమ్మల్ని సంప్రదిస్తాము.'
+                    : 'Your inquiry has been sent — we will contact you shortly.'}
+                </span>
+              </p>
+            )}
+
             <form onSubmit={handleSubmit} className="site-inquiry-form">
               <div className="form-row-2">
                 <div className="form-group">
-                  <label className="form-label">{lang === 'te' ? 'మీ పేరు:' : 'Full Name:'}</label>
+                  <label htmlFor="inquiry-name" className="form-label">{lang === 'te' ? 'మీ పేరు:' : 'Full Name:'}</label>
                   <input
+                    id="inquiry-name"
                     type="text"
                     required
+                    autoComplete="name"
                     placeholder={lang === 'te' ? 'ఉదా: వెంకట్ రావు' : 'e.g. Venkat Rao'}
                     value={formState.name}
                     onChange={(e) => setFormState({ ...formState, name: e.target.value })}
@@ -207,10 +221,12 @@ export const ContactSection = ({ lang, t }) => {
                   />
                 </div>
                 <div className="form-group">
-                  <label className="form-label">{lang === 'te' ? 'ఫోన్ నంబర్:' : 'Phone Number:'}</label>
+                  <label htmlFor="inquiry-phone" className="form-label">{lang === 'te' ? 'ఫోన్ నంబర్:' : 'Phone Number:'}</label>
                   <input
+                    id="inquiry-phone"
                     type="tel"
                     required
+                    autoComplete="tel"
                     placeholder="+91 98765 43210"
                     value={formState.phone}
                     onChange={(e) => setFormState({ ...formState, phone: e.target.value })}
@@ -221,10 +237,12 @@ export const ContactSection = ({ lang, t }) => {
 
               <div className="form-row-2">
                 <div className="form-group">
-                  <label className="form-label">{lang === 'te' ? 'మీ ఊరు / గ్రామం:' : 'Town / Village / City:'}</label>
+                  <label htmlFor="inquiry-town" className="form-label">{lang === 'te' ? 'మీ ఊరు / గ్రామం:' : 'Town / Village / City:'}</label>
                   <input
+                    id="inquiry-town"
                     type="text"
                     required
+                    autoComplete="address-level2"
                     placeholder={lang === 'te' ? 'ఉదా: జమ్మలమడుగు / హైదరాబాద్' : 'e.g. Jammalamadugu / Hyderabad'}
                     value={formState.town}
                     onChange={(e) => setFormState({ ...formState, town: e.target.value })}
@@ -232,8 +250,9 @@ export const ContactSection = ({ lang, t }) => {
                   />
                 </div>
                 <div className="form-group">
-                  <label className="form-label">{lang === 'te' ? 'ఆసక్తి గల కెపాసిటీ:' : 'Interested Capacity:'}</label>
+                  <label htmlFor="inquiry-capacity" className="form-label">{lang === 'te' ? 'ఆసక్తి గల కెపాసిటీ:' : 'Interested Capacity:'}</label>
                   <select
+                    id="inquiry-capacity"
                     value={formState.capacity}
                     onChange={(e) => setFormState({ ...formState, capacity: e.target.value })}
                     className="custom-input"
@@ -263,10 +282,10 @@ export const ContactSection = ({ lang, t }) => {
                 </div>
               </div>
 
-              <div className="form-group">
-                <label className="form-label">
+              <fieldset className="form-group form-fieldset">
+                <legend className="form-label">
                   {lang === 'te' ? 'సంప్రదించాల్సిన డీలర్:' : 'Send Inquiry To:'}
-                </label>
+                </legend>
                 <div className="dealer-radio-group">
                   <label className={`dealer-chip ${formState.dealer === 'sudhakar' ? 'active' : ''}`}>
                     <input 
@@ -291,7 +310,7 @@ export const ContactSection = ({ lang, t }) => {
                     </span>
                   </label>
                 </div>
-              </div>
+              </fieldset>
 
               <button type="submit" className="btn btn-whatsapp btn-block btn-lg">
                 <Send size={18} />

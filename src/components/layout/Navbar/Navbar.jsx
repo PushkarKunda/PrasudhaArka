@@ -75,27 +75,58 @@ export const Navbar = ({ lang, setLang, t }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Mobile popup modal: lock html/body scroll & handle Escape key
+  // Mobile popup modal: lock scroll, move/trap/restore focus, handle Escape
   useEffect(() => {
     if (!mobileMenuOpen) return;
     const prevHtmlOverflow = document.documentElement.style.overflow;
     const prevBodyOverflow = document.body.style.overflow;
     const prevTouchAction = document.body.style.touchAction;
+    const previouslyFocused = document.activeElement;
 
     document.documentElement.style.overflow = 'hidden';
     document.body.style.overflow = 'hidden';
     document.body.style.touchAction = 'none';
 
+    // Move focus into the dialog once the card is mounted
+    const focusRaf = window.requestAnimationFrame(() => {
+      const card = menuRef.current;
+      if (!card) return;
+      const target =
+        card.querySelector('.mobile-popup-close-btn') ||
+        card.querySelector('button:not([disabled]), a[href], [tabindex]:not([tabindex="-1"])');
+      target?.focus();
+    });
+
     const onKey = (e) => {
-      if (e.key === 'Escape') setMobileMenuOpen(false);
+      if (e.key === 'Escape') {
+        setMobileMenuOpen(false);
+        return;
+      }
+      if (e.key === 'Tab') {
+        const focusable = menuRef.current?.querySelectorAll(
+          'button:not([disabled]), a[href], [tabindex]:not([tabindex="-1"])'
+        );
+        if (!focusable?.length) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
     };
 
     window.addEventListener('keydown', onKey);
     return () => {
+      window.cancelAnimationFrame(focusRaf);
       document.documentElement.style.overflow = prevHtmlOverflow;
       document.body.style.overflow = prevBodyOverflow;
       document.body.style.touchAction = prevTouchAction;
       window.removeEventListener('keydown', onKey);
+      previouslyFocused?.focus?.();
     };
   }, [mobileMenuOpen]);
 
@@ -221,6 +252,7 @@ export const Navbar = ({ lang, setLang, t }) => {
           {mobileMenuOpen && (
             <div 
               className="mobile-popup-wrapper" 
+              id="mobile-menu"
               role="dialog" 
               aria-modal="true" 
               aria-label="Navigation Menu"

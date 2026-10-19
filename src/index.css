@@ -122,6 +122,32 @@ button, input, select, textarea {
   outline-color: #fbbf24;
 }
 
+/* Skip-to-content link: hidden until focused (WCAG 2.4.1) */
+.skip-link {
+  position: fixed;
+  top: -100px;
+  left: 16px;
+  z-index: 9999;
+  padding: 12px 20px;
+  background: var(--gold-500, #f59e0b);
+  color: #0f172a;
+  font-weight: 700;
+  font-size: 0.95rem;
+  border-radius: 0 0 10px 10px;
+  text-decoration: none;
+  transition: top 0.15s ease;
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+  top: 0;
+}
+
+/* Programmatic focus target for the skip link (no visual outline needed) */
+#main-content:focus {
+  outline: none;
+}
+
 /* Layout Containers & Sections */
 .container {
   width: 100%;
@@ -140,6 +166,25 @@ button, input, select, textarea {
 .text-gold { color: var(--gold-600); }
 .text-emerald-400 { color: var(--emerald-600); }
 .text-cyan-400 { color: var(--cyan-600); }
+
+/* WCAG 1.4.3: the 600-shades fall below 4.5:1 on light stat boxes
+   (#f1f5f9/white) — use 700-shades there, bright shades in dark theme. */
+.quick-result-box .stat-val.text-gold,
+.meter-diff-badge .text-gold { color: #b45309; }
+.quick-result-box .stat-val.text-emerald-400 { color: #047857; }
+.quick-result-box .stat-val.text-cyan-400 { color: #0e7490; }
+[data-theme="dark"] .quick-result-box .stat-val.text-gold,
+[data-theme="dark"] .meter-diff-badge .text-gold { color: #fbbf24; }
+[data-theme="dark"] .quick-result-box .stat-val.text-emerald-400 { color: #34d399; }
+[data-theme="dark"] .quick-result-box .stat-val.text-cyan-400 { color: #22d3ee; }
+
+/* Shared fieldset reset for form groups (legend used as .form-label) */
+.form-fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}
 .text-purple-400 { color: var(--purple-600); }
 .text-amber-400 { color: var(--gold-600); }
 .text-green-400 { color: var(--emerald-600); }

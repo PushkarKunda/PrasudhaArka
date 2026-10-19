@@ -189,12 +189,14 @@ export const SystemPricing = ({ lang }) => {
               <button 
                 className={`pill-toggle-btn ${selectedDealer === 'sudhakar' ? 'active' : ''}`}
                 onClick={() => setSelectedDealer('sudhakar')}
+                aria-pressed={selectedDealer === 'sudhakar'}
               >
                 K. Sudhakar (HYD)
               </button>
               <button 
                 className={`pill-toggle-btn ${selectedDealer === 'bhaskar' ? 'active' : ''}`}
                 onClick={() => setSelectedDealer('bhaskar')}
+                aria-pressed={selectedDealer === 'bhaskar'}
               >
                 K. Bhaskar (JMD/AP)
               </button>

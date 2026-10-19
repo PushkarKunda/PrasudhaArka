@@ -27,6 +27,7 @@ export const Hero = ({ lang, t }) => {
           alt="Modern Rooftop Solar Installation" 
           className="hero-background-img"
           loading="eager"
+          fetchPriority="high"
           decoding="async"
         />
         <div className="hero-overlay"></div>

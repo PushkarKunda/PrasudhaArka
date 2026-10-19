@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { ref } from 'firebase/storage';
 import { collection, addDoc, onSnapshot, deleteDoc, doc, serverTimestamp, query, orderBy } from 'firebase/firestore';
@@ -12,6 +12,7 @@ export function AdminPanel() {
   const [file, setFile] = useState(null);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [uploading, setUploading] = useState(false);
+  const fileInputRef = useRef(null);
   
   const [mediaList, setMediaList] = useState([]);
   
@@ -121,7 +122,9 @@ export function AdminPanel() {
       setUploadProgress(0);
       setUploading(false);
       // reset input
-      document.getElementById('file-upload').value = '';
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
     } catch (err) {
       console.error('Upload error:', err);
       setUploading(false);
@@ -191,6 +194,7 @@ export function AdminPanel() {
           </h2>
           <form onSubmit={handleUpload} style={{ display: 'flex', gap: '16px', alignItems: 'center', flexWrap: 'wrap' }}>
             <input 
+              ref={fileInputRef}
               id="file-upload"
               type="file" 
               accept="image/*,video/*"

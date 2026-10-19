@@ -39,9 +39,15 @@ export function GallerySection({ lang, t }) {
     );
   }
 
-  if (error || mediaList.length === 0) {
-    // Hide section entirely if empty and no error, or just show empty state if needed.
-    // We'll show nothing if empty for a cleaner UI when not configured.
+  if (error) {
+    return (
+      <section className="gallery-section" style={{ padding: '60px 0', background: 'var(--bg-surface)', textAlign: 'center' }}>
+        <p style={{ color: 'var(--text-muted)' }}>{error}</p>
+      </section>
+    );
+  }
+
+  if (mediaList.length === 0) {
     return null; 
   }
 

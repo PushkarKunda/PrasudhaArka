@@ -24,6 +24,7 @@ export const Navbar = ({ lang, setLang, t }) => {
     { label: t.navCalc, href: '#calculator' },
     { label: t.navServices, href: '#services' },
     { label: t.navProcess, href: '#process' },
+    { label: t.navGallery, href: '#gallery' },
     { label: t.navDocuments, href: '#documents' },
     { label: t.navContact, href: '#contact' },
   ];

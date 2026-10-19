@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { I18N } from './data/i18n';
 import { initCleanUrlHandler } from './utils/navigation';
+import Gallery from './components/Gallery';
 import {
   Navbar,
   Hero,
@@ -18,8 +19,8 @@ import {
   Footer,
   ClickSpark,
 } from './components';
-import { AdminPanel } from './components/Admin/AdminPanel';
-import { GallerySection } from './components/sections/GallerySection/GallerySection';
+
+const AdminPanel = lazy(() => import('./components/Admin/AdminPanel').then(m => ({ default: m.AdminPanel })));
 
 function MainPage({ lang, setLang, t }) {
   return (
@@ -32,9 +33,9 @@ function MainPage({ lang, setLang, t }) {
         <SolarCalculator lang={lang} t={t} />
         <ServicesSection lang={lang} t={t} />
         <ProcessTimeline lang={lang} t={t} />
-        <GallerySection lang={lang} t={t} />
         <DocumentsSection lang={lang} t={t} />
         <Testimonials lang={lang} t={t} />
+        <Gallery lang={lang} t={t} />
         <ContactSection lang={lang} t={t} />
         <FaqSection lang={lang} t={t} />
       </main>
@@ -65,7 +66,15 @@ export function App() {
       <div className={`app-root lang-${lang}`}>
         <Routes>
           <Route path="/" element={<MainPage lang={lang} setLang={setLang} t={t} />} />
-          <Route path="/admin/*" element={<AdminPanel />} />
+          <Route 
+            path="/admin/*" 
+            element={
+              <Suspense fallback={<div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#0f172a', color: '#f59e0b', fontSize: '1.25rem', fontFamily: 'sans-serif' }}>Loading Admin Portal...</div>}>
+                <AdminPanel />
+              </Suspense>
+            } 
+          />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </div>
     </ClickSpark>

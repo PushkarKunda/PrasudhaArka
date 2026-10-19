@@ -22,6 +22,35 @@ import {
 
 const AdminPanel = lazy(() => import('./components/Admin/AdminPanel').then(m => ({ default: m.AdminPanel })));
 
+// Route-level boundary so a failed lazy admin chunk (e.g. missing Firebase
+// env keys on a fresh machine) shows a message instead of a white screen.
+class RouteErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error) {
+    console.error('Route failed to load:', error);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', gap: '12px', alignItems: 'center', justifyContent: 'center', background: '#0f172a', color: '#f59e0b', fontFamily: 'sans-serif', textAlign: 'center', padding: '20px' }}>
+          <span style={{ color: '#e2e8f0' }}>This page failed to load.</span>
+          <a href="/" style={{ color: '#f59e0b' }}>Back to home</a>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
 function MainPage({ lang, setLang, t }) {
   return (
     <>
@@ -69,9 +98,11 @@ export function App() {
           <Route 
             path="/admin/*" 
             element={
-              <Suspense fallback={<div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#0f172a', color: '#f59e0b', fontSize: '1.25rem', fontFamily: 'sans-serif' }}>Loading Admin Portal...</div>}>
-                <AdminPanel />
-              </Suspense>
+              <RouteErrorBoundary>
+                <Suspense fallback={<div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#0f172a', color: '#f59e0b', fontSize: '1.25rem', fontFamily: 'sans-serif' }}>Loading Admin Portal...</div>}>
+                  <AdminPanel />
+                </Suspense>
+              </RouteErrorBoundary>
             } 
           />
           <Route path="*" element={<Navigate to="/" replace />} />

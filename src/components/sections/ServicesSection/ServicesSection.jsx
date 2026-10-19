@@ -155,7 +155,7 @@ export const ServicesSection = ({ lang, t }) => {
       `------------------------------------\n` +
       `Hello ${DEALERS[selectedDealer].name}, I would like more information and a formal quotation regarding ${title}.`;
 
-    window.open(getWhatsAppUrl(selectedDealer, msg), '_blank');
+    window.open(getWhatsAppUrl(selectedDealer, msg), '_blank', 'noopener,noreferrer');
   };
 
   // Gap between cards in pixels

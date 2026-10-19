@@ -12,7 +12,7 @@ export const DocumentsSection = ({ lang, t }) => {
     const msg = `*Document Assistance Inquiry*\n` +
       `------------------------------------\n` +
       `Hello Prasudharka Solar Team, I need help preparing documents for PM Surya Ghar Solar Subsidy and Bank Loan. Please guide me.`;
-    window.open(getWhatsAppUrl('sudhakar', msg), '_blank');
+    window.open(getWhatsAppUrl('sudhakar', msg), '_blank', 'noopener,noreferrer');
   };
 
   return (

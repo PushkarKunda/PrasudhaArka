@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
-import { ref } from 'firebase/storage';
 import { collection, addDoc, onSnapshot, deleteDoc, doc, serverTimestamp, query, orderBy } from 'firebase/firestore';
 import { auth, db } from '../../config/firebase';
 import { LoginForm } from './LoginForm';
@@ -37,6 +36,10 @@ export function AdminPanel() {
         media.push({ id: doc.id, ...doc.data() });
       });
       setMediaList(media);
+    }, (err) => {
+      // Surface Firestore rule/permission errors instead of hanging on an empty list.
+      console.error('Gallery list error:', err);
+      setMediaList([]);
     });
     return () => unsubscribe();
   }, [user]);
@@ -57,7 +60,11 @@ export function AdminPanel() {
 
   const handleUpload = async (e) => {
     e.preventDefault();
-    if (!file || !db) return;
+    if (!file) return;
+    if (!db) {
+      alert('Gallery database is not configured. Check your Firebase environment variables.');
+      return;
+    }
 
     // Security Hardening: File type & size validation
     const isImage = file.type.startsWith('image/');

@@ -109,7 +109,7 @@ export const SolarCalculator = ({ lang, t }) => {
             `Hello ${dealerInfo.name}, please share detailed solar proposal & schedule rooftop site survey.`;
     }
 
-    window.open(getWhatsAppUrl(selectedDealer, msg), '_blank');
+    window.open(getWhatsAppUrl(selectedDealer, msg), '_blank', 'noopener,noreferrer');
   };
 
   return (
@@ -202,8 +202,10 @@ export const SolarCalculator = ({ lang, t }) => {
               <div className="panel-toggle-grid-2">
                 <button
                   type="button"
-                  className={`panel-choice-card ${panelType === 'dcr' ? 'active' : ''}`}
-                  onClick={() => setPanelType('dcr')}
+                  className={`panel-choice-card ${panelType === 'dcr' ? 'active' : 'disabled'}`}
+                  onClick={() => propType === 'residential' && setPanelType('dcr')}
+                  disabled={propType !== 'residential'}
+                  title={propType !== 'residential' ? 'DCR panels apply to residential (Cat-1) subsidy systems only' : undefined}
                 >
                   <span className="flag-icon-wrap">🇮🇳</span>
                   <div className="panel-choice-info">
@@ -486,7 +488,11 @@ export const SolarCalculator = ({ lang, t }) => {
             <div className="dark-lifetime-banner">
               <div className="lifetime-info-col">
                 <h4 className="lifetime-heading">Estimated 25-Year Lifetime Electricity Savings:</h4>
-                <p className="lifetime-subtext">ROI Timeline: 3 to 4 Years • Zero Electricity Bill Thereafter</p>
+                <p className="lifetime-subtext">
+                  {solarPlan.monthlySavings > 0
+                    ? `ROI Timeline: ~${solarPlan.paybackYears} Years • Zero Electricity Bill Thereafter`
+                    : 'Monthly savings too low to estimate an ROI timeline'}
+                </p>
               </div>
               <div className="lifetime-val-blue">
                 <CountUp to={solarPlan.lifetimeSavings} prefix="₹" duration={1} separator="," />

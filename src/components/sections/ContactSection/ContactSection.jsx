@@ -70,7 +70,7 @@ export const ContactSection = ({ lang, t }) => {
         `------------------------------------\n` +
         `Hello ${dealerInfo.name}, please contact me regarding this rooftop solar installation.`;
 
-    window.open(getWhatsAppUrl(formState.dealer, msg), '_blank');
+    window.open(getWhatsAppUrl(formState.dealer, msg), '_blank', 'noopener,noreferrer');
     setFormSubmitted(true);
   };
 

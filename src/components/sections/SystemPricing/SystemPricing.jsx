@@ -162,7 +162,7 @@ export const SystemPricing = ({ lang }) => {
         `Hello ${dealerInfo.name}, please share formal quotation and schedule a rooftop survey for the ${product.capacity}.`;
     }
 
-    window.open(getWhatsAppUrl(selectedDealer, msg), '_blank');
+    window.open(getWhatsAppUrl(selectedDealer, msg), '_blank', 'noopener,noreferrer');
   };
 
   const gapPx = 18;

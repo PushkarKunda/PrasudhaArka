@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { ChevronLeft, ChevronRight, Sparkles } from 'lucide-react';
 import { useCarouselAutoplay } from '../../../utils/useCarouselAutoplay';
 import { SpotlightCard } from '../../reactbits';
+import { ResponsivePicture } from '../../common/ResponsivePicture';
 import './BrandShowcase.css';
 
 export const BrandShowcase = ({ lang }) => {
@@ -179,16 +180,19 @@ export const BrandShowcase = ({ lang }) => {
         <div className="about-company-card">
           <div className="about-card-header">
             <div className="company-logo-container">
-              <img 
-                src="/assets/aquapzone_logo.jpg" 
+              <ResponsivePicture 
+                base="/assets/aquapzone_logo.jpg" 
+                widths={[400]}
                 alt="Aqua Pzone Logo" 
                 className="about-aquapzone-logo"
                 width="1600"
                 height="621"
                 loading="lazy"
                 onError={(e) => {
-                  e.target.style.display = 'none';
-                  e.target.nextSibling.style.display = 'inline-flex';
+                  e.currentTarget.style.display = 'none';
+                  const container = e.currentTarget.closest('.company-logo-container');
+                  const fallback = container && container.querySelector('.fallback-logo-text');
+                  if (fallback) fallback.style.display = 'inline-flex';
                 }}
               />
               <span className="fallback-logo-text" style={{ display: 'none' }}>AQUA PZONE</span>

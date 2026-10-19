@@ -129,13 +129,12 @@ PrasudhaArka/
 ├── package.json                # Project dependencies & scripts
 ├── vite.config.js              # Vite configuration
 ├── public/                     # Static public assets
-├── assets/                     # Brand logos, hero and product graphics
-│   ├── logo_te.jpg             # Official Telugu PraSudhaArka logo
-│   ├── logo_en.jpg             # Official English PraSudhaArka logo
-│   ├── aquapzone_logo.jpg      # Aqua Pzone corporate brand logo
-│   ├── hero_solar.jpg          # Rooftop solar installation hero visual
-│   ├── battery_storage.jpg     # Lithium battery storage graphic
-│   └── ro_plant.jpg            # Commercial RO water treatment plant
+│   └── assets/                 # Brand logos, hero visuals + generated AVIF/WebP variants
+│       ├── logo_te.jpg         # Official Telugu PraSudhaArka logo
+│       ├── logo_en.jpg         # Official English PraSudhaArka logo
+│       ├── aquapzone_logo.jpg  # Aqua Pzone corporate brand logo
+│       ├── hero_solar.jpg      # Rooftop solar installation hero visual
+│       └── *-{400,768,1376}.{avif,webp}  # Responsive variants (scripts/optimize-images.mjs)
 └── src/
     ├── main.jsx                # Application root mount
     ├── App.jsx                 # Main layout & language state coordinator

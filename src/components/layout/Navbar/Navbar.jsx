@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Globe, Calculator, Menu, X, Sparkles, ChevronRight } from 'lucide-react';
 import { scrollToSection } from '../../../utils/navigation';
 import { Magnet } from '../../reactbits';
+import { ResponsivePicture } from '../../common/ResponsivePicture';
 import './Navbar.css';
 
 export const Navbar = ({ lang, setLang, t }) => {
@@ -127,15 +128,17 @@ export const Navbar = ({ lang, setLang, t }) => {
           title="Prasudharka Solar"
         >
           <div className="brand-logo-container">
-            <img 
-              src={lang === 'te' ? '/assets/logo_te.jpg' : '/assets/logo_en.jpg'} 
+            <ResponsivePicture 
+              base={lang === 'te' ? '/assets/logo_te.jpg' : '/assets/logo_en.jpg'} 
+              widths={[400]}
               alt="Prasudharka Solar Logo" 
               className="brand-logo-img"
               width="1024"
               height="768"
               onError={(e) => {
                 e.currentTarget.style.display = 'none';
-                const fallback = e.currentTarget.nextElementSibling;
+                const container = e.currentTarget.closest('.brand-logo-container');
+                const fallback = container && container.querySelector('.brand-text-fallback');
                 if (fallback) fallback.style.display = 'flex';
               }}
             />
@@ -244,8 +247,9 @@ export const Navbar = ({ lang, setLang, t }) => {
                 {/* Popup Header */}
                 <div className="mobile-popup-header">
                   <div className="mobile-popup-brand">
-                    <img 
-                      src={lang === 'te' ? '/assets/logo_te.jpg' : '/assets/logo_en.jpg'} 
+                    <ResponsivePicture 
+                      base={lang === 'te' ? '/assets/logo_te.jpg' : '/assets/logo_en.jpg'} 
+                      widths={[400]}
                       alt="Prasudharka Solar" 
                       className="mobile-popup-logo"
                     />

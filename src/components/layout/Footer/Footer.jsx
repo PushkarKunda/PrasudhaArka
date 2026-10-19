@@ -2,6 +2,7 @@ import React from 'react';
 import { Headphones, MapPin, Mail, ExternalLink } from 'lucide-react';
 import { DEALERS } from '../../../data/dealers';
 import { scrollToSection } from '../../../utils/navigation';
+import { ResponsivePicture } from '../../common/ResponsivePicture';
 import './Footer.css';
 
 export const Footer = ({ lang, t }) => {
@@ -16,8 +17,9 @@ export const Footer = ({ lang, t }) => {
           {/* Col 1: Brand */}
           <div className="footer-col brand-col">
             <div className="footer-logo-badge">
-              <img 
-                src={isTe ? '/assets/logo_te.jpg' : '/assets/logo_en.jpg'} 
+              <ResponsivePicture 
+                base={isTe ? '/assets/logo_te.jpg' : '/assets/logo_en.jpg'} 
+                widths={[400]}
                 alt={isTe ? "ప్రసుధార్క సోలార్" : "Prasudharka Solar"} 
                 className="footer-logo-img"
                 width="1024"
@@ -186,8 +188,9 @@ export const Footer = ({ lang, t }) => {
         <div className="footer-aquapzone-card">
           <div className="aqua-brand-col">
             <div className="aqua-logo-box">
-              <img 
-                src="/assets/aquapzone_logo.jpg" 
+              <ResponsivePicture 
+                base="/assets/aquapzone_logo.jpg" 
+                widths={[400]}
                 alt="aquaPzone enterprises" 
                 className="aqua-logo-img" 
               />

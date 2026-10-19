@@ -7,6 +7,7 @@
 export * from './common/WhatsAppIcon';
 export * from './common/QuickQuoteCard';
 export * from './common/EnergyFlowVisualizer';
+export * from './common/ResponsivePicture';
 
 // Layout Components
 export * from './layout/Navbar';

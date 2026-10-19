@@ -423,6 +423,11 @@ button, input, select, textarea {
   }
 }
 
+/* Modern-format <picture> wrappers should not affect layout at all */
+picture {
+  display: contents;
+}
+
 /* ==========================================================================
    GALLERY SECTION
    ========================================================================== */

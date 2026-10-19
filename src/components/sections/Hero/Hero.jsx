@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Award, IndianRupee, ShieldCheck, Zap, TrendingUp } from 'lucide-react';
 import { WhatsAppIcon } from '../../common/WhatsAppIcon';
+import { ResponsivePicture } from '../../common/ResponsivePicture';
 import { QuickQuoteCard } from '../../common/QuickQuoteCard';
 import { EnergyFlowVisualizer } from '../../common/EnergyFlowVisualizer';
 import { SpotlightCard, ShinyText, CountUp, Magnet, Squares } from '../../reactbits';
@@ -37,8 +38,10 @@ export const Hero = ({ lang, t }) => {
               borderColor="rgba(245, 158, 11, 0.07)" 
               hoverFillColor="rgba(245, 158, 11, 0.16)" 
             />
-            <img 
-              src="/assets/hero_solar.jpg" 
+            <ResponsivePicture 
+              base="/assets/hero_solar.jpg" 
+              widths={[768, 1376]}
+              sizes="100vw"
               alt="Modern Rooftop Solar Installation" 
               className="hero-background-img"
               width="1376"
@@ -61,8 +64,9 @@ export const Hero = ({ lang, t }) => {
           <div className="hero-badges-wrapper">
             <div className="hero-brand-intro">
               <div className="hero-brand-logo-wrap">
-                <img 
-                  src="/assets/aquapzone_logo.jpg" 
+                <ResponsivePicture 
+                  base="/assets/aquapzone_logo.jpg" 
+                  widths={[400]}
                   alt="AquaPzone Enterprises Logo" 
                   className="hero-aquapzone-logo" 
                   width="1600"
@@ -91,8 +95,9 @@ export const Hero = ({ lang, t }) => {
             <span className="hero-title-prefix">
               {lang === 'te' ? '' : 'By '}
               <span style={{ whiteSpace: 'nowrap' }}>
-                <img 
-                  src={lang === 'te' ? '/assets/pra_te_v5.png' : '/assets/pra_en_v5.png'} 
+                <ResponsivePicture 
+                  base={lang === 'te' ? '/assets/pra_te_v5.png' : '/assets/pra_en_v5.png'} 
+                  widths={[800]}
                   alt="PraSudhaArka" 
                   width={lang === 'te' ? 1390 : 2000}
                   height={320}

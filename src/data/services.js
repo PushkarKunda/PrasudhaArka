@@ -8,7 +8,6 @@ export const SERVICES = [
     descTe: 'ఇళ్లపై సోలార్ ప్లాంట్స్ ఏర్పాటు, రూ. 78,000 సబ్సిడీ మరియు 90% వరకు కరెంట్ బిల్లు ఆదా. ప్యానసోనిక్ 35mm ప్యానెల్స్‌తో 25 ఏళ్ల పనితీరు వారంటీ.',
     badgeEn: 'Up to ₹78,000 Subsidy',
     badgeTe: 'రూ. 78,000 సబ్సిడీ',
-    image: '/assets/hero_solar.jpg',
     featuresEn: ['Direct Bank Transfer Subsidy', 'Zero-Downpayment Bank Loans at 6.7%', 'DISCOM Net Metering Assured', '25-Year Linear Power Warranty'],
     featuresTe: ['నేరుగా బ్యాంక్ ఖాతాలో సబ్సిడీ జమ', '6.7% తక్కువ వడ్డీతో బ్యాంక్ లోన్', 'డిస్కామ్ నెట్ మీటరింగ్ బాధ్యత', '25 ఏళ్ల ప్యానెల్ వారంటీ']
   },
@@ -21,7 +20,6 @@ export const SERVICES = [
     descTe: 'పాఠశాలలు, ఆసుపత్రులు, కర్మాగారాలు, పెట్రోల్ బంకులకు భారీ విద్యుత్ ఆదా మరియు 40% టాక్స్ డిప్రిసియేషన్. 160 km/h గాలులను తట్టుకునే JSW స్ట్రక్చర్.',
     badgeEn: '40% Tax Benefit',
     badgeTe: '40% టాక్స్ బెనిఫిట్',
-    image: '/assets/hero_solar.jpg',
     featuresEn: ['40% Accelerated Tax Depreciation', 'Reduces LT/HT High Peak Demand Tariffs', 'Heavy Wind Rated Galvanized Mounts', 'ROI within 2.5 - 3.5 Years'],
     featuresTe: ['40% ఆదాయపు పన్ను డిప్రిసియేషన్ లబ్ధి', 'హై పీక్ డిమాండ్ ఛార్జీల తగ్గింపు', 'భారీ విండ్ రెసిస్టెంట్ స్ట్రక్చర్', '2.5 నుండి 3.5 ఏళ్లలోనే పెట్టుబడి రికవరీ']
   },
@@ -34,7 +32,6 @@ export const SERVICES = [
     descTe: '24/7 నిరంతర విద్యుత్ కోసం వాల్-మౌంటెడ్ లిథియం-అయాన్ స్టోరేజ్ & హైబ్రిడ్ ఇన్వర్టర్లు. సున్నా మెయింటెనెన్స్ మరియు వేగవంతమైన ఛార్జింగ్.',
     badgeEn: 'Zero Maintenance',
     badgeTe: 'జీరో మెయింటెనెన్స్',
-    image: '/assets/battery_storage.jpg',
     featuresEn: ['Wall-Mounted Slim Lithium LiFePO4', '6000+ Cycles Lifespan (10+ Years)', 'Rapid Fast-Charge Technology', 'Automatic Seamless Grid Switchover'],
     featuresTe: ['వాల్-మౌంటెడ్ స్లిమ్ లిథియం బ్యాటరీ', '6000+ సైకిల్స్ లైఫ్‌స్పాన్ (10+ ఏళ్లు)', 'ఫాస్ట్ ఛార్జింగ్ టెక్నాలజీ', 'పవర్ కట్ అయినప్పుడు తక్షణ స్విచ్ ఓవర్']
   },
@@ -47,7 +44,6 @@ export const SERVICES = [
     descTe: '250 నుండి 5000 LPH సామర్థ్యంగల SS-304/316 ఇండస్ట్రియల్ మినరల్ వాటర్ ప్లాంట్లు. 21+ ఏళ్ల సుదీర్ఘ వాటర్ ఇంజనీరింగ్ అనుభవం.',
     badgeEn: '21+ Years Expertise',
     badgeTe: '21+ ఏళ్ల అనుభవం',
-    image: '/assets/ro_plant.jpg',
     featuresEn: ['Food-Grade SS 304/316 Skid Frame', 'Dow Filmtec High-Rejection Membranes', 'Integrated TDS & Flow Controllers', 'Turnkey Water Testing & Certification'],
     featuresTe: ['ఫుడ్-గ్రేడ్ SS 304/316 స్టెయిన్‌లెస్ స్టీల్', 'అంతర్జాతీయ నాణ్యత గల మెంబ్రేన్లు', 'డిజిటల్ TDS & ఫ్లో మీటర్లు', 'పూర్తి వాటర్ టెస్టింగ్ & ల్యాబ్ సర్టిఫికేషన్']
   },
@@ -60,7 +56,6 @@ export const SERVICES = [
     descTe: 'రైతులకు C.R.I. సోలార్ సబ్‌మెర్సిబుల్ పంపులు - డీజిల్ ఖర్చులు లేకుండా, కరెంట్ కోతలతో పనిలేకుండా పగటిపూట నిరంతర నీటి సరఫరా.',
     badgeEn: 'Farmer Friendly',
     badgeTe: 'రైతు బాంధవి',
-    image: '/assets/solar_team.jpg',
     featuresEn: ['Direct Solar VFD Drive (No Batteries Required)', 'High Flow Discharge in Morning & Evening', 'Automatic Dry-Run & Surge Protection', 'Zero Operating & Diesel Fuel Expenses'],
     featuresTe: ['డైరెక్ట్ సోలార్ VFD డ్రైవ్ టెక్నాలజీ', 'ఉదయం నుండి సాయంత్రం వరకు హై ఫ్లో', 'ఆటోమేటిక్ డ్రై-రన్ ప్రొటెక్షన్', 'డీజిల్ ఖర్చులు మరియు కరెంట్ బిల్లులు లేవు']
   },
@@ -73,7 +68,6 @@ export const SERVICES = [
     descTe: 'అప్లికేషన్ నుండి నెట్ మీటర్ ఇన్‌స్టాలేషన్, బ్యాంక్ లోన్ మంజూరు మరియు సబ్సిడీ ఖాతాలో జమ అయ్యే వరకు పూర్తి బాధ్యత మాదే.',
     badgeEn: '100% Guaranteed',
     badgeTe: '100% హామీ',
-    image: '/assets/aquapzone_logo.jpg',
     featuresEn: ['Online MNRE Portal Registration', 'DISCOM Feasibility & CEIG Approvals', 'Bi-Directional Net Meter Procurement', 'Direct Bank Transfer (DBT) Followup'],
     featuresTe: ['ఆన్‌లైన్ పోర్టల్ రిజిస్ట్రేషన్ బాధ్యత', 'డిస్కామ్ ఫీజిబిలిటీ అనుమతులు', 'బై-డైరెక్షనల్ మీటర్ టెస్టింగ్ & బిగింపు', 'సబ్సిడీ క్రెడిట్ అయ్యేంత వరకు సేవలు']
   }

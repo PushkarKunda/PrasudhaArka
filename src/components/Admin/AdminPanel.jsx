@@ -16,6 +16,23 @@ export function AdminPanel() {
   
   const [mediaList, setMediaList] = useState([]);
 
+  // Keep /admin out of search indexes for JS-rendering crawlers.
+  // (The X-Robots-Tag response header covers non-JS crawlers.)
+  useEffect(() => {
+    let meta = document.querySelector('meta[name="robots"]');
+    const previous = meta ? meta.getAttribute('content') : null;
+    if (!meta) {
+      meta = document.createElement('meta');
+      meta.name = 'robots';
+      document.head.appendChild(meta);
+    }
+    meta.setAttribute('content', 'noindex, nofollow');
+    return () => {
+      if (previous === null) meta.remove();
+      else meta.setAttribute('content', previous);
+    };
+  }, []);
+
   // Optional allowlist: when VITE_ADMIN_EMAILS (comma-separated emails
   // and/or UIDs) is configured, only those Firebase accounts get in.
   // When unset, any signed-in account works (legacy behavior).

@@ -98,7 +98,7 @@ export const Hero = ({ lang, t }) => {
                 <ResponsivePicture 
                   base={lang === 'te' ? '/assets/pra_te_v5.png' : '/assets/pra_en_v5.png'} 
                   widths={[800]}
-                  alt="PraSudhaArka" 
+                  alt="Prasudharka Solar" 
                   width={lang === 'te' ? 1390 : 2000}
                   height={320}
                   className={`hero-inline-logo ${lang === 'te' ? 'logo-te' : 'logo-en'}`}

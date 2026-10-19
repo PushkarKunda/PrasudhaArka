@@ -165,7 +165,7 @@ export const I18N = {
     btnCallNow: "కాల్ చేయండి",
     btnChatWhatsApp: "వాట్సాప్‌లో మాట్లాడండి",
     officeAddressLabel: "కార్యాలయ చిరునామా:",
-    officeAddress: "ఆక్వా పిజోన్ ఎంటర్‌ప్రైజెస్, ప్రసుధార్క సోలార్, తుక్కుగూడ (హైదరాబాద్) & నాగులకట్ట (జమ్మలమడుగు, వైఎస్సార్ కడప జిల్లా)",
+    officeAddress: "ఆక్వా పిజోన్ ఎంటర్‌ప్రైజెస్, ప్రసుధార్క సోలార్: తుక్కుగూడ (హైదరాబాద్), నాగులకట్ట (జమ్మలమడుగు, వైఎస్సార్ కడప జిల్లా) & సికింద్రాబాద్ (హీదర్‌బస్తీ, రాణిగంజ్ R.P. రోడ్)",
 
     // Gallery
     galleryTag: "మా ప్రాజెక్టులు",
@@ -367,7 +367,7 @@ export const I18N = {
     btnCallNow: "Call Dealer",
     btnChatWhatsApp: "WhatsApp Us",
     officeAddressLabel: "Registered Operations & Service Centers:",
-    officeAddress: "Aqua Pzone Enterprises / Prasudharka Solar: Tukkuguda, Hyderabad (Telangana) & Nagulakatta, Jammalamadugu (YSR Kadapa Dist, AP)",
+    officeAddress: "Aqua Pzone Enterprises / Prasudharka Solar: Tukkuguda, Hyderabad (Telangana), Nagulakatta, Jammalamadugu (YSR Kadapa Dist, AP) & Secunderabad (Hyderbasti, Ranigunj R.P. Road)",
 
     // Gallery
     galleryTag: "Our Projects",

@@ -27,7 +27,7 @@ export const Footer = ({ lang, t }) => {
               />
             </div>
             <h3 className="footer-brand-heading">
-              {isTe ? 'ప్రసుధార్క సోలార్' : 'PRASUDHAARKA SOLAR'}
+              {isTe ? 'ప్రసుధార్క సోలార్' : 'PRASUDHARKA SOLAR'}
             </h3>
             <p className="footer-brand-desc">
               {isTe 
@@ -140,7 +140,7 @@ export const Footer = ({ lang, t }) => {
 
             <div className="footer-hours-note">
               <span>
-                {isTe ? 'సేవలు: ఉదయం 8:00 నుండి రాత్రి 9:00 వరకు' : 'Service Hours: 8:00 AM to 9:00 PM'}
+                {isTe ? 'సేవలు: ఉదయం 9:00 నుండి రాత్రి 8:00 వరకు' : 'Service Hours: 9:00 AM to 8:00 PM'}
               </span>
             </div>
           </div>
@@ -153,7 +153,7 @@ export const Footer = ({ lang, t }) => {
             <div className="care-title-wrap">
               <span className="care-title">{isTe ? 'కస్టమర్ కేర్' : 'Customer Care'}</span>
               <span className="care-timing">
-                {isTe ? '(ఉదయం 10:00 నుండి సాయంత్రం 6:00 వరకు)' : '(10:00 AM to 6:00 PM)'}
+                {isTe ? '(ఉదయం 9:00 నుండి రాత్రి 8:00 వరకు)' : '(9:00 AM to 8:00 PM)'}
               </span>
             </div>
           </div>

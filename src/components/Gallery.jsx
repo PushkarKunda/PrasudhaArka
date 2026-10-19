@@ -20,6 +20,8 @@ const withCloudinaryTransform = (url, transformation) => {
 const toGalleryItem = (id, data, lang, t) => {
   const isVideo = data.type === 'video';
   const mediaWord = isVideo ? t.galleryMediaVideo : t.galleryMediaPhoto;
+  const customCaption = typeof data.caption === 'string' && data.caption.trim() ? data.caption.trim() : '';
+  const category = typeof data.category === 'string' && data.category ? data.category : '';
 
   let dateLabel = '';
   const createdAt = data.createdAt;
@@ -35,8 +37,12 @@ const toGalleryItem = (id, data, lang, t) => {
     fullSrc: withCloudinaryTransform(data.url, 'w_1600,q_auto'),
     poster: isVideo ? withCloudinaryTransform(data.url, 'so_0,f_jpg,q_auto,w_800') : null,
     rawSrc: data.url,
+    customCaption,
+    category,
     title: { en: t.galleryItemTitle, te: t.galleryItemTitle },
-    caption: { en: `${mediaWord}${dateLabel}`, te: `${mediaWord}${dateLabel}` },
+    caption: customCaption
+      ? { en: customCaption, te: customCaption }
+      : { en: `${mediaWord}${dateLabel}`, te: `${mediaWord}${dateLabel}` },
   };
 };
 
@@ -57,6 +63,11 @@ export const Gallery = ({ lang, t }) => {
     All: t.galleryFilterAll,
     photos: t.galleryFilterPhotos,
     videos: t.galleryFilterVideos,
+    residential: t.galleryCatResidential,
+    commercial: t.galleryCatCommercial,
+    agriculture: t.galleryCatAgriculture,
+    water: t.galleryCatWater,
+    storage: t.galleryCatStorage,
   };
 
   // Subscribe to admin-uploaded media (Firestore `gallery_media`), loading the
@@ -125,18 +136,41 @@ export const Gallery = ({ lang, t }) => {
       return {
         ...item,
         title: { en: t.galleryItemTitle, te: t.galleryItemTitle },
-        caption: {
-          en: datePart ? `${mediaWord} • ${datePart}` : mediaWord,
-          te: datePart ? `${mediaWord} • ${datePart}` : mediaWord,
-        },
+        caption: item.customCaption
+          ? { en: item.customCaption, te: item.customCaption }
+          : {
+              en: datePart ? `${mediaWord} • ${datePart}` : mediaWord,
+              te: datePart ? `${mediaWord} • ${datePart}` : mediaWord,
+            },
       };
     }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lang]);
 
+  // Dynamic filter tabs: All, Photos, Videos + any admin-assigned categories.
+  const availableCategories = useMemo(
+    () => [...new Set(items.map((item) => item.category).filter(Boolean))],
+    [items],
+  );
+
+  const filterCategories = useMemo(
+    () => ['All', ...GALLERY_CATEGORIES, ...availableCategories],
+    [availableCategories],
+  );
+
+  // If the active category's items were all removed, fall back to All.
+  useEffect(() => {
+    if (activeCategory !== 'All' && !filterCategories.includes(activeCategory)) {
+      setActiveCategory('All');
+    }
+  }, [activeCategory, filterCategories]);
+
   const filteredItems = useMemo(() => {
     if (activeCategory === 'All') return items;
-    return items.filter((item) => (activeCategory === 'videos' ? item.mediaType === 'video' : item.mediaType === 'image'));
+    if (activeCategory === 'photos' || activeCategory === 'videos') {
+      return items.filter((item) => (activeCategory === 'videos' ? item.mediaType === 'video' : item.mediaType === 'image'));
+    }
+    return items.filter((item) => item.category === activeCategory);
   }, [activeCategory, items]);
 
   const selectedIndex = filteredItems.findIndex((item) => item.id === selectedItemId);
@@ -172,20 +206,20 @@ export const Gallery = ({ lang, t }) => {
     let nextIndex = null;
 
     if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
-      nextIndex = (index + 1) % (GALLERY_CATEGORIES.length + 1);
+      nextIndex = (index + 1) % filterCategories.length;
     } else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
-      nextIndex = (index - 1 + GALLERY_CATEGORIES.length + 1) % (GALLERY_CATEGORIES.length + 1);
+      nextIndex = (index - 1 + filterCategories.length) % filterCategories.length;
     } else if (event.key === 'Home') {
       nextIndex = 0;
     } else if (event.key === 'End') {
-      nextIndex = GALLERY_CATEGORIES.length;
+      nextIndex = filterCategories.length - 1;
     }
 
     if (nextIndex !== null) {
       event.preventDefault();
       const nextButton = filterRefs.current[nextIndex];
       nextButton?.focus();
-      changeCategory(nextIndex === 0 ? 'All' : GALLERY_CATEGORIES[nextIndex - 1]);
+      changeCategory(filterCategories[nextIndex]);
     }
   };
 
@@ -299,7 +333,7 @@ export const Gallery = ({ lang, t }) => {
 
         <div className="gallery-filter" role="tablist" aria-label={t.galleryFilterLabel}>
           <div className="gallery-filter-list">
-            {['All', ...GALLERY_CATEGORIES].map((category, index) => {
+            {filterCategories.map((category, index) => {
               const isActive = activeCategory === category;
               return (
                 <button
@@ -315,7 +349,7 @@ export const Gallery = ({ lang, t }) => {
                   onClick={() => changeCategory(category)}
                   onKeyDown={(event) => handleFilterKeyDown(event, index)}
                 >
-                  {categoryLabels[category]}
+                  {categoryLabels[category] || category}
                 </button>
               );
             })}
@@ -342,7 +376,7 @@ export const Gallery = ({ lang, t }) => {
           id="gallery-grid"
           role="tabpanel"
           aria-live="polite"
-          aria-labelledby={`gallery-tab-${['All', ...GALLERY_CATEGORIES].indexOf(activeCategory)}`}
+          aria-labelledby={`gallery-tab-${filterCategories.indexOf(activeCategory)}`}
           layout
         >
           <AnimatePresence initial={false} mode="popLayout">
@@ -487,7 +521,9 @@ export const Gallery = ({ lang, t }) => {
                   {selectedItem.caption[lang] || selectedItem.caption.en}
                 </p>
                 <span className="gallery-lightbox-category">
-                  {selectedItem.mediaType === 'video' ? t.galleryFilterVideos : t.galleryFilterPhotos}
+                  {selectedItem.category
+                    ? (categoryLabels[selectedItem.category] || selectedItem.category)
+                    : (selectedItem.mediaType === 'video' ? t.galleryFilterVideos : t.galleryFilterPhotos)}
                 </span>
               </div>
             </motion.div>

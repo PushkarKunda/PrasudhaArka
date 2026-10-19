@@ -10,6 +10,8 @@ export function AdminPanel() {
   const [accessDenied, setAccessDenied] = useState(false);
   
   const [file, setFile] = useState(null);
+  const [caption, setCaption] = useState('');
+  const [category, setCategory] = useState('');
   const [uploadProgress, setUploadProgress] = useState(0);
   const [uploading, setUploading] = useState(false);
   const fileInputRef = useRef(null);
@@ -161,10 +163,14 @@ export function AdminPanel() {
         url: data.secure_url,
         type: isVideo ? 'video' : 'image',
         public_id: data.public_id,
+        ...(caption.trim() ? { caption: caption.trim() } : {}),
+        ...(category ? { category } : {}),
         createdAt: serverTimestamp(),
       });
       
       setFile(null);
+      setCaption('');
+      setCategory('');
       setUploadProgress(0);
       setUploading(false);
       // reset input
@@ -178,13 +184,36 @@ export function AdminPanel() {
     }
   };
 
-  const handleDelete = async (id, public_id) => {
-    if (!window.confirm('Are you sure you want to remove this media from the gallery? (Note: It will only be removed from the website, not your Cloudinary account)')) return;
+  const handleDelete = async (id, publicId, type) => {
+    if (!window.confirm('Remove this media from the gallery? It will also be deleted from your Cloudinary account.')) return;
     try {
       await deleteDoc(doc(db, 'gallery_media', id));
     } catch (err) {
       console.error('Delete error:', err);
       alert('Error deleting media from database.');
+      return;
+    }
+
+    // Best-effort: also destroy the Cloudinary asset so nothing is orphaned.
+    // The gallery already updated (Firestore is the source of truth), so any
+    // failure here is logged and swallowed.
+    try {
+      const idToken = user && (await user.getIdToken());
+      if (idToken && publicId) {
+        await fetch('/api/gallery-delete', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${idToken}`,
+          },
+          body: JSON.stringify({
+            publicId,
+            resourceType: type === 'video' ? 'video' : 'image',
+          }),
+        });
+      }
+    } catch (err) {
+      console.warn('Cloudinary cleanup skipped:', err);
     }
   };
 
@@ -263,6 +292,45 @@ export function AdminPanel() {
                 maxWidth: '400px'
               }}
             />
+            <label htmlFor="media-caption" style={{ fontSize: '0.85rem', fontWeight: 600, color: '#475569' }}>
+              Caption (optional)
+            </label>
+            <input
+              id="media-caption"
+              type="text"
+              value={caption}
+              onChange={(e) => setCaption(e.target.value)}
+              maxLength={120}
+              placeholder="e.g. 5kW rooftop, Tukkuguda"
+              style={{
+                border: '1px solid #cbd5e1',
+                padding: '10px',
+                borderRadius: 'var(--radius-sm)',
+                flexGrow: 1,
+                maxWidth: '280px'
+              }}
+            />
+            <label htmlFor="media-category" style={{ fontSize: '0.85rem', fontWeight: 600, color: '#475569' }}>
+              Category
+            </label>
+            <select
+              id="media-category"
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              style={{
+                border: '1px solid #cbd5e1',
+                padding: '10px',
+                borderRadius: 'var(--radius-sm)',
+                background: 'white'
+              }}
+            >
+              <option value="">None</option>
+              <option value="residential">Residential</option>
+              <option value="commercial">Commercial &amp; Industrial</option>
+              <option value="agriculture">Agriculture</option>
+              <option value="water">RO Water Plants</option>
+              <option value="storage">Battery Storage</option>
+            </select>
             <button 
               type="submit"
               disabled={!file || uploading}
@@ -321,9 +389,11 @@ export function AdminPanel() {
                   )}
                 </div>
                 <div style={{ padding: '15px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <span style={{ fontSize: '0.85rem', color: '#64748b', textTransform: 'capitalize' }}>{media.type}</span>
+                  <span style={{ fontSize: '0.85rem', color: '#64748b', textTransform: 'capitalize' }}>
+                    {media.type}{media.caption ? ` • ${media.caption}` : ''}
+                  </span>
                   <button 
-                    onClick={() => handleDelete(media.id, media.public_id)}
+                    onClick={() => handleDelete(media.id, media.public_id, media.type)}
                     style={{
                       background: '#fee2e2',
                       color: '#ef4444',

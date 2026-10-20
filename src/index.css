@@ -848,9 +848,34 @@ picture {
 }
 
 @media (max-width: 600px) {
+  /* Mobile gallery = horizontal snap carousel. One swipeable row keeps the
+     page short no matter how many items the admin uploads — a 1-col grid
+     would stack 50+ full-width cards into a ~30-screen scroll. The peeking
+     next card (~16%) is the swipe affordance; loading="lazy" still defers
+     off-screen images until they approach the viewport while swiping. */
   .gallery-grid {
-    grid-template-columns: minmax(0, 1fr);
+    display: flex;
     gap: 16px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain; /* stop horizontal swipes chaining to page back/refresh */
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none; /* Firefox */
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .gallery-grid::-webkit-scrollbar {
+    display: none; /* WebKit/Edge: overlay swipe, no visible bar */
+  }
+
+  .gallery-card {
+    flex: 0 0 84%; /* one card + peek of the next */
+    scroll-snap-align: start;
+  }
+
+  /* Inset outline: the track's overflow-x would clip a hanging one at the
+     first/last card edges. */
+  .gallery-card-button:focus-visible {
+    outline-offset: -2px;
   }
 
   .gallery-card-button {

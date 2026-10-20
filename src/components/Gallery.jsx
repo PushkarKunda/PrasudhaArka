@@ -59,6 +59,21 @@ export const Gallery = ({ lang, t }) => {
   const touchStartXRef = useRef(null);
   const prefersReducedMotion = useReducedMotion();
 
+  // ≤600px the grid renders as a horizontal snap carousel (CSS in index.css);
+  // mirror that breakpoint here so the track is keyboard-focusable only while
+  // it actually scrolls sideways (WCAG 2.1.1 — a focused scroll container pans
+  // with arrow keys; on desktop it's a plain grid with nothing to scroll).
+  const [isCarousel, setIsCarousel] = useState(
+    () => typeof window !== 'undefined' && window.matchMedia('(max-width: 600px)').matches
+  );
+
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 600px)');
+    const onChange = (event) => setIsCarousel(event.matches);
+    mq.addEventListener('change', onChange);
+    return () => mq.removeEventListener('change', onChange);
+  }, []);
+
   const categoryLabels = {
     All: t.galleryFilterAll,
     photos: t.galleryFilterPhotos,
@@ -377,6 +392,7 @@ export const Gallery = ({ lang, t }) => {
           role="tabpanel"
           aria-live="polite"
           aria-labelledby={`gallery-tab-${filterCategories.indexOf(activeCategory)}`}
+          tabIndex={isCarousel ? 0 : undefined}
           layout
         >
           <AnimatePresence initial={false} mode="popLayout">
